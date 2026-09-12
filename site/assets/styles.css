@@ -90,26 +90,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .quality.warning { background: #8d5c08; }
 .quality.missing { background: #7b8583; }
 
-.header-actions { display: flex; flex-wrap: wrap; gap: 10px; }
-
-.button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  padding: 10px 16px;
-  border: 1px solid rgba(255,255,255,.28);
-  border-radius: 9px;
-  color: #fff;
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform .16s ease, background .16s ease, border-color .16s ease;
-}
-
-.button:hover { transform: translateY(-1px); }
-.button:focus-visible, input:focus-visible, select:focus-visible, tr:focus-visible, .map-point:focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }
-.button.ghost { background: rgba(255,255,255,.08); }
-.button.primary { color: #18342f; background: var(--lime); border-color: var(--lime); font-weight: 800; }
+input:focus-visible, select:focus-visible, tr:focus-visible, .map-point:focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }
 
 main {
   width: min(1480px, calc(100% - 32px));
@@ -336,7 +317,6 @@ footer {
 
 @media (max-width: 760px) {
   .topbar { align-items: flex-start; flex-direction: column; padding-top: 25px; }
-  .header-actions, .header-actions .button { width: 100%; }
   main { width: min(100% - 20px, 1480px); padding-top: 10px; }
   .toolbar { grid-template-columns: 1fr 1fr; }
   .search-field { grid-column: 1 / -1; }

@@ -24,18 +24,6 @@ function primaryState(station) {
   return station.summary?.weather_states?.[0] || "NORMAL";
 }
 
-function setupUpdateLink() {
-  const link = $("#updateLink");
-  if (!location.hostname.endsWith(".github.io")) return;
-  const owner = location.hostname.split(".")[0];
-  const repository = location.pathname.split("/").filter(Boolean)[0];
-  if (owner && repository) {
-    link.href = `https://github.com/${owner}/${repository}/actions/workflows/update-weather.yml`;
-    link.target = "_blank";
-    link.rel = "noopener";
-  }
-}
-
 function formatUpdate(value) {
   if (!value) return "当前无法确认最新数据";
   const date = new Date(value);
@@ -262,6 +250,4 @@ async function loadData() {
 $("#countryFilter").addEventListener("change", filterStations);
 $("#stateFilter").addEventListener("change", filterStations);
 $("#searchInput").addEventListener("input", filterStations);
-$("#reloadButton").addEventListener("click", loadData);
-setupUpdateLink();
 loadData();

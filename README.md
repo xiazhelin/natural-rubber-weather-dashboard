@@ -15,7 +15,7 @@
 
 ## 更新方式
 
-默认仅允许维护者手动更新：
+默认每周五 21:00（`Asia/Shanghai`）自动更新并重新发布。同时保留维护者手动更新：
 
 1. 在GitHub仓库进入 **Actions**。
 2. 打开“更新并发布天然橡胶产区天气”。
@@ -23,7 +23,7 @@
 
 工作流额外校验`github.actor == github.repository_owner`，因此个人仓库只有仓库所有者可以手动更新。若以后迁移到组织仓库，应改为组织的受控维护者名单。
 
-需要定时更新时，编辑`.github/workflows/update-weather.yml`，取消`schedule`两行注释并调整cron。GitHub cron使用UTC；示例`15 0 * * *`对应北京时间每天08:15。
+网页不显示手动更新按钮；所有手动更新都在GitHub后台的Actions页面执行。
 
 ## GitHub Pages首次发布
 

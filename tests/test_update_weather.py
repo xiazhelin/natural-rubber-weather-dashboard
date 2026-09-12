@@ -61,6 +61,20 @@ class WeatherPipelineTest(unittest.TestCase):
             self.assertEqual(len(snapshots), 2)
             self.assertEqual(snapshots[0]["generated_at_utc"], "2026-09-12T01:00:00Z")
 
+    def test_publish_controls_and_schedule(self):
+        root = SCRIPT.parent.parent
+        workflow = (root / ".github/workflows/update-weather.yml").read_text(encoding="utf-8")
+        page = (root / "site/index.html").read_text(encoding="utf-8")
+        script = (root / "site/assets/app.js").read_text(encoding="utf-8")
+
+        self.assertIn('cron: "0 21 * * 5"', workflow)
+        self.assertIn('timezone: "Asia/Shanghai"', workflow)
+        self.assertIn("workflow_dispatch:", workflow)
+        self.assertNotIn('id="reloadButton"', page)
+        self.assertNotIn('id="updateLink"', page)
+        self.assertNotIn("reloadButton", script)
+        self.assertNotIn("updateLink", script)
+
 
 if __name__ == "__main__":
     unittest.main()

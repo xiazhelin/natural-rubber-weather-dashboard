@@ -19,10 +19,6 @@
         <span>预测窗口 D0–D6</span>
       </div>
     </div>
-    <div class="header-actions">
-      <button id="reloadButton" class="button ghost" type="button">重新读取</button>
-      <a id="updateLink" class="button primary" href="#update-guide">更新数据（维护者）</a>
-    </div>
   </header>
 
   <main>
@@ -142,13 +138,13 @@
 
       <article class="method-card">
         <p class="section-kicker">更新控制</p>
-        <h2>当前采用维护者手动更新</h2>
+        <h2>每周五 21:00 自动更新</h2>
         <ol>
-          <li>进入GitHub仓库的 Actions 页面。</li>
-          <li>选择“更新并发布天然橡胶产区天气”。</li>
-          <li>点击 Run workflow；只有仓库写权限用户可以执行。</li>
+          <li>定时任务按 Asia/Shanghai 时区运行。</li>
+          <li>需要额外更新时，由仓库所有者进入 GitHub Actions。</li>
+          <li>选择“更新并发布天然橡胶产区天气”，点击 Run workflow。</li>
         </ol>
-        <p>需要固定频率时，可在工作流中启用 <code>schedule</code> 并调整UTC时间。</p>
+        <p>网页端不提供更新操作，手动更新统一在 GitHub 后台执行。</p>
       </article>
 
       <article class="method-card caution-card">

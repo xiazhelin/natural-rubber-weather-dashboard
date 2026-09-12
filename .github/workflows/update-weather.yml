@@ -8,9 +8,9 @@ on:
       - "site/index.html"
       - "site/assets/**"
       - ".github/workflows/update-weather.yml"
-  # 需要定时更新时取消下面两行注释。cron使用UTC；示例为北京时间每天08:15。
-  # schedule:
-  #   - cron: "15 0 * * *"
+  schedule:
+    - cron: "0 21 * * 5"
+      timezone: "Asia/Shanghai"
 
 permissions:
   contents: write
