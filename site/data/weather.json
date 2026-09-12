@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "dataset_id": "NR_PRODUCTION_REGION_WEATHER_MONITOR_V2",
-  "generated_at_utc": "2026-09-12T15:11:04Z",
+  "generated_at_utc": "2026-09-12T15:30:39Z",
   "forecast_horizon": "D0-D6",
   "overall_quality_status": "PASS",
   "quality_counts": {
@@ -38,9 +38,9 @@
     "spatial_resolution": "0.1°×0.1°",
     "periods": "过去24小时/72小时，截止同一UTC日23:59",
     "access": "NASA PPS HTTPS；GitHub Actions使用仓库密钥NASA_PPS_EMAIL",
-    "quality_status": "MISSING",
-    "end_at_utc": null,
-    "availability_note": "NASA IMERG数据当前不可用；本次保持MISSING，不沿用旧值。"
+    "quality_status": "PASS",
+    "product_version": "V07C",
+    "end_at_utc": "2026-09-11T23:59:59Z"
   },
   "scope_note": "天然橡胶重点产区代表性网格点。坐标为WGS84研究定位点，不代表气象站或种植园边界。",
   "stations": [
@@ -195,24 +195,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 2.7,
+        "precipitation_72h_mm": 7.9
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 2.7,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 7.9,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -370,24 +370,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 73.9,
+        "precipitation_72h_mm": 89.3
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 73.9,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 89.3,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -545,24 +545,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 117.1,
+        "precipitation_72h_mm": 121.3
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 117.1,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 121.3,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -720,24 +720,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 10.8,
+        "precipitation_72h_mm": 12.9
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 10.8,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 12.9,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -895,24 +895,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 0.6,
+        "precipitation_72h_mm": 4.4
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 0.6,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 4.4,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -1070,24 +1070,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 2.2,
+        "precipitation_72h_mm": 4.3
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 2.2,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 4.3,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -1245,24 +1245,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 3.1,
+        "precipitation_72h_mm": 16.5
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 3.1,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 16.5,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -1420,24 +1420,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 2.7,
+        "precipitation_72h_mm": 33.3
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 2.7,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 33.3,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -1595,24 +1595,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 29.2,
+        "precipitation_72h_mm": 43.1
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 29.2,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 43.1,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -1770,24 +1770,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 6.5,
+        "precipitation_72h_mm": 16.9
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 6.5,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 16.9,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -1945,24 +1945,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 29.6,
+        "precipitation_72h_mm": 46.2
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 29.6,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 46.2,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -2120,24 +2120,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 14.2,
+        "precipitation_72h_mm": 37.5
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 14.2,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 37.5,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -2295,24 +2295,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 0.1,
+        "precipitation_72h_mm": 20.7
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 0.1,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 20.7,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -2470,24 +2470,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 0.0,
+        "precipitation_72h_mm": 2.1
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 0.0,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 2.1,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -2645,24 +2645,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 0.3,
+        "precipitation_72h_mm": 9.1
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 0.3,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 9.1,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -2820,24 +2820,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 2.0,
+        "precipitation_72h_mm": 18.3
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 2.0,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 18.3,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -2995,24 +2995,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 9.0,
+        "precipitation_72h_mm": 19.9
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 9.0,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 19.9,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -3170,24 +3170,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 6.0,
+        "precipitation_72h_mm": 65.9
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 6.0,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 65.9,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -3345,24 +3345,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 2.6,
+        "precipitation_72h_mm": 3.1
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 2.6,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 3.1,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -3521,24 +3521,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 0.0,
+        "precipitation_72h_mm": 0.0
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 0.0,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 0.0,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -3696,24 +3696,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 0.0,
+        "precipitation_72h_mm": 0.0
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 0.0,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 0.0,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -3871,24 +3871,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 0.0,
+        "precipitation_72h_mm": 0.1
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 0.0,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 0.1,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -4046,24 +4046,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 3.6,
+        "precipitation_72h_mm": 77.3
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 3.6,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 77.3,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -4221,24 +4221,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 23.1,
+        "precipitation_72h_mm": 73.4
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 23.1,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 73.4,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -4396,24 +4396,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 1.7,
+        "precipitation_72h_mm": 20.6
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 1.7,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 20.6,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -4571,24 +4571,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 4.2,
+        "precipitation_72h_mm": 46.4
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 4.2,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 46.4,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -4750,24 +4750,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 1.1,
+        "precipitation_72h_mm": 7.3
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 1.1,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 7.3,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -4929,24 +4929,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 0.2,
+        "precipitation_72h_mm": 8.1
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 0.2,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 8.1,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
@@ -5108,24 +5108,24 @@
         }
       ],
       "imerg": {
-        "quality_status": "MISSING",
-        "precipitation_24h_mm": null,
-        "precipitation_72h_mm": null
+        "quality_status": "PASS",
+        "precipitation_24h_mm": 0.1,
+        "precipitation_72h_mm": 34.2
       },
       "verification": {
         "quality_status": "MISSING",
         "24h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 0.1,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
         },
         "72h": {
-          "status": "OBSERVATION_MISSING",
+          "status": "NO_MATCHED_FORECAST",
           "forecast_mm": null,
-          "observed_mm": null,
+          "observed_mm": 34.2,
           "realization_pct": null,
           "forecast_error_mm": null,
           "forecast_generated_at_utc": null
