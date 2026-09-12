@@ -3,8 +3,9 @@
 const state = { data: null, history: [], mapData: null, filtered: [], activeId: null };
 const $ = (selector) => document.querySelector(selector);
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (char) => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"})[char]);
-const number = (value, digits = 1) => Number.isFinite(Number(value)) ? Number(value).toFixed(digits) : "—";
-const percent = (value) => Number.isFinite(Number(value)) ? `${number(value)}%` : "—";
+const hasNumber = (value) => value !== null && value !== undefined && value !== "" && Number.isFinite(Number(value));
+const number = (value, digits = 1) => hasNumber(value) ? Number(value).toFixed(digits) : "—";
+const percent = (value) => hasNumber(value) ? `${number(value)}%` : "—";
 const sum = (values) => values.reduce((total, value) => total + Number(value || 0), 0);
 const MAP_DATA_URL = "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_110m_admin_0_countries.geojson";
 
