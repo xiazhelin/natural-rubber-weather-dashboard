@@ -76,6 +76,9 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertNotIn("每周五 21:00 自动更新", page)
         self.assertNotIn("reloadButton", script)
         self.assertNotIn("updateLink", script)
+        self.assertIn("Natural Earth 1:110m", page)
+        self.assertIn("MAP_DATA_URL", script)
+        self.assertIn('class="map-land"', script)
 
 
 if __name__ == "__main__":

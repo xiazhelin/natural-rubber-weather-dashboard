@@ -1,10 +1,11 @@
 "use strict";
 
-const state = { data: null, history: [], filtered: [], activeId: null };
+const state = { data: null, history: [], mapData: null, filtered: [], activeId: null };
 const $ = (selector) => document.querySelector(selector);
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (char) => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"})[char]);
 const number = (value, digits = 1) => Number.isFinite(Number(value)) ? Number(value).toFixed(digits) : "—";
 const sum = (values) => values.reduce((total, value) => total + Number(value || 0), 0);
+const MAP_DATA_URL = "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_110m_admin_0_countries.geojson";
 
 const LABELS = {
   HEAVY_RAIN: "强降雨关注",
@@ -98,12 +99,48 @@ function renderMetrics() {
   $("#resultCount").textContent = `${stations.length}个地点`;
 }
 
-function projectPoint(station, bounds, width, height) {
+function projectCoordinate(coordinate, bounds, width, height) {
   const paddingX = 28;
   const paddingY = 32;
-  const x = paddingX + (station.longitude - bounds.west) / (bounds.east - bounds.west) * (width - paddingX * 2);
-  const y = paddingY + (bounds.north - station.latitude) / (bounds.north - bounds.south) * (height - paddingY * 2);
+  const x = paddingX + (coordinate[0] - bounds.west) / (bounds.east - bounds.west) * (width - paddingX * 2);
+  const y = paddingY + (bounds.north - coordinate[1]) / (bounds.north - bounds.south) * (height - paddingY * 2);
   return { x, y };
+}
+
+function projectPoint(station, bounds, width, height) {
+  return projectCoordinate([station.longitude, station.latitude], bounds, width, height);
+}
+
+function geometryCoordinates(value, output = []) {
+  if (typeof value?.[0] === "number") output.push(value);
+  else value?.forEach((item) => geometryCoordinates(item, output));
+  return output;
+}
+
+function intersectsMap(geometry, bounds) {
+  const coordinates = geometryCoordinates(geometry?.coordinates);
+  if (!coordinates.length) return false;
+  const longitudes = coordinates.map((coordinate) => coordinate[0]);
+  const latitudes = coordinates.map((coordinate) => coordinate[1]);
+  return Math.max(...longitudes) >= bounds.west && Math.min(...longitudes) <= bounds.east
+    && Math.max(...latitudes) >= bounds.south && Math.min(...latitudes) <= bounds.north;
+}
+
+function geometryPath(geometry, bounds, width, height) {
+  const polygons = geometry?.type === "Polygon" ? [geometry.coordinates]
+    : geometry?.type === "MultiPolygon" ? geometry.coordinates : [];
+  return polygons.flatMap((polygon) => polygon.map((ring) => ring.map((coordinate, index) => {
+    const point = projectCoordinate(coordinate, bounds, width, height);
+    return `${index ? "L" : "M"}${point.x.toFixed(1)},${point.y.toFixed(1)}`;
+  }).join("") + "Z")).join("");
+}
+
+function landMarkup(bounds, width, height) {
+  const paths = (state.mapData?.features || [])
+    .filter((feature) => intersectsMap(feature.geometry, bounds))
+    .map((feature) => `<path d="${geometryPath(feature.geometry, bounds, width, height)}"></path>`)
+    .join("");
+  return paths ? `<g class="map-land" aria-hidden="true">${paths}</g>` : "";
 }
 
 function mapMarkup(title, stations, bounds, width = 680, height = 340) {
@@ -118,7 +155,7 @@ function mapMarkup(title, stations, bounds, width = 680, height = 340) {
       <text x="10" y="4">${escapeHtml(station.place)}</text>
     </g>`;
   }).join("");
-  return `<div class="map-box"><h3>${escapeHtml(title)}</h3><svg viewBox="0 0 ${width} ${height}" aria-label="${escapeHtml(title)}产区定位图">${verticals}${horizontals}${points}</svg></div>`;
+  return `<div class="map-box"><h3>${escapeHtml(title)}</h3><svg viewBox="0 0 ${width} ${height}" aria-label="${escapeHtml(title)}产区地图">${landMarkup(bounds, width, height)}${verticals}${horizontals}${points}</svg></div>`;
 }
 
 function renderMaps() {
@@ -222,6 +259,10 @@ function render() {
 async function loadData() {
   $("#maps").innerHTML = $("#loadingTemplate").innerHTML;
   try {
+    fetch(MAP_DATA_URL, {cache:"force-cache"})
+      .then((response) => response.ok ? response.json() : null)
+      .then((mapData) => { state.mapData = mapData; if (state.data) renderMaps(); })
+      .catch((error) => console.warn("Natural Earth map unavailable", error));
     const [weatherResponse, historyResponse] = await Promise.all([
       fetch(`data/weather.json?v=${Date.now()}`, {cache:"no-store"}),
       fetch(`data/history.json?v=${Date.now()}`, {cache:"no-store"}),
