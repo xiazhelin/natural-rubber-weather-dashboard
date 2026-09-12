@@ -227,11 +227,14 @@
               <th>国家 / 产区</th>
               <th>代表地点</th>
               <th>7日降雨</th>
+              <th>割胶窗降雨 / 雨小时</th>
               <th>较上次更新</th>
               <th>雨日</th>
               <th>强降雨日</th>
               <th>最高 / 最低温</th>
               <th>深层土壤水分</th>
+              <th>IMERG 24h / 72h</th>
+              <th>24h / 72h兑现率</th>
               <th>天气状态</th>
               <th>质量</th>
             </tr>
@@ -251,14 +254,29 @@
           <div><dt>模型选择</dt><dd id="sourceModels">Open-Meteo Best Match</dd></div>
           <div><dt>许可与访问</dt><dd id="sourceAccess">CC BY 4.0；无需API Key</dd></div>
           <div><dt>坐标口径</dt><dd id="scopeNote">项目配置的WGS84代表性网格点</dd></div>
+          <div><dt>割胶窗口</dt><dd id="tappingWindowText">04:00–10:00（各地当地时间）</dd></div>
         </dl>
         <a id="sourceDocs" href="https://open-meteo.com/en/docs" target="_blank" rel="noopener">查看官方接口文档 ↗</a>
+      </article>
+
+      <article class="method-card source-card">
+        <p class="section-kicker">实况估算来源</p>
+        <h2 id="imergSourceName">NASA GPM IMERG Late Run GIS</h2>
+        <dl>
+          <div><dt>来源性质</dt><dd id="imergNature">卫星与多源融合的近实时降水估算</dd></div>
+          <div><dt>空间分辨率</dt><dd id="imergResolution">0.1°×0.1°</dd></div>
+          <div><dt>累计口径</dt><dd id="imergPeriod">过去24小时/72小时</dd></div>
+          <div><dt>数据状态</dt><dd id="imergStatus">MISSING</dd></div>
+        </dl>
+        <p id="imergNote">当前无法确认最新数据</p>
+        <a id="imergDocs" href="https://gpm.nasa.gov/data/imerg" target="_blank" rel="noopener">查看NASA官方产品文档 ↗</a>
       </article>
 
       <article class="method-card caution-card">
         <p class="section-kicker">研究边界</p>
         <h2>天气状态不等于供应结论</h2>
         <p>强降雨、少雨和高温仅是筛选状态。是否影响割胶和产量，还需结合持续时间、物候、停割期、胶农利润、原料价格及库存缓冲验证。</p>
+        <p>割胶窗口为项目统一研究时段，不代表每个产区的实际班次。IMERG是网格估算，不等同于地面站实测；预报兑现率也不等同于供应受损程度。</p>
         <p id="thresholdText" class="threshold-text"></p>
       </article>
     </section>

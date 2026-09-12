@@ -2,6 +2,7 @@ import importlib.util
 import json
 import tempfile
 import unittest
+from datetime import datetime, timedelta
 from pathlib import Path
 
 
@@ -18,6 +19,11 @@ class WeatherPipelineTest(unittest.TestCase):
             "dry_total_7d_mm": 20,
             "heavy_rain_day_mm": 25,
             "hot_day_max_c": 35,
+        }
+        self.tapping_window = {
+            "start_hour_local": 4,
+            "end_hour_local": 10,
+            "rain_hour_threshold_mm": 0.1,
         }
 
     def test_station_summary_and_descriptive_states(self):
@@ -36,17 +42,67 @@ class WeatherPipelineTest(unittest.TestCase):
             "elevation": 12,
             "daily": daily,
             "hourly": {
+                "time": [
+                    (datetime(2026, 9, 12) + timedelta(hours=hour)).isoformat(timespec="minutes")
+                    for hour in range(168)
+                ],
+                "precipitation": [1 if hour % 24 in range(4, 10) else 0 for hour in range(168)],
+                "precipitation_probability": [70] * 168,
                 "soil_moisture_9_to_27cm": [0.25] * 168,
                 "soil_moisture_27_to_81cm": [0.31] * 168,
             },
         }
         location = {"station_id": "test", "country": "泰国", "region": "南部", "place": "测试点", "latitude": 8, "longitude": 100}
-        station = MODULE.build_station(location, payload, self.thresholds)
+        station = MODULE.build_station(location, payload, self.thresholds, self.tapping_window)
         self.assertEqual(station["quality_status"], "PASS")
         self.assertEqual(station["summary"]["precipitation_7d_mm"], 165.0)
         self.assertEqual(station["summary"]["heavy_rain_days_7d"], 5)
         self.assertEqual(station["summary"]["weather_states"], ["HEAVY_RAIN", "HEAT"])
         self.assertEqual(station["summary"]["soil_moisture_27_81cm_mean_7d"], 0.31)
+        self.assertEqual(station["summary"]["tapping_window_precipitation_7d_mm"], 42.0)
+        self.assertEqual(station["summary"]["tapping_window_rain_hours_7d"], 42)
+
+    def test_imerg_grid_sampling_and_missing_value(self):
+        class Image:
+            size = (3600, 1800)
+
+            def __init__(self, value):
+                self.value = value
+                self.coordinate = None
+
+            def getpixel(self, coordinate):
+                self.coordinate = coordinate
+                return self.value
+
+        image = Image(123)
+        self.assertEqual(MODULE.sample_imerg_pixel(image, 0, 0), 12.3)
+        self.assertEqual(image.coordinate, (1800, 900))
+        self.assertIsNone(MODULE.sample_imerg_pixel(Image(29999), 0, 0))
+
+    def test_forecast_realization_uses_only_prior_aligned_forecast(self):
+        old_forecast = [
+            {"date_utc": f"2026-09-{day:02d}", "precipitation_mm": value}
+            for day, value in ((9, 5), (10, 10), (11, 15))
+        ]
+        future_forecast = [
+            {"date_utc": "2026-09-11", "precipitation_mm": 100}
+        ]
+        history = {
+            "snapshots": [
+                {"generated_at_utc": "2026-09-07T13:00:00Z", "stations": [{"station_id": "test", "forecast_utc_daily": old_forecast}]},
+                {"generated_at_utc": "2026-09-11T12:00:00Z", "stations": [{"station_id": "test", "forecast_utc_daily": future_forecast}]},
+            ]
+        }
+        dataset = {
+            "observation_source": {"end_at_utc": "2026-09-11T23:59:59Z"},
+            "stations": [{"station_id": "test", "imerg": {"precipitation_24h_mm": 10, "precipitation_72h_mm": 30}}],
+        }
+        MODULE.attach_verification(dataset, history)
+        verification = dataset["stations"][0]["verification"]
+        self.assertEqual(verification["24h"]["forecast_mm"], 15.0)
+        self.assertEqual(verification["24h"]["realization_pct"], 66.7)
+        self.assertEqual(verification["72h"]["realization_pct"], 100.0)
+        self.assertEqual(verification["24h"]["forecast_generated_at_utc"], "2026-09-07T13:00:00Z")
 
     def test_history_is_bounded(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -70,6 +126,8 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertIn('cron: "0 21 * * 5"', workflow)
         self.assertIn('timezone: "Asia/Shanghai"', workflow)
         self.assertIn("workflow_dispatch:", workflow)
+        self.assertIn("NASA_PPS_EMAIL", workflow)
+        self.assertIn("pip install -r requirements.txt", workflow)
         self.assertNotIn('id="reloadButton"', page)
         self.assertNotIn('id="updateLink"', page)
         self.assertNotIn("更新控制", page)

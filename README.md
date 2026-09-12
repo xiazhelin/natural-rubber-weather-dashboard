@@ -1,6 +1,6 @@
 # 天然橡胶产区天气跟踪面板
 
-面向天然橡胶基本面研究的轻量静态网页。默认跟踪中国、泰国、印度尼西亚、越南和科特迪瓦的29个代表性网格点，展示未来7日降雨、温度、土壤水分、天气关注状态及相邻两次更新的预报变化。
+面向天然橡胶基本面研究的轻量静态网页。默认跟踪中国、泰国、印度尼西亚、越南和科特迪瓦的29个代表性网格点，展示未来7日天气、当地割胶时段降雨、IMERG过去24/72小时实况估算及预报兑现率。
 
 ## 数据来源与口径
 
@@ -8,6 +8,10 @@
 - 官方文档：`https://open-meteo.com/en/docs`。
 - 模型：Open-Meteo Best Match，按地点自动选择可用数值天气模式。
 - 性质：模式网格数据，不是地面气象站观测。
+- 割胶时段：默认为各地当地时间04:00—10:00，在`config/locations.json`中可调整。这是统一研究窗口，不代表各产区统一实际班次。
+- 实况估算：NASA GPM IMERG Late Run GIS 1-day / 3-day累计产品，0.1°网格；官方介绍：`https://gpm.nasa.gov/data/imerg`。
+- IMERG性质：卫星与多源融合的近实时降水估算，不是地面雨量站实测。
+- 预报兑现率：`IMERG实况降水 / 验证期开始前的Open-Meteo预报降水 × 100`；按完整UTC日对齐。该值不是准确率，预报低于1 mm时不计算比率。
 - 坐标：`config/locations.json`中的WGS84研究定位点，不代表种植园或行政区种植面积边界。
 - 缺失值：保持为空；不会填0或沿用前值。
 
@@ -25,6 +29,16 @@
 
 网页不显示手动更新按钮；所有手动更新都在GitHub后台的Actions页面执行。
 
+### 配置NASA IMERG访问
+
+IMERG GeoTIFF的NASA PPS HTTPS入口需凭据。不配置时，Open-Meteo预报仍会正常更新，IMERG和兑现率保持`MISSING`，不沿用旧值。
+
+1. 在`https://registration.pps.eosdis.nasa.gov/registration/`注册NASA PPS。
+2. 在GitHub仓库进入 **Settings → Secrets and variables → Actions**。
+3. 点击 **New repository secret**。
+4. Name填`NASA_PPS_EMAIL`，Secret填PPS注册邮箱；不要把邮箱写入代码或提交到仓库。
+5. 在Actions手动运行一次更新。首次只会写入实况；兑现率要等历史预报与后续实况严格对齐后才会出现。
+
 ## GitHub Pages首次发布
 
 1. 创建一个公开GitHub仓库并推送本目录。
@@ -36,11 +50,12 @@
 
 ```bash
 python3 -m unittest discover -s tests -p "test_*.py"
+python3 -m pip install -r requirements.txt
 python3 scripts/update_weather.py
 python3 -m http.server 8000 --directory site
 ```
 
-浏览器打开`http://localhost:8000`。更新脚本只使用Python标准库，无需安装依赖。
+浏览器打开`http://localhost:8000`。脚本的网络访问使用Python标准库；仅读取IMERG GeoTIFF需要Pillow。
 
 ## 目录
 

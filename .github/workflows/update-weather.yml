@@ -7,6 +7,10 @@ on:
     paths:
       - "site/index.html"
       - "site/assets/**"
+      - "config/**"
+      - "scripts/**"
+      - "tests/**"
+      - "requirements.txt"
       - ".github/workflows/update-weather.yml"
   schedule:
     - cron: "0 21 * * 5"
@@ -34,8 +38,14 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: 安装IMERG读取依赖
+        if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+        run: python -m pip install -r requirements.txt
+
       - name: 获取最新天气
         if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+        env:
+          NASA_PPS_EMAIL: ${{ secrets.NASA_PPS_EMAIL }}
         run: python scripts/update_weather.py
 
       - name: 校验数据处理逻辑

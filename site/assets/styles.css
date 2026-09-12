@@ -258,6 +258,7 @@ input, select {
 .detail-metrics div { padding: 11px; background: var(--surface-soft); border-radius: 8px; }
 .detail-metrics span { display: block; color: var(--muted); font-size: .7rem; }
 .detail-metrics strong { display: block; margin-top: 3px; font-size: 1.05rem; }
+.detail-metrics small { display: block; margin-top: 2px; color: var(--muted); font-size: .62rem; }
 
 .forecast-strip { display: grid; grid-template-columns: repeat(7, minmax(62px, 1fr)); gap: 5px; overflow-x: auto; padding-bottom: 5px; }
 .forecast-day { min-width: 62px; padding: 9px 6px; text-align: center; background: #f8fbfa; border: 1px solid #e3ece9; border-radius: 8px; }
@@ -270,7 +271,7 @@ input, select {
 
 .table-panel { margin-top: 14px; }
 .table-wrap { overflow: auto; border: 1px solid var(--line); border-radius: 9px; }
-table { width: 100%; min-width: 1040px; border-collapse: collapse; font-size: .82rem; }
+table { width: 100%; min-width: 1380px; border-collapse: collapse; font-size: .82rem; }
 th, td { padding: 11px 10px; border-bottom: 1px solid #e8efed; text-align: right; white-space: nowrap; }
 th { position: sticky; top: 0; z-index: 1; color: #46605b; background: #edf5f3; font-size: .72rem; letter-spacing: .02em; }
 th:first-child, th:nth-child(2), td:first-child, td:nth-child(2) { text-align: left; }
@@ -283,7 +284,7 @@ td strong { color: var(--brand-dark); }
 .quality-cell.warning { color: #936009; }
 .quality-cell.missing { color: #6d7976; }
 
-.method-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
+.method-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
 .method-card { padding: 20px; }
 .method-card p, .method-card dd { color: #536864; font-size: .85rem; }
 .method-card a { color: var(--brand); font-weight: 800; }
@@ -318,6 +319,8 @@ footer {
   .metric-grid { grid-template-columns: repeat(2, 1fr); }
   .workspace { grid-template-columns: 1fr; }
   .detail-panel { min-height: auto; }
+  .method-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .caution-card { grid-column: 1 / -1; }
 }
 
 @media (max-width: 760px) {

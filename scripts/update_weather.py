@@ -4,16 +4,20 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import json
+import math
 import os
+import re
 import sys
 import tempfile
 import time
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, time as datetime_time, timedelta, timezone
 from pathlib import Path
 from statistics import fmean
+from zoneinfo import ZoneInfo
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -27,7 +31,12 @@ DAILY_FIELDS = (
     "wind_gusts_10m_max",
     "et0_fao_evapotranspiration",
 )
-HOURLY_FIELDS = ("soil_moisture_9_to_27cm", "soil_moisture_27_to_81cm")
+HOURLY_FIELDS = (
+    "precipitation",
+    "precipitation_probability",
+    "soil_moisture_9_to_27cm",
+    "soil_moisture_27_to_81cm",
+)
 SOURCE = {
     "source_id": "WX_OPEN_METEO_01",
     "source_name": "Open-Meteo Weather Forecast API",
@@ -37,6 +46,20 @@ SOURCE = {
     "data_nature": "数值天气模式网格数据，不是地面气象站观测",
     "access": "免费非商业公开接口，无需API Key；数据许可CC BY 4.0",
 }
+IMERG_BASE_URL = "https://jsimpsonhttps.pps.eosdis.nasa.gov/imerg/gis"
+IMERG_SOURCE = {
+    "source_id": "OBS_NASA_IMERG_LATE_GIS",
+    "source_name": "NASA GPM IMERG Late Run GIS",
+    "documentation": "https://gpm.nasa.gov/data/imerg",
+    "data_nature": "卫星与多源融合的近实时降水估算，不是地面雨量站实测",
+    "spatial_resolution": "0.1°×0.1°",
+    "periods": "过去24小时/72小时，截止同一UTC日23:59",
+    "access": "NASA PPS HTTPS；GitHub Actions使用仓库密钥NASA_PPS_EMAIL",
+}
+IMERG_FILE = re.compile(
+    r"3B-HHR-L\.MS\.MRG\.3IMERG\.(?P<date>\d{8})-S233000-E235959\.1410\."
+    r"(?P<version>V\d{2}[A-Z])\.(?P<period>1day|3day)\.tif"
+)
 
 
 def _finite(values):
@@ -63,6 +86,264 @@ def _min(values):
     return round(min(values), 1) if values else None
 
 
+def _hourly_value(hourly, field, index):
+    values = hourly.get(field) or []
+    return values[index] if index < len(values) else None
+
+
+def tapping_window_by_date(hourly, dates, settings):
+    """Aggregate hourly forecast rain inside the configured local-time research window."""
+    start_hour = settings["start_hour_local"]
+    end_hour = settings["end_hour_local"]
+    threshold = settings["rain_hour_threshold_mm"]
+    buckets = {day: {"rain": [], "probability": []} for day in dates}
+    for index, stamp in enumerate(hourly.get("time") or []):
+        moment = datetime.fromisoformat(stamp)
+        day = moment.date().isoformat()
+        if day not in buckets or not start_hour <= moment.hour < end_hour:
+            continue
+        buckets[day]["rain"].append(_hourly_value(hourly, "precipitation", index))
+        buckets[day]["probability"].append(
+            _hourly_value(hourly, "precipitation_probability", index)
+        )
+
+    result = {}
+    expected_hours = end_hour - start_hour
+    for day, values in buckets.items():
+        rain = _finite(values["rain"])
+        probability = _finite(values["probability"])
+        complete = len(rain) == expected_hours
+        result[day] = {
+            "precipitation_mm": round(sum(rain), 1) if complete else None,
+            "rain_hours": sum(value >= threshold for value in rain) if complete else None,
+            "precipitation_probability_max": round(max(probability), 1)
+            if len(probability) == expected_hours
+            else None,
+        }
+    return result
+
+
+def utc_daily_forecast(hourly, timezone_name):
+    """Build complete UTC-day forecast totals for later no-lookahead verification."""
+    try:
+        local_timezone = ZoneInfo(timezone_name)
+    except (KeyError, TypeError):
+        return []
+    buckets = {}
+    for index, stamp in enumerate(hourly.get("time") or []):
+        value = _hourly_value(hourly, "precipitation", index)
+        local = datetime.fromisoformat(stamp).replace(tzinfo=local_timezone)
+        day = local.astimezone(timezone.utc).date().isoformat()
+        buckets.setdefault(day, []).append(value)
+    return [
+        {"date_utc": day, "precipitation_mm": round(sum(_finite(values)), 1)}
+        for day, values in sorted(buckets.items())
+        if len(values) == 24 and len(_finite(values)) == 24
+    ]
+
+
+def sample_imerg_pixel(image, latitude, longitude):
+    """Read one IMERG accumulation pixel; product values are stored in 0.1 mm."""
+    width, height = image.size
+    column = min(width - 1, max(0, math.floor((longitude + 180) / 360 * width)))
+    row = min(height - 1, max(0, math.floor((90 - latitude) / 180 * height)))
+    value = image.getpixel((column, row))
+    if isinstance(value, tuple):
+        value = value[0]
+    return None if value is None or value >= 29999 else round(float(value) / 10, 1)
+
+
+def _authenticated_request(url, email, timeout=60):
+    token = base64.b64encode(f"{email}:{email}".encode()).decode()
+    request = urllib.request.Request(
+        url,
+        headers={
+            "Authorization": f"Basic {token}",
+            "User-Agent": "natural-rubber-weather-dashboard/1.0",
+        },
+    )
+    return urllib.request.urlopen(request, timeout=timeout)
+
+
+def _imerg_listing(email, today):
+    months = [today.replace(day=1), (today.replace(day=1) - timedelta(days=1)).replace(day=1)]
+    files = {}
+    for month in months:
+        base = f"{IMERG_BASE_URL}/{month:%Y}/{month:%m}/"
+        with _authenticated_request(base, email) as response:
+            listing = response.read().decode("utf-8", errors="replace")
+        for match in IMERG_FILE.finditer(listing):
+            key = (match["date"], match["version"])
+            files.setdefault(key, {})[match["period"]] = urllib.parse.urljoin(
+                base, match.group(0)
+            )
+    candidates = [(*key, periods) for key, periods in files.items() if {"1day", "3day"} <= periods.keys()]
+    if not candidates:
+        raise RuntimeError("No matching IMERG 1day/3day files")
+    return max(candidates, key=lambda item: item[0])
+
+
+def fetch_imerg(locations, email, today=None):
+    """Fetch the latest common IMERG Late 1-day and 3-day products and sample all points."""
+    if not email:
+        raise RuntimeError("NASA PPS credential is not configured")
+    try:
+        from PIL import Image
+    except ImportError as exc:
+        raise RuntimeError("Pillow is required to read IMERG GeoTIFF") from exc
+
+    product_date, version, urls = _imerg_listing(email, today or datetime.now(timezone.utc).date())
+    images = {}
+    with tempfile.TemporaryDirectory() as directory:
+        for period, url in urls.items():
+            path = Path(directory) / f"{period}.tif"
+            with _authenticated_request(url, email) as response, path.open("wb") as handle:
+                while chunk := response.read(1024 * 1024):
+                    handle.write(chunk)
+            images[period] = Image.open(path)
+            images[period].load()
+        try:
+            values = {
+                item["station_id"]: {
+                    "quality_status": "PASS",
+                    "precipitation_24h_mm": sample_imerg_pixel(
+                        images["1day"], item["latitude"], item["longitude"]
+                    ),
+                    "precipitation_72h_mm": sample_imerg_pixel(
+                        images["3day"], item["latitude"], item["longitude"]
+                    ),
+                }
+                for item in locations
+            }
+        finally:
+            for image in images.values():
+                image.close()
+    for value in values.values():
+        if value["precipitation_24h_mm"] is None or value["precipitation_72h_mm"] is None:
+            value["quality_status"] = "MISSING"
+    end_at = f"{datetime.strptime(product_date, '%Y%m%d').date().isoformat()}T23:59:59Z"
+    return {
+        **IMERG_SOURCE,
+        "quality_status": "PASS"
+        if all(item["quality_status"] == "PASS" for item in values.values())
+        else "WARNING",
+        "product_version": version,
+        "end_at_utc": end_at,
+    }, values
+
+
+def missing_imerg(locations, reason):
+    return {
+        **IMERG_SOURCE,
+        "quality_status": "MISSING",
+        "end_at_utc": None,
+        "availability_note": reason,
+    }, {
+        item["station_id"]: {
+            "quality_status": "MISSING",
+            "precipitation_24h_mm": None,
+            "precipitation_72h_mm": None,
+        }
+        for item in locations
+    }
+
+
+def _parse_utc(value):
+    return datetime.fromisoformat(value.replace("Z", "+00:00"))
+
+
+def matched_forecast(snapshots, station_id, target_dates):
+    """Return the latest forecast that existed before the verification period began."""
+    cutoff = datetime.combine(min(target_dates), datetime_time.min, tzinfo=timezone.utc)
+    for snapshot in sorted(
+        snapshots, key=lambda item: item.get("generated_at_utc", ""), reverse=True
+    ):
+        try:
+            if _parse_utc(snapshot["generated_at_utc"]) > cutoff:
+                continue
+        except (KeyError, TypeError, ValueError):
+            continue
+        station = next(
+            (
+                item
+                for item in snapshot.get("stations") or []
+                if item.get("station_id") == station_id
+            ),
+            None,
+        )
+        by_date = {
+            item.get("date_utc"): item.get("precipitation_mm")
+            for item in (station or {}).get("forecast_utc_daily") or []
+        }
+        if all(day.isoformat() in by_date and by_date[day.isoformat()] is not None for day in target_dates):
+            return round(sum(float(by_date[day.isoformat()]) for day in target_dates), 1), snapshot[
+                "generated_at_utc"
+            ]
+    return None, None
+
+
+def _verification_period(observed, forecast, generated_at):
+    if observed is None:
+        return {
+            "status": "OBSERVATION_MISSING",
+            "forecast_mm": forecast,
+            "observed_mm": None,
+            "realization_pct": None,
+            "forecast_error_mm": None,
+            "forecast_generated_at_utc": generated_at,
+        }
+    if forecast is None:
+        return {
+            "status": "NO_MATCHED_FORECAST",
+            "forecast_mm": None,
+            "observed_mm": observed,
+            "realization_pct": None,
+            "forecast_error_mm": None,
+            "forecast_generated_at_utc": None,
+        }
+    return {
+        "status": "PASS" if forecast >= 1 else "LOW_FORECAST_BASE",
+        "forecast_mm": forecast,
+        "observed_mm": observed,
+        "realization_pct": round(observed / forecast * 100, 1) if forecast >= 1 else None,
+        "forecast_error_mm": round(forecast - observed, 1),
+        "forecast_generated_at_utc": generated_at,
+    }
+
+
+def attach_verification(dataset, history):
+    end_at = dataset.get("observation_source", {}).get("end_at_utc")
+    end_date = _parse_utc(end_at).date() if end_at else None
+    snapshots = history.get("snapshots") or []
+    for station in dataset["stations"]:
+        observed = station.get("imerg") or {}
+        periods = {}
+        for hours, days in ((24, 1), (72, 3)):
+            targets = [end_date - timedelta(days=offset) for offset in range(days - 1, -1, -1)] if end_date else []
+            forecast, generated_at = matched_forecast(
+                snapshots, station["station_id"], targets
+            ) if targets else (None, None)
+            periods[f"{hours}h"] = _verification_period(
+                observed.get(f"precipitation_{hours}h_mm"), forecast, generated_at
+            )
+        statuses = [item["status"] for item in periods.values()]
+        station["verification"] = {
+            "quality_status": "PASS"
+            if all(status == "PASS" for status in statuses)
+            else "MISSING"
+            if all(status in {"OBSERVATION_MISSING", "NO_MATCHED_FORECAST"} for status in statuses)
+            else "WARNING",
+            **periods,
+        }
+    dataset["verification_definition"] = {
+        "metric": "realization_pct = IMERG observed precipitation / prior Open-Meteo forecast precipitation × 100",
+        "alignment": "按完整UTC日严格对齐；只使用验证期开始前已生成的历史预报",
+        "forecast_error": "forecast_mm - observed_mm；正值表示预报偏多",
+        "minimum_forecast_mm_for_ratio": 1.0,
+        "note": "兑现率是降水量实现比，不是预报准确率；首次运行需等待可对齐的历史预报样本。",
+    }
+
+
 def classify(summary, thresholds):
     """Return descriptive weather states; they are not supply conclusions."""
     states = []
@@ -77,16 +358,23 @@ def classify(summary, thresholds):
     return states or ["NORMAL"]
 
 
-def build_station(location, payload, thresholds):
+def build_station(location, payload, thresholds, tapping_window):
     daily = payload.get("daily") or {}
     hourly = payload.get("hourly") or {}
-    dates = daily.get("time") or []
+    dates = (daily.get("time") or [])[:7]
+    tapping = tapping_window_by_date(hourly, dates, tapping_window)
     rows = []
     for index, date in enumerate(dates):
         row = {"date": date}
         for key in DAILY_FIELDS:
             values = daily.get(key) or []
             row[key] = values[index] if index < len(values) else None
+        window = tapping.get(date) or {}
+        row["tapping_window_precipitation_mm"] = window.get("precipitation_mm")
+        row["tapping_window_rain_hours"] = window.get("rain_hours")
+        row["tapping_window_precipitation_probability_max"] = window.get(
+            "precipitation_probability_max"
+        )
         rows.append(row)
 
     rain = [row["precipitation_sum"] for row in rows]
@@ -95,6 +383,8 @@ def build_station(location, payload, thresholds):
     et0 = [row["et0_fao_evapotranspiration"] for row in rows]
     soil_shallow = (hourly.get("soil_moisture_9_to_27cm") or [])[: 24 * len(rows)]
     soil_deep = (hourly.get("soil_moisture_27_to_81cm") or [])[: 24 * len(rows)]
+    tapping_rain = [row["tapping_window_precipitation_mm"] for row in rows]
+    tapping_hours = [row["tapping_window_rain_hours"] for row in rows]
     summary = {
         "precipitation_7d_mm": _sum(rain),
         "rain_days_7d": sum(1 for value in rain if value is not None and value >= 1),
@@ -106,10 +396,26 @@ def build_station(location, payload, thresholds):
         "et0_7d_mm": _sum(et0),
         "soil_moisture_9_27cm_mean_7d": _mean(soil_shallow),
         "soil_moisture_27_81cm_mean_7d": _mean(soil_deep),
+        "tapping_window_precipitation_7d_mm": _sum(tapping_rain),
+        "tapping_window_rain_hours_7d": int(sum(_finite(tapping_hours)))
+        if _finite(tapping_hours)
+        else None,
+        "tapping_window_rain_days_7d": sum(
+            value >= tapping_window["rain_hour_threshold_mm"] for value in _finite(tapping_rain)
+        )
+        if _finite(tapping_rain)
+        else None,
+        "tapping_window_probability_max_7d": _max(
+            [row["tapping_window_precipitation_probability_max"] for row in rows]
+        ),
     }
     summary["weather_states"] = classify(summary, thresholds)
     core = [rain, tmax, tmin]
-    complete = len(rows) == 7 and all(len(_finite(values)) == 7 for values in core)
+    complete = (
+        len(rows) == 7
+        and all(len(_finite(values)) == 7 for values in core)
+        and len(_finite(tapping_rain)) == 7
+    )
     quality = "PASS" if complete else "WARNING"
     if not rows:
         quality = "MISSING"
@@ -120,6 +426,7 @@ def build_station(location, payload, thresholds):
         "quality_status": quality,
         "summary": summary,
         "daily": rows,
+        "forecast_utc_daily": utc_daily_forecast(hourly, payload.get("timezone")),
     }
 
 
@@ -129,7 +436,7 @@ def fetch_batch(locations, timeout=45, retries=3):
         "longitude": ",".join(str(item["longitude"]) for item in locations),
         "daily": ",".join(DAILY_FIELDS),
         "hourly": ",".join(HOURLY_FIELDS),
-        "forecast_days": 7,
+        "forecast_days": 8,
         "timezone": "auto",
         "cell_selection": "land",
     }
@@ -166,6 +473,7 @@ def history_entry(dataset):
                 "station_id": station["station_id"],
                 **station["summary"],
                 "quality_status": station["quality_status"],
+                "forecast_utc_daily": station.get("forecast_utc_daily") or [],
             }
             for station in dataset["stations"]
         ],
@@ -173,12 +481,13 @@ def history_entry(dataset):
 
 
 def update_history(path, dataset, maximum=400):
-    history = {"schema_version": 1, "snapshots": []}
+    history = {"schema_version": 2, "snapshots": []}
     if path.exists():
         history = json.loads(path.read_text(encoding="utf-8"))
     snapshots = history.get("snapshots") or []
     snapshots = [item for item in snapshots if item.get("generated_at_utc") != dataset["generated_at_utc"]]
     snapshots.append(history_entry(dataset))
+    history["schema_version"] = 2
     history["snapshots"] = snapshots[-maximum:]
     atomic_json(path, history)
 
@@ -187,23 +496,41 @@ def collect(config_path):
     config = json.loads(config_path.read_text(encoding="utf-8"))
     locations = config["locations"]
     thresholds = config["thresholds"]
+    tapping_window = config["tapping_window"]
     stations = []
     for start in range(0, len(locations), 15):
         batch = locations[start : start + 15]
         payloads = fetch_batch(batch)
-        stations.extend(build_station(location, payload, thresholds) for location, payload in zip(batch, payloads))
+        stations.extend(
+            build_station(location, payload, thresholds, tapping_window)
+            for location, payload in zip(batch, payloads)
+        )
+    email = os.environ.get("NASA_PPS_EMAIL", "").strip()
+    try:
+        observation_source, imerg = fetch_imerg(locations, email)
+    except Exception:
+        reason = (
+            "NASA PPS凭据未配置；请在GitHub Actions仓库密钥中设置NASA_PPS_EMAIL。"
+            if not email
+            else "NASA IMERG数据当前不可用；本次保持MISSING，不沿用旧值。"
+        )
+        observation_source, imerg = missing_imerg(locations, reason)
+    for station in stations:
+        station["imerg"] = imerg[station["station_id"]]
     now = datetime.now(timezone.utc).replace(microsecond=0)
     quality_counts = {status: sum(item["quality_status"] == status for item in stations) for status in ("PASS", "WARNING", "MISSING")}
     overall = "PASS" if quality_counts["PASS"] == len(stations) else "WARNING"
     return {
-        "schema_version": 1,
-        "dataset_id": "NR_PRODUCTION_REGION_WEATHER_FORECAST_V1",
+        "schema_version": 2,
+        "dataset_id": "NR_PRODUCTION_REGION_WEATHER_MONITOR_V2",
         "generated_at_utc": now.isoformat().replace("+00:00", "Z"),
         "forecast_horizon": "D0-D6",
         "overall_quality_status": overall,
         "quality_counts": quality_counts,
         "thresholds": thresholds,
+        "tapping_window": tapping_window,
         "source": SOURCE,
+        "observation_source": observation_source,
         "scope_note": config["description"],
         "stations": stations,
     }
@@ -218,6 +545,10 @@ def main(argv=None):
     dataset = collect(args.config)
     if not dataset["stations"]:
         raise RuntimeError("No station data returned; existing published data was not changed.")
+    history = {"schema_version": 2, "snapshots": []}
+    if args.history.exists():
+        history = json.loads(args.history.read_text(encoding="utf-8"))
+    attach_verification(dataset, history)
     atomic_json(args.output, dataset)
     update_history(args.history, dataset)
     print(

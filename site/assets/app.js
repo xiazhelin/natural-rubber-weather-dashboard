@@ -4,6 +4,7 @@ const state = { data: null, history: [], mapData: null, filtered: [], activeId: 
 const $ = (selector) => document.querySelector(selector);
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (char) => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"})[char]);
 const number = (value, digits = 1) => Number.isFinite(Number(value)) ? Number(value).toFixed(digits) : "—";
+const percent = (value) => Number.isFinite(Number(value)) ? `${number(value)}%` : "—";
 const sum = (values) => values.reduce((total, value) => total + Number(value || 0), 0);
 const MAP_DATA_URL = "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_110m_admin_0_countries.geojson";
 
@@ -41,6 +42,18 @@ function populateSources(data) {
   $("#sourceAccess").textContent = source.access || "当前无法确认最新数据";
   $("#scopeNote").textContent = data.scope_note || "当前无法确认最新数据";
   if (source.documentation) $("#sourceDocs").href = source.documentation;
+  const tapping = data.tapping_window || {};
+  const start = String(tapping.start_hour_local ?? "—").padStart(2, "0");
+  const end = String(tapping.end_hour_local ?? "—").padStart(2, "0");
+  $("#tappingWindowText").textContent = `${start}:00–${end}:00（各地当地时间）；${tapping.note || "当前无法确认最新数据"}`;
+  const observation = data.observation_source || {};
+  $("#imergSourceName").textContent = observation.source_name || "NASA GPM IMERG Late Run GIS";
+  $("#imergNature").textContent = observation.data_nature || "当前无法确认最新数据";
+  $("#imergResolution").textContent = observation.spatial_resolution || "当前无法确认最新数据";
+  $("#imergPeriod").textContent = observation.periods || "当前无法确认最新数据";
+  $("#imergStatus").textContent = `${observation.quality_status || "MISSING"}${observation.end_at_utc ? ` · ${observation.end_at_utc.slice(0, 10)} UTC` : ""}`;
+  $("#imergNote").textContent = observation.availability_note || "累计量为卫星多源融合估算，与模式预报分层展示。";
+  if (observation.documentation) $("#imergDocs").href = observation.documentation;
   const t = data.thresholds || {};
   $("#thresholdText").textContent = `研究筛选阈值：7日累计降雨 ≥ ${t.heavy_rain_total_7d_mm ?? "—"} mm 为强降雨关注，< ${t.dry_total_7d_mm ?? "—"} mm 为少雨关注，日最高温 ≥ ${t.hot_day_max_c ?? "—"}℃ 为高温关注。`;
   $("#heavyRule").textContent = `7日累计 ≥ ${t.heavy_rain_total_7d_mm ?? "—"} mm`;
@@ -182,15 +195,20 @@ function renderRows() {
     const s = station.summary || {};
     const change = rainChange(station);
     const delta = change == null ? "—" : `${change > 0 ? "+" : ""}${number(change)} mm`;
+    const observed = station.imerg || {};
+    const verification = station.verification || {};
     return `<tr tabindex="0" data-id="${escapeHtml(station.station_id)}" class="${station.station_id === state.activeId ? "active" : ""}">
       <td><strong>${escapeHtml(station.country)}</strong><br>${escapeHtml(station.region)}</td>
       <td>${escapeHtml(station.place)}</td>
       <td><strong>${number(s.precipitation_7d_mm)} mm</strong></td>
+      <td>${number(s.tapping_window_precipitation_7d_mm)} mm / ${s.tapping_window_rain_hours_7d ?? "—"}小时</td>
       <td>${delta}</td>
       <td>${s.rain_days_7d ?? "—"} / 7</td>
       <td>${s.heavy_rain_days_7d ?? "—"} 天</td>
       <td>${number(s.temperature_max_7d_c)} / ${number(s.temperature_min_7d_c)} ℃</td>
       <td>${number(s.soil_moisture_27_81cm_mean_7d, 3)} m³/m³</td>
+      <td>${number(observed.precipitation_24h_mm)} / ${number(observed.precipitation_72h_mm)} mm</td>
+      <td>${percent(verification["24h"]?.realization_pct)} / ${percent(verification["72h"]?.realization_pct)}</td>
       <td><div class="status-stack">${statusPills(station)}</div></td>
       <td class="quality-cell ${String(station.quality_status).toLowerCase()}">${escapeHtml(station.quality_status)}</td>
     </tr>`;
@@ -222,23 +240,34 @@ function renderDetail() {
       <div class="rain-track"><span class="rain-bar" style="height:${barHeight.toFixed(1)}px"></span></div>
       <strong>${number(day.precipitation_sum)} mm</strong>
       <small>${number(day.temperature_2m_max, 0)}° / ${number(day.temperature_2m_min, 0)}°</small>
+      <small>割胶窗 ${number(day.tapping_window_precipitation_mm)} mm</small>
     </div>`;
   }).join("");
   const change = rainChange(station);
+  const observed = station.imerg || {};
+  const verification = station.verification || {};
+  const v24 = verification["24h"] || {};
+  const v72 = verification["72h"] || {};
   $("#stationDetail").innerHTML = `<div class="detail-head">
       <div><p>${escapeHtml(station.country)} · ${escapeHtml(station.region)}</p><h2>${escapeHtml(station.place)}</h2><p>${number(station.latitude, 2)}°, ${number(station.longitude, 2)}° · ${escapeHtml(station.timezone || "时区待确认")}</p></div>
       <div class="status-stack">${statusPills(station)}</div>
     </div>
     <div class="detail-metrics">
       <div><span>7日降雨</span><strong>${number(s.precipitation_7d_mm)} mm</strong></div>
+      <div><span>割胶窗7日降雨</span><strong>${number(s.tapping_window_precipitation_7d_mm)} mm</strong></div>
+      <div><span>割胶窗雨日 / 雨小时</span><strong>${s.tapping_window_rain_days_7d ?? "—"} 天 / ${s.tapping_window_rain_hours_7d ?? "—"} 小时</strong></div>
       <div><span>较上次更新</span><strong>${change == null ? "—" : `${change > 0 ? "+" : ""}${number(change)} mm`}</strong></div>
       <div><span>雨日 / 强降雨日</span><strong>${s.rain_days_7d ?? "—"} / ${s.heavy_rain_days_7d ?? "—"} 天</strong></div>
       <div><span>7日最高 / 最低温</span><strong>${number(s.temperature_max_7d_c)} / ${number(s.temperature_min_7d_c)} ℃</strong></div>
       <div><span>9–27cm土壤水分</span><strong>${number(s.soil_moisture_9_27cm_mean_7d, 3)}</strong></div>
       <div><span>27–81cm土壤水分</span><strong>${number(s.soil_moisture_27_81cm_mean_7d, 3)}</strong></div>
+      <div><span>IMERG 过去24h</span><strong>${number(observed.precipitation_24h_mm)} mm</strong></div>
+      <div><span>IMERG 过去72h</span><strong>${number(observed.precipitation_72h_mm)} mm</strong></div>
+      <div><span>24h预报兑现率</span><strong>${percent(v24.realization_pct)}</strong><small>${escapeHtml(v24.status || "样本尚未形成")}</small></div>
+      <div><span>72h预报兑现率</span><strong>${percent(v72.realization_pct)}</strong><small>${escapeHtml(v72.status || "样本尚未形成")}</small></div>
     </div>
     <div class="forecast-strip" aria-label="${escapeHtml(station.place)}未来七天逐日预报">${days}</div>
-    <p class="detail-source">来源：${escapeHtml(state.data.source?.source_name)} · 数值模式网格 · 质量状态 ${escapeHtml(station.quality_status)}</p>`;
+    <p class="detail-source">预报：${escapeHtml(state.data.source?.source_name)}；实况估算：${escapeHtml(state.data.observation_source?.source_name || "当前无法确认最新数据")}。兑现率=实况/验证期前预报，不是准确率。</p>`;
 }
 
 function selectStation(id) {
