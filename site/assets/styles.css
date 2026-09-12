@@ -221,6 +221,14 @@ input, select {
 .map-point:hover circle, .map-point.active circle { r: 9; stroke-width: 4; }
 .map-point text { fill: #2d4541; font-size: 10px; font-weight: 800; paint-order: stroke; stroke: #f7faf9; stroke-width: 3px; stroke-linejoin: round; }
 .map-note, .table-caption { margin: 11px 0 0; color: var(--muted); font-size: .76rem; }
+.map-note a { color: var(--brand); font-weight: 800; }
+
+.cpc-panel { margin-top: 14px; }
+.cpc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.cpc-figure { margin: 0; padding: 10px; background: #f7faf9; border: 1px solid var(--line); border-radius: 10px; }
+.cpc-figure img { display: block; width: 100%; height: auto; border-radius: 6px; }
+.cpc-figure figcaption { margin-top: 8px; color: var(--brand-dark); font-size: .82rem; font-weight: 800; }
+.source-badge { padding: 5px 9px; color: var(--muted); background: var(--surface-soft); border-radius: 999px; font-size: .76rem; font-weight: 800; white-space: nowrap; }
 
 .detail-panel { min-height: 430px; }
 .detail-head { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; margin-bottom: 16px; }
@@ -321,6 +329,7 @@ footer {
   .maps { grid-template-columns: 1fr; }
   .map-box { min-height: 280px; }
   .map-box svg { min-height: 280px; }
+  .cpc-grid { grid-template-columns: 1fr; }
   .method-grid { grid-template-columns: 1fr; }
   .caution-card { grid-column: auto; }
   footer { flex-direction: column; gap: 6px; }
