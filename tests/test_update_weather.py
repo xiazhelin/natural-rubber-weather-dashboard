@@ -72,6 +72,8 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertIn("workflow_dispatch:", workflow)
         self.assertNotIn('id="reloadButton"', page)
         self.assertNotIn('id="updateLink"', page)
+        self.assertNotIn("更新控制", page)
+        self.assertNotIn("每周五 21:00 自动更新", page)
         self.assertNotIn("reloadButton", script)
         self.assertNotIn("updateLink", script)
 
