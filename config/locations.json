@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "description": "天然橡胶重点产区代表性网格点。坐标为WGS84研究定位点，不代表气象站或种植园边界。",
+  "thresholds": {
+    "heavy_rain_total_7d_mm": 150,
+    "dry_total_7d_mm": 20,
+    "heavy_rain_day_mm": 25,
+    "hot_day_max_c": 35
+  },
+  "locations": [
+    {"station_id":"cn_hainan_danzhou","country":"中国","region":"海南","place":"儋州","latitude":19.52,"longitude":109.58},
+    {"station_id":"cn_hainan_qiongzhong","country":"中国","region":"海南","place":"琼中","latitude":19.04,"longitude":109.84},
+    {"station_id":"cn_hainan_wanning","country":"中国","region":"海南","place":"万宁","latitude":18.80,"longitude":110.39},
+    {"station_id":"cn_hainan_baisha","country":"中国","region":"海南","place":"白沙","latitude":19.23,"longitude":109.45},
+    {"station_id":"cn_yunnan_jinghong","country":"中国","region":"云南","place":"景洪","latitude":22.00,"longitude":100.80},
+    {"station_id":"cn_yunnan_mengla","country":"中国","region":"云南","place":"勐腊","latitude":21.47,"longitude":101.56},
+    {"station_id":"cn_yunnan_puer","country":"中国","region":"云南","place":"普洱","latitude":22.83,"longitude":100.97},
+
+    {"station_id":"th_south_surat_thani","country":"泰国","region":"南部","place":"素叻他尼","latitude":9.14,"longitude":99.33},
+    {"station_id":"th_south_nakhon_si_thammarat","country":"泰国","region":"南部","place":"那空是贪玛叻","latitude":8.43,"longitude":99.96},
+    {"station_id":"th_south_songkhla","country":"泰国","region":"南部","place":"宋卡","latitude":7.20,"longitude":100.60},
+    {"station_id":"th_south_trang","country":"泰国","region":"南部","place":"董里","latitude":7.56,"longitude":99.61},
+    {"station_id":"th_south_yala","country":"泰国","region":"南部","place":"也拉","latitude":6.54,"longitude":101.28},
+    {"station_id":"th_northeast_udon_thani","country":"泰国","region":"东北部","place":"乌隆他尼","latitude":17.41,"longitude":102.79},
+    {"station_id":"th_northeast_bueng_kan","country":"泰国","region":"东北部","place":"汶干府","latitude":18.36,"longitude":103.65},
+    {"station_id":"th_northeast_ubon","country":"泰国","region":"东北部","place":"乌汶","latitude":15.24,"longitude":104.85},
+    {"station_id":"th_east_rayong","country":"泰国","region":"东部","place":"罗勇","latitude":12.68,"longitude":101.28},
+
+    {"station_id":"id_sumatra_medan","country":"印度尼西亚","region":"北苏门答腊","place":"棉兰","latitude":3.59,"longitude":98.67},
+    {"station_id":"id_sumatra_pekanbaru","country":"印度尼西亚","region":"廖内","place":"北干巴鲁","latitude":0.51,"longitude":101.45},
+    {"station_id":"id_sumatra_jambi","country":"印度尼西亚","region":"占碑","place":"占碑","latitude":-1.61,"longitude":103.61},
+    {"station_id":"id_sumatra_palembang","country":"印度尼西亚","region":"南苏门答腊","place":"巨港","latitude":-2.99,"longitude":104.76},
+    {"station_id":"id_sumatra_lampung","country":"印度尼西亚","region":"楠榜","place":"班达楠榜","latitude":-5.43,"longitude":105.26},
+    {"station_id":"id_kalimantan_pontianak","country":"印度尼西亚","region":"西加里曼丹","place":"坤甸","latitude":-0.03,"longitude":109.34},
+
+    {"station_id":"vn_southeast_binh_phuoc","country":"越南","region":"东南部","place":"同帅（平福）","latitude":11.53,"longitude":106.89},
+    {"station_id":"vn_southeast_tay_ninh","country":"越南","region":"东南部","place":"西宁","latitude":11.31,"longitude":106.10},
+    {"station_id":"vn_central_highlands_pleiku","country":"越南","region":"中央高原","place":"波来古","latitude":13.98,"longitude":108.00},
+    {"station_id":"vn_central_highlands_buon_ma_thuot","country":"越南","region":"中央高原","place":"邦美蜀","latitude":12.68,"longitude":108.05},
+
+    {"station_id":"ci_nawa_soubre","country":"科特迪瓦","region":"纳瓦区","place":"苏布雷","latitude":5.78,"longitude":-6.60},
+    {"station_id":"ci_sud_comoe_aboisso","country":"科特迪瓦","region":"南科莫埃","place":"阿博瓦索","latitude":5.47,"longitude":-3.21},
+    {"station_id":"ci_indenié_abengourou","country":"科特迪瓦","region":"因代涅-朱阿布兰","place":"阿本古鲁","latitude":6.73,"longitude":-3.49}
+  ]
+}

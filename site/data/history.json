@@ -1,0 +1,446 @@
+{
+  "schema_version": 1,
+  "snapshots": [
+    {
+      "generated_at_utc": "2026-09-12T08:32:59Z",
+      "stations": [
+        {
+          "station_id": "cn_hainan_danzhou",
+          "precipitation_7d_mm": 184.6,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 2,
+          "temperature_max_7d_c": 31.6,
+          "temperature_min_7d_c": 22.6,
+          "et0_7d_mm": 15.8,
+          "soil_moisture_9_27cm_mean_7d": 0.359,
+          "soil_moisture_27_81cm_mean_7d": 0.358,
+          "weather_states": [
+            "HEAVY_RAIN"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "cn_hainan_qiongzhong",
+          "precipitation_7d_mm": 229.5,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 2,
+          "temperature_max_7d_c": 31.9,
+          "temperature_min_7d_c": 21.8,
+          "et0_7d_mm": 15.2,
+          "soil_moisture_9_27cm_mean_7d": 0.386,
+          "soil_moisture_27_81cm_mean_7d": 0.351,
+          "weather_states": [
+            "HEAVY_RAIN"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "cn_hainan_wanning",
+          "precipitation_7d_mm": 295.5,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 3,
+          "temperature_max_7d_c": 30.6,
+          "temperature_min_7d_c": 23.5,
+          "et0_7d_mm": 17.8,
+          "soil_moisture_9_27cm_mean_7d": 0.4,
+          "soil_moisture_27_81cm_mean_7d": 0.416,
+          "weather_states": [
+            "HEAVY_RAIN"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "cn_hainan_baisha",
+          "precipitation_7d_mm": 160.7,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 2,
+          "temperature_max_7d_c": 32.3,
+          "temperature_min_7d_c": 22.0,
+          "et0_7d_mm": 15.6,
+          "soil_moisture_9_27cm_mean_7d": 0.343,
+          "soil_moisture_27_81cm_mean_7d": 0.32,
+          "weather_states": [
+            "HEAVY_RAIN"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "cn_yunnan_jinghong",
+          "precipitation_7d_mm": 48.3,
+          "rain_days_7d": 4,
+          "heavy_rain_days_7d": 1,
+          "temperature_max_7d_c": 33.1,
+          "temperature_min_7d_c": 20.6,
+          "et0_7d_mm": 31.1,
+          "soil_moisture_9_27cm_mean_7d": 0.401,
+          "soil_moisture_27_81cm_mean_7d": 0.444,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "cn_yunnan_mengla",
+          "precipitation_7d_mm": 30.7,
+          "rain_days_7d": 3,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 31.9,
+          "temperature_min_7d_c": 18.7,
+          "et0_7d_mm": 29.1,
+          "soil_moisture_9_27cm_mean_7d": 0.388,
+          "soil_moisture_27_81cm_mean_7d": 0.442,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "cn_yunnan_puer",
+          "precipitation_7d_mm": 21.4,
+          "rain_days_7d": 4,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 28.2,
+          "temperature_min_7d_c": 14.7,
+          "et0_7d_mm": 29.0,
+          "soil_moisture_9_27cm_mean_7d": 0.326,
+          "soil_moisture_27_81cm_mean_7d": 0.363,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "th_south_surat_thani",
+          "precipitation_7d_mm": 126.5,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 1,
+          "temperature_max_7d_c": 30.5,
+          "temperature_min_7d_c": 23.3,
+          "et0_7d_mm": 18.9,
+          "soil_moisture_9_27cm_mean_7d": 0.225,
+          "soil_moisture_27_81cm_mean_7d": 0.229,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "th_south_nakhon_si_thammarat",
+          "precipitation_7d_mm": 104.3,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 2,
+          "temperature_max_7d_c": 32.4,
+          "temperature_min_7d_c": 24.2,
+          "et0_7d_mm": 23.9,
+          "soil_moisture_9_27cm_mean_7d": 0.229,
+          "soil_moisture_27_81cm_mean_7d": 0.229,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "th_south_songkhla",
+          "precipitation_7d_mm": 61.2,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 31.8,
+          "temperature_min_7d_c": 23.7,
+          "et0_7d_mm": 25.2,
+          "soil_moisture_9_27cm_mean_7d": 0.229,
+          "soil_moisture_27_81cm_mean_7d": 0.232,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "th_south_trang",
+          "precipitation_7d_mm": 149.0,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 2,
+          "temperature_max_7d_c": 30.8,
+          "temperature_min_7d_c": 22.9,
+          "et0_7d_mm": 20.7,
+          "soil_moisture_9_27cm_mean_7d": 0.157,
+          "soil_moisture_27_81cm_mean_7d": 0.162,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "th_south_yala",
+          "precipitation_7d_mm": 56.5,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 32.5,
+          "temperature_min_7d_c": 23.3,
+          "et0_7d_mm": 25.6,
+          "soil_moisture_9_27cm_mean_7d": 0.266,
+          "soil_moisture_27_81cm_mean_7d": 0.255,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "th_northeast_udon_thani",
+          "precipitation_7d_mm": 153.2,
+          "rain_days_7d": 6,
+          "heavy_rain_days_7d": 3,
+          "temperature_max_7d_c": 31.8,
+          "temperature_min_7d_c": 23.5,
+          "et0_7d_mm": 24.4,
+          "soil_moisture_9_27cm_mean_7d": 0.255,
+          "soil_moisture_27_81cm_mean_7d": 0.249,
+          "weather_states": [
+            "HEAVY_RAIN"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "th_northeast_bueng_kan",
+          "precipitation_7d_mm": 113.9,
+          "rain_days_7d": 5,
+          "heavy_rain_days_7d": 1,
+          "temperature_max_7d_c": 32.3,
+          "temperature_min_7d_c": 23.2,
+          "et0_7d_mm": 20.8,
+          "soil_moisture_9_27cm_mean_7d": 0.314,
+          "soil_moisture_27_81cm_mean_7d": 0.334,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "th_northeast_ubon",
+          "precipitation_7d_mm": 149.5,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 2,
+          "temperature_max_7d_c": 29.5,
+          "temperature_min_7d_c": 23.3,
+          "et0_7d_mm": 17.4,
+          "soil_moisture_9_27cm_mean_7d": 0.345,
+          "soil_moisture_27_81cm_mean_7d": 0.362,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "th_east_rayong",
+          "precipitation_7d_mm": 103.7,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 1,
+          "temperature_max_7d_c": 31.0,
+          "temperature_min_7d_c": 24.2,
+          "et0_7d_mm": 24.8,
+          "soil_moisture_9_27cm_mean_7d": 0.39,
+          "soil_moisture_27_81cm_mean_7d": 0.372,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "id_sumatra_medan",
+          "precipitation_7d_mm": 128.8,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 2,
+          "temperature_max_7d_c": 31.2,
+          "temperature_min_7d_c": 23.3,
+          "et0_7d_mm": 27.2,
+          "soil_moisture_9_27cm_mean_7d": 0.336,
+          "soil_moisture_27_81cm_mean_7d": 0.354,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "id_sumatra_pekanbaru",
+          "precipitation_7d_mm": 26.5,
+          "rain_days_7d": 5,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 32.9,
+          "temperature_min_7d_c": 23.4,
+          "et0_7d_mm": 29.0,
+          "soil_moisture_9_27cm_mean_7d": 0.293,
+          "soil_moisture_27_81cm_mean_7d": 0.297,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "id_sumatra_jambi",
+          "precipitation_7d_mm": 10.2,
+          "rain_days_7d": 1,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 33.6,
+          "temperature_min_7d_c": 23.0,
+          "et0_7d_mm": 33.6,
+          "soil_moisture_9_27cm_mean_7d": 0.199,
+          "soil_moisture_27_81cm_mean_7d": 0.226,
+          "weather_states": [
+            "DRY"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "id_sumatra_palembang",
+          "precipitation_7d_mm": 0.0,
+          "rain_days_7d": 0,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 35.4,
+          "temperature_min_7d_c": 23.9,
+          "et0_7d_mm": 39.3,
+          "soil_moisture_9_27cm_mean_7d": 0.143,
+          "soil_moisture_27_81cm_mean_7d": 0.186,
+          "weather_states": [
+            "DRY",
+            "HEAT"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "id_sumatra_lampung",
+          "precipitation_7d_mm": 11.7,
+          "rain_days_7d": 3,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 33.0,
+          "temperature_min_7d_c": 21.3,
+          "et0_7d_mm": 33.3,
+          "soil_moisture_9_27cm_mean_7d": 0.294,
+          "soil_moisture_27_81cm_mean_7d": 0.342,
+          "weather_states": [
+            "DRY"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "id_kalimantan_pontianak",
+          "precipitation_7d_mm": 50.9,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 34.2,
+          "temperature_min_7d_c": 23.1,
+          "et0_7d_mm": 26.8,
+          "soil_moisture_9_27cm_mean_7d": 0.148,
+          "soil_moisture_27_81cm_mean_7d": 0.168,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "vn_southeast_binh_phuoc",
+          "precipitation_7d_mm": 104.3,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 1,
+          "temperature_max_7d_c": 30.9,
+          "temperature_min_7d_c": 23.4,
+          "et0_7d_mm": 23.1,
+          "soil_moisture_9_27cm_mean_7d": 0.307,
+          "soil_moisture_27_81cm_mean_7d": 0.329,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "vn_southeast_tay_ninh",
+          "precipitation_7d_mm": 75.4,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 31.2,
+          "temperature_min_7d_c": 23.8,
+          "et0_7d_mm": 23.2,
+          "soil_moisture_9_27cm_mean_7d": 0.318,
+          "soil_moisture_27_81cm_mean_7d": 0.349,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "vn_central_highlands_pleiku",
+          "precipitation_7d_mm": 88.4,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 26.5,
+          "temperature_min_7d_c": 20.3,
+          "et0_7d_mm": 19.3,
+          "soil_moisture_9_27cm_mean_7d": 0.432,
+          "soil_moisture_27_81cm_mean_7d": 0.467,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "vn_central_highlands_buon_ma_thuot",
+          "precipitation_7d_mm": 53.2,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 30.3,
+          "temperature_min_7d_c": 22.1,
+          "et0_7d_mm": 26.6,
+          "soil_moisture_9_27cm_mean_7d": 0.359,
+          "soil_moisture_27_81cm_mean_7d": 0.373,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "ci_nawa_soubre",
+          "precipitation_7d_mm": 46.7,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 30.2,
+          "temperature_min_7d_c": 22.6,
+          "et0_7d_mm": 26.2,
+          "soil_moisture_9_27cm_mean_7d": 0.171,
+          "soil_moisture_27_81cm_mean_7d": 0.163,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "ci_sud_comoe_aboisso",
+          "precipitation_7d_mm": 42.2,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 28.5,
+          "temperature_min_7d_c": 22.6,
+          "et0_7d_mm": 23.5,
+          "soil_moisture_9_27cm_mean_7d": 0.172,
+          "soil_moisture_27_81cm_mean_7d": 0.208,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS"
+        },
+        {
+          "station_id": "ci_indenié_abengourou",
+          "precipitation_7d_mm": 40.0,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 29.8,
+          "temperature_min_7d_c": 22.0,
+          "et0_7d_mm": 24.7,
+          "soil_moisture_9_27cm_mean_7d": 0.296,
+          "soil_moisture_27_81cm_mean_7d": 0.321,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS"
+        }
+      ]
+    }
+  ]
+}

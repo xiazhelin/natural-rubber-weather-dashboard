@@ -1,0 +1,70 @@
+name: 更新并发布天然橡胶产区天气
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "site/index.html"
+      - "site/assets/**"
+      - ".github/workflows/update-weather.yml"
+  # 需要定时更新时取消下面两行注释。cron使用UTC；示例为北京时间每天08:15。
+  # schedule:
+  #   - cron: "15 0 * * *"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: natural-rubber-weather-pages
+  cancel-in-progress: false
+
+jobs:
+  update-and-package:
+    if: github.event_name != 'workflow_dispatch' || github.actor == github.repository_owner
+    runs-on: ubuntu-latest
+    steps:
+      - name: 读取仓库
+        uses: actions/checkout@v6
+
+      - name: 准备Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: 获取最新天气
+        if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+        run: python scripts/update_weather.py
+
+      - name: 校验数据处理逻辑
+        run: python -m unittest discover -s tests -p "test_*.py"
+
+      - name: 保存本次更新
+        if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/data/weather.json site/data/history.json
+          git diff --cached --quiet || git commit -m "data: update production-region weather"
+          git push
+
+      - name: 配置GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: 打包静态网页
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+  deploy:
+    needs: update-and-package
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 发布GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="天然橡胶重点产区未来七天天气跟踪与数据来源核验面板">
+  <title>天然橡胶产区天气跟踪</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b5d55'/%3E%3Cpath d='M16 35c11-2 18-9 24-22 8 11 9 22 2 30-7 8-19 7-26-8Z' fill='%23d6f36a'/%3E%3Cpath d='M20 47c9-9 17-16 28-22' stroke='white' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">NATURAL RUBBER · WEATHER MONITOR</p>
+      <h1>天然橡胶产区天气跟踪</h1>
+      <div class="meta-line">
+        <span id="updatedAt">等待数据</span>
+        <span id="qualityBadge" class="quality missing">MISSING</span>
+        <span>预测窗口 D0–D6</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="reloadButton" class="button ghost" type="button">重新读取</button>
+      <a id="updateLink" class="button primary" href="#update-guide">更新数据（维护者）</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="toolbar" aria-label="筛选条件">
+      <label>
+        <span>国家</span>
+        <select id="countryFilter"><option value="all">全部国家</option></select>
+      </label>
+      <label>
+        <span>天气状态</span>
+        <select id="stateFilter">
+          <option value="all">全部状态</option>
+          <option value="HEAVY_RAIN">强降雨关注</option>
+          <option value="DRY">少雨关注</option>
+          <option value="HEAT">高温关注</option>
+          <option value="NORMAL">常规</option>
+        </select>
+      </label>
+      <label class="search-field">
+        <span>查找地点</span>
+        <input id="searchInput" type="search" placeholder="例如：宋卡、云南、印尼">
+      </label>
+      <p id="resultCount" class="result-count" aria-live="polite">0个地点</p>
+    </section>
+
+    <section class="metric-grid" aria-label="天气概览">
+      <article class="metric-card accent">
+        <span>选中地点 · 7日平均降雨</span>
+        <strong id="avgRain">—</strong>
+        <small>mm，地点等权</small>
+      </article>
+      <article class="metric-card warning">
+        <span>强降雨关注地点</span>
+        <strong id="heavyCount">—</strong>
+        <small id="heavyRule">7日累计达到阈值</small>
+      </article>
+      <article class="metric-card dry">
+        <span>少雨关注地点</span>
+        <strong id="dryCount">—</strong>
+        <small id="dryRule">7日累计低于阈值</small>
+      </article>
+      <article class="metric-card heat">
+        <span>高温关注地点</span>
+        <strong id="heatCount">—</strong>
+        <small id="heatRule">7日最高温达到阈值</small>
+      </article>
+    </section>
+
+    <section class="workspace">
+      <article class="panel map-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="section-kicker">空间分布</p>
+            <h2>重点产区代表网格</h2>
+          </div>
+          <div class="legend" aria-label="图例">
+            <span><i class="dot heavy"></i>强降雨</span>
+            <span><i class="dot dry"></i>少雨</span>
+            <span><i class="dot heat"></i>高温</span>
+            <span><i class="dot normal"></i>常规</span>
+          </div>
+        </div>
+        <div id="maps" class="maps" aria-live="polite"></div>
+        <p class="map-note">按经纬度投影的研究定位图；代表性网格点不等于种植面积边界。</p>
+      </article>
+
+      <article class="panel detail-panel" id="detailPanel">
+        <div id="stationDetail" class="empty-state">
+          <strong>请选择一个产区地点</strong>
+          <span>点击地图标记或下方表格查看未来七天。</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel table-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="section-kicker">逐点跟踪</p>
+          <h2>未来七天天气</h2>
+        </div>
+        <p class="table-caption">点击任意一行查看日度明细</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>国家 / 产区</th>
+              <th>代表地点</th>
+              <th>7日降雨</th>
+              <th>较上次更新</th>
+              <th>雨日</th>
+              <th>强降雨日</th>
+              <th>最高 / 最低温</th>
+              <th>深层土壤水分</th>
+              <th>天气状态</th>
+              <th>质量</th>
+            </tr>
+          </thead>
+          <tbody id="weatherRows"></tbody>
+        </table>
+      </div>
+      <div id="noResults" class="empty-state hidden">当前筛选条件下没有地点。</div>
+    </section>
+
+    <section class="method-grid" id="update-guide">
+      <article class="method-card source-card">
+        <p class="section-kicker">数据来源</p>
+        <h2 id="sourceName">Open-Meteo Weather Forecast API</h2>
+        <dl>
+          <div><dt>来源性质</dt><dd id="sourceNature">数值天气模式网格数据，不是地面气象站观测</dd></div>
+          <div><dt>模型选择</dt><dd id="sourceModels">Open-Meteo Best Match</dd></div>
+          <div><dt>许可与访问</dt><dd id="sourceAccess">CC BY 4.0；无需API Key</dd></div>
+          <div><dt>坐标口径</dt><dd id="scopeNote">项目配置的WGS84代表性网格点</dd></div>
+        </dl>
+        <a id="sourceDocs" href="https://open-meteo.com/en/docs" target="_blank" rel="noopener">查看官方接口文档 ↗</a>
+      </article>
+
+      <article class="method-card">
+        <p class="section-kicker">更新控制</p>
+        <h2>当前采用维护者手动更新</h2>
+        <ol>
+          <li>进入GitHub仓库的 Actions 页面。</li>
+          <li>选择“更新并发布天然橡胶产区天气”。</li>
+          <li>点击 Run workflow；只有仓库写权限用户可以执行。</li>
+        </ol>
+        <p>需要固定频率时，可在工作流中启用 <code>schedule</code> 并调整UTC时间。</p>
+      </article>
+
+      <article class="method-card caution-card">
+        <p class="section-kicker">研究边界</p>
+        <h2>天气状态不等于供应结论</h2>
+        <p>强降雨、少雨和高温仅是筛选状态。是否影响割胶和产量，还需结合持续时间、物候、停割期、胶农利润、原料价格及库存缓冲验证。</p>
+        <p id="thresholdText" class="threshold-text"></p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <span>天然橡胶研究 · CORE2_SUPPLY · EVENT_STATE</span>
+    <span>缺失值保持为空，不补0，不直接生成多空判断。</span>
+  </footer>
+
+  <template id="loadingTemplate">
+    <div class="loading-state"><span></span><p>正在读取天气数据…</p></div>
+  </template>
+  <script src="assets/app.js" defer></script>
+</body>
+</html>
