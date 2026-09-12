@@ -8,10 +8,10 @@ import base64
 import json
 import math
 import os
-import re
 import sys
 import tempfile
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from datetime import datetime, time as datetime_time, timedelta, timezone
@@ -47,6 +47,8 @@ SOURCE = {
     "access": "免费非商业公开接口，无需API Key；数据许可CC BY 4.0",
 }
 IMERG_BASE_URL = "https://jsimpsonhttps.pps.eosdis.nasa.gov/imerg/gis"
+IMERG_DATES_URL = "https://pmmpublisher.pps.eosdis.nasa.gov/img/imerg_v2/dates_3d.txt"
+IMERG_VERSION = "V07C"
 IMERG_SOURCE = {
     "source_id": "OBS_NASA_IMERG_LATE_GIS",
     "source_name": "NASA GPM IMERG Late Run GIS",
@@ -56,10 +58,6 @@ IMERG_SOURCE = {
     "periods": "过去24小时/72小时，截止同一UTC日23:59",
     "access": "NASA PPS HTTPS；GitHub Actions使用仓库密钥NASA_PPS_EMAIL",
 }
-IMERG_FILE = re.compile(
-    r"3B-HHR-L\.MS\.MRG\.3IMERG\.(?P<date>\d{8})-S233000-E235959\.1410\."
-    r"(?P<version>V\d{2}[A-Z])\.(?P<period>1day|3day)\.tif"
-)
 
 
 def _finite(values):
@@ -165,22 +163,34 @@ def _authenticated_request(url, email, timeout=60):
     return urllib.request.urlopen(request, timeout=timeout)
 
 
-def _imerg_listing(email, today):
-    months = [today.replace(day=1), (today.replace(day=1) - timedelta(days=1)).replace(day=1)]
-    files = {}
-    for month in months:
-        base = f"{IMERG_BASE_URL}/{month:%Y}/{month:%m}/"
-        with _authenticated_request(base, email) as response:
-            listing = response.read().decode("utf-8", errors="replace")
-        for match in IMERG_FILE.finditer(listing):
-            key = (match["date"], match["version"])
-            files.setdefault(key, {})[match["period"]] = urllib.parse.urljoin(
-                base, match.group(0)
-            )
-    candidates = [(*key, periods) for key, periods in files.items() if {"1day", "3day"} <= periods.keys()]
-    if not candidates:
-        raise RuntimeError("No matching IMERG 1day/3day files")
-    return max(candidates, key=lambda item: item[0])
+def _imerg_candidate_dates(payload, today, maximum=7):
+    dates = []
+    for value in payload.split():
+        try:
+            parsed = datetime.strptime(value, "%Y%m%d").date()
+        except ValueError:
+            continue
+        if parsed <= today:
+            dates.append(value)
+    return sorted(set(dates), reverse=True)[:maximum]
+
+
+def _imerg_urls(product_date):
+    base = f"{IMERG_BASE_URL}/{product_date[:4]}/{product_date[4:6]}/"
+    stem = (
+        f"3B-HHR-L.MS.MRG.3IMERG.{product_date}-S233000-E235959.1410."
+        f"{IMERG_VERSION}"
+    )
+    return {period: f"{base}{stem}.{period}.tif" for period in ("1day", "3day")}
+
+
+def _available_imerg_dates(today):
+    with urllib.request.urlopen(IMERG_DATES_URL, timeout=30) as response:
+        payload = response.read().decode("utf-8", errors="replace")
+    dates = _imerg_candidate_dates(payload, today)
+    if not dates:
+        raise RuntimeError("NASA IMERG date index has no usable dates")
+    return dates
 
 
 def fetch_imerg(locations, email, today=None):
@@ -192,16 +202,32 @@ def fetch_imerg(locations, email, today=None):
     except ImportError as exc:
         raise RuntimeError("Pillow is required to read IMERG GeoTIFF") from exc
 
-    product_date, version, urls = _imerg_listing(email, today or datetime.now(timezone.utc).date())
-    images = {}
     with tempfile.TemporaryDirectory() as directory:
-        for period, url in urls.items():
-            path = Path(directory) / f"{period}.tif"
-            with _authenticated_request(url, email) as response, path.open("wb") as handle:
-                while chunk := response.read(1024 * 1024):
-                    handle.write(chunk)
-            images[period] = Image.open(path)
-            images[period].load()
+        images = {}
+        product_date = None
+        for candidate in _available_imerg_dates(
+            today or datetime.now(timezone.utc).date()
+        ):
+            urls = _imerg_urls(candidate)
+            try:
+                for period, url in urls.items():
+                    path = Path(directory) / f"{period}.tif"
+                    with _authenticated_request(url, email) as response, path.open("wb") as handle:
+                        while chunk := response.read(1024 * 1024):
+                            handle.write(chunk)
+                    images[period] = Image.open(path)
+                    images[period].load()
+            except urllib.error.HTTPError as exc:
+                for image in images.values():
+                    image.close()
+                images = {}
+                if exc.code == 404:
+                    continue
+                raise
+            product_date = candidate
+            break
+        if product_date is None:
+            raise RuntimeError("No complete IMERG 1day/3day product pair is available")
         try:
             values = {
                 item["station_id"]: {
@@ -227,7 +253,7 @@ def fetch_imerg(locations, email, today=None):
         "quality_status": "PASS"
         if all(item["quality_status"] == "PASS" for item in values.values())
         else "WARNING",
-        "product_version": version,
+        "product_version": IMERG_VERSION,
         "end_at_utc": end_at,
     }, values
 

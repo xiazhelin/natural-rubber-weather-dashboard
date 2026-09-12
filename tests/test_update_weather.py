@@ -79,6 +79,16 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertEqual(image.coordinate, (1800, 900))
         self.assertIsNone(MODULE.sample_imerg_pixel(Image(29999), 0, 0))
 
+    def test_imerg_dates_and_direct_product_urls(self):
+        dates = MODULE._imerg_candidate_dates(
+            "bad\n20260910\n20260912\n20260911\n20260912\n",
+            datetime(2026, 9, 11).date(),
+        )
+        self.assertEqual(dates, ["20260911", "20260910"])
+        urls = MODULE._imerg_urls(dates[0])
+        self.assertTrue(urls["1day"].endswith("V07C.1day.tif"))
+        self.assertTrue(urls["3day"].endswith("V07C.3day.tif"))
+
     def test_forecast_realization_uses_only_prior_aligned_forecast(self):
         old_forecast = [
             {"date_utc": f"2026-09-{day:02d}", "precipitation_mm": value}
