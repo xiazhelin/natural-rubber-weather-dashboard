@@ -228,6 +228,8 @@ input, select {
 .cpc-figure { margin: 0; padding: 10px; background: #f7faf9; border: 1px solid var(--line); border-radius: 10px; }
 .cpc-figure img { display: block; width: 100%; height: auto; border-radius: 6px; }
 .cpc-figure figcaption { margin-top: 8px; color: var(--brand-dark); font-size: .82rem; font-weight: 800; }
+.climate-outlook { grid-column: 1 / -1; }
+.climate-outlook img { max-height: 620px; object-fit: contain; background: #fff; }
 .source-badge { padding: 5px 9px; color: var(--muted); background: var(--surface-soft); border-radius: 999px; font-size: .76rem; font-weight: 800; white-space: nowrap; }
 
 .detail-panel { min-height: 430px; }
@@ -333,6 +335,7 @@ footer {
   .map-box { min-height: 280px; }
   .map-box svg { min-height: 280px; }
   .cpc-grid { grid-template-columns: 1fr; }
+  .climate-outlook { grid-column: auto; }
   .method-grid { grid-template-columns: 1fr; }
   .caution-card { grid-column: auto; }
   footer { flex-direction: column; gap: 6px; }

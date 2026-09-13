@@ -127,6 +127,18 @@ class WeatherPipelineTest(unittest.TestCase):
             self.assertEqual(len(snapshots), 2)
             self.assertEqual(snapshots[0]["generated_at_utc"], "2026-09-12T01:00:00Z")
 
+    def test_bom_index_parser_and_svg(self):
+        points = MODULE.parse_bom_index(
+            "period_start,period_end,value\n20260801,20260807,0.75\n"
+            "bad,row\n20260808,20260814,1.25\n"
+        )
+        self.assertEqual(points[0][0].isoformat(), "2026-08-07")
+        self.assertEqual(points[-1][1], 1.25)
+        svg = MODULE.render_bom_svg(points, "Test index", -3, 3, -0.8, 0.8)
+        self.assertIn("<svg", svg)
+        self.assertIn("Latest week ending 2026-08-14", svg)
+        self.assertIn("Test index", svg)
+
     def test_publish_controls_and_schedule(self):
         root = SCRIPT.parent.parent
         workflow = (root / ".github/workflows/update-weather.yml").read_text(encoding="utf-8")
@@ -139,6 +151,7 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertIn("workflow_dispatch:", workflow)
         self.assertIn("NASA_PPS_EMAIL", workflow)
         self.assertIn("pip install -r requirements.txt", workflow)
+        self.assertIn("site/assets/climate/", workflow)
         self.assertNotIn('id="reloadButton"', page)
         self.assertNotIn('id="updateLink"', page)
         self.assertNotIn("更新控制", page)
@@ -151,6 +164,9 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertIn("Natural Earth 1:110m", page)
         self.assertIn("MAP_DATA_URL", script)
         self.assertIn('class="map-land"', script)
+        self.assertIn("assets/climate/rnino34-weekly.svg", page)
+        self.assertIn("assets/climate/iod-weekly.svg", page)
+        self.assertIn("assets/climate/roni-outlook.png", page)
 
 
 if __name__ == "__main__":

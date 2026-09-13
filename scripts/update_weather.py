@@ -8,6 +8,7 @@ import base64
 import json
 import math
 import os
+import re
 import sys
 import tempfile
 import time
@@ -58,6 +59,30 @@ IMERG_SOURCE = {
     "periods": "过去24小时/72小时，截止同一UTC日23:59",
     "access": "NASA PPS HTTPS；GitHub Actions使用仓库密钥NASA_PPS_EMAIL",
 }
+CLIMATE_ASSET_DIR = ROOT / "site" / "assets" / "climate"
+BOM_INDEXES = (
+    (
+        "https://reg.bom.gov.au/clim_data/IDCK000072/rnino_3.4.txt",
+        "rnino34-weekly.svg",
+        "Relative Niño3.4 index",
+        -3,
+        3,
+        -0.8,
+        0.8,
+    ),
+    (
+        "https://reg.bom.gov.au/clim_data/IDCK000072/iod_1.txt",
+        "iod-weekly.svg",
+        "Indian Ocean Dipole index",
+        -2,
+        2,
+        -0.4,
+        0.4,
+    ),
+)
+NOAA_RONI_OUTLOOK_URL = (
+    "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso/roni/outlook/"
+)
 
 
 def _finite(values):
@@ -491,6 +516,150 @@ def atomic_json(path, payload):
     os.replace(temporary, path)
 
 
+def _atomic_write(path, payload, mode="w"):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    options = {"dir": path.parent, "delete": False, "mode": mode}
+    if "b" not in mode:
+        options["encoding"] = "utf-8"
+    with tempfile.NamedTemporaryFile(**options) as handle:
+        handle.write(payload)
+        temporary = Path(handle.name)
+    os.replace(temporary, path)
+
+
+def parse_bom_index(payload):
+    """Parse BoM weekly rows: period start, period end, index value."""
+    points = []
+    for line in payload.splitlines():
+        fields = [field.strip() for field in line.split(",")]
+        if len(fields) < 3:
+            continue
+        try:
+            date = datetime.strptime(fields[1], "%Y%m%d").date()
+            value = float(fields[2])
+        except ValueError:
+            continue
+        if math.isfinite(value):
+            points.append((date, value))
+    return sorted(set(points))
+
+
+def render_bom_svg(points, title, y_min, y_max, negative_threshold, positive_threshold):
+    """Render official weekly values as a dependency-free SVG."""
+    if not points:
+        raise ValueError("BoM index contains no usable observations")
+    latest = points[-1][0]
+    start = latest - timedelta(days=18 * 366)
+    points = [point for point in points if point[0] >= start]
+    width, height = 960, 430
+    left, right, top, bottom = 62, 22, 54, 48
+    plot_width = width - left - right
+    plot_height = height - top - bottom
+    first, last = points[0][0], points[-1][0]
+    span = max(1, (last - first).days)
+
+    def x(date):
+        return left + (date - first).days / span * plot_width
+
+    def y(value):
+        return top + (y_max - value) / (y_max - y_min) * plot_height
+
+    parts = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title desc">',
+        f'<title id="title">{title}</title>',
+        f'<desc id="desc">Weekly observations through {latest.isoformat()}, climatology 1991–2020.</desc>',
+        '<rect width="100%" height="100%" fill="#fff"/>',
+        f'<rect x="{left}" y="{top}" width="{plot_width}" height="{y(positive_threshold) - top:.1f}" fill="#fde8e8"/>',
+        f'<rect x="{left}" y="{y(negative_threshold):.1f}" width="{plot_width}" height="{top + plot_height - y(negative_threshold):.1f}" fill="#e8e9ff"/>',
+        f'<text x="{width / 2}" y="27" text-anchor="middle" font-family="sans-serif" font-size="19" font-weight="700" fill="#294b55">{title}</text>',
+        '<g font-family="sans-serif" font-size="11" fill="#586b70">',
+    ]
+    for value in range(math.ceil(y_min), math.floor(y_max) + 1):
+        yy = y(value)
+        parts.extend(
+            (
+                f'<line x1="{left}" y1="{yy:.1f}" x2="{left + plot_width}" y2="{yy:.1f}" stroke="#c9d2d4" stroke-dasharray="3 3"/>',
+                f'<text x="{left - 10}" y="{yy + 4:.1f}" text-anchor="end">{value}</text>',
+            )
+        )
+    first_tick_year = first.year + (first.year % 2)
+    for year in range(first_tick_year, last.year + 1, 2):
+        xx = x(datetime(year, 1, 1).date())
+        parts.extend(
+            (
+                f'<line x1="{xx:.1f}" y1="{top}" x2="{xx:.1f}" y2="{top + plot_height}" stroke="#e0e6e7"/>',
+                f'<text x="{xx:.1f}" y="{top + plot_height + 22}" text-anchor="middle">{year}</text>',
+            )
+        )
+    parts.append('</g>')
+    for threshold, color in ((negative_threshold, "#7980d9"), (positive_threshold, "#ec7777")):
+        parts.append(
+            f'<line x1="{left}" y1="{y(threshold):.1f}" x2="{left + plot_width}" y2="{y(threshold):.1f}" stroke="{color}" stroke-width="1.5" stroke-dasharray="7 5"/>'
+        )
+    segments, current = [], []
+    previous = None
+    for date, value in points:
+        if previous and (date - previous).days > 21:
+            segments.append(current)
+            current = []
+        current.append(f"{x(date):.1f},{y(value):.1f}")
+        previous = date
+    if current:
+        segments.append(current)
+    for segment in segments:
+        if len(segment) > 1:
+            coordinates = " ".join(segment)
+            parts.append(
+                f'<polyline points="{coordinates}" fill="none" stroke="#30383a" stroke-width="1.35" stroke-linejoin="round" stroke-linecap="round"/>'
+            )
+    parts.extend(
+        (
+            f'<text x="{left}" y="{height - 10}" font-family="sans-serif" font-size="10" fill="#6c7d80">Latest week ending {latest.isoformat()}</text>',
+            f'<text x="{width - right}" y="{height - 10}" text-anchor="end" font-family="sans-serif" font-size="10" fill="#6c7d80">Climatology period 1991–2020</text>',
+            "</svg>",
+        )
+    )
+    return "\n".join(parts) + "\n"
+
+
+def _public_request(url, timeout=45):
+    request = urllib.request.Request(
+        url, headers={"User-Agent": "natural-rubber-weather-dashboard/1.0"}
+    )
+    return urllib.request.urlopen(request, timeout=timeout)
+
+
+def update_climate_charts():
+    """Refresh BoM weekly charts and the current NOAA CPC RONI outlook."""
+    warnings = []
+    for url, filename, title, y_min, y_max, low, high in BOM_INDEXES:
+        try:
+            with _public_request(url) as response:
+                points = parse_bom_index(response.read().decode("utf-8", errors="replace"))
+            _atomic_write(
+                CLIMATE_ASSET_DIR / filename,
+                render_bom_svg(points, title, y_min, y_max, low, high),
+            )
+        except Exception as exc:
+            warnings.append(f"{title}: {exc}")
+    try:
+        with _public_request(NOAA_RONI_OUTLOOK_URL) as response:
+            page = response.read().decode("utf-8", errors="replace")
+        match = re.search(
+            r'<img[^>]+src=["\']([^"\']*enso-roni-outlook-current\.png)["\']',
+            page,
+            re.IGNORECASE,
+        )
+        if not match:
+            raise RuntimeError("current outlook image was not found")
+        image_url = urllib.parse.urljoin(NOAA_RONI_OUTLOOK_URL, match.group(1))
+        with _public_request(image_url) as response:
+            _atomic_write(CLIMATE_ASSET_DIR / "roni-outlook.png", response.read(), "wb")
+    except Exception as exc:
+        warnings.append(f"NOAA CPC RONI outlook: {exc}")
+    return warnings
+
+
 def history_entry(dataset):
     return {
         "generated_at_utc": dataset["generated_at_utc"],
@@ -577,6 +746,8 @@ def main(argv=None):
     attach_verification(dataset, history)
     atomic_json(args.output, dataset)
     update_history(args.history, dataset)
+    for warning in update_climate_charts():
+        print(f"climate chart warning: {warning}", file=sys.stderr)
     print(
         f"updated {len(dataset['stations'])} locations at {dataset['generated_at_utc']} "
         f"({dataset['overall_quality_status']})"
