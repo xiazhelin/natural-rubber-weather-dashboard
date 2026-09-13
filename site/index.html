@@ -22,6 +22,19 @@
   </header>
 
   <main>
+    <section class="panel freshness-panel" aria-labelledby="freshnessTitle">
+      <div class="panel-heading">
+        <div>
+          <p class="section-kicker">数据运行状态</p>
+          <h2 id="freshnessTitle">数据新鲜度与质量</h2>
+        </div>
+        <p class="table-caption">超出各数据源合理更新时间时自动降为 WARNING</p>
+      </div>
+      <div id="freshnessGrid" class="freshness-grid" aria-live="polite">
+        <p class="weekly-summary-note">正在检查各数据源。</p>
+      </div>
+    </section>
+
     <section class="panel weekly-summary" aria-labelledby="weeklySummaryTitle">
       <div class="panel-heading">
         <div>

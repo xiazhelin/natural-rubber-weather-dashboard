@@ -183,8 +183,18 @@ input, select {
 .metric-card.dry { border-top: 4px solid var(--amber); }
 .metric-card.heat { border-top: 4px solid var(--red); }
 
-.weekly-summary { margin-bottom: 14px; }
-.weekly-summary-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.freshness-panel, .weekly-summary { margin-bottom: 14px; }
+.freshness-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.freshness-card { padding: 14px; background: var(--surface-soft); border: 1px solid #e5eeeb; border-radius: 9px; }
+.freshness-card div { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.freshness-card h3 { margin: 0; color: var(--brand-dark); font-size: .86rem; }
+.freshness-card time { display: block; margin-top: 9px; color: #3f5652; font-size: .8rem; font-weight: 700; }
+.freshness-card small { display: block; margin-top: 4px; color: var(--muted); font-size: .68rem; }
+.freshness-status { padding: 2px 7px; border-radius: 999px; color: #fff; font-size: .64rem; font-weight: 900; letter-spacing: .04em; }
+.freshness-status.pass { background: #177147; }
+.freshness-status.warning { background: #936009; }
+.freshness-status.missing { background: #7b8583; }
+.weekly-summary-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
 .weekly-summary-block { padding: 15px; background: var(--surface-soft); border: 1px solid #e5eeeb; border-radius: 9px; }
 .weekly-summary-block h3 { margin: 0 0 7px; color: var(--brand-dark); font-size: .88rem; }
 .weekly-summary-block p { margin: 0; color: #3f5652; font-size: .84rem; }
@@ -394,6 +404,7 @@ footer {
 
 @media (max-width: 1100px) {
   .metric-grid { grid-template-columns: repeat(2, 1fr); }
+  .freshness-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .weekly-summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .workspace { grid-template-columns: 1fr; }
   .detail-panel { min-height: auto; }
@@ -407,6 +418,7 @@ footer {
   .toolbar { grid-template-columns: 1fr 1fr; }
   .search-field { grid-column: 1 / -1; }
   .result-count { grid-column: 1 / -1; margin: 0; text-align: left; }
+  .freshness-grid { grid-template-columns: 1fr; }
   .weekly-summary-grid { grid-template-columns: 1fr; }
   .weekly-summary-judgment { grid-column: auto; }
   .thailand-rain-grid { grid-template-columns: 1fr; }

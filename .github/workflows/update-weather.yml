@@ -13,7 +13,7 @@ on:
       - "requirements.txt"
       - ".github/workflows/update-weather.yml"
   schedule:
-    - cron: "0 21 * * 5"
+    - cron: "0 21 * * *"
       timezone: "Asia/Shanghai"
 
 permissions:

@@ -1,6 +1,6 @@
 "use strict";
 
-const state = { data: null, history: [], thailandRain: null, mapData: null, filtered: [], activeId: null };
+const state = { data: null, history: [], thailandRain: null, climateOutlooks: null, mapData: null, filtered: [], activeId: null };
 const $ = (selector) => document.querySelector(selector);
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (char) => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"})[char]);
 const hasNumber = (value) => value !== null && value !== undefined && value !== "" && Number.isFinite(Number(value));
@@ -23,6 +23,9 @@ const COLORS = {
   NORMAL: "#0b675c",
 };
 
+const RAIN_CHANGE_ALERT_MM = 25;
+const VERIFICATION_ERROR_ALERT_MM = 25;
+
 function primaryState(station) {
   return station.summary?.weather_states?.[0] || "NORMAL";
 }
@@ -33,6 +36,63 @@ function formatUpdate(value) {
   return `更新于 ${new Intl.DateTimeFormat("zh-CN", {
     timeZone: "Asia/Shanghai", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false,
   }).format(date)}（北京时间）`;
+}
+
+function freshnessStatus(status, dateValue, maximumAgeHours) {
+  const normalized = ["PASS", "WARNING", "MISSING"].includes(status) ? status : "MISSING";
+  const timestamp = Date.parse(dateValue || "");
+  if (normalized === "MISSING" || !Number.isFinite(timestamp)) return "MISSING";
+  const ageHours = (Date.now() - timestamp) / 36e5;
+  return normalized === "WARNING" || ageHours > maximumAgeHours || ageHours < -1 ? "WARNING" : "PASS";
+}
+
+function freshnessDate(value, prefix = "截至") {
+  if (!value || !Number.isFinite(Date.parse(value))) return "日期待确认";
+  const date = new Date(value);
+  const options = {timeZone:"Asia/Shanghai", year:"numeric", month:"2-digit", day:"2-digit"};
+  if (String(value).includes("T")) Object.assign(options, {hour:"2-digit", minute:"2-digit", hour12:false});
+  return `${prefix} ${new Intl.DateTimeFormat("zh-CN", options).format(date)}`;
+}
+
+function renderFreshness() {
+  const weather = state.data || {};
+  const observation = weather.observation_source || {};
+  const history = state.thailandRain || {};
+  const historyDates = (history.regions || []).flatMap((region) => (region.weekly || []).map((item) => item.week_end)).filter(Boolean).sort();
+  const climate = state.climateOutlooks || {};
+  const climateStatuses = Object.values(climate.products || {}).map((product) => product.quality_status || "MISSING");
+  const climateQuality = !climateStatuses.length || climateStatuses.every((value) => value === "MISSING")
+    ? "MISSING" : climateStatuses.every((value) => value === "PASS") ? "PASS" : "WARNING";
+  const cards = [
+    {
+      title: "天气预报",
+      status: freshnessStatus(weather.overall_quality_status, weather.generated_at_utc, 36),
+      date: freshnessDate(weather.generated_at_utc, "更新"),
+      note: `${weather.quality_counts?.PASS ?? 0}/${weather.stations?.length ?? 0}个地点通过；超过36小时未更新转WARNING`,
+    },
+    {
+      title: "IMERG实况",
+      status: freshnessStatus(observation.quality_status, observation.end_at_utc, 96),
+      date: freshnessDate(observation.end_at_utc),
+      note: "NASA Late Run 24h/72h；允许约4天产品时滞",
+    },
+    {
+      title: "历史监测",
+      status: freshnessStatus(history.overall_quality_status, historyDates.at(-1), 24 * 14),
+      date: freshnessDate(historyDates.at(-1), "最新完整周截至"),
+      note: "泰国分区周度降雨；超过14天未形成完整周转WARNING",
+    },
+    {
+      title: "气候展望",
+      status: freshnessStatus(climateQuality, climate.updated_at_utc, 48),
+      date: freshnessDate(climate.updated_at_utc, "检查"),
+      note: `${climateStatuses.filter((value) => value === "PASS").length}/${climateStatuses.length || 4}项产品通过；超过48小时未检查转WARNING`,
+    },
+  ];
+  $("#freshnessGrid").innerHTML = cards.map((card) => `<article class="freshness-card">
+    <div><h3>${escapeHtml(card.title)}</h3><span class="freshness-status ${card.status.toLowerCase()}">${card.status}</span></div>
+    <time>${escapeHtml(card.date)}</time><small>${escapeHtml(card.note)}</small>
+  </article>`).join("");
 }
 
 function temperatureMissingFigure() {
@@ -111,10 +171,14 @@ async function loadExtendedOutlooks() {
     const response = await fetch(`assets/climate/climate-outlook-manifest.json?v=${Date.now()}`, {cache:"no-store"});
     if (!response.ok) throw new Error(`climate-outlook-manifest.json ${response.status}`);
     const manifest = await response.json();
+    state.climateOutlooks = manifest;
     products.forEach(([key, grid, meta]) => renderOutlookProduct(manifest.products?.[key], grid, meta));
+    renderFreshness();
   } catch (error) {
     console.warn("Extended climate outlooks unavailable", error);
+    state.climateOutlooks = null;
     products.forEach(([, grid, meta]) => renderOutlookProduct(null, grid, meta));
+    renderFreshness();
   }
 }
 
@@ -222,27 +286,58 @@ function renderWeeklySummary() {
   const dry = stations.filter((station) => station.summary?.weather_states?.includes("DRY"));
   const heat = stations.filter((station) => station.summary?.weather_states?.includes("HEAT"));
   const stationName = (station) => `${station.country}·${station.region}·${station.place}`;
-  const leaders = (selector) => [...stations]
-    .filter((station) => hasNumber(selector(station)))
-    .sort((a, b) => Number(selector(b)) - Number(selector(a)))
-    .slice(0, 3);
-  const list = (items, selector, suffix) => items.length
-    ? items.map((station) => `${escapeHtml(stationName(station))} ${number(selector(station))}${suffix}`).join("；")
-    : "当前无法确认最新数据";
-  const rainLeaders = leaders((station) => station.summary?.precipitation_7d_mm);
-  const tappingLeaders = leaders((station) => station.summary?.tapping_window_precipitation_7d_mm);
-  const imergLeaders = leaders((station) => station.imerg?.precipitation_72h_mm);
+  const previous = previousSnapshot();
+  const previousById = new Map((previous?.stations || []).map((station) => [station.station_id, station]));
+  const transitions = {entered: [], exited: []};
+  stations.forEach((station) => {
+    const old = previousById.get(station.station_id);
+    if (!old) return;
+    const currentStates = new Set(station.summary?.weather_states || []);
+    const oldStates = new Set(old.weather_states || []);
+    ["HEAVY_RAIN", "DRY", "HEAT"].forEach((code) => {
+      if (currentStates.has(code) && !oldStates.has(code)) transitions.entered.push({station, code});
+      if (!currentStates.has(code) && oldStates.has(code)) transitions.exited.push({station, code});
+    });
+  });
+  const transitionText = (items) => ["HEAVY_RAIN", "DRY", "HEAT"].map((code) => {
+    const matched = items.filter((item) => item.code === code);
+    if (!matched.length) return null;
+    const names = matched.slice(0, 3).map((item) => stationName(item.station)).join("、");
+    return `${LABELS[code]}：${names}${matched.length > 3 ? `等${matched.length}点` : ""}`;
+  }).filter(Boolean).join("；") || "无";
+  const rainChanges = stations.map((station) => ({station, change: rainChange(station)}))
+    .filter((item) => hasNumber(item.change) && Math.abs(item.change) >= RAIN_CHANGE_ALERT_MM);
+  const changeText = (items) => items.length
+    ? items.slice(0, 3).map((item) => `${stationName(item.station)} ${item.change > 0 ? "+" : ""}${number(item.change)} mm`).join("；")
+    : "无";
+  const rainUp = rainChanges.filter((item) => item.change > 0).sort((a, b) => b.change - a.change);
+  const rainDown = rainChanges.filter((item) => item.change < 0).sort((a, b) => a.change - b.change);
+  const comparableVerification = [];
+  const verificationMismatches = [];
+  stations.forEach((station) => {
+    const candidates = ["72h", "24h"].map((period) => {
+      const values = station.verification?.[period] || {};
+      if (!hasNumber(values.forecast_mm) || !hasNumber(values.observed_mm)) return null;
+      return {station, period, forecast: Number(values.forecast_mm), observed: Number(values.observed_mm), difference: Number(values.observed_mm) - Number(values.forecast_mm)};
+    }).filter(Boolean).sort((a, b) => Math.abs(b.difference) - Math.abs(a.difference));
+    if (candidates[0]) comparableVerification.push(candidates[0]);
+    if (candidates[0] && Math.abs(candidates[0].difference) >= VERIFICATION_ERROR_ALERT_MM) verificationMismatches.push(candidates[0]);
+  });
+  verificationMismatches.sort((a, b) => Math.abs(b.difference) - Math.abs(a.difference));
+  const verificationText = verificationMismatches.length
+    ? verificationMismatches.slice(0, 3).map((item) => `${stationName(item.station)} ${item.period}实况${item.difference > 0 ? "高于" : "低于"}预报${number(Math.abs(item.difference))} mm`).join("；")
+    : comparableVerification.length ? `未发现绝对误差 ≥ ${VERIFICATION_ERROR_ALERT_MM} mm 的地点` : "尚无可对齐样本，等待每日快照覆盖验证期";
   const dates = stations.find((station) => station.daily?.length)?.daily || [];
   const period = dates.length ? `${dates[0].date}—${dates[dates.length - 1].date}` : "D0–D6";
   $("#weeklyPeriod").textContent = `${period} · 全部${stations.length}点`;
 
-  let judgment = "未来7日未出现达到项目强降雨或少雨阈值的代表点，继续跟踪逐日降雨与土壤水分变化。";
+  let judgment = "下一次更新重点复核7日累计降雨、晨间割胶作业窗和IMERG 24h/72h实况。";
   if (heavy.length) {
-    judgment = `未来7日有${heavy.length}个代表点达到强降雨关注阈值，优先核验${heavy.slice(0, 3).map(stationName).join("、")}的降雨持续性及晨间作业受扰。`;
+    judgment += ` 强降雨关注点需核验降雨持续性、开割率和原料到量。`;
   } else if (dry.length) {
-    judgment = `未来7日有${dry.length}个代表点达到少雨关注阈值，需结合土壤水分和物候确认是否形成实际供给约束。`;
+    judgment += ` 少雨关注点需结合9–81cm土壤水分和物候确认是否形成实际供给约束。`;
   }
-  if (heat.length) judgment += ` 同期有${heat.length}个代表点达到高温关注阈值。`;
+  judgment += " 再用原料价格、库存及RU/NR基差月差检查市场是否已经反映。";
 
   $("#weeklySummary").innerHTML = `
     <article class="weekly-summary-block">
@@ -251,16 +346,23 @@ function renderWeeklySummary() {
       <small>筛选阈值：7日降雨 ≥ ${thresholds.heavy_rain_total_7d_mm ?? "—"} mm / &lt; ${thresholds.dry_total_7d_mm ?? "—"} mm，日最高温 ≥ ${thresholds.hot_day_max_c ?? "—"}℃。</small>
     </article>
     <article class="weekly-summary-block">
-      <h3>【事实】重点降雨区</h3>
-      <p>${list(rainLeaders, (station) => station.summary?.precipitation_7d_mm, " mm")}</p>
+      <h3>【事实】新进入 / 退出关注</h3>
+      <p>新进入：${escapeHtml(previous ? transitionText(transitions.entered) : "历史快照不足")}</p>
+      <p>退出：${escapeHtml(previous ? transitionText(transitions.exited) : "历史快照不足")}</p>
     </article>
     <article class="weekly-summary-block">
-      <h3>【事实】作业窗与实况</h3>
-      <p>晨间割胶作业窗：${list(tappingLeaders, (station) => station.summary?.tapping_window_precipitation_7d_mm, " mm")}。</p>
-      <p>IMERG过去72小时：${list(imergLeaders, (station) => station.imerg?.precipitation_72h_mm, " mm")}。</p>
+      <h3>【事实】7日预报明显调整</h3>
+      <p>上调：${escapeHtml(changeText(rainUp))}</p>
+      <p>下调：${escapeHtml(changeText(rainDown))}</p>
+      <small>较上次更新绝对变化 ≥ ${RAIN_CHANGE_ALERT_MM} mm。</small>
+    </article>
+    <article class="weekly-summary-block">
+      <h3>【事实】预报与IMERG偏离</h3>
+      <p>${escapeHtml(verificationText)}</p>
+      <small>取可比24h/72h中绝对误差最大者；提示阈值 ${VERIFICATION_ERROR_ALERT_MM} mm。</small>
     </article>
     <article class="weekly-summary-block weekly-summary-judgment">
-      <h3>【本项目判断】本周关注</h3>
+      <h3>【本项目判断】后续验证指标</h3>
       <p>${escapeHtml(judgment)} 天气信号不等于天然橡胶供应或价格结论，仍需结合物候、原料供应、库存和价格结构验证。</p>
       <small>预报：${escapeHtml(state.data.source?.source_name || "当前无法确认最新数据")}；实况估算：${escapeHtml(state.data.observation_source?.source_name || "当前无法确认最新数据")}。</small>
     </article>`;
@@ -569,6 +671,7 @@ async function loadData() {
     state.data = await weatherResponse.json();
     state.history = historyResponse.ok ? (await historyResponse.json()).snapshots || [] : [];
     state.thailandRain = thailandRainResponse.ok ? await thailandRainResponse.json().catch(() => null) : null;
+    renderFreshness();
     $("#updatedAt").textContent = formatUpdate(state.data.generated_at_utc);
     const quality = state.data.overall_quality_status || "MISSING";
     $("#qualityBadge").textContent = quality;
@@ -584,6 +687,7 @@ async function loadData() {
     $("#updatedAt").textContent = "当前无法确认最新数据";
     $("#qualityBadge").textContent = "FAIL";
     $("#qualityBadge").className = "quality warning";
+    renderFreshness();
     $("#maps").innerHTML = '<div class="empty-state"><strong>天气数据读取失败</strong><span>已保留缺失状态，请由维护者检查最近一次更新任务。</span></div>';
     $("#weatherRows").innerHTML = "";
   }
