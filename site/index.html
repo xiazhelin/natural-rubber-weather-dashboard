@@ -181,6 +181,34 @@
     CPC Unified雨量站网格分析，0.5°×0.5°；距平基准期为1991—2020年。
   </p>
 </section>
+    <section class="panel cpc-panel" aria-labelledby="seasiaTempAnomalyTitle">
+      <div class="panel-heading">
+        <div>
+          <p class="section-kicker">气温实况</p>
+          <h2 id="seasiaTempAnomalyTitle">NOAA/CPC 东南亚最近四周气温距平</h2>
+        </div>
+        <span class="source-badge">周度实况 · 单位℃</span>
+      </div>
+
+      <div id="seasiaTempGrid" class="cpc-grid" aria-live="polite">
+        <figure class="cpc-figure">
+          <img
+            src="https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/regional_monitoring/wctan5.png"
+            alt="NOAA CPC东南亚最近一周气温距平分布"
+            loading="lazy"
+            decoding="async"
+            referrerpolicy="no-referrer">
+          <figcaption>官方当前周图（有效期见图内标题）</figcaption>
+        </figure>
+        <figure class="cpc-figure"><div class="temperature-missing" role="img" aria-label="周度气温距平图待归档"><strong>MISSING</strong><span>等待官方周图归档</span></div><figcaption>历史周图待补齐</figcaption></figure>
+        <figure class="cpc-figure"><div class="temperature-missing" role="img" aria-label="周度气温距平图待归档"><strong>MISSING</strong><span>等待官方周图归档</span></div><figcaption>历史周图待补齐</figcaption></figure>
+        <figure class="cpc-figure"><div class="temperature-missing" role="img" aria-label="周度气温距平图待归档"><strong>MISSING</strong><span>等待官方周图归档</span></div><figcaption>历史周图待补齐</figcaption></figure>
+      </div>
+
+      <p class="map-note">
+        来源：<a href="https://www.cpc.ncep.noaa.gov/products/JAWF_Monitoring/SEAsia/temperature.shtml" target="_blank" rel="noreferrer">NOAA Climate Prediction Center</a>，GTS地面站资料生成的周度气温距平初步分析。红色偏暖、蓝色偏冷，空白区不得解读为距平0℃；有效期以图内标题为准。<span id="seasiaTempArchiveMeta">官方稳定地址只保留当前图，面板按每周更新时的不同版本滚动归档；未归档历史保持MISSING。</span>
+      </p>
+    </section>
     <section class="panel cpc-panel">
       <div class="panel-heading">
         <div>

@@ -259,6 +259,8 @@ input, select {
 .cpc-figure figcaption { margin-top: 8px; color: var(--brand-dark); font-size: .82rem; font-weight: 800; }
 .climate-outlook { grid-column: 1 / -1; }
 .climate-outlook img { max-height: 620px; object-fit: contain; background: #fff; }
+.temperature-missing { min-height: 260px; aspect-ratio: 1; display: grid; place-content: center; gap: 6px; text-align: center; color: var(--muted); background: #eef3f1; border-radius: 6px; }
+.temperature-missing strong { color: #8a6a23; letter-spacing: .08em; }
 .source-badge { padding: 5px 9px; color: var(--muted); background: var(--surface-soft); border-radius: 999px; font-size: .76rem; font-weight: 800; white-space: nowrap; }
 
 .detail-panel { min-height: 430px; }

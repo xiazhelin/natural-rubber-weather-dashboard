@@ -1,6 +1,6 @@
 # 天然橡胶产区天气跟踪面板
 
-面向天然橡胶基本面研究的轻量静态网页。默认跟踪中国、泰国、印度尼西亚、越南和科特迪瓦的29个代表性网格点，展示未来7日天气、每6小时累计降雨、泰国分区周度降雨历史、当地晨间割胶作业窗降雨、IMERG过去24/72小时实况估算、预报兑现率及ENSO/IOD中期气候背景。
+面向天然橡胶基本面研究的轻量静态网页。默认跟踪中国、泰国、印度尼西亚、越南和科特迪瓦的29个代表性网格点，展示未来7日天气、每6小时累计降雨、泰国分区周度降雨历史、当地晨间割胶作业窗降雨、IMERG过去24/72小时实况估算、预报兑现率、东南亚周度气温距平及ENSO/IOD中期气候背景。
 
 ## 数据来源与口径
 
@@ -14,6 +14,7 @@
 - 实况估算：NASA GPM IMERG Late Run GIS 1-day / 3-day累计产品，0.1°网格；官方介绍：`https://gpm.nasa.gov/data/imerg`。
 - IMERG性质：卫星与多源融合的近实时降水估算，不是地面雨量站实测。
 - 预报兑现率：`IMERG实况降水 / 验证期开始前的Open-Meteo预报降水 × 100`；按完整UTC日对齐。该值不是准确率，预报低于1 mm时不计算比率。
+- 东南亚周度气温距平：NOAA Climate Prediction Center以GTS地面站资料生成的周度初步分析，单位为℃；官方入口：`https://www.cpc.ncep.noaa.gov/products/JAWF_Monitoring/SEAsia/temperature.shtml`。更新脚本按图片内容去重并滚动保留最近4个官方周图；红色表示偏暖、蓝色表示偏冷，空白区不代表距平为0℃，有效期以图内标题为准。
 - 中期气候观测：澳大利亚气象局（BoM）Relative Niño3.4与Indian Ocean Dipole周度指数，基准期1991—2020年；官方图表入口：`https://www.bom.gov.au/climate/influences/graphs/`。
 - 中期气候展望：NOAA Climate Prediction Center官方RONI outlook；`https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso/roni/outlook/`。两家机构的相对指数口径不可直接混用。
 - 坐标：`config/locations.json`中的WGS84研究定位点，不代表种植园或行政区种植面积边界。

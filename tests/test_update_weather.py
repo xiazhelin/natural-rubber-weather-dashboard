@@ -175,6 +175,24 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertIn("Latest week ending 2026-08-14", svg)
         self.assertIn("Test index", svg)
 
+    def test_seasia_temperature_archive_keeps_four_distinct_maps(self):
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            for index in range(5):
+                MODULE.archive_seasia_temperature(
+                    b"\x89PNG\r\n\x1a\n" + bytes([index]),
+                    datetime(2026, 8, 3, tzinfo=MODULE.timezone.utc) + timedelta(days=index * 7),
+                    directory=directory,
+                )
+            history = json.loads((directory / "seasia-temperature-history.json").read_text(encoding="utf-8"))
+            self.assertEqual(len(history["items"]), 4)
+            self.assertEqual(history["items"][0]["captured_at_utc"], "2026-08-31T00:00:00Z")
+            self.assertEqual(len(list(directory.glob("seasia-temperature-*.png"))), 4)
+            MODULE.archive_seasia_temperature(
+                b"\x89PNG\r\n\x1a\nrevision", datetime(2026, 9, 1, tzinfo=MODULE.timezone.utc), directory=directory
+            )
+            self.assertEqual(len(list(directory.glob("seasia-temperature-*.png"))), 4)
+
     def test_publish_controls_and_schedule(self):
         root = SCRIPT.parent.parent
         workflow = (root / ".github/workflows/update-weather.yml").read_text(encoding="utf-8")
@@ -204,6 +222,12 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertIn("assets/climate/rnino34-weekly.svg", page)
         self.assertIn("assets/climate/iod-weekly.svg", page)
         self.assertIn("assets/climate/roni-outlook.png", page)
+        self.assertIn('id="seasiaTempAnomalyTitle"', page)
+        self.assertIn('id="seasiaTempGrid"', page)
+        self.assertIn("最近四周气温距平", page)
+        self.assertIn("wctan5.png", page)
+        self.assertIn("GTS地面站", page)
+        self.assertIn("function loadTemperatureHistory()", script)
 
     def test_weekly_summary_is_wired_into_dashboard(self):
         root = SCRIPT.parent.parent

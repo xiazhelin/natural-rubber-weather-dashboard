@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import hashlib
 import json
 import math
 import os
@@ -16,6 +17,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from datetime import datetime, time as datetime_time, timedelta, timezone
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 from statistics import fmean
 from zoneinfo import ZoneInfo
@@ -93,6 +95,12 @@ BOM_INDEXES = (
 )
 NOAA_RONI_OUTLOOK_URL = (
     "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso/roni/outlook/"
+)
+NOAA_SEASIA_TEMP_ANOMALY_URL = (
+    "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/regional_monitoring/wctan5.png"
+)
+NOAA_SEASIA_TEMP_PAGE_URL = (
+    "https://www.cpc.ncep.noaa.gov/products/JAWF_Monitoring/SEAsia/temperature.shtml"
 )
 
 
@@ -787,8 +795,66 @@ def _public_request(url, timeout=45):
     return urllib.request.urlopen(request, timeout=timeout)
 
 
+def archive_seasia_temperature(image, captured_at=None, source_last_modified=None, directory=CLIMATE_ASSET_DIR):
+    """Keep the four most recently captured, distinct NOAA weekly maps."""
+    if not image.startswith(b"\x89PNG\r\n\x1a\n"):
+        raise ValueError("NOAA Southeast Asia temperature response is not a PNG")
+    captured_at = (captured_at or datetime.now(timezone.utc)).astimezone(timezone.utc)
+    captured = captured_at.replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    try:
+        source_date = parsedate_to_datetime(source_last_modified) if source_last_modified else captured_at
+    except (TypeError, ValueError):
+        source_date = captured_at
+    iso_year, iso_week, _ = source_date.isocalendar()
+    source_update_week = f"{iso_year}-W{iso_week:02d}"
+    digest = hashlib.sha256(image).hexdigest()
+    manifest_path = directory / "seasia-temperature-history.json"
+    history = {"schema_version": 1, "items": []}
+    if manifest_path.exists():
+        history = json.loads(manifest_path.read_text(encoding="utf-8"))
+    items = history.get("items") or []
+    if any(item.get("sha256") == digest for item in items):
+        return False
+
+    filename = f"seasia-temperature-{captured_at.date().isoformat()}-{digest[:10]}.png"
+    _atomic_write(directory / filename, image, "wb")
+    replaced = [item for item in items if item.get("source_update_week") == source_update_week]
+    items = [item for item in items if item.get("source_update_week") != source_update_week]
+    items.insert(
+        0,
+        {
+            "filename": filename,
+            "captured_at_utc": captured,
+            "source_last_modified": source_last_modified,
+            "source_update_week": source_update_week,
+            "sha256": digest,
+        },
+    )
+    removed = replaced + items[4:]
+    history.update(
+        {
+            "schema_version": 1,
+            "updated_at_utc": captured,
+            "source": {
+                "source_name": "NOAA Climate Prediction Center",
+                "product": "Southeast Asia weekly temperature anomaly (GTS stations only)",
+                "unit": "°C",
+                "documentation": NOAA_SEASIA_TEMP_PAGE_URL,
+                "image_url": NOAA_SEASIA_TEMP_ANOMALY_URL,
+            },
+            "items": items[:4],
+        }
+    )
+    atomic_json(manifest_path, history)
+    for item in removed:
+        old_path = directory / str(item.get("filename", ""))
+        if old_path.parent == directory and old_path.name.startswith("seasia-temperature-"):
+            old_path.unlink(missing_ok=True)
+    return True
+
+
 def update_climate_charts():
-    """Refresh BoM weekly charts and the current NOAA CPC RONI outlook."""
+    """Refresh the public climate charts used by the dashboard."""
     warnings = []
     for url, filename, title, y_min, y_max, low, high in BOM_INDEXES:
         try:
@@ -815,6 +881,13 @@ def update_climate_charts():
             _atomic_write(CLIMATE_ASSET_DIR / "roni-outlook.png", response.read(), "wb")
     except Exception as exc:
         warnings.append(f"NOAA CPC RONI outlook: {exc}")
+    try:
+        with _public_request(NOAA_SEASIA_TEMP_ANOMALY_URL) as response:
+            image = response.read()
+            last_modified = response.headers.get("Last-Modified")
+        archive_seasia_temperature(image, source_last_modified=last_modified)
+    except Exception as exc:
+        warnings.append(f"NOAA CPC Southeast Asia temperature anomaly: {exc}")
     return warnings
 
 

@@ -35,6 +35,28 @@ function formatUpdate(value) {
   }).format(date)}（北京时间）`;
 }
 
+function temperatureMissingFigure() {
+  return '<figure class="cpc-figure"><div class="temperature-missing" role="img" aria-label="周度气温距平图待归档"><strong>MISSING</strong><span>等待官方周图归档</span></div><figcaption>历史周图待补齐</figcaption></figure>';
+}
+
+async function loadTemperatureHistory() {
+  try {
+    const response = await fetch(`assets/climate/seasia-temperature-history.json?v=${Date.now()}`, {cache:"no-store"});
+    if (!response.ok) return;
+    const history = await response.json();
+    const items = (history.items || []).slice(0, 4);
+    const figures = items.map((item) => `<figure class="cpc-figure">
+      <img src="assets/climate/${escapeHtml(item.filename)}" alt="NOAA CPC东南亚周度气温距平分布" loading="lazy" decoding="async">
+      <figcaption>官方周图 · 归档于 ${escapeHtml(String(item.captured_at_utc || "").slice(0, 10))} UTC（有效期见图内标题）</figcaption>
+    </figure>`);
+    figures.push(...Array.from({length: 4 - figures.length}, temperatureMissingFigure));
+    $("#seasiaTempGrid").innerHTML = figures.join("");
+    $("#seasiaTempArchiveMeta").textContent = `已归档${items.length}/4个不同官方周图；不足部分保持MISSING。`;
+  } catch (error) {
+    console.warn("Southeast Asia temperature archive unavailable", error);
+  }
+}
+
 function populateSources(data) {
   const source = data.source || {};
   $("#sourceName").textContent = source.source_name || "当前无法确认最新数据";
@@ -494,3 +516,4 @@ $("#countryFilter").addEventListener("change", filterStations);
 $("#stateFilter").addEventListener("change", filterStations);
 $("#searchInput").addEventListener("input", filterStations);
 loadData();
+loadTemperatureHistory();
