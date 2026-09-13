@@ -247,6 +247,12 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertIn('id="thailandRainCharts"', page)
         self.assertIn("function renderThailandWeeklyRain()", script)
         self.assertIn(".thailand-rain-grid", styles)
+        self.assertEqual(page.count("four-chart-grid"), 3)
+        self.assertIn(".four-chart-grid", styles)
+        self.assertLess(page.index('id="weeklySummaryTitle"'), page.index('class="toolbar"'))
+        self.assertLess(page.index('id="avgRain"'), page.index('id="sevenDayTitle"'))
+        self.assertLess(page.index('id="sevenDayTitle"'), page.index('id="sixHourTitle"'))
+        self.assertLess(page.index('id="sixHourTitle"'), page.index('id="thailandRainTitle"'))
 
 
 if __name__ == "__main__":

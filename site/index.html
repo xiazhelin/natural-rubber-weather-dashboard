@@ -22,6 +22,19 @@
   </header>
 
   <main>
+    <section class="panel weekly-summary" aria-labelledby="weeklySummaryTitle">
+      <div class="panel-heading">
+        <div>
+          <p class="section-kicker">每周研判</p>
+          <h2 id="weeklySummaryTitle">每周天气文字总结</h2>
+        </div>
+        <span id="weeklyPeriod" class="source-badge">D0–D6 · 全部代表点</span>
+      </div>
+      <div id="weeklySummary" class="weekly-summary-grid" aria-live="polite">
+        <p class="weekly-summary-note">等待天气数据生成总结。</p>
+      </div>
+    </section>
+
     <section class="toolbar" aria-label="筛选条件">
       <label>
         <span>国家</span>
@@ -67,17 +80,62 @@
       </article>
     </section>
 
-    <section class="panel weekly-summary" aria-labelledby="weeklySummaryTitle">
+    <section class="panel table-panel" aria-labelledby="sevenDayTitle">
       <div class="panel-heading">
         <div>
-          <p class="section-kicker">每周研判</p>
-          <h2 id="weeklySummaryTitle">每周天气文字总结</h2>
+          <p class="section-kicker">逐点跟踪</p>
+          <h2 id="sevenDayTitle">未来七天天气</h2>
         </div>
-        <span id="weeklyPeriod" class="source-badge">D0–D6 · 全部代表点</span>
+        <p class="table-caption">点击任意一行查看日度明细</p>
       </div>
-      <div id="weeklySummary" class="weekly-summary-grid" aria-live="polite">
-        <p class="weekly-summary-note">等待天气数据生成总结。</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>国家 / 产区</th>
+              <th>代表地点</th>
+              <th>7日降雨</th>
+              <th>晨间割胶作业窗 / 雨小时</th>
+              <th>较上次更新</th>
+              <th>雨日</th>
+              <th>强降雨日</th>
+              <th>最高 / 最低温</th>
+              <th>深层土壤水分</th>
+              <th>IMERG 24h / 72h</th>
+              <th>24h / 72h兑现率</th>
+              <th>天气状态</th>
+              <th>预报质量</th>
+            </tr>
+          </thead>
+          <tbody id="weatherRows"></tbody>
+        </table>
       </div>
+      <div id="noResults" class="empty-state hidden">当前筛选条件下没有地点。</div>
+    </section>
+
+    <section class="panel table-panel six-hour-panel" aria-labelledby="sixHourTitle">
+      <div class="panel-heading">
+        <div>
+          <p class="section-kicker">未来7天 · 时段细化</p>
+          <h2 id="sixHourTitle">每6小时降雨预报</h2>
+        </div>
+        <p class="table-caption">6小时累计降雨，单位：mm；表头为时段起点（UTC）</p>
+      </div>
+      <div class="six-hour-legend" aria-label="降雨色阶">
+        <span><i class="rain-swatch rain-6h-none"></i>0</span>
+        <span><i class="rain-swatch rain-6h-trace"></i>0.1–4.9</span>
+        <span><i class="rain-swatch rain-6h-moderate"></i>5–14.9</span>
+        <span><i class="rain-swatch rain-6h-heavy"></i>15–29.9</span>
+        <span><i class="rain-swatch rain-6h-extreme"></i>≥30</span>
+      </div>
+      <div class="table-wrap six-hour-wrap">
+        <table class="six-hour-table">
+          <thead id="sixHourHead"></thead>
+          <tbody id="sixHourRows"></tbody>
+        </table>
+      </div>
+      <div id="sixHourNoResults" class="empty-state hidden">当前筛选条件下没有可展示的6小时预报。</div>
+      <p class="map-note">来源：Open-Meteo Best Match小时降雨预报；按UTC自然6小时汇总。任一小时缺失时，该时段保持为空，不补0。</p>
     </section>
 
     <section class="panel thailand-rain-panel" aria-labelledby="thailandRainTitle">
@@ -130,7 +188,7 @@
     <span class="source-badge">观测分析 · 非预报</span>
   </div>
 
-  <div class="cpc-grid">
+  <div class="cpc-grid four-chart-grid">
     <figure class="cpc-figure">
       <img
         src="https://www.cpc.ncep.noaa.gov/products/JAWF_Monitoring/SEAsia/daily/p.7day.figa.gif"
@@ -190,7 +248,7 @@
         <span class="source-badge">周度实况 · 单位℃</span>
       </div>
 
-      <div id="seasiaTempGrid" class="cpc-grid" aria-live="polite">
+      <div id="seasiaTempGrid" class="cpc-grid four-chart-grid" aria-live="polite">
         <figure class="cpc-figure">
           <img
             src="https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/regional_monitoring/wctan5.png"
@@ -218,7 +276,7 @@
         <span class="source-badge">预测 · 未来1—14日</span>
       </div>
 
-      <div class="cpc-grid">
+      <div class="cpc-grid four-chart-grid">
         <figure class="cpc-figure">
           <img
             src="https://www.cpc.ncep.noaa.gov/products/JAWF_Monitoring/GFS/SEAsia_curr.p.gfs1a.gif"
@@ -302,64 +360,6 @@
         BoM指数为周度观测，RONI图为官方月度展望；两家机构的相对指数口径不可直接混用。气候状态只用于背景跟踪，不等于产区降雨或天然橡胶供应结论。
       </p>
     </section>
-    <section class="panel table-panel">
-      <div class="panel-heading">
-        <div>
-          <p class="section-kicker">逐点跟踪</p>
-          <h2>未来七天天气</h2>
-        </div>
-        <p class="table-caption">点击任意一行查看日度明细</p>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>国家 / 产区</th>
-              <th>代表地点</th>
-              <th>7日降雨</th>
-              <th>晨间割胶作业窗 / 雨小时</th>
-              <th>较上次更新</th>
-              <th>雨日</th>
-              <th>强降雨日</th>
-              <th>最高 / 最低温</th>
-              <th>深层土壤水分</th>
-              <th>IMERG 24h / 72h</th>
-              <th>24h / 72h兑现率</th>
-              <th>天气状态</th>
-              <th>预报质量</th>
-            </tr>
-          </thead>
-          <tbody id="weatherRows"></tbody>
-        </table>
-      </div>
-      <div id="noResults" class="empty-state hidden">当前筛选条件下没有地点。</div>
-    </section>
-
-    <section class="panel table-panel six-hour-panel" aria-labelledby="sixHourTitle">
-      <div class="panel-heading">
-        <div>
-          <p class="section-kicker">未来7天 · 时段细化</p>
-          <h2 id="sixHourTitle">每6小时降雨预报</h2>
-        </div>
-        <p class="table-caption">6小时累计降雨，单位：mm；表头为时段起点（UTC）</p>
-      </div>
-      <div class="six-hour-legend" aria-label="降雨色阶">
-        <span><i class="rain-swatch rain-6h-none"></i>0</span>
-        <span><i class="rain-swatch rain-6h-trace"></i>0.1–4.9</span>
-        <span><i class="rain-swatch rain-6h-moderate"></i>5–14.9</span>
-        <span><i class="rain-swatch rain-6h-heavy"></i>15–29.9</span>
-        <span><i class="rain-swatch rain-6h-extreme"></i>≥30</span>
-      </div>
-      <div class="table-wrap six-hour-wrap">
-        <table class="six-hour-table">
-          <thead id="sixHourHead"></thead>
-          <tbody id="sixHourRows"></tbody>
-        </table>
-      </div>
-      <div id="sixHourNoResults" class="empty-state hidden">当前筛选条件下没有可展示的6小时预报。</div>
-      <p class="map-note">来源：Open-Meteo Best Match小时降雨预报；按UTC自然6小时汇总。任一小时缺失时，该时段保持为空，不补0。</p>
-    </section>
-
     <section class="method-grid" id="update-guide">
       <article class="method-card source-card">
         <p class="section-kicker">数据来源</p>

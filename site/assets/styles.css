@@ -254,6 +254,7 @@ input, select {
 
 .cpc-panel { margin-top: 14px; }
 .cpc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.four-chart-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .cpc-figure { margin: 0; padding: 10px; background: #f7faf9; border: 1px solid var(--line); border-radius: 10px; }
 .cpc-figure img { display: block; width: 100%; height: auto; border-radius: 6px; }
 .cpc-figure figcaption { margin-top: 8px; color: var(--brand-dark); font-size: .82rem; font-weight: 800; }
