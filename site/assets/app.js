@@ -113,6 +113,63 @@ function renderMetrics() {
   $("#resultCount").textContent = `${stations.length}个地点`;
 }
 
+function renderWeeklySummary() {
+  const stations = state.data?.stations || [];
+  if (!stations.length) {
+    $("#weeklySummary").innerHTML = '<p class="weekly-summary-note">当前无法确认最新数据。</p>';
+    return;
+  }
+
+  const thresholds = state.data.thresholds || {};
+  const rainValues = stations.map((station) => station.summary?.precipitation_7d_mm).filter(hasNumber).map(Number);
+  const heavy = stations.filter((station) => station.summary?.weather_states?.includes("HEAVY_RAIN"));
+  const dry = stations.filter((station) => station.summary?.weather_states?.includes("DRY"));
+  const heat = stations.filter((station) => station.summary?.weather_states?.includes("HEAT"));
+  const stationName = (station) => `${station.country}·${station.region}·${station.place}`;
+  const leaders = (selector) => [...stations]
+    .filter((station) => hasNumber(selector(station)))
+    .sort((a, b) => Number(selector(b)) - Number(selector(a)))
+    .slice(0, 3);
+  const list = (items, selector, suffix) => items.length
+    ? items.map((station) => `${escapeHtml(stationName(station))} ${number(selector(station))}${suffix}`).join("；")
+    : "当前无法确认最新数据";
+  const rainLeaders = leaders((station) => station.summary?.precipitation_7d_mm);
+  const tappingLeaders = leaders((station) => station.summary?.tapping_window_precipitation_7d_mm);
+  const imergLeaders = leaders((station) => station.imerg?.precipitation_72h_mm);
+  const dates = stations.find((station) => station.daily?.length)?.daily || [];
+  const period = dates.length ? `${dates[0].date}—${dates[dates.length - 1].date}` : "D0–D6";
+  $("#weeklyPeriod").textContent = `${period} · 全部${stations.length}点`;
+
+  let judgment = "未来7日未出现达到项目强降雨或少雨阈值的代表点，继续跟踪逐日降雨与土壤水分变化。";
+  if (heavy.length) {
+    judgment = `未来7日有${heavy.length}个代表点达到强降雨关注阈值，优先核验${heavy.slice(0, 3).map(stationName).join("、")}的降雨持续性及晨间作业受扰。`;
+  } else if (dry.length) {
+    judgment = `未来7日有${dry.length}个代表点达到少雨关注阈值，需结合土壤水分和物候确认是否形成实际供给约束。`;
+  }
+  if (heat.length) judgment += ` 同期有${heat.length}个代表点达到高温关注阈值。`;
+
+  $("#weeklySummary").innerHTML = `
+    <article class="weekly-summary-block">
+      <h3>【事实】整体概览</h3>
+      <p>${stations.length}个代表点未来7日地点等权平均降雨${rainValues.length ? `${number(sum(rainValues) / rainValues.length)} mm` : "当前无法确认"}；强降雨关注${heavy.length}个、少雨关注${dry.length}个、高温关注${heat.length}个。</p>
+      <small>筛选阈值：7日降雨 ≥ ${thresholds.heavy_rain_total_7d_mm ?? "—"} mm / &lt; ${thresholds.dry_total_7d_mm ?? "—"} mm，日最高温 ≥ ${thresholds.hot_day_max_c ?? "—"}℃。</small>
+    </article>
+    <article class="weekly-summary-block">
+      <h3>【事实】重点降雨区</h3>
+      <p>${list(rainLeaders, (station) => station.summary?.precipitation_7d_mm, " mm")}</p>
+    </article>
+    <article class="weekly-summary-block">
+      <h3>【事实】作业窗与实况</h3>
+      <p>晨间割胶作业窗：${list(tappingLeaders, (station) => station.summary?.tapping_window_precipitation_7d_mm, " mm")}。</p>
+      <p>IMERG过去72小时：${list(imergLeaders, (station) => station.imerg?.precipitation_72h_mm, " mm")}。</p>
+    </article>
+    <article class="weekly-summary-block weekly-summary-judgment">
+      <h3>【本项目判断】本周关注</h3>
+      <p>${escapeHtml(judgment)} 天气信号不等于天然橡胶供应或价格结论，仍需结合物候、原料供应、库存和价格结构验证。</p>
+      <small>预报：${escapeHtml(state.data.source?.source_name || "当前无法确认最新数据")}；实况估算：${escapeHtml(state.data.observation_source?.source_name || "当前无法确认最新数据")}。</small>
+    </article>`;
+}
+
 function projectCoordinate(coordinate, bounds, width, height) {
   const paddingX = 28;
   const paddingY = 32;
@@ -305,6 +362,7 @@ async function loadData() {
     $("#qualityBadge").textContent = quality;
     $("#qualityBadge").className = `quality ${quality.toLowerCase()}`;
     populateSources(state.data);
+    renderWeeklySummary();
     populateCountries(state.data.stations || []);
     state.activeId = state.activeId || state.data.stations?.[0]?.station_id || null;
     filterStations();

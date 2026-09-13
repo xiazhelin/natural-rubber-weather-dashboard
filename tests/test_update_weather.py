@@ -168,6 +168,18 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertIn("assets/climate/iod-weekly.svg", page)
         self.assertIn("assets/climate/roni-outlook.png", page)
 
+    def test_weekly_summary_is_wired_into_dashboard(self):
+        root = SCRIPT.parent.parent
+        page = (root / "site/index.html").read_text(encoding="utf-8")
+        script = (root / "site/assets/app.js").read_text(encoding="utf-8")
+        styles = (root / "site/assets/styles.css").read_text(encoding="utf-8")
+
+        self.assertIn('id="weeklySummary"', page)
+        self.assertIn("function renderWeeklySummary()", script)
+        self.assertIn("renderWeeklySummary();", script)
+        self.assertIn("【本项目判断】本周关注", script)
+        self.assertIn(".weekly-summary-grid", styles)
+
 
 if __name__ == "__main__":
     unittest.main()
