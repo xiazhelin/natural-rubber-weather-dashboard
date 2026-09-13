@@ -5640,6 +5640,1445 @@
           ]
         }
       ]
+    },
+    {
+      "generated_at_utc": "2026-09-13T09:40:05Z",
+      "stations": [
+        {
+          "station_id": "cn_hainan_danzhou",
+          "precipitation_7d_mm": 101.7,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 1,
+          "temperature_max_7d_c": 31.9,
+          "temperature_min_7d_c": 22.5,
+          "et0_7d_mm": 19.8,
+          "soil_moisture_9_27cm_mean_7d": 0.373,
+          "soil_moisture_27_81cm_mean_7d": 0.37,
+          "tapping_window_precipitation_7d_mm": 31.8,
+          "tapping_window_rain_hours_7d": 18,
+          "tapping_window_rain_days_7d": 4,
+          "tapping_window_probability_max_7d": 100.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 29.8
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 20.8
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 15.7
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 10.5
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 6.3
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 3.6
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 4.8
+            }
+          ]
+        },
+        {
+          "station_id": "cn_hainan_qiongzhong",
+          "precipitation_7d_mm": 137.0,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 2,
+          "temperature_max_7d_c": 30.8,
+          "temperature_min_7d_c": 22.1,
+          "et0_7d_mm": 19.3,
+          "soil_moisture_9_27cm_mean_7d": 0.393,
+          "soil_moisture_27_81cm_mean_7d": 0.405,
+          "tapping_window_precipitation_7d_mm": 47.0,
+          "tapping_window_rain_hours_7d": 29,
+          "tapping_window_rain_days_7d": 5,
+          "tapping_window_probability_max_7d": 100.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 49.6
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 26.1
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 9.1
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 9.9
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 3.1
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 11.0
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 8.9
+            }
+          ]
+        },
+        {
+          "station_id": "cn_hainan_wanning",
+          "precipitation_7d_mm": 154.4,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 2,
+          "temperature_max_7d_c": 30.4,
+          "temperature_min_7d_c": 23.5,
+          "et0_7d_mm": 21.0,
+          "soil_moisture_9_27cm_mean_7d": 0.405,
+          "soil_moisture_27_81cm_mean_7d": 0.429,
+          "tapping_window_precipitation_7d_mm": 59.3,
+          "tapping_window_rain_hours_7d": 39,
+          "tapping_window_rain_days_7d": 7,
+          "tapping_window_probability_max_7d": 100.0,
+          "weather_states": [
+            "HEAVY_RAIN"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 66.5
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 22.3
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 2.0
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 11.3
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 2.9
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 12.8
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 8.1
+            }
+          ]
+        },
+        {
+          "station_id": "cn_hainan_baisha",
+          "precipitation_7d_mm": 107.8,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 1,
+          "temperature_max_7d_c": 31.8,
+          "temperature_min_7d_c": 21.8,
+          "et0_7d_mm": 20.0,
+          "soil_moisture_9_27cm_mean_7d": 0.375,
+          "soil_moisture_27_81cm_mean_7d": 0.351,
+          "tapping_window_precipitation_7d_mm": 24.9,
+          "tapping_window_rain_hours_7d": 18,
+          "tapping_window_rain_days_7d": 4,
+          "tapping_window_probability_max_7d": 100.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 24.8
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 19.0
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 13.4
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 23.2
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 11.7
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 4.2
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 2.4
+            }
+          ]
+        },
+        {
+          "station_id": "cn_yunnan_jinghong",
+          "precipitation_7d_mm": 43.5,
+          "rain_days_7d": 5,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 33.1,
+          "temperature_min_7d_c": 20.9,
+          "et0_7d_mm": 31.0,
+          "soil_moisture_9_27cm_mean_7d": 0.394,
+          "soil_moisture_27_81cm_mean_7d": 0.441,
+          "tapping_window_precipitation_7d_mm": 22.9,
+          "tapping_window_rain_hours_7d": 27,
+          "tapping_window_rain_days_7d": 4,
+          "tapping_window_probability_max_7d": 99.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 0.0
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 0.0
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 3.9
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 3.6
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 10.6
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 24.5
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 1.4
+            }
+          ]
+        },
+        {
+          "station_id": "cn_yunnan_mengla",
+          "precipitation_7d_mm": 41.3,
+          "rain_days_7d": 5,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 31.4,
+          "temperature_min_7d_c": 19.1,
+          "et0_7d_mm": 28.6,
+          "soil_moisture_9_27cm_mean_7d": 0.382,
+          "soil_moisture_27_81cm_mean_7d": 0.437,
+          "tapping_window_precipitation_7d_mm": 11.6,
+          "tapping_window_rain_hours_7d": 16,
+          "tapping_window_rain_days_7d": 3,
+          "tapping_window_probability_max_7d": 67.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 0.2
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 0.6
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 2.1
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 5.1
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 14.6
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 18.7
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 0.0
+            }
+          ]
+        },
+        {
+          "station_id": "cn_yunnan_puer",
+          "precipitation_7d_mm": 24.8,
+          "rain_days_7d": 6,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 28.2,
+          "temperature_min_7d_c": 14.6,
+          "et0_7d_mm": 28.8,
+          "soil_moisture_9_27cm_mean_7d": 0.325,
+          "soil_moisture_27_81cm_mean_7d": 0.36,
+          "tapping_window_precipitation_7d_mm": 10.2,
+          "tapping_window_rain_hours_7d": 11,
+          "tapping_window_rain_days_7d": 4,
+          "tapping_window_probability_max_7d": 68.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 0.0
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 2.0
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 1.4
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 1.3
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 4.2
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 15.3
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 0.6
+            }
+          ]
+        },
+        {
+          "station_id": "th_south_surat_thani",
+          "precipitation_7d_mm": 124.2,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 3,
+          "temperature_max_7d_c": 30.8,
+          "temperature_min_7d_c": 23.2,
+          "et0_7d_mm": 18.7,
+          "soil_moisture_9_27cm_mean_7d": 0.226,
+          "soil_moisture_27_81cm_mean_7d": 0.229,
+          "tapping_window_precipitation_7d_mm": 20.0,
+          "tapping_window_rain_hours_7d": 18,
+          "tapping_window_rain_days_7d": 4,
+          "tapping_window_probability_max_7d": 84.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 10.3
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 11.5
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 11.8
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 15.4
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 20.8
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 28.5
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 28.5
+            }
+          ]
+        },
+        {
+          "station_id": "th_south_nakhon_si_thammarat",
+          "precipitation_7d_mm": 75.0,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 1,
+          "temperature_max_7d_c": 32.0,
+          "temperature_min_7d_c": 24.2,
+          "et0_7d_mm": 24.1,
+          "soil_moisture_9_27cm_mean_7d": 0.224,
+          "soil_moisture_27_81cm_mean_7d": 0.228,
+          "tapping_window_precipitation_7d_mm": 1.2,
+          "tapping_window_rain_hours_7d": 8,
+          "tapping_window_rain_days_7d": 3,
+          "tapping_window_probability_max_7d": 54.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 26.1
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 4.8
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 4.3
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 9.5
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 9.0
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 6.3
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 15.3
+            }
+          ]
+        },
+        {
+          "station_id": "th_south_songkhla",
+          "precipitation_7d_mm": 66.8,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 31.7,
+          "temperature_min_7d_c": 24.0,
+          "et0_7d_mm": 25.1,
+          "soil_moisture_9_27cm_mean_7d": 0.232,
+          "soil_moisture_27_81cm_mean_7d": 0.233,
+          "tapping_window_precipitation_7d_mm": 9.3,
+          "tapping_window_rain_hours_7d": 17,
+          "tapping_window_rain_days_7d": 3,
+          "tapping_window_probability_max_7d": 80.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 9.8
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 6.4
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 3.4
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 5.8
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 9.4
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 20.6
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 10.9
+            }
+          ]
+        },
+        {
+          "station_id": "th_south_trang",
+          "precipitation_7d_mm": 172.0,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 3,
+          "temperature_max_7d_c": 29.5,
+          "temperature_min_7d_c": 23.6,
+          "et0_7d_mm": 18.8,
+          "soil_moisture_9_27cm_mean_7d": 0.166,
+          "soil_moisture_27_81cm_mean_7d": 0.164,
+          "tapping_window_precipitation_7d_mm": 39.5,
+          "tapping_window_rain_hours_7d": 38,
+          "tapping_window_rain_days_7d": 7,
+          "tapping_window_probability_max_7d": 96.0,
+          "weather_states": [
+            "HEAVY_RAIN"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 7.9
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 15.0
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 13.7
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 18.0
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 35.5
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 41.8
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 41.0
+            }
+          ]
+        },
+        {
+          "station_id": "th_south_yala",
+          "precipitation_7d_mm": 112.7,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 1,
+          "temperature_max_7d_c": 32.7,
+          "temperature_min_7d_c": 23.1,
+          "et0_7d_mm": 25.6,
+          "soil_moisture_9_27cm_mean_7d": 0.29,
+          "soil_moisture_27_81cm_mean_7d": 0.265,
+          "tapping_window_precipitation_7d_mm": 4.5,
+          "tapping_window_rain_hours_7d": 15,
+          "tapping_window_rain_days_7d": 4,
+          "tapping_window_probability_max_7d": 56.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 15.7
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 40.1
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 12.3
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 9.8
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 12.0
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 11.9
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 10.9
+            }
+          ]
+        },
+        {
+          "station_id": "th_northeast_udon_thani",
+          "precipitation_7d_mm": 120.4,
+          "rain_days_7d": 6,
+          "heavy_rain_days_7d": 3,
+          "temperature_max_7d_c": 31.3,
+          "temperature_min_7d_c": 23.4,
+          "et0_7d_mm": 23.8,
+          "soil_moisture_9_27cm_mean_7d": 0.247,
+          "soil_moisture_27_81cm_mean_7d": 0.243,
+          "tapping_window_precipitation_7d_mm": 20.7,
+          "tapping_window_rain_hours_7d": 36,
+          "tapping_window_rain_days_7d": 6,
+          "tapping_window_probability_max_7d": 94.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 10.8
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 24.7
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 23.9
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 18.5
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 23.0
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 12.9
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 11.3
+            }
+          ]
+        },
+        {
+          "station_id": "th_northeast_bueng_kan",
+          "precipitation_7d_mm": 186.7,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 2,
+          "temperature_max_7d_c": 30.0,
+          "temperature_min_7d_c": 23.4,
+          "et0_7d_mm": 18.3,
+          "soil_moisture_9_27cm_mean_7d": 0.315,
+          "soil_moisture_27_81cm_mean_7d": 0.331,
+          "tapping_window_precipitation_7d_mm": 81.0,
+          "tapping_window_rain_hours_7d": 35,
+          "tapping_window_rain_days_7d": 6,
+          "tapping_window_probability_max_7d": 97.0,
+          "weather_states": [
+            "HEAVY_RAIN"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 6.9
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 23.9
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 83.7
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 20.7
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 37.1
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 10.8
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 3.6
+            }
+          ]
+        },
+        {
+          "station_id": "th_northeast_ubon",
+          "precipitation_7d_mm": 87.3,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 31.4,
+          "temperature_min_7d_c": 22.6,
+          "et0_7d_mm": 20.1,
+          "soil_moisture_9_27cm_mean_7d": 0.335,
+          "soil_moisture_27_81cm_mean_7d": 0.354,
+          "tapping_window_precipitation_7d_mm": 21.1,
+          "tapping_window_rain_hours_7d": 41,
+          "tapping_window_rain_days_7d": 7,
+          "tapping_window_probability_max_7d": 100.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 13.8
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 6.6
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 11.9
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 16.5
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 12.2
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 11.4
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 10.5
+            }
+          ]
+        },
+        {
+          "station_id": "th_east_rayong",
+          "precipitation_7d_mm": 68.3,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 30.5,
+          "temperature_min_7d_c": 24.5,
+          "et0_7d_mm": 26.2,
+          "soil_moisture_9_27cm_mean_7d": 0.366,
+          "soil_moisture_27_81cm_mean_7d": 0.363,
+          "tapping_window_precipitation_7d_mm": 11.0,
+          "tapping_window_rain_hours_7d": 30,
+          "tapping_window_rain_days_7d": 5,
+          "tapping_window_probability_max_7d": 94.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 6.4
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 4.3
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 15.1
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 9.8
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 6.0
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 9.3
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 15.8
+            }
+          ]
+        },
+        {
+          "station_id": "id_sumatra_medan",
+          "precipitation_7d_mm": 123.8,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 1,
+          "temperature_max_7d_c": 31.4,
+          "temperature_min_7d_c": 23.1,
+          "et0_7d_mm": 28.6,
+          "soil_moisture_9_27cm_mean_7d": 0.335,
+          "soil_moisture_27_81cm_mean_7d": 0.352,
+          "tapping_window_precipitation_7d_mm": 12.5,
+          "tapping_window_rain_hours_7d": 18,
+          "tapping_window_rain_days_7d": 5,
+          "tapping_window_probability_max_7d": 79.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 32.7
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 11.0
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 18.7
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 11.7
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 14.4
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 13.8
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 22.8
+            }
+          ]
+        },
+        {
+          "station_id": "id_sumatra_pekanbaru",
+          "precipitation_7d_mm": 30.7,
+          "rain_days_7d": 4,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 32.8,
+          "temperature_min_7d_c": 23.4,
+          "et0_7d_mm": 29.3,
+          "soil_moisture_9_27cm_mean_7d": 0.275,
+          "soil_moisture_27_81cm_mean_7d": 0.285,
+          "tapping_window_precipitation_7d_mm": 10.9,
+          "tapping_window_rain_hours_7d": 10,
+          "tapping_window_rain_days_7d": 3,
+          "tapping_window_probability_max_7d": 63.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 0.6
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 3.1
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 0.5
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 0.7
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 7.5
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 12.3
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 6.0
+            }
+          ]
+        },
+        {
+          "station_id": "id_sumatra_jambi",
+          "precipitation_7d_mm": 3.3,
+          "rain_days_7d": 2,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 33.7,
+          "temperature_min_7d_c": 23.0,
+          "et0_7d_mm": 33.9,
+          "soil_moisture_9_27cm_mean_7d": 0.199,
+          "soil_moisture_27_81cm_mean_7d": 0.225,
+          "tapping_window_precipitation_7d_mm": 0.9,
+          "tapping_window_rain_hours_7d": 6,
+          "tapping_window_rain_days_7d": 1,
+          "tapping_window_probability_max_7d": 37.0,
+          "weather_states": [
+            "DRY"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 0.0
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 0.3
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 0.0
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 0.1
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 0.0
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 2.0
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 1.3
+            }
+          ]
+        },
+        {
+          "station_id": "id_sumatra_palembang",
+          "precipitation_7d_mm": 3.9,
+          "rain_days_7d": 3,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 35.3,
+          "temperature_min_7d_c": 23.8,
+          "et0_7d_mm": 37.6,
+          "soil_moisture_9_27cm_mean_7d": 0.142,
+          "soil_moisture_27_81cm_mean_7d": 0.184,
+          "tapping_window_precipitation_7d_mm": 0.3,
+          "tapping_window_rain_hours_7d": 3,
+          "tapping_window_rain_days_7d": 1,
+          "tapping_window_probability_max_7d": 31.0,
+          "weather_states": [
+            "DRY",
+            "HEAT"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 0.0
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 0.0
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 1.2
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 0.0
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 0.0
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 1.5
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 1.2
+            }
+          ]
+        },
+        {
+          "station_id": "id_sumatra_lampung",
+          "precipitation_7d_mm": 6.7,
+          "rain_days_7d": 3,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 33.0,
+          "temperature_min_7d_c": 22.9,
+          "et0_7d_mm": 34.1,
+          "soil_moisture_9_27cm_mean_7d": 0.292,
+          "soil_moisture_27_81cm_mean_7d": 0.339,
+          "tapping_window_precipitation_7d_mm": 1.4,
+          "tapping_window_rain_hours_7d": 9,
+          "tapping_window_rain_days_7d": 3,
+          "tapping_window_probability_max_7d": 94.0,
+          "weather_states": [
+            "DRY"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 1.9
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 0.3
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 2.3
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 1.2
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 0.0
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 0.0
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 0.0
+            }
+          ]
+        },
+        {
+          "station_id": "id_kalimantan_pontianak",
+          "precipitation_7d_mm": 38.1,
+          "rain_days_7d": 5,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 32.4,
+          "temperature_min_7d_c": 23.7,
+          "et0_7d_mm": 25.5,
+          "soil_moisture_9_27cm_mean_7d": 0.154,
+          "soil_moisture_27_81cm_mean_7d": 0.173,
+          "tapping_window_precipitation_7d_mm": 6.6,
+          "tapping_window_rain_hours_7d": 19,
+          "tapping_window_rain_days_7d": 5,
+          "tapping_window_probability_max_7d": 74.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 3.7
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 2.8
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 8.7
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 19.0
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 0.0
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 0.0
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 2.4
+            }
+          ]
+        },
+        {
+          "station_id": "vn_southeast_binh_phuoc",
+          "precipitation_7d_mm": 96.3,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 31.5,
+          "temperature_min_7d_c": 23.2,
+          "et0_7d_mm": 28.3,
+          "soil_moisture_9_27cm_mean_7d": 0.307,
+          "soil_moisture_27_81cm_mean_7d": 0.331,
+          "tapping_window_precipitation_7d_mm": 5.1,
+          "tapping_window_rain_hours_7d": 16,
+          "tapping_window_rain_days_7d": 7,
+          "tapping_window_probability_max_7d": 94.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 15.3
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 21.7
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 7.3
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 9.5
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 16.3
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 15.8
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 10.1
+            }
+          ]
+        },
+        {
+          "station_id": "vn_southeast_tay_ninh",
+          "precipitation_7d_mm": 117.3,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 2,
+          "temperature_max_7d_c": 32.4,
+          "temperature_min_7d_c": 23.8,
+          "et0_7d_mm": 25.8,
+          "soil_moisture_9_27cm_mean_7d": 0.324,
+          "soil_moisture_27_81cm_mean_7d": 0.348,
+          "tapping_window_precipitation_7d_mm": 3.4,
+          "tapping_window_rain_hours_7d": 16,
+          "tapping_window_rain_days_7d": 7,
+          "tapping_window_probability_max_7d": 100.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 24.1
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 14.7
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 29.7
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 13.4
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 8.4
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 11.4
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 13.8
+            }
+          ]
+        },
+        {
+          "station_id": "vn_central_highlands_pleiku",
+          "precipitation_7d_mm": 73.0,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 27.3,
+          "temperature_min_7d_c": 19.8,
+          "et0_7d_mm": 23.2,
+          "soil_moisture_9_27cm_mean_7d": 0.435,
+          "soil_moisture_27_81cm_mean_7d": 0.467,
+          "tapping_window_precipitation_7d_mm": 10.8,
+          "tapping_window_rain_hours_7d": 30,
+          "tapping_window_rain_days_7d": 7,
+          "tapping_window_probability_max_7d": 100.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 19.0
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 17.4
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 4.3
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 3.7
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 7.9
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 12.6
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 4.2
+            }
+          ]
+        },
+        {
+          "station_id": "vn_central_highlands_buon_ma_thuot",
+          "precipitation_7d_mm": 64.1,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 30.1,
+          "temperature_min_7d_c": 21.3,
+          "et0_7d_mm": 28.8,
+          "soil_moisture_9_27cm_mean_7d": 0.369,
+          "soil_moisture_27_81cm_mean_7d": 0.377,
+          "tapping_window_precipitation_7d_mm": 1.5,
+          "tapping_window_rain_hours_7d": 12,
+          "tapping_window_rain_days_7d": 4,
+          "tapping_window_probability_max_7d": 92.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 1.7
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 14.2
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 5.4
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 8.5
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 21.9
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 8.7
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 4.5
+            }
+          ]
+        },
+        {
+          "station_id": "ci_nawa_soubre",
+          "precipitation_7d_mm": 82.8,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 1,
+          "temperature_max_7d_c": 30.6,
+          "temperature_min_7d_c": 22.3,
+          "et0_7d_mm": 25.9,
+          "soil_moisture_9_27cm_mean_7d": 0.195,
+          "soil_moisture_27_81cm_mean_7d": 0.163,
+          "tapping_window_precipitation_7d_mm": 17.1,
+          "tapping_window_rain_hours_7d": 21,
+          "tapping_window_rain_days_7d": 6,
+          "tapping_window_probability_max_7d": 78.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 12.1
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 47.8
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 6.8
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 4.2
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 3.0
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 5.9
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 3.0
+            },
+            {
+              "date_utc": "2026-09-20",
+              "precipitation_mm": 4.8
+            }
+          ]
+        },
+        {
+          "station_id": "ci_sud_comoe_aboisso",
+          "precipitation_7d_mm": 36.6,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 28.9,
+          "temperature_min_7d_c": 23.2,
+          "et0_7d_mm": 22.4,
+          "soil_moisture_9_27cm_mean_7d": 0.193,
+          "soil_moisture_27_81cm_mean_7d": 0.214,
+          "tapping_window_precipitation_7d_mm": 2.6,
+          "tapping_window_rain_hours_7d": 23,
+          "tapping_window_rain_days_7d": 6,
+          "tapping_window_probability_max_7d": 53.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 11.0
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 6.8
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 1.5
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 3.8
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 2.1
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 7.8
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 3.6
+            },
+            {
+              "date_utc": "2026-09-20",
+              "precipitation_mm": 4.2
+            }
+          ]
+        },
+        {
+          "station_id": "ci_indenié_abengourou",
+          "precipitation_7d_mm": 66.7,
+          "rain_days_7d": 7,
+          "heavy_rain_days_7d": 0,
+          "temperature_max_7d_c": 29.9,
+          "temperature_min_7d_c": 22.4,
+          "et0_7d_mm": 24.6,
+          "soil_moisture_9_27cm_mean_7d": 0.306,
+          "soil_moisture_27_81cm_mean_7d": 0.329,
+          "tapping_window_precipitation_7d_mm": 15.0,
+          "tapping_window_rain_hours_7d": 26,
+          "tapping_window_rain_days_7d": 6,
+          "tapping_window_probability_max_7d": 71.0,
+          "weather_states": [
+            "NORMAL"
+          ],
+          "quality_status": "PASS",
+          "forecast_utc_daily": [
+            {
+              "date_utc": "2026-09-13",
+              "precipitation_mm": 16.0
+            },
+            {
+              "date_utc": "2026-09-14",
+              "precipitation_mm": 10.8
+            },
+            {
+              "date_utc": "2026-09-15",
+              "precipitation_mm": 5.7
+            },
+            {
+              "date_utc": "2026-09-16",
+              "precipitation_mm": 3.1
+            },
+            {
+              "date_utc": "2026-09-17",
+              "precipitation_mm": 3.6
+            },
+            {
+              "date_utc": "2026-09-18",
+              "precipitation_mm": 12.0
+            },
+            {
+              "date_utc": "2026-09-19",
+              "precipitation_mm": 15.5
+            },
+            {
+              "date_utc": "2026-09-20",
+              "precipitation_mm": 3.6
+            }
+          ]
+        }
+      ]
     }
   ]
 }
