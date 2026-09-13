@@ -8,10 +8,10 @@
     "hot_day_max_c": 35
   },
   "tapping_window": {
-    "start_hour_local": 4,
+    "start_hour_local": 2,
     "end_hour_local": 10,
     "rain_hour_threshold_mm": 0.1,
-    "note": "04:00—10:00为可调整的本项目割胶研究窗口，按各地当地时间计算；不代表各产区统一的实际割胶班次。"
+    "note": "02:00—10:00为可调整的本项目晨间割胶作业窗，按各地当地时间计算；不代表各产区统一的实际割胶班次。"
   },
   "locations": [
     {"station_id":"cn_hainan_danzhou","country":"中国","region":"海南","place":"儋州","latitude":19.52,"longitude":109.58},

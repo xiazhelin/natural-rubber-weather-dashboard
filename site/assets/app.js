@@ -241,7 +241,7 @@ function renderDetail() {
       <div class="rain-track"><span class="rain-bar" style="height:${barHeight.toFixed(1)}px"></span></div>
       <strong>${number(day.precipitation_sum)} mm</strong>
       <small>${number(day.temperature_2m_max, 0)}° / ${number(day.temperature_2m_min, 0)}°</small>
-      <small>割胶窗 ${number(day.tapping_window_precipitation_mm)} mm</small>
+      <small>晨间割胶作业窗 ${number(day.tapping_window_precipitation_mm)} mm</small>
     </div>`;
   }).join("");
   const change = rainChange(station);
@@ -255,8 +255,8 @@ function renderDetail() {
     </div>
     <div class="detail-metrics">
       <div><span>7日降雨</span><strong>${number(s.precipitation_7d_mm)} mm</strong></div>
-      <div><span>割胶窗7日降雨</span><strong>${number(s.tapping_window_precipitation_7d_mm)} mm</strong></div>
-      <div><span>割胶窗雨日 / 雨小时</span><strong>${s.tapping_window_rain_days_7d ?? "—"} 天 / ${s.tapping_window_rain_hours_7d ?? "—"} 小时</strong></div>
+      <div><span>晨间割胶作业窗7日降雨</span><strong>${number(s.tapping_window_precipitation_7d_mm)} mm</strong></div>
+      <div><span>晨间割胶作业窗雨日 / 雨小时</span><strong>${s.tapping_window_rain_days_7d ?? "—"} 天 / ${s.tapping_window_rain_hours_7d ?? "—"} 小时</strong></div>
       <div><span>较上次更新</span><strong>${change == null ? "—" : `${change > 0 ? "+" : ""}${number(change)} mm`}</strong></div>
       <div><span>雨日 / 强降雨日</span><strong>${s.rain_days_7d ?? "—"} / ${s.heavy_rain_days_7d ?? "—"} 天</strong></div>
       <div><span>7日最高 / 最低温</span><strong>${number(s.temperature_max_7d_c)} / ${number(s.temperature_min_7d_c)} ℃</strong></div>

@@ -21,7 +21,7 @@ class WeatherPipelineTest(unittest.TestCase):
             "hot_day_max_c": 35,
         }
         self.tapping_window = {
-            "start_hour_local": 4,
+            "start_hour_local": 2,
             "end_hour_local": 10,
             "rain_hour_threshold_mm": 0.1,
         }
@@ -46,7 +46,7 @@ class WeatherPipelineTest(unittest.TestCase):
                     (datetime(2026, 9, 12) + timedelta(hours=hour)).isoformat(timespec="minutes")
                     for hour in range(168)
                 ],
-                "precipitation": [1 if hour % 24 in range(4, 10) else 0 for hour in range(168)],
+                "precipitation": [1 if hour % 24 in range(2, 10) else 0 for hour in range(168)],
                 "precipitation_probability": [70] * 168,
                 "soil_moisture_9_to_27cm": [0.25] * 168,
                 "soil_moisture_27_to_81cm": [0.31] * 168,
@@ -59,8 +59,8 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertEqual(station["summary"]["heavy_rain_days_7d"], 5)
         self.assertEqual(station["summary"]["weather_states"], ["HEAVY_RAIN", "HEAT"])
         self.assertEqual(station["summary"]["soil_moisture_27_81cm_mean_7d"], 0.31)
-        self.assertEqual(station["summary"]["tapping_window_precipitation_7d_mm"], 42.0)
-        self.assertEqual(station["summary"]["tapping_window_rain_hours_7d"], 42)
+        self.assertEqual(station["summary"]["tapping_window_precipitation_7d_mm"], 56.0)
+        self.assertEqual(station["summary"]["tapping_window_rain_hours_7d"], 56)
 
     def test_imerg_grid_sampling_and_missing_value(self):
         class Image:
@@ -130,6 +130,7 @@ class WeatherPipelineTest(unittest.TestCase):
     def test_publish_controls_and_schedule(self):
         root = SCRIPT.parent.parent
         workflow = (root / ".github/workflows/update-weather.yml").read_text(encoding="utf-8")
+        config = json.loads((root / "config/locations.json").read_text(encoding="utf-8"))
         page = (root / "site/index.html").read_text(encoding="utf-8")
         script = (root / "site/assets/app.js").read_text(encoding="utf-8")
 
@@ -144,6 +145,9 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertNotIn("每周五 21:00 自动更新", page)
         self.assertNotIn("reloadButton", script)
         self.assertNotIn("updateLink", script)
+        self.assertEqual(config["tapping_window"]["start_hour_local"], 2)
+        self.assertEqual(config["tapping_window"]["end_hour_local"], 10)
+        self.assertIn("晨间割胶作业窗", page)
         self.assertIn("Natural Earth 1:110m", page)
         self.assertIn("MAP_DATA_URL", script)
         self.assertIn('class="map-land"', script)
