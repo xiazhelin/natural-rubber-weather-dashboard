@@ -1,6 +1,6 @@
 "use strict";
 
-const state = { data: null, history: [], mapData: null, filtered: [], activeId: null };
+const state = { data: null, history: [], thailandRain: null, mapData: null, filtered: [], activeId: null };
 const $ = (selector) => document.querySelector(selector);
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (char) => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"})[char]);
 const hasNumber = (value) => value !== null && value !== undefined && value !== "" && Number.isFinite(Number(value));
@@ -329,6 +329,67 @@ function renderSixHourForecast() {
   });
 }
 
+function rainHistorySegments(byWeek, x, y) {
+  const segments = [];
+  let current = [];
+  for (let week = 1; week <= 53; week += 1) {
+    const value = byWeek.get(week);
+    if (hasNumber(value)) current.push(`${x(week).toFixed(1)},${y(Number(value)).toFixed(1)}`);
+    else if (current.length) { segments.push(current); current = []; }
+  }
+  if (current.length) segments.push(current);
+  return segments;
+}
+
+function thailandRainChart(region, index) {
+  const valid = (region.weekly || []).filter((item) => hasNumber(item.precipitation_mm));
+  if (!valid.length) return `<article class="rain-history-card ${index === 0 ? "featured" : ""}"><h3>${escapeHtml(region.name)}</h3><p class="weekly-summary-note">当前无法确认最新数据。</p></article>`;
+  const years = [...new Set(valid.map((item) => Number(item.iso_year)))].sort((a, b) => a - b);
+  const latestYear = years.at(-1);
+  const previousYears = years.filter((year) => year !== latestYear);
+  const yearMaps = new Map(years.map((year) => [year, new Map(valid.filter((item) => Number(item.iso_year) === year).map((item) => [Number(item.iso_week), Number(item.precipitation_mm)]))]));
+  const averages = new Map(Array.from({length: 53}, (_, offset) => {
+    const week = offset + 1;
+    const values = previousYears.map((year) => yearMaps.get(year)?.get(week)).filter(hasNumber).map(Number);
+    return [week, values.length ? sum(values) / values.length : null];
+  }));
+  const maximum = Math.max(0, ...valid.map((item) => Number(item.precipitation_mm)), ...[...averages.values()].filter(hasNumber).map(Number));
+  const yMax = Math.max(50, Math.ceil(maximum / 50) * 50);
+  const width = 680, height = 285, left = 45, right = 12, top = 14, bottom = 48;
+  const plotWidth = width - left - right, plotHeight = height - top - bottom;
+  const x = (week) => left + (week - 1) / 52 * plotWidth;
+  const y = (value) => top + (yMax - value) / yMax * plotHeight;
+  const colors = ["#3378ba", "#d85d55", "#69a64d", "#7665ae", "#2a9d8f"];
+  const colorFor = (year) => year === latestYear ? "#f28a22" : colors[years.indexOf(year) % colors.length];
+  const grid = [0, yMax / 2, yMax].map((value) => `<line x1="${left}" y1="${y(value)}" x2="${width - right}" y2="${y(value)}"/><text x="${left - 7}" y="${y(value) + 4}" text-anchor="end">${number(value, 0)}</text>`).join("");
+  const ticks = [1, 9, 17, 25, 33, 41, 49, 53].map((week) => `<text x="${x(week)}" y="${height - 19}" text-anchor="middle">${week}</text>`).join("");
+  const bars = [...averages].filter(([, value]) => hasNumber(value)).map(([week, value]) => `<rect x="${x(week) - 4}" y="${y(value)}" width="8" height="${y(0) - y(value)}"/>`).join("");
+  const lines = years.map((year) => rainHistorySegments(yearMaps.get(year), x, y).map((segment) => `<polyline points="${segment.join(" ")}" style="stroke:${colorFor(year)};stroke-width:${year === latestYear ? 2.8 : 1.4}"/>`).join("")).join("");
+  const latestPoints = [...yearMaps.get(latestYear)].map(([week, value]) => `<circle cx="${x(week)}" cy="${y(value)}" r="2.4"><title>${latestYear}年第${week}周：${number(value)} mm</title></circle>`).join("");
+  const previousLabel = previousYears.length ? `${previousYears[0]}–${previousYears.at(-1)}均值` : "历史均值";
+  const legend = [`<span><i class="rain-history-average"></i>${previousLabel}</span>`, ...years.map((year) => `<span><i style="background:${colorFor(year)}"></i>${year}</span>`)].join("");
+  return `<article class="rain-history-card ${index === 0 ? "featured" : ""}">
+    <div class="rain-history-head"><h3>${escapeHtml(region.name)}</h3><span>${region.point_count}个网格点等权 · mm</span></div>
+    <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(region.name)}2022年至今周度降雨对比图">
+      <g class="rain-history-grid">${grid}${ticks}<text x="${width / 2}" y="${height - 2}" text-anchor="middle">周序</text></g>
+      <g class="rain-history-bars">${bars}</g><g class="rain-history-lines">${lines}</g><g class="rain-history-current">${latestPoints}</g>
+    </svg>
+    <div class="rain-history-legend">${legend}</div>
+  </article>`;
+}
+
+function renderThailandWeeklyRain() {
+  const data = state.thailandRain;
+  if (!data?.regions?.length) {
+    $("#thailandRainCharts").innerHTML = '<div class="empty-state"><strong>泰国周度降雨数据尚未生成</strong><span>运行一次天气更新任务后生成。</span></div>';
+    $("#thailandRainMeta").textContent = "当前无法确认最新数据。";
+    return;
+  }
+  $("#thailandRainPeriod").textContent = `${data.period.start_date} — ${data.period.end_date} · ${data.overall_quality_status}`;
+  $("#thailandRainCharts").innerHTML = data.regions.map(thailandRainChart).join("");
+  $("#thailandRainMeta").innerHTML = `来源：<a href="${escapeHtml(data.source.documentation)}" target="_blank" rel="noreferrer">${escapeHtml(data.source.source_name)}</a>（${escapeHtml(data.source.upstream_model)}，0.25°再分析）。当地时间周一至周日累计，仅显示完整周；${escapeHtml(data.aggregation)}最新完整周截至 ${escapeHtml(data.period.end_date)}。`;
+}
+
 function renderDetail() {
   const station = state.filtered.find((item) => item.station_id === state.activeId);
   if (!station) {
@@ -400,19 +461,22 @@ async function loadData() {
       .then((response) => response.ok ? response.json() : null)
       .then((mapData) => { state.mapData = mapData; if (state.data) renderMaps(); })
       .catch((error) => console.warn("Natural Earth map unavailable", error));
-    const [weatherResponse, historyResponse] = await Promise.all([
+    const [weatherResponse, historyResponse, thailandRainResponse] = await Promise.all([
       fetch(`data/weather.json?v=${Date.now()}`, {cache:"no-store"}),
       fetch(`data/history.json?v=${Date.now()}`, {cache:"no-store"}),
+      fetch(`data/thailand-weekly-rain.json?v=${Date.now()}`, {cache:"no-store"}),
     ]);
     if (!weatherResponse.ok) throw new Error(`weather.json ${weatherResponse.status}`);
     state.data = await weatherResponse.json();
     state.history = historyResponse.ok ? (await historyResponse.json()).snapshots || [] : [];
+    state.thailandRain = thailandRainResponse.ok ? await thailandRainResponse.json().catch(() => null) : null;
     $("#updatedAt").textContent = formatUpdate(state.data.generated_at_utc);
     const quality = state.data.overall_quality_status || "MISSING";
     $("#qualityBadge").textContent = quality;
     $("#qualityBadge").className = `quality ${quality.toLowerCase()}`;
     populateSources(state.data);
     renderWeeklySummary();
+    renderThailandWeeklyRain();
     populateCountries(state.data.stations || []);
     state.activeId = state.activeId || state.data.stations?.[0]?.station_id || null;
     filterStations();

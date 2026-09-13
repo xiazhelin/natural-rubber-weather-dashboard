@@ -184,6 +184,25 @@ input, select {
 .weekly-summary-judgment { grid-column: 1 / -1; border-left: 4px solid var(--lime); background: #f8faed; }
 .weekly-summary-note { grid-column: 1 / -1; margin: 0; color: var(--muted); }
 
+.thailand-rain-panel { margin-bottom: 14px; }
+.thailand-rain-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.thailand-rain-grid > .loading-state, .thailand-rain-grid > .empty-state { grid-column: 1 / -1; }
+.rain-history-card { padding: 12px; overflow: hidden; background: #f9fbfa; border: 1px solid var(--line); border-radius: 10px; }
+.rain-history-card.featured { grid-column: 1 / -1; }
+.rain-history-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.rain-history-head h3 { margin: 0; color: var(--brand-dark); font-size: .9rem; }
+.rain-history-head span { color: var(--muted); font-size: .68rem; white-space: nowrap; }
+.rain-history-card svg { display: block; width: 100%; height: auto; margin-top: 6px; }
+.rain-history-grid line { stroke: #d9e2e0; stroke-dasharray: 3 4; }
+.rain-history-grid text { fill: #627572; font: 11px sans-serif; }
+.rain-history-bars rect { fill: #efcfb4; opacity: .65; }
+.rain-history-lines polyline { fill: none; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.rain-history-current circle { fill: #f28a22; stroke: #fff; stroke-width: .8; vector-effect: non-scaling-stroke; }
+.rain-history-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px 12px; color: var(--muted); font-size: .68rem; }
+.rain-history-legend span { display: inline-flex; align-items: center; gap: 4px; }
+.rain-history-legend i { display: inline-block; width: 14px; height: 3px; border-radius: 2px; }
+.rain-history-legend .rain-history-average { height: 7px; background: #efcfb4; }
+
 .workspace {
   display: grid;
   grid-template-columns: minmax(0, 1.3fr) minmax(380px, .7fr);
@@ -365,6 +384,8 @@ footer {
   .result-count { grid-column: 1 / -1; margin: 0; text-align: left; }
   .weekly-summary-grid { grid-template-columns: 1fr; }
   .weekly-summary-judgment { grid-column: auto; }
+  .thailand-rain-grid { grid-template-columns: 1fr; }
+  .rain-history-card.featured { grid-column: auto; }
   .maps { grid-template-columns: 1fr; }
   .map-box { min-height: 280px; }
   .map-box svg { min-height: 280px; }

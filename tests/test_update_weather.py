@@ -87,6 +87,17 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertEqual(forecast[0]["end_at_utc"], "2026-09-12T12:00:00Z")
         self.assertEqual(forecast[0]["precipitation_mm"], 6.0)
 
+    def test_thailand_weekly_rain_requires_complete_point_weeks(self):
+        start = datetime(2026, 9, 7).date()
+        dates = [(start + timedelta(days=offset)).isoformat() for offset in range(7)]
+        point_days = {
+            "a": dict(zip(dates, [1] * 7)),
+            "b": dict(zip(dates, [2] * 7)),
+        }
+        self.assertEqual(MODULE.weekly_region_value(point_days, ["a", "b"], start), 10.5)
+        point_days["b"][dates[-1]] = None
+        self.assertIsNone(MODULE.weekly_region_value(point_days, ["a", "b"], start))
+
     def test_imerg_grid_sampling_and_missing_value(self):
         class Image:
             size = (3600, 1800)
@@ -177,6 +188,7 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertIn("NASA_PPS_EMAIL", workflow)
         self.assertIn("pip install -r requirements.txt", workflow)
         self.assertIn("site/assets/climate/", workflow)
+        self.assertIn("site/data/thailand-weekly-rain.json", workflow)
         self.assertNotIn('id="reloadButton"', page)
         self.assertNotIn('id="updateLink"', page)
         self.assertNotIn("更新控制", page)
@@ -208,6 +220,9 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertIn("function renderSixHourForecast()", script)
         self.assertIn("renderSixHourForecast();", script)
         self.assertIn(".six-hour-table", styles)
+        self.assertIn('id="thailandRainCharts"', page)
+        self.assertIn("function renderThailandWeeklyRain()", script)
+        self.assertIn(".thailand-rain-grid", styles)
 
 
 if __name__ == "__main__":

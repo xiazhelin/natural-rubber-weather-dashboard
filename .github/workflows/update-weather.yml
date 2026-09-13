@@ -56,7 +56,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add site/data/weather.json site/data/history.json site/assets/climate/
+          git add site/data/weather.json site/data/history.json site/data/thailand-weekly-rain.json site/assets/climate/
           git diff --cached --quiet || git commit -m "data: update production-region weather"
           git push
 

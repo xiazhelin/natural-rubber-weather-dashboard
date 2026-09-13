@@ -23,6 +23,7 @@ from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 API_URL = "https://api.open-meteo.com/v1/forecast"
+HISTORICAL_API_URL = "https://archive-api.open-meteo.com/v1/archive"
 DAILY_FIELDS = (
     "weather_code",
     "temperature_2m_max",
@@ -45,6 +46,16 @@ SOURCE = {
     "documentation": "https://open-meteo.com/en/docs",
     "upstream_models": "Open-Meteo Best Match（按地点自动选择可用数值天气模式）",
     "data_nature": "数值天气模式网格数据，不是地面气象站观测",
+    "access": "免费非商业公开接口，无需API Key；数据许可CC BY 4.0",
+}
+THAILAND_WEEKLY_SOURCE = {
+    "source_id": "HIST_OPEN_METEO_ERA5_01",
+    "source_name": "Open-Meteo Historical Weather API",
+    "endpoint": HISTORICAL_API_URL,
+    "documentation": "https://open-meteo.com/en/docs/historical-weather-api",
+    "upstream_model": "ERA5 reanalysis",
+    "data_nature": "0.25°再分析网格估算，不是地面雨量站实测",
+    "availability": "日度更新，通常约滞后5天",
     "access": "免费非商业公开接口，无需API Key；数据许可CC BY 4.0",
 }
 IMERG_BASE_URL = "https://jsimpsonhttps.pps.eosdis.nasa.gov/imerg/gis"
@@ -543,6 +554,117 @@ def fetch_batch(locations, timeout=45, retries=3):
             time.sleep(2**attempt)
 
 
+def weekly_region_value(point_days, point_ids, week_start):
+    """Return the equal-weight mean of complete seven-day point totals."""
+    totals = []
+    for point_id in point_ids:
+        values = [
+            point_days.get(point_id, {}).get((week_start + timedelta(days=offset)).isoformat())
+            for offset in range(7)
+        ]
+        if len(_finite(values)) != 7:
+            return None
+        totals.append(sum(_finite(values)))
+    return round(fmean(totals), 1) if totals else None
+
+
+def fetch_thailand_weekly_rain(config, today=None, timeout=90, retries=3):
+    """Fetch ERA5 daily rain and aggregate complete local Monday–Sunday weeks."""
+    settings = config["thailand_weekly_rain"]
+    points = settings["points"]
+    today = today or datetime.now(timezone.utc).date()
+    available_through = today - timedelta(days=settings["availability_lag_days"])
+    end = available_through - timedelta(days=(available_through.weekday() + 1) % 7)
+    start = datetime.fromisoformat(settings["start_date"]).date()
+    if end < start:
+        raise ValueError("Thailand weekly rain has no complete week to request")
+    params = {
+        "latitude": ",".join(str(item["latitude"]) for item in points),
+        "longitude": ",".join(str(item["longitude"]) for item in points),
+        "start_date": start.isoformat(),
+        "end_date": end.isoformat(),
+        "daily": "precipitation_sum",
+        "timezone": settings["timezone"],
+        "models": "era5",
+        "cell_selection": "land",
+    }
+    request = urllib.request.Request(
+        HISTORICAL_API_URL + "?" + urllib.parse.urlencode(params),
+        headers={"User-Agent": "natural-rubber-weather-dashboard/1.0"},
+    )
+    for attempt in range(retries):
+        try:
+            with urllib.request.urlopen(request, timeout=timeout) as response:
+                data = json.load(response)
+            payloads = data if isinstance(data, list) else [data]
+            if len(payloads) != len(points):
+                raise ValueError(f"historical response count {len(payloads)} != {len(points)}")
+            break
+        except Exception:
+            if attempt + 1 == retries:
+                raise
+            time.sleep(2**attempt)
+
+    point_days = {}
+    for point, payload in zip(points, payloads):
+        daily = payload.get("daily") or {}
+        point_days[point["point_id"]] = dict(
+            zip(daily.get("time") or [], daily.get("precipitation_sum") or [])
+        )
+
+    weeks = []
+    cursor = start
+    while cursor <= end:
+        weeks.append(cursor)
+        cursor += timedelta(days=7)
+    regions = []
+    for region in settings["regions"]:
+        weekly = []
+        for week_start in weeks:
+            iso_year, iso_week, _ = week_start.isocalendar()
+            weekly.append(
+                {
+                    "week_start": week_start.isoformat(),
+                    "week_end": (week_start + timedelta(days=6)).isoformat(),
+                    "iso_year": iso_year,
+                    "iso_week": iso_week,
+                    "precipitation_mm": weekly_region_value(
+                        point_days, region["point_ids"], week_start
+                    ),
+                }
+            )
+        values = [item["precipitation_mm"] for item in weekly]
+        regions.append(
+            {
+                **region,
+                "point_count": len(region["point_ids"]),
+                "quality_status": "PASS"
+                if len(_finite(values)) == len(weekly)
+                else ("WARNING" if _finite(values) else "MISSING"),
+                "weekly": weekly,
+            }
+        )
+    statuses = [region["quality_status"] for region in regions]
+    return {
+        "schema_version": 1,
+        "dataset_id": "THAILAND_WEEKLY_RAIN_ERA5_V1",
+        "generated_at_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+        "period": {
+            "start_date": start.isoformat(),
+            "end_date": end.isoformat(),
+            "week_definition": "Monday–Sunday, Asia/Bangkok local date",
+            "unit": "mm",
+        },
+        "overall_quality_status": "PASS"
+        if statuses and set(statuses) == {"PASS"}
+        else ("MISSING" if statuses and set(statuses) == {"MISSING"} else "WARNING"),
+        "source": THAILAND_WEEKLY_SOURCE,
+        "aggregation": settings["description"],
+        "points": points,
+        "regions": regions,
+    }
+
+
 def atomic_json(path, payload):
     path.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.NamedTemporaryFile("w", encoding="utf-8", dir=path.parent, delete=False) as handle:
@@ -780,6 +902,11 @@ def main(argv=None):
     parser.add_argument("--config", type=Path, default=ROOT / "config" / "locations.json")
     parser.add_argument("--output", type=Path, default=ROOT / "site" / "data" / "weather.json")
     parser.add_argument("--history", type=Path, default=ROOT / "site" / "data" / "history.json")
+    parser.add_argument(
+        "--thailand-weekly-output",
+        type=Path,
+        default=ROOT / "site" / "data" / "thailand-weekly-rain.json",
+    )
     args = parser.parse_args(argv)
     dataset = collect(args.config)
     if not dataset["stations"]:
@@ -790,6 +917,11 @@ def main(argv=None):
     attach_verification(dataset, history)
     atomic_json(args.output, dataset)
     update_history(args.history, dataset)
+    try:
+        config = json.loads(args.config.read_text(encoding="utf-8"))
+        atomic_json(args.thailand_weekly_output, fetch_thailand_weekly_rain(config))
+    except Exception as exc:
+        print(f"Thailand weekly rain warning: {exc}", file=sys.stderr)
     for warning in update_climate_charts():
         print(f"climate chart warning: {warning}", file=sys.stderr)
     print(
