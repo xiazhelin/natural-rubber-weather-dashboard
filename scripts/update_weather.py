@@ -165,6 +165,35 @@ def utc_daily_forecast(hourly, timezone_name):
     ]
 
 
+def utc_six_hour_forecast(hourly, timezone_name, start_at_utc, periods=28):
+    """Aggregate hourly precipitation into aligned six-hour UTC periods."""
+    try:
+        local_timezone = ZoneInfo(timezone_name)
+    except (KeyError, TypeError):
+        return []
+    buckets = {}
+    for index, stamp in enumerate(hourly.get("time") or []):
+        local = datetime.fromisoformat(stamp).replace(tzinfo=local_timezone)
+        moment = local.astimezone(timezone.utc)
+        bucket = moment.replace(hour=moment.hour // 6 * 6, minute=0, second=0, microsecond=0)
+        buckets.setdefault(bucket, []).append(_hourly_value(hourly, "precipitation", index))
+
+    start = start_at_utc.astimezone(timezone.utc).replace(minute=0, second=0, microsecond=0)
+    if start_at_utc.minute or start_at_utc.second or start_at_utc.microsecond or start.hour % 6:
+        start += timedelta(hours=6 - start.hour % 6)
+    return [
+        {
+            "start_at_utc": bucket.isoformat().replace("+00:00", "Z"),
+            "end_at_utc": (bucket + timedelta(hours=6)).isoformat().replace("+00:00", "Z"),
+            "precipitation_mm": round(sum(_finite(values)), 1)
+            if len(values) == 6 and len(_finite(values)) == 6
+            else None,
+        }
+        for bucket in (start + timedelta(hours=6 * index) for index in range(periods))
+        for values in [buckets.get(bucket, [])]
+    ]
+
+
 def sample_imerg_pixel(image, latitude, longitude):
     """Read one IMERG accumulation pixel; product values are stored in 0.1 mm."""
     width, height = image.size
@@ -409,7 +438,7 @@ def classify(summary, thresholds):
     return states or ["NORMAL"]
 
 
-def build_station(location, payload, thresholds, tapping_window):
+def build_station(location, payload, thresholds, tapping_window, forecast_start_utc):
     daily = payload.get("daily") or {}
     hourly = payload.get("hourly") or {}
     dates = (daily.get("time") or [])[:7]
@@ -467,6 +496,12 @@ def build_station(location, payload, thresholds, tapping_window):
         and all(len(_finite(values)) == 7 for values in core)
         and len(_finite(tapping_rain)) == 7
     )
+    six_hour_forecast = utc_six_hour_forecast(
+        hourly, payload.get("timezone"), forecast_start_utc
+    )
+    complete = complete and len(six_hour_forecast) == 28 and all(
+        item["precipitation_mm"] is not None for item in six_hour_forecast
+    )
     quality = "PASS" if complete else "WARNING"
     if not rows:
         quality = "MISSING"
@@ -478,6 +513,7 @@ def build_station(location, payload, thresholds, tapping_window):
         "summary": summary,
         "daily": rows,
         "forecast_utc_daily": utc_daily_forecast(hourly, payload.get("timezone")),
+        "forecast_utc_6h": six_hour_forecast,
     }
 
 
@@ -487,7 +523,7 @@ def fetch_batch(locations, timeout=45, retries=3):
         "longitude": ",".join(str(item["longitude"]) for item in locations),
         "daily": ",".join(DAILY_FIELDS),
         "hourly": ",".join(HOURLY_FIELDS),
-        "forecast_days": 8,
+        "forecast_days": 9,
         "timezone": "auto",
         "cell_selection": "land",
     }
@@ -692,12 +728,13 @@ def collect(config_path):
     locations = config["locations"]
     thresholds = config["thresholds"]
     tapping_window = config["tapping_window"]
+    now = datetime.now(timezone.utc).replace(microsecond=0)
     stations = []
     for start in range(0, len(locations), 15):
         batch = locations[start : start + 15]
         payloads = fetch_batch(batch)
         stations.extend(
-            build_station(location, payload, thresholds, tapping_window)
+            build_station(location, payload, thresholds, tapping_window, now)
             for location, payload in zip(batch, payloads)
         )
     email = os.environ.get("NASA_PPS_EMAIL", "").strip()
@@ -712,14 +749,21 @@ def collect(config_path):
         observation_source, imerg = missing_imerg(locations, reason)
     for station in stations:
         station["imerg"] = imerg[station["station_id"]]
-    now = datetime.now(timezone.utc).replace(microsecond=0)
     quality_counts = {status: sum(item["quality_status"] == status for item in stations) for status in ("PASS", "WARNING", "MISSING")}
     overall = "PASS" if quality_counts["PASS"] == len(stations) else "WARNING"
     return {
-        "schema_version": 2,
+        "schema_version": 3,
         "dataset_id": "NR_PRODUCTION_REGION_WEATHER_MONITOR_V2",
         "generated_at_utc": now.isoformat().replace("+00:00", "Z"),
         "forecast_horizon": "D0-D6",
+        "forecast_6h_definition": {
+            "metric": "Open-Meteo hourly precipitation summed into six-hour periods",
+            "interval_hours": 6,
+            "periods": 28,
+            "timezone": "UTC",
+            "unit": "mm",
+            "note": "表头为时段起点；缺少任一小时则该6小时累计保持为空。",
+        },
         "overall_quality_status": overall,
         "quality_counts": quality_counts,
         "thresholds": thresholds,

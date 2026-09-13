@@ -281,6 +281,54 @@ function renderRows() {
   });
 }
 
+function sixHourRainClass(value) {
+  if (!hasNumber(value)) return "rain-6h-missing";
+  if (Number(value) >= 30) return "rain-6h-extreme";
+  if (Number(value) >= 15) return "rain-6h-heavy";
+  if (Number(value) >= 5) return "rain-6h-moderate";
+  if (Number(value) >= 0.1) return "rain-6h-trace";
+  return "rain-6h-none";
+}
+
+function sixHourLabel(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "—";
+  const pad = (part) => String(part).padStart(2, "0");
+  return `${pad(date.getUTCMonth() + 1)}-${pad(date.getUTCDate())} ${pad(date.getUTCHours())}时`;
+}
+
+function renderSixHourForecast() {
+  const periods = (state.data?.stations || []).find((station) => station.forecast_utc_6h?.length)?.forecast_utc_6h || [];
+  const available = periods.length > 0 && state.filtered.length > 0;
+  $("#sixHourHead").innerHTML = periods.length ? `<tr>
+    <th>国家 · 地区</th><th>地点</th>
+    ${periods.map((period) => `<th><time datetime="${escapeHtml(period.start_at_utc)}">${sixHourLabel(period.start_at_utc)}</time></th>`).join("")}
+  </tr>` : "";
+  $("#sixHourRows").innerHTML = available ? state.filtered.map((station) => {
+    const values = new Map((station.forecast_utc_6h || []).map((period) => [period.start_at_utc, period]));
+    return `<tr tabindex="0" data-id="${escapeHtml(station.station_id)}" class="${station.station_id === state.activeId ? "active" : ""}">
+      <td><strong>${escapeHtml(station.country)}</strong><br>${escapeHtml(station.region)}</td>
+      <td><strong>${escapeHtml(station.place)}</strong><small>纬度 ${number(station.latitude, 2)}°</small></td>
+      ${periods.map((period) => {
+        const item = values.get(period.start_at_utc) || {};
+        const value = item.precipitation_mm;
+        return `<td class="${sixHourRainClass(value)}" title="${escapeHtml(period.start_at_utc)} 至 ${escapeHtml(period.end_at_utc || "—")}">${number(value)}</td>`;
+      }).join("")}
+    </tr>`;
+  }).join("") : "";
+  $("#sixHourNoResults").classList.toggle("hidden", available);
+  $("#sixHourNoResults").textContent = periods.length
+    ? "当前筛选条件下没有可展示的6小时预报。"
+    : "当前数据文件尚未包含6小时预报；运行一次天气更新任务后生成。";
+  $("#sixHourRows").querySelectorAll("tr").forEach((row) => {
+    const activate = () => selectStation(row.dataset.id);
+    row.addEventListener("click", activate);
+    row.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") { event.preventDefault(); activate(); }
+    });
+  });
+}
+
 function renderDetail() {
   const station = state.filtered.find((item) => item.station_id === state.activeId);
   if (!station) {
@@ -332,6 +380,7 @@ function selectStation(id) {
   state.activeId = id;
   renderMaps();
   renderRows();
+  renderSixHourForecast();
   renderDetail();
   if (matchMedia("(max-width: 760px)").matches) $("#detailPanel").scrollIntoView({behavior:"smooth", block:"start"});
 }
@@ -340,6 +389,7 @@ function render() {
   renderMetrics();
   renderMaps();
   renderRows();
+  renderSixHourForecast();
   renderDetail();
 }
 

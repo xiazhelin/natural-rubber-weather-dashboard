@@ -296,6 +296,27 @@ td strong { color: var(--brand-dark); }
 .quality-cell.warning { color: #936009; }
 .quality-cell.missing { color: #6d7976; }
 
+.six-hour-panel .panel-heading { margin-bottom: 8px; }
+.six-hour-legend { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-bottom: 10px; color: var(--muted); font-size: .72rem; }
+.six-hour-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.rain-swatch { width: 13px; height: 13px; border: 1px solid rgba(20, 40, 38, .08); border-radius: 3px; }
+.six-hour-wrap { max-height: 720px; }
+.six-hour-table { min-width: 2470px; table-layout: fixed; font-size: .76rem; }
+.six-hour-table th, .six-hour-table td { width: 78px; padding: 9px 7px; text-align: center; }
+.six-hour-table th:first-child, .six-hour-table td:first-child { position: sticky; left: 0; z-index: 2; width: 150px; text-align: left; }
+.six-hour-table th:nth-child(2), .six-hour-table td:nth-child(2) { position: sticky; left: 150px; z-index: 2; width: 120px; text-align: left; }
+.six-hour-table th:first-child, .six-hour-table th:nth-child(2) { z-index: 4; background: #edf5f3; }
+.six-hour-table td:first-child, .six-hour-table td:nth-child(2) { background: #fff; }
+.six-hour-table tbody tr:hover td:first-child, .six-hour-table tbody tr:hover td:nth-child(2),
+.six-hour-table tbody tr.active td:first-child, .six-hour-table tbody tr.active td:nth-child(2) { background: #eff8f5; }
+.six-hour-table td small { display: block; color: var(--muted); font-size: .64rem; }
+.rain-6h-none { color: #849592; background: #f8fbfa; }
+.rain-6h-trace { background: #dcedf8; }
+.rain-6h-moderate { background: #83c3e6; }
+.rain-6h-heavy { background: #ffd27b; }
+.rain-6h-extreme { color: #fff; background: #d95757; font-weight: 800; }
+.rain-6h-missing { color: #7b8583; background: repeating-linear-gradient(135deg, #f4f6f5, #f4f6f5 5px, #e8edeb 5px, #e8edeb 10px); }
+
 .method-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
 .method-card { padding: 20px; }
 .method-card p, .method-card dd { color: #536864; font-size: .85rem; }

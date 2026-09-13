@@ -44,16 +44,22 @@ class WeatherPipelineTest(unittest.TestCase):
             "hourly": {
                 "time": [
                     (datetime(2026, 9, 12) + timedelta(hours=hour)).isoformat(timespec="minutes")
-                    for hour in range(168)
+                    for hour in range(192)
                 ],
-                "precipitation": [1 if hour % 24 in range(2, 10) else 0 for hour in range(168)],
-                "precipitation_probability": [70] * 168,
-                "soil_moisture_9_to_27cm": [0.25] * 168,
-                "soil_moisture_27_to_81cm": [0.31] * 168,
+                "precipitation": [1 if hour % 24 in range(2, 10) else 0 for hour in range(192)],
+                "precipitation_probability": [70] * 192,
+                "soil_moisture_9_to_27cm": [0.25] * 192,
+                "soil_moisture_27_to_81cm": [0.31] * 192,
             },
         }
         location = {"station_id": "test", "country": "泰国", "region": "南部", "place": "测试点", "latitude": 8, "longitude": 100}
-        station = MODULE.build_station(location, payload, self.thresholds, self.tapping_window)
+        station = MODULE.build_station(
+            location,
+            payload,
+            self.thresholds,
+            self.tapping_window,
+            datetime(2026, 9, 12, tzinfo=MODULE.timezone.utc),
+        )
         self.assertEqual(station["quality_status"], "PASS")
         self.assertEqual(station["summary"]["precipitation_7d_mm"], 165.0)
         self.assertEqual(station["summary"]["heavy_rain_days_7d"], 5)
@@ -61,6 +67,25 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertEqual(station["summary"]["soil_moisture_27_81cm_mean_7d"], 0.31)
         self.assertEqual(station["summary"]["tapping_window_precipitation_7d_mm"], 56.0)
         self.assertEqual(station["summary"]["tapping_window_rain_hours_7d"], 56)
+        self.assertEqual(len(station["forecast_utc_6h"]), 28)
+
+    def test_six_hour_forecast_aligns_local_hours_to_utc(self):
+        hourly = {
+            "time": [
+                (datetime(2026, 9, 12) + timedelta(hours=hour)).isoformat(timespec="minutes")
+                for hour in range(48)
+            ],
+            "precipitation": [1] * 48,
+        }
+        forecast = MODULE.utc_six_hour_forecast(
+            hourly,
+            "Asia/Bangkok",
+            datetime(2026, 9, 12, 0, 1, tzinfo=MODULE.timezone.utc),
+            periods=2,
+        )
+        self.assertEqual(forecast[0]["start_at_utc"], "2026-09-12T06:00:00Z")
+        self.assertEqual(forecast[0]["end_at_utc"], "2026-09-12T12:00:00Z")
+        self.assertEqual(forecast[0]["precipitation_mm"], 6.0)
 
     def test_imerg_grid_sampling_and_missing_value(self):
         class Image:
@@ -179,6 +204,10 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertIn("renderWeeklySummary();", script)
         self.assertIn("【本项目判断】本周关注", script)
         self.assertIn(".weekly-summary-grid", styles)
+        self.assertIn('id="sixHourRows"', page)
+        self.assertIn("function renderSixHourForecast()", script)
+        self.assertIn("renderSixHourForecast();", script)
+        self.assertIn(".six-hour-table", styles)
 
 
 if __name__ == "__main__":

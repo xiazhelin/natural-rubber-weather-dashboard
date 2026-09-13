@@ -291,6 +291,31 @@
       <div id="noResults" class="empty-state hidden">当前筛选条件下没有地点。</div>
     </section>
 
+    <section class="panel table-panel six-hour-panel" aria-labelledby="sixHourTitle">
+      <div class="panel-heading">
+        <div>
+          <p class="section-kicker">未来7天 · 时段细化</p>
+          <h2 id="sixHourTitle">每6小时降雨预报</h2>
+        </div>
+        <p class="table-caption">6小时累计降雨，单位：mm；表头为时段起点（UTC）</p>
+      </div>
+      <div class="six-hour-legend" aria-label="降雨色阶">
+        <span><i class="rain-swatch rain-6h-none"></i>0</span>
+        <span><i class="rain-swatch rain-6h-trace"></i>0.1–4.9</span>
+        <span><i class="rain-swatch rain-6h-moderate"></i>5–14.9</span>
+        <span><i class="rain-swatch rain-6h-heavy"></i>15–29.9</span>
+        <span><i class="rain-swatch rain-6h-extreme"></i>≥30</span>
+      </div>
+      <div class="table-wrap six-hour-wrap">
+        <table class="six-hour-table">
+          <thead id="sixHourHead"></thead>
+          <tbody id="sixHourRows"></tbody>
+        </table>
+      </div>
+      <div id="sixHourNoResults" class="empty-state hidden">当前筛选条件下没有可展示的6小时预报。</div>
+      <p class="map-note">来源：Open-Meteo Best Match小时降雨预报；按UTC自然6小时汇总。任一小时缺失时，该时段保持为空，不补0。</p>
+    </section>
+
     <section class="method-grid" id="update-guide">
       <article class="method-card source-card">
         <p class="section-kicker">数据来源</p>
@@ -301,6 +326,7 @@
           <div><dt>许可与访问</dt><dd id="sourceAccess">CC BY 4.0；无需API Key</dd></div>
           <div><dt>坐标口径</dt><dd id="scopeNote">项目配置的WGS84代表性网格点</dd></div>
           <div><dt>晨间割胶作业窗</dt><dd id="tappingWindowText">02:00–10:00（各地当地时间）</dd></div>
+          <div><dt>6小时降雨</dt><dd>小时降雨按UTC自然6小时累计；缺失时段不补0</dd></div>
         </dl>
         <a id="sourceDocs" href="https://open-meteo.com/en/docs" target="_blank" rel="noopener">查看官方接口文档 ↗</a>
       </article>
