@@ -250,6 +250,8 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertEqual(page.count("four-chart-grid"), 3)
         self.assertIn(".four-chart-grid", styles)
         self.assertLess(page.index('id="weeklySummaryTitle"'), page.index('class="toolbar"'))
+        self.assertLess(page.index('id="avgRain"'), page.index("重点产区代表网格"))
+        self.assertLess(page.index("重点产区代表网格"), page.index('id="sevenDayTitle"'))
         self.assertLess(page.index('id="avgRain"'), page.index('id="sevenDayTitle"'))
         self.assertLess(page.index('id="sevenDayTitle"'), page.index('id="sixHourTitle"'))
         self.assertLess(page.index('id="sixHourTitle"'), page.index('id="thailandRainTitle"'))

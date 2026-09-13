@@ -84,6 +84,32 @@
       </button>
     </section>
 
+    <section class="workspace">
+      <article class="panel map-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="section-kicker">空间分布</p>
+            <h2>重点产区代表网格</h2>
+          </div>
+          <div class="legend" aria-label="图例">
+            <span><i class="dot heavy"></i>强降雨</span>
+            <span><i class="dot dry"></i>少雨</span>
+            <span><i class="dot heat"></i>高温</span>
+            <span><i class="dot normal"></i>常规</span>
+          </div>
+        </div>
+        <div id="maps" class="maps" aria-live="polite"></div>
+        <p class="map-note">按经纬度投影的研究定位图；代表性网格点不等于种植面积边界。底图边界：<a href="https://www.naturalearthdata.com/downloads/110m-cultural-vectors/" target="_blank" rel="noreferrer">Natural Earth 1:110m</a>（公共领域，行政边界仅作定位示意）。</p>
+      </article>
+
+      <article class="panel detail-panel" id="detailPanel">
+        <div id="stationDetail" class="empty-state">
+          <strong>请选择一个产区地点</strong>
+          <span>点击地图标记或下方表格查看未来七天。</span>
+        </div>
+      </article>
+    </section>
+
     <section class="panel table-panel" aria-labelledby="sevenDayTitle">
       <div class="panel-heading">
         <div>
@@ -158,31 +184,6 @@
       </p>
     </section>
 
-    <section class="workspace">
-      <article class="panel map-panel">
-        <div class="panel-heading">
-          <div>
-            <p class="section-kicker">空间分布</p>
-            <h2>重点产区代表网格</h2>
-          </div>
-          <div class="legend" aria-label="图例">
-            <span><i class="dot heavy"></i>强降雨</span>
-            <span><i class="dot dry"></i>少雨</span>
-            <span><i class="dot heat"></i>高温</span>
-            <span><i class="dot normal"></i>常规</span>
-          </div>
-        </div>
-        <div id="maps" class="maps" aria-live="polite"></div>
-        <p class="map-note">按经纬度投影的研究定位图；代表性网格点不等于种植面积边界。底图边界：<a href="https://www.naturalearthdata.com/downloads/110m-cultural-vectors/" target="_blank" rel="noreferrer">Natural Earth 1:110m</a>（公共领域，行政边界仅作定位示意）。</p>
-      </article>
-
-      <article class="panel detail-panel" id="detailPanel">
-        <div id="stationDetail" class="empty-state">
-          <strong>请选择一个产区地点</strong>
-          <span>点击地图标记或下方表格查看未来七天。</span>
-        </div>
-      </article>
-    </section>
 <section class="panel cpc-panel">
   <div class="panel-heading">
     <div>
