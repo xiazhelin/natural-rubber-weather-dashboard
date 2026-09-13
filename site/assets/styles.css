@@ -272,6 +272,19 @@ input, select {
 .temperature-missing { min-height: 260px; aspect-ratio: 1; display: grid; place-content: center; gap: 6px; text-align: center; color: var(--muted); background: #eef3f1; border-radius: 6px; }
 .temperature-missing strong { color: #8a6a23; letter-spacing: .08em; }
 .source-badge { padding: 5px 9px; color: var(--muted); background: var(--surface-soft); border-radius: 999px; font-size: .76rem; font-weight: 800; white-space: nowrap; }
+.outlook-tabs { display: flex; flex-wrap: wrap; gap: 7px; padding: 5px; background: var(--surface-soft); border-radius: 10px; }
+.outlook-tab { padding: 8px 12px; color: var(--muted); background: transparent; border: 0; border-radius: 7px; font: inherit; font-size: .78rem; font-weight: 800; cursor: pointer; }
+.outlook-tab[aria-selected="true"] { color: #fff; background: var(--brand); }
+.outlook-tab:focus-visible { outline: 3px solid rgba(11, 103, 92, .25); outline-offset: 2px; }
+.outlook-tab-panel { margin-top: 12px; }
+.outlook-chart-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.outlook-chart-grid.outlook-single { grid-template-columns: 1fr; }
+.outlook-single .cpc-figure img { max-height: 690px; object-fit: contain; background: #fff; }
+.outlook-caution { padding-top: 10px; border-top: 1px solid var(--line); }
+.outlook-status { font-weight: 900; }
+.outlook-status.pass { color: #177147; }
+.outlook-status.warning { color: #936009; }
+.outlook-status.missing { color: #6d7976; }
 
 .detail-panel { min-height: 430px; }
 .detail-head { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; margin-bottom: 16px; }
@@ -402,6 +415,7 @@ footer {
   .map-box { min-height: 280px; }
   .map-box svg { min-height: 280px; }
   .cpc-grid { grid-template-columns: 1fr; }
+  .outlook-chart-grid { grid-template-columns: 1fr; }
   .climate-outlook { grid-column: auto; }
   .method-grid { grid-template-columns: 1fr; }
   .caution-card { grid-column: auto; }

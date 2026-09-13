@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "products": {
+    "gth": {
+      "title": "NOAA/CPC全球热带危险展望",
+      "source_name": "NOAA Climate Prediction Center",
+      "documentation": "https://www.cpc.ncep.noaa.gov/products/precip/CWlink/ghaz/index.php",
+      "data_type": "ESTIMATE",
+      "issued": "09/08/26",
+      "valid_periods": [
+        "09/16/26–09/29/26"
+      ],
+      "images": [
+        {
+          "filename": "gth-outlook.png",
+          "source_url": "https://www.cpc.ncep.noaa.gov/products/precip/CWlink/ghaz/gth_full.png",
+          "label": "第2–3周全球热带危险展望"
+        }
+      ],
+      "quality_status": "PASS",
+      "last_success_at_utc": "2026-09-13T15:46:43Z",
+      "last_attempt_at_utc": "2026-09-13T15:46:43Z"
+    },
+    "iri_precip": {
+      "title": "IRI季节降水概率",
+      "source_name": "Columbia Climate School International Research Institute",
+      "documentation": "https://iri.columbia.edu/our-expertise/climate/forecasts/seasonal-climate-forecasts/",
+      "data_type": "ESTIMATE",
+      "source_period": "2026-08",
+      "images": [
+        {
+          "source_url": "https://iri.columbia.edu/climate/forecast/net_asmt_nmme/2026/aug2026/images/SON26_World_pcp.gif",
+          "label": "SON26",
+          "filename": "iri-seasonal-precip-1.gif"
+        },
+        {
+          "source_url": "https://iri.columbia.edu/climate/forecast/net_asmt_nmme/2026/aug2026/images/OND26_World_pcp.gif",
+          "label": "OND26",
+          "filename": "iri-seasonal-precip-2.gif"
+        },
+        {
+          "source_url": "https://iri.columbia.edu/climate/forecast/net_asmt_nmme/2026/aug2026/images/NDJ27_World_pcp.gif",
+          "label": "NDJ27",
+          "filename": "iri-seasonal-precip-3.gif"
+        },
+        {
+          "source_url": "https://iri.columbia.edu/climate/forecast/net_asmt_nmme/2026/aug2026/images/DJF27_World_pcp.gif",
+          "label": "DJF27",
+          "filename": "iri-seasonal-precip-4.gif"
+        }
+      ],
+      "quality_status": "PASS",
+      "last_success_at_utc": "2026-09-13T15:46:43Z",
+      "last_attempt_at_utc": "2026-09-13T15:46:43Z"
+    },
+    "nmme_precip": {
+      "title": "NMME月度降水距平",
+      "source_name": "NOAA Climate Prediction Center NMME",
+      "documentation": "https://www.cpc.ncep.noaa.gov/products/international/nmme/html_monthly/precip_anom_global_body.html",
+      "data_type": "ESTIMATE",
+      "unit": "mm/day",
+      "source_period": "2026-09",
+      "images": [
+        {
+          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_prec_anom_SepIC_Oct2026.png",
+          "label": "Oct2026",
+          "filename": "nmme-precip-1.png"
+        },
+        {
+          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_prec_anom_SepIC_Nov2026.png",
+          "label": "Nov2026",
+          "filename": "nmme-precip-2.png"
+        },
+        {
+          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_prec_anom_SepIC_Dec2026.png",
+          "label": "Dec2026",
+          "filename": "nmme-precip-3.png"
+        },
+        {
+          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_prec_anom_SepIC_Jan2027.png",
+          "label": "Jan2027",
+          "filename": "nmme-precip-4.png"
+        }
+      ],
+      "quality_status": "PASS",
+      "last_success_at_utc": "2026-09-13T15:46:43Z",
+      "last_attempt_at_utc": "2026-09-13T15:46:43Z"
+    },
+    "nmme_temperature": {
+      "title": "NMME月度2米气温距平",
+      "source_name": "NOAA Climate Prediction Center NMME",
+      "documentation": "https://www.cpc.ncep.noaa.gov/products/international/nmme/html_monthly/tmp2m_anom_global_body.html",
+      "data_type": "ESTIMATE",
+      "unit": "°C",
+      "source_period": "2026-09",
+      "images": [
+        {
+          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_tmp2m_anom_SepIC_Oct2026.png",
+          "label": "Oct2026",
+          "filename": "nmme-temperature-1.png"
+        },
+        {
+          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_tmp2m_anom_SepIC_Nov2026.png",
+          "label": "Nov2026",
+          "filename": "nmme-temperature-2.png"
+        },
+        {
+          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_tmp2m_anom_SepIC_Dec2026.png",
+          "label": "Dec2026",
+          "filename": "nmme-temperature-3.png"
+        },
+        {
+          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_tmp2m_anom_SepIC_Jan2027.png",
+          "label": "Jan2027",
+          "filename": "nmme-temperature-4.png"
+        }
+      ],
+      "quality_status": "PASS",
+      "last_success_at_utc": "2026-09-13T15:46:43Z",
+      "last_attempt_at_utc": "2026-09-13T15:46:43Z"
+    }
+  },
+  "updated_at_utc": "2026-09-13T15:46:43Z"
+}

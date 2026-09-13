@@ -332,6 +332,41 @@
         NCEP GFS集合降水预报经最近30日预报误差订正；距平基准期为1991—2020年。图内日期为模式起报日和有效期。
       </p>
     </section>
+    <section class="panel cpc-panel outlook-panel" aria-labelledby="extendedOutlookTitle">
+      <div class="panel-heading">
+        <div>
+          <p class="section-kicker">中期与季节展望</p>
+          <h2 id="extendedOutlookTitle">热带风险、降水与气温展望</h2>
+        </div>
+        <span class="source-badge">ESTIMATE · 概率/距平</span>
+      </div>
+
+      <div class="outlook-tabs" role="tablist" aria-label="中期与季节展望类型">
+        <button type="button" class="outlook-tab" id="gthOutlookTab" role="tab" aria-selected="true" aria-controls="gthOutlookPanel">第2–3周风险</button>
+        <button type="button" class="outlook-tab" id="iriPrecipTab" role="tab" aria-selected="false" aria-controls="iriPrecipPanel" tabindex="-1">季节降水概率</button>
+        <button type="button" class="outlook-tab" id="nmmePrecipTab" role="tab" aria-selected="false" aria-controls="nmmePrecipPanel" tabindex="-1">月度降水距平</button>
+        <button type="button" class="outlook-tab" id="nmmeTemperatureTab" role="tab" aria-selected="false" aria-controls="nmmeTemperaturePanel" tabindex="-1">月度气温距平</button>
+      </div>
+
+      <div id="gthOutlookPanel" class="outlook-tab-panel" role="tabpanel" aria-labelledby="gthOutlookTab">
+        <div id="gthOutlookGrid" class="outlook-chart-grid outlook-single" aria-live="polite"><div class="loading-state"><span></span><p>正在读取第2–3周展望…</p></div></div>
+        <p id="gthOutlookMeta" class="map-note"></p>
+      </div>
+      <div id="iriPrecipPanel" class="outlook-tab-panel" role="tabpanel" aria-labelledby="iriPrecipTab" hidden>
+        <div id="iriPrecipGrid" class="outlook-chart-grid" aria-live="polite"></div>
+        <p id="iriPrecipMeta" class="map-note"></p>
+      </div>
+      <div id="nmmePrecipPanel" class="outlook-tab-panel" role="tabpanel" aria-labelledby="nmmePrecipTab" hidden>
+        <div id="nmmePrecipGrid" class="outlook-chart-grid" aria-live="polite"></div>
+        <p id="nmmePrecipMeta" class="map-note"></p>
+      </div>
+      <div id="nmmeTemperaturePanel" class="outlook-tab-panel" role="tabpanel" aria-labelledby="nmmeTemperatureTab" hidden>
+        <div id="nmmeTemperatureGrid" class="outlook-chart-grid" aria-live="polite"></div>
+        <p id="nmmeTemperatureMeta" class="map-note"></p>
+      </div>
+
+      <p class="map-note outlook-caution">图表为概率或模式距平估计，不等于确定性天气、产区供应或价格结论；IRI与NMME存在模式信息重叠，不应当作两组独立证据。</p>
+    </section>
     <section class="panel cpc-panel">
       <div class="panel-heading">
         <div>

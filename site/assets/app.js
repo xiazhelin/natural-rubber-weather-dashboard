@@ -57,6 +57,67 @@ async function loadTemperatureHistory() {
   }
 }
 
+function setupOutlookTabs() {
+  const tabs = [...document.querySelectorAll(".outlook-tab")];
+  const select = (tab) => {
+    tabs.forEach((item) => {
+      const active = item === tab;
+      item.setAttribute("aria-selected", String(active));
+      item.tabIndex = active ? 0 : -1;
+      document.getElementById(item.getAttribute("aria-controls")).hidden = !active;
+    });
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => select(tab));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowLeft", "ArrowRight"].includes(event.key)) return;
+      event.preventDefault();
+      const step = event.key === "ArrowRight" ? 1 : -1;
+      const next = tabs[(index + step + tabs.length) % tabs.length];
+      select(next);
+      next.focus();
+    });
+  });
+}
+
+function renderOutlookProduct(product, gridId, metaId) {
+  const grid = document.getElementById(gridId);
+  const meta = document.getElementById(metaId);
+  const images = product?.images || [];
+  if (!images.length) {
+    grid.innerHTML = '<div class="temperature-missing" role="status"><strong>MISSING</strong><span>尚未取得官方图表</span></div>';
+    meta.textContent = "当前无法确认最新数据。";
+    return;
+  }
+  grid.innerHTML = images.map((item) => {
+    const path = `assets/climate/${escapeHtml(item.filename)}`;
+    return `<figure class="cpc-figure"><a href="${path}" target="_blank" rel="noreferrer"><img src="${path}" alt="${escapeHtml(product.title)}：${escapeHtml(item.label)}" loading="lazy" decoding="async"></a><figcaption>${escapeHtml(item.label)}</figcaption></figure>`;
+  }).join("");
+  const status = product.quality_status || "MISSING";
+  const period = product.issued ? `发布 ${escapeHtml(product.issued)}` : `起报/${escapeHtml(product.source_period || "未知")}`;
+  const valid = (product.valid_periods || []).length ? `；有效期 ${escapeHtml(product.valid_periods.join("；"))}` : "";
+  const retained = product.warning ? "；本次更新失败，已保留上次图表" : "";
+  meta.innerHTML = `<span class="outlook-status ${escapeHtml(status.toLowerCase())}">${escapeHtml(status)}</span> · ${escapeHtml(product.data_type || "ESTIMATE")} · ${period}${valid}${retained}；来源：<a href="${escapeHtml(product.documentation)}" target="_blank" rel="noreferrer">${escapeHtml(product.source_name)}</a>。`;
+}
+
+async function loadExtendedOutlooks() {
+  const products = [
+    ["gth", "gthOutlookGrid", "gthOutlookMeta"],
+    ["iri_precip", "iriPrecipGrid", "iriPrecipMeta"],
+    ["nmme_precip", "nmmePrecipGrid", "nmmePrecipMeta"],
+    ["nmme_temperature", "nmmeTemperatureGrid", "nmmeTemperatureMeta"],
+  ];
+  try {
+    const response = await fetch(`assets/climate/climate-outlook-manifest.json?v=${Date.now()}`, {cache:"no-store"});
+    if (!response.ok) throw new Error(`climate-outlook-manifest.json ${response.status}`);
+    const manifest = await response.json();
+    products.forEach(([key, grid, meta]) => renderOutlookProduct(manifest.products?.[key], grid, meta));
+  } catch (error) {
+    console.warn("Extended climate outlooks unavailable", error);
+    products.forEach(([, grid, meta]) => renderOutlookProduct(null, grid, meta));
+  }
+}
+
 function populateSources(data) {
   const source = data.source || {};
   $("#sourceName").textContent = source.source_name || "当前无法确认最新数据";
@@ -536,3 +597,5 @@ document.querySelectorAll("[data-weather-filter]").forEach((card) => {
 });
 loadData();
 loadTemperatureHistory();
+setupOutlookTabs();
+loadExtendedOutlooks();

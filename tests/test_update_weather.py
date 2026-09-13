@@ -175,6 +175,34 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertIn("Latest week ending 2026-08-14", svg)
         self.assertIn("Test index", svg)
 
+    def test_extended_outlook_parsers(self):
+        gth = MODULE.parse_gth_metadata(
+            "<p>Last Updated - 09/08/26</p><b>Valid - 09/16/26 - 09/22/26</b>"
+            "<b>Valid - 09/23/26 - 09/29/26</b>"
+        )
+        self.assertEqual(gth["issued"], "09/08/26")
+        self.assertEqual(len(gth["valid_periods"]), 2)
+
+        iri = MODULE.parse_iri_precip_index(
+            '"precip":"2026/jul2026/images/ASO26_World_pcp.gif",'
+            '"precip":"2026/aug2026/images/SON26_World_pcp.gif",'
+            '"precip":"2026/aug2026/images/OND26_World_pcp.gif",'
+            '"precip":"2026/aug2026/images/NDJ27_World_pcp.gif",'
+            '"precip":"2026/aug2026/images/DJF27_World_pcp.gif"'
+        )
+        self.assertEqual(iri["source_period"], "2026-08")
+        self.assertEqual([item["label"] for item in iri["images"]], ["SON26", "OND26", "NDJ27", "DJF27"])
+
+        nmme = MODULE.parse_nmme_outlook_page(
+            'September2026 INITIAL CONDITIONS <img src="/products/global_nmme_prec_anom_SepIC_Oct2026.png">',
+            "prec_anom",
+        )
+        self.assertEqual(nmme["source_period"], "2026-09")
+        self.assertEqual(nmme["images"][0]["label"], "Oct2026")
+        today = datetime(2026, 9, 13).date()
+        self.assertEqual(MODULE._outlook_quality({"issued": "09/08/26"}, today), "PASS")
+        self.assertEqual(MODULE._outlook_quality({"source_period": "2026-06"}, today), "WARNING")
+
     def test_seasia_temperature_archive_keeps_four_distinct_maps(self):
         with tempfile.TemporaryDirectory() as directory:
             directory = Path(directory)
@@ -199,6 +227,7 @@ class WeatherPipelineTest(unittest.TestCase):
         config = json.loads((root / "config/locations.json").read_text(encoding="utf-8"))
         page = (root / "site/index.html").read_text(encoding="utf-8")
         script = (root / "site/assets/app.js").read_text(encoding="utf-8")
+        outlooks = json.loads((root / "site/assets/climate/climate-outlook-manifest.json").read_text(encoding="utf-8"))
 
         self.assertIn('cron: "0 21 * * 5"', workflow)
         self.assertIn('timezone: "Asia/Shanghai"', workflow)
@@ -228,6 +257,19 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertIn("wctan5.png", page)
         self.assertIn("GTS地面站", page)
         self.assertIn("function loadTemperatureHistory()", script)
+        self.assertIn('id="extendedOutlookTitle"', page)
+        self.assertIn('id="gthOutlookTab"', page)
+        self.assertIn('id="iriPrecipTab"', page)
+        self.assertIn('id="nmmePrecipTab"', page)
+        self.assertIn('id="nmmeTemperatureTab"', page)
+        self.assertIn("function loadExtendedOutlooks()", script)
+        self.assertIn("function setupOutlookTabs()", script)
+        self.assertIn("climate-outlook-manifest.json", script)
+        self.assertEqual(set(outlooks["products"]), {"gth", "iri_precip", "nmme_precip", "nmme_temperature"})
+        for product in outlooks["products"].values():
+            self.assertIn(product["quality_status"], {"PASS", "WARNING"})
+            for image in product["images"]:
+                self.assertTrue((root / "site/assets/climate" / image["filename"]).exists())
 
     def test_weekly_summary_is_wired_into_dashboard(self):
         root = SCRIPT.parent.parent
@@ -255,6 +297,8 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertLess(page.index('id="avgRain"'), page.index('id="sevenDayTitle"'))
         self.assertLess(page.index('id="sevenDayTitle"'), page.index('id="sixHourTitle"'))
         self.assertLess(page.index('id="sixHourTitle"'), page.index('id="thailandRainTitle"'))
+        self.assertLess(page.index("NOAA/CPC GFS 集合降水预报"), page.index('id="extendedOutlookTitle"'))
+        self.assertLess(page.index('id="extendedOutlookTitle"'), page.index("ENSO 与印度洋偶极子"))
         self.assertEqual(page.count('data-weather-filter="'), 4)
         self.assertIn('id="weatherTableCaption"', page)
         self.assertIn("function activateMetricFilter(status)", script)

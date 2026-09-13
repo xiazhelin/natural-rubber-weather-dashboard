@@ -1,6 +1,6 @@
 # 天然橡胶产区天气跟踪面板
 
-面向天然橡胶基本面研究的轻量静态网页。默认跟踪中国、泰国、印度尼西亚、越南和科特迪瓦的29个代表性网格点，展示未来7日天气、每6小时累计降雨、泰国分区周度降雨历史、当地晨间割胶作业窗降雨、IMERG过去24/72小时实况估算、预报兑现率、东南亚周度气温距平及ENSO/IOD中期气候背景。
+面向天然橡胶基本面研究的轻量静态网页。默认跟踪中国、泰国、印度尼西亚、越南和科特迪瓦的29个代表性网格点，展示未来7日天气、每6小时累计降雨、泰国分区周度降雨历史、当地晨间割胶作业窗降雨、IMERG过去24/72小时实况估算、预报兑现率、东南亚周度气温距平、第2–3周热带风险、季节降水/月度距平展望及ENSO/IOD气候背景。
 
 ## 数据来源与口径
 
@@ -17,6 +17,7 @@
 - 东南亚周度气温距平：NOAA Climate Prediction Center以GTS地面站资料生成的周度初步分析，单位为℃；官方入口：`https://www.cpc.ncep.noaa.gov/products/JAWF_Monitoring/SEAsia/temperature.shtml`。更新脚本按图片内容去重并滚动保留最近4个官方周图；红色表示偏暖、蓝色表示偏冷，空白区不代表距平为0℃，有效期以图内标题为准。
 - 中期气候观测：澳大利亚气象局（BoM）Relative Niño3.4与Indian Ocean Dipole周度指数，基准期1991—2020年；官方图表入口：`https://www.bom.gov.au/climate/influences/graphs/`。
 - 中期气候展望：NOAA Climate Prediction Center官方RONI outlook；`https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso/roni/outlook/`。两家机构的相对指数口径不可直接混用。
+- 中期与季节展望：NOAA/CPC Global Tropics Hazards Outlook、IRI季节降水概率、NOAA/CPC NMME月度降水和2米气温距平。图片与发布/起报时间由更新脚本保存到本地；单个产品失败时保留上次图片并标记`WARNING`，无历史图时标记`MISSING`。这些数据均为`ESTIMATE`，IRI与NMME不能当作两组独立证据。
 - 坐标：`config/locations.json`中的WGS84研究定位点，不代表种植园或行政区种植面积边界。
 - 缺失值：保持为空；不会填0或沿用前值。
 
@@ -70,5 +71,6 @@ scripts/update_weather.py      官方数据更新脚本
 tests/test_update_weather.py   最小逻辑校验
 site/                          GitHub Pages发布内容
 site/data/thailand-weekly-rain.json  泰国分区周度降雨
+site/assets/climate/climate-outlook-manifest.json  中期/季节展望图片元数据
 .github/workflows/             手动更新与发布流程
 ```

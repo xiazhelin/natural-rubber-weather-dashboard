@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import base64
 import hashlib
+import html
 import json
 import math
 import os
@@ -102,6 +103,31 @@ NOAA_SEASIA_TEMP_ANOMALY_URL = (
 NOAA_SEASIA_TEMP_PAGE_URL = (
     "https://www.cpc.ncep.noaa.gov/products/JAWF_Monitoring/SEAsia/temperature.shtml"
 )
+NOAA_GTH_PAGE_URL = "https://www.cpc.ncep.noaa.gov/products/precip/CWlink/ghaz/index.php"
+NOAA_GTH_IMAGE_URL = "https://www.cpc.ncep.noaa.gov/products/precip/CWlink/ghaz/gth_full.png"
+IRI_OUTLOOK_INDEX_URL = (
+    "https://iri.columbia.edu/wp-content/themes/iri/assets/data/net_asmt_images.js?ver=7.1"
+)
+IRI_OUTLOOK_IMAGE_BASE_URL = "https://iri.columbia.edu/climate/forecast/net_asmt_nmme/"
+NMME_OUTLOOKS = {
+    "nmme_precip": {
+        "page_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/html_monthly/precip_anom_global_body.html",
+        "image_token": "prec_anom",
+        "filename_prefix": "nmme-precip",
+        "title": "NMME月度降水距平",
+        "unit": "mm/day",
+    },
+    "nmme_temperature": {
+        "page_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/html_monthly/tmp2m_anom_global_body.html",
+        "image_token": "tmp2m_anom",
+        "filename_prefix": "nmme-temperature",
+        "title": "NMME月度2米气温距平",
+        "unit": "°C",
+    },
+}
+MONTHS = {month.lower(): number for number, month in enumerate(
+    ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"), 1
+)}
 
 
 def _finite(values):
@@ -795,6 +821,181 @@ def _public_request(url, timeout=45):
     return urllib.request.urlopen(request, timeout=timeout)
 
 
+def parse_gth_metadata(payload):
+    """Extract the issue date and Week 2/3 validity from the GTH page."""
+    text = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", payload)))
+    date_pattern = r"\d{1,2}/\d{1,2}/\d{2,4}"
+    issued = re.search(rf"Last Updated\s*-\s*({date_pattern})", text, re.IGNORECASE)
+    valid = re.findall(
+        rf"Valid\s*-\s*({date_pattern})\s*-\s*({date_pattern})", text, re.IGNORECASE
+    )
+    return {
+        "issued": issued.group(1) if issued else None,
+        "valid_periods": [f"{start}–{end}" for start, end in valid[:2]],
+    }
+
+
+def parse_iri_precip_index(payload):
+    """Return the latest four IRI world precipitation-probability charts."""
+    pattern = re.compile(
+        r'"precip"\s*:\s*"(?P<path>(?P<year>\d{4})/(?P<folder>[a-z]{3})\d{4}/images/'
+        r'(?P<lead>[A-Z]{3}\d{2})_World_pcp\.gif)"',
+        re.IGNORECASE,
+    )
+    issues = {}
+    for match in pattern.finditer(payload):
+        month = MONTHS.get(match.group("folder").lower())
+        if month:
+            issues.setdefault((int(match.group("year")), month), []).append(
+                {"source_url": urllib.parse.urljoin(IRI_OUTLOOK_IMAGE_BASE_URL, match.group("path")),
+                 "label": match.group("lead").upper()}
+            )
+    if not issues:
+        raise RuntimeError("IRI precipitation charts were not found")
+    issue = max(issues)
+    return {
+        "source_period": f"{issue[0]:04d}-{issue[1]:02d}",
+        "images": issues[issue][:4],
+    }
+
+
+def parse_nmme_outlook_page(payload, image_token):
+    """Return the NMME initial-condition month and ensemble-mean chart URLs."""
+    issue_match = re.search(
+        r"([A-Za-z]+)(\d{4})\s+INITIAL CONDITIONS", payload, re.IGNORECASE
+    )
+    if not issue_match or issue_match.group(1).lower()[:3] not in MONTHS:
+        raise RuntimeError("NMME initial-condition month was not found")
+    month = MONTHS[issue_match.group(1).lower()[:3]]
+    paths = re.findall(
+        rf'["\']([^"\']*global_nmme_{re.escape(image_token)}_[^"\']+\.png)["\']',
+        payload,
+        re.IGNORECASE,
+    )
+    images = []
+    for path in dict.fromkeys(paths):
+        label_match = re.search(r"_([A-Za-z]{3}\d{4})\.png$", path)
+        images.append({
+            "source_url": urllib.parse.urljoin("https://www.cpc.ncep.noaa.gov", path),
+            "label": label_match.group(1) if label_match else Path(path).stem,
+        })
+    if not images:
+        raise RuntimeError("NMME ensemble-mean charts were not found")
+    return {
+        "source_period": f"{int(issue_match.group(2)):04d}-{month:02d}",
+        "images": images[:4],
+    }
+
+
+def _download_image(url):
+    with _public_request(url) as response:
+        payload = response.read()
+    if not (payload.startswith(b"\x89PNG\r\n\x1a\n") or payload.startswith((b"GIF87a", b"GIF89a"))):
+        raise RuntimeError(f"image response was invalid: {url}")
+    return payload
+
+
+def _outlook_quality(product, today):
+    if product.get("issued"):
+        for pattern in ("%m/%d/%y", "%m/%d/%Y"):
+            try:
+                issued = datetime.strptime(product["issued"], pattern).date()
+                return "WARNING" if (today - issued).days > 14 else "PASS"
+            except ValueError:
+                continue
+    if product.get("source_period"):
+        year, month = map(int, product["source_period"].split("-"))
+        age_months = (today.year - year) * 12 + today.month - month
+        return "WARNING" if age_months > 1 else "PASS"
+    return "WARNING"
+
+
+def _gth_product():
+    with _public_request(NOAA_GTH_PAGE_URL) as response:
+        metadata = parse_gth_metadata(response.read().decode("utf-8", errors="replace"))
+    return {
+        "title": "NOAA/CPC全球热带危险展望",
+        "source_name": "NOAA Climate Prediction Center",
+        "documentation": NOAA_GTH_PAGE_URL,
+        "data_type": "ESTIMATE",
+        **metadata,
+        "images": [{
+            "filename": "gth-outlook.png",
+            "source_url": NOAA_GTH_IMAGE_URL,
+            "label": "第2–3周全球热带危险展望",
+        }],
+    }
+
+
+def _iri_precip_product():
+    with _public_request(IRI_OUTLOOK_INDEX_URL) as response:
+        parsed = parse_iri_precip_index(response.read().decode("utf-8", errors="replace"))
+    for index, item in enumerate(parsed["images"], 1):
+        item["filename"] = f"iri-seasonal-precip-{index}.gif"
+    return {
+        "title": "IRI季节降水概率",
+        "source_name": "Columbia Climate School International Research Institute",
+        "documentation": "https://iri.columbia.edu/our-expertise/climate/forecasts/seasonal-climate-forecasts/",
+        "data_type": "ESTIMATE",
+        **parsed,
+    }
+
+
+def _nmme_product(key, settings):
+    with _public_request(settings["page_url"]) as response:
+        parsed = parse_nmme_outlook_page(
+            response.read().decode("utf-8", errors="replace"), settings["image_token"]
+        )
+    for index, item in enumerate(parsed["images"], 1):
+        item["filename"] = f'{settings["filename_prefix"]}-{index}.png'
+    return {
+        "title": settings["title"],
+        "source_name": "NOAA Climate Prediction Center NMME",
+        "documentation": settings["page_url"],
+        "data_type": "ESTIMATE",
+        "unit": settings["unit"],
+        **parsed,
+    }
+
+
+def update_extended_outlooks(directory=CLIMATE_ASSET_DIR):
+    """Refresh medium-range and seasonal charts without breaking the weather update."""
+    manifest_path = directory / "climate-outlook-manifest.json"
+    manifest = {"schema_version": 1, "products": {}}
+    if manifest_path.exists():
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    products = manifest.setdefault("products", {})
+    now = datetime.now(timezone.utc).replace(microsecond=0)
+    updated_at = now.isoformat().replace("+00:00", "Z")
+    warnings = []
+    loaders = [("gth", _gth_product), ("iri_precip", _iri_precip_product)]
+    loaders.extend(
+        (key, lambda key=key, settings=settings: _nmme_product(key, settings))
+        for key, settings in NMME_OUTLOOKS.items()
+    )
+    for key, loader in loaders:
+        try:
+            product = loader()
+            images = [(item, _download_image(item["source_url"])) for item in product["images"]]
+            for item, payload in images:
+                _atomic_write(directory / item["filename"], payload, "wb")
+            product["quality_status"] = _outlook_quality(product, now.date())
+            product["last_success_at_utc"] = updated_at
+            product["last_attempt_at_utc"] = updated_at
+            products[key] = product
+        except Exception as exc:
+            previous = dict(products.get(key) or {})
+            previous["quality_status"] = "WARNING" if previous.get("images") else "MISSING"
+            previous["last_attempt_at_utc"] = updated_at
+            previous["warning"] = str(exc)
+            products[key] = previous
+            warnings.append(f"{key}: {exc}")
+    manifest["schema_version"] = 1
+    manifest["updated_at_utc"] = updated_at
+    atomic_json(manifest_path, manifest)
+    return warnings
+
+
 def archive_seasia_temperature(image, captured_at=None, source_last_modified=None, directory=CLIMATE_ASSET_DIR):
     """Keep the four most recently captured, distinct NOAA weekly maps."""
     if not image.startswith(b"\x89PNG\r\n\x1a\n"):
@@ -888,6 +1089,7 @@ def update_climate_charts():
         archive_seasia_temperature(image, source_last_modified=last_modified)
     except Exception as exc:
         warnings.append(f"NOAA CPC Southeast Asia temperature anomaly: {exc}")
+    warnings.extend(update_extended_outlooks())
     return warnings
 
 
