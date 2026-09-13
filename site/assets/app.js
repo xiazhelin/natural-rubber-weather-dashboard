@@ -107,17 +107,19 @@ function populateCountries(stations) {
   select.value = countries.includes(current) ? current : "all";
 }
 
-function filterStations() {
+function scopedStations() {
   const country = $("#countryFilter").value;
-  const status = $("#stateFilter").value;
   const query = $("#searchInput").value.trim().toLowerCase();
-  state.filtered = (state.data?.stations || []).filter((station) => {
-    const states = station.summary?.weather_states || [];
+  return (state.data?.stations || []).filter((station) => {
     const haystack = `${station.country} ${station.region} ${station.place}`.toLowerCase();
     return (country === "all" || station.country === country)
-      && (status === "all" || states.includes(status))
       && (!query || haystack.includes(query));
   });
+}
+
+function filterStations() {
+  const status = $("#stateFilter").value;
+  state.filtered = scopedStations().filter((station) => status === "all" || station.summary?.weather_states?.includes(status));
   if (!state.filtered.some((item) => item.station_id === state.activeId)) {
     state.activeId = state.filtered[0]?.station_id || null;
   }
@@ -125,14 +127,25 @@ function filterStations() {
 }
 
 function renderMetrics() {
-  const stations = state.filtered;
+  const stations = scopedStations();
   const rain = stations.map((item) => item.summary?.precipitation_7d_mm).filter((value) => value != null);
   $("#avgRain").textContent = rain.length ? `${number(sum(rain) / rain.length)} mm` : "—";
   for (const code of ["HEAVY_RAIN", "DRY", "HEAT"]) {
     const count = stations.filter((item) => item.summary?.weather_states?.includes(code)).length;
     $(`#${code === "HEAVY_RAIN" ? "heavy" : code.toLowerCase()}Count`).textContent = `${count} 个`;
   }
-  $("#resultCount").textContent = `${stations.length}个地点`;
+  $("#resultCount").textContent = `${state.filtered.length}个地点`;
+  document.querySelectorAll("[data-weather-filter]").forEach((card) => {
+    card.setAttribute("aria-pressed", String(card.dataset.weatherFilter === $("#stateFilter").value));
+  });
+}
+
+function activateMetricFilter(status) {
+  if (!state.data) return;
+  $("#stateFilter").value = status;
+  filterStations();
+  const target = state.filtered.length === 1 ? $("#detailPanel") : $("#sevenDayTitle").closest(".panel");
+  target.scrollIntoView({behavior:"smooth", block:"start"});
 }
 
 function renderWeeklySummary() {
@@ -271,6 +284,9 @@ function statusPills(station) {
 
 function renderRows() {
   const body = $("#weatherRows");
+  $("#weatherTableCaption").textContent = state.filtered.length
+    ? `共${state.filtered.length}个匹配地点；点击任意一行查看日度明细`
+    : "当前筛选条件下没有匹配地点";
   body.innerHTML = state.filtered.map((station) => {
     const s = station.summary || {};
     const change = rainChange(station);
@@ -295,7 +311,7 @@ function renderRows() {
   }).join("");
   $("#noResults").classList.toggle("hidden", state.filtered.length > 0);
   body.querySelectorAll("tr").forEach((row) => {
-    const activate = () => selectStation(row.dataset.id);
+    const activate = () => selectStation(row.dataset.id, true);
     row.addEventListener("click", activate);
     row.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") { event.preventDefault(); activate(); }
@@ -343,7 +359,7 @@ function renderSixHourForecast() {
     ? "当前筛选条件下没有可展示的6小时预报。"
     : "当前数据文件尚未包含6小时预报；运行一次天气更新任务后生成。";
   $("#sixHourRows").querySelectorAll("tr").forEach((row) => {
-    const activate = () => selectStation(row.dataset.id);
+    const activate = () => selectStation(row.dataset.id, true);
     row.addEventListener("click", activate);
     row.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") { event.preventDefault(); activate(); }
@@ -459,13 +475,13 @@ function renderDetail() {
     <p class="detail-source">预报：${escapeHtml(state.data.source?.source_name)}；实况估算：${escapeHtml(state.data.observation_source?.source_name || "当前无法确认最新数据")}。兑现率=实况/验证期前预报，不是准确率。</p>`;
 }
 
-function selectStation(id) {
+function selectStation(id, reveal = false) {
   state.activeId = id;
   renderMaps();
   renderRows();
   renderSixHourForecast();
   renderDetail();
-  if (matchMedia("(max-width: 760px)").matches) $("#detailPanel").scrollIntoView({behavior:"smooth", block:"start"});
+  if (reveal || matchMedia("(max-width: 760px)").matches) $("#detailPanel").scrollIntoView({behavior:"smooth", block:"start"});
 }
 
 function render() {
@@ -515,5 +531,8 @@ async function loadData() {
 $("#countryFilter").addEventListener("change", filterStations);
 $("#stateFilter").addEventListener("change", filterStations);
 $("#searchInput").addEventListener("input", filterStations);
+document.querySelectorAll("[data-weather-filter]").forEach((card) => {
+  card.addEventListener("click", () => activateMetricFilter(card.dataset.weatherFilter));
+});
 loadData();
 loadTemperatureHistory();

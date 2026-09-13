@@ -253,6 +253,11 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertLess(page.index('id="avgRain"'), page.index('id="sevenDayTitle"'))
         self.assertLess(page.index('id="sevenDayTitle"'), page.index('id="sixHourTitle"'))
         self.assertLess(page.index('id="sixHourTitle"'), page.index('id="thailandRainTitle"'))
+        self.assertEqual(page.count('data-weather-filter="'), 4)
+        self.assertIn('id="weatherTableCaption"', page)
+        self.assertIn("function activateMetricFilter(status)", script)
+        self.assertIn("共${state.filtered.length}个匹配地点", script)
+        self.assertEqual(script.count("selectStation(row.dataset.id, true)"), 2)
 
 
 if __name__ == "__main__":

@@ -58,26 +58,30 @@
     </section>
 
     <section class="metric-grid" aria-label="天气概览">
-      <article class="metric-card accent">
+      <button type="button" class="metric-card accent" data-weather-filter="all" aria-controls="weatherRows" aria-pressed="true">
         <span>选中地点 · 7日平均降雨</span>
         <strong id="avgRain">—</strong>
         <small>mm，地点等权</small>
-      </article>
-      <article class="metric-card warning">
+        <small class="metric-action">点击查看全部筛选地点 ↓</small>
+      </button>
+      <button type="button" class="metric-card warning" data-weather-filter="HEAVY_RAIN" aria-controls="weatherRows" aria-pressed="false">
         <span>强降雨关注地点</span>
         <strong id="heavyCount">—</strong>
         <small id="heavyRule">7日累计达到阈值</small>
-      </article>
-      <article class="metric-card dry">
+        <small class="metric-action">点击查看地点 ↓</small>
+      </button>
+      <button type="button" class="metric-card dry" data-weather-filter="DRY" aria-controls="weatherRows" aria-pressed="false">
         <span>少雨关注地点</span>
         <strong id="dryCount">—</strong>
         <small id="dryRule">7日累计低于阈值</small>
-      </article>
-      <article class="metric-card heat">
+        <small class="metric-action">点击查看地点 ↓</small>
+      </button>
+      <button type="button" class="metric-card heat" data-weather-filter="HEAT" aria-controls="weatherRows" aria-pressed="false">
         <span>高温关注地点</span>
         <strong id="heatCount">—</strong>
         <small id="heatRule">7日最高温达到阈值</small>
-      </article>
+        <small class="metric-action">点击查看地点 ↓</small>
+      </button>
     </section>
 
     <section class="panel table-panel" aria-labelledby="sevenDayTitle">
@@ -86,7 +90,7 @@
           <p class="section-kicker">逐点跟踪</p>
           <h2 id="sevenDayTitle">未来七天天气</h2>
         </div>
-        <p class="table-caption">点击任意一行查看日度明细</p>
+        <p id="weatherTableCaption" class="table-caption">点击任意一行查看日度明细</p>
       </div>
       <div class="table-wrap">
         <table>
