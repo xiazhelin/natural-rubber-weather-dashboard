@@ -287,9 +287,10 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertIn('id="weeklySummary"', page)
         self.assertIn("function renderWeeklySummary()", script)
         self.assertIn("renderWeeklySummary();", script)
-        self.assertIn("【事实】新进入 / 退出关注", script)
-        self.assertIn("【事实】7日预报明显调整", script)
-        self.assertIn("【事实】预报与IMERG偏离", script)
+        self.assertIn("【事实】0–7天 · 作业扰动", script)
+        self.assertIn("【事实】2–8周 · 水分背景", script)
+        self.assertIn("【事实】变化与兑现", script)
+        self.assertIn("【事实】1–6月 · 气候背景", script)
         self.assertIn("【本项目判断】后续验证指标", script)
         self.assertIn(".weekly-summary-grid", styles)
         self.assertIn('id="sixHourRows"', page)
@@ -315,6 +316,28 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertIn("function activateMetricFilter(status)", script)
         self.assertIn("共${state.filtered.length}个匹配地点", script)
         self.assertEqual(script.count("selectStation(row.dataset.id, true)"), 2)
+
+    def test_2025_production_weights_are_traceable_and_consistent(self):
+        root = SCRIPT.parent.parent
+        weights = json.loads((root / "site/data/production-weights.json").read_text(encoding="utf-8"))
+        page = (root / "site/index.html").read_text(encoding="utf-8")
+        script = (root / "site/assets/app.js").read_text(encoding="utf-8")
+
+        self.assertEqual(weights["reference_year"], 2025)
+        self.assertEqual(weights["data_type"], "ESTIMATE")
+        self.assertEqual(weights["overall_quality_status"], "WARNING")
+        self.assertEqual(len(weights["sources"]), 3)
+        trang = weights["stations"]["th_south_trang"]
+        self.assertEqual(trang["estimated_production_t"], 270349)
+        self.assertAlmostEqual(trang["share_of_country_pct"], 5.5257, places=4)
+        self.assertAlmostEqual(trang["share_of_world_pct"], 1.8058, places=4)
+        self.assertEqual(
+            sum(item["estimated_production_t"] for item in weights["stations"].values()),
+            weights["denominators"]["tracked_thailand_production_t"],
+        )
+        self.assertIn("2025产量权重", page)
+        self.assertIn("production-weights.json", script)
+        self.assertIn("function productionExposure(", script)
 
 
 if __name__ == "__main__":

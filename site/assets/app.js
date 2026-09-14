@@ -1,12 +1,13 @@
 "use strict";
 
-const state = { data: null, history: [], thailandRain: null, climateOutlooks: null, mapData: null, filtered: [], activeId: null };
+const state = { data: null, history: [], thailandRain: null, productionWeights: null, climateOutlooks: null, mapData: null, filtered: [], activeId: null };
 const $ = (selector) => document.querySelector(selector);
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (char) => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"})[char]);
 const hasNumber = (value) => value !== null && value !== undefined && value !== "" && Number.isFinite(Number(value));
 const number = (value, digits = 1) => hasNumber(value) ? Number(value).toFixed(digits) : "—";
 const percent = (value) => hasNumber(value) ? `${number(value)}%` : "—";
 const sum = (values) => values.reduce((total, value) => total + Number(value || 0), 0);
+const formatTons = (value) => hasNumber(value) ? `${new Intl.NumberFormat("zh-CN").format(Math.round(Number(value)))} 吨` : "MISSING";
 const MAP_DATA_URL = "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_110m_admin_0_countries.geojson";
 
 const LABELS = {
@@ -54,6 +55,24 @@ function freshnessDate(value, prefix = "截至") {
   return `${prefix} ${new Intl.DateTimeFormat("zh-CN", options).format(date)}`;
 }
 
+function productionWeight(station) {
+  return state.productionWeights?.stations?.[station?.station_id] || null;
+}
+
+function productionContext(stations, country = $("#countryFilter")?.value || "all") {
+  const shareKey = country === "all" ? "share_of_world_pct" : "share_of_country_pct";
+  const denominator = country === "all" ? "全球产量" : `${country}产量`;
+  const entries = stations.map((station) => ({station, weight: productionWeight(station)}))
+    .filter((item) => hasNumber(item.weight?.[shareKey]) && hasNumber(item.weight?.estimated_production_t));
+  return {shareKey, denominator, entries, coveragePct: sum(entries.map((item) => item.weight[shareKey]))};
+}
+
+function productionExposure(stations, code, country = $("#countryFilter")?.value || "all") {
+  const affected = stations.filter((station) => station.summary?.weather_states?.includes(code));
+  const context = productionContext(affected, country);
+  return {...context, affectedCount: affected.length};
+}
+
 function renderFreshness() {
   const weather = state.data || {};
   const observation = weather.observation_source || {};
@@ -63,6 +82,8 @@ function renderFreshness() {
   const climateStatuses = Object.values(climate.products || {}).map((product) => product.quality_status || "MISSING");
   const climateQuality = !climateStatuses.length || climateStatuses.every((value) => value === "MISSING")
     ? "MISSING" : climateStatuses.every((value) => value === "PASS") ? "PASS" : "WARNING";
+  const weights = state.productionWeights || {};
+  const weightCount = Object.keys(weights.stations || {}).length;
   const cards = [
     {
       title: "天气预报",
@@ -88,11 +109,31 @@ function renderFreshness() {
       date: freshnessDate(climate.updated_at_utc, "检查"),
       note: `${climateStatuses.filter((value) => value === "PASS").length}/${climateStatuses.length || 4}项产品通过；超过48小时未检查转WARNING`,
     },
+    {
+      title: "产量权重",
+      status: weights.overall_quality_status || "MISSING",
+      date: weights.reference_year ? `基准 ${weights.reference_year}年` : "年份待确认",
+      note: `${weightCount}/${weather.stations?.length ?? 0}个地点已接入；${weights.data_type || "MISSING"}，省级正式值待替换`,
+    },
   ];
   $("#freshnessGrid").innerHTML = cards.map((card) => `<article class="freshness-card">
     <div><h3>${escapeHtml(card.title)}</h3><span class="freshness-status ${card.status.toLowerCase()}">${card.status}</span></div>
     <time>${escapeHtml(card.date)}</time><small>${escapeHtml(card.note)}</small>
   </article>`).join("");
+}
+
+function populateProductionWeightMethod() {
+  const weights = state.productionWeights || {};
+  const d = weights.denominators || {};
+  const status = weights.overall_quality_status || "MISSING";
+  $("#weightStatus").textContent = `${status} · ${weights.data_type || "MISSING"}`;
+  $("#weightThailandTotal").textContent = formatTons(d.thailand_2025_production_t);
+  $("#weightWorldTotal").textContent = formatTons(d.world_2025_production_t);
+  $("#weightCoverage").textContent = hasNumber(d.tracked_share_of_thailand_pct)
+    ? `泰国 ${number(d.tracked_share_of_thailand_pct, 2)}% / 全球 ${number(d.tracked_share_of_world_pct, 2)}%`
+    : "当前无法确认最新数据";
+  $("#weightMethod").textContent = weights.methodology || "2025年统一省级正式值尚未接入，缺失时不以代表点数量替代。";
+  if (weights.sources?.[0]?.url) $("#weightDocs").href = weights.sources[0].url;
 }
 
 function temperatureMissingFigure() {
@@ -174,11 +215,13 @@ async function loadExtendedOutlooks() {
     state.climateOutlooks = manifest;
     products.forEach(([key, grid, meta]) => renderOutlookProduct(manifest.products?.[key], grid, meta));
     renderFreshness();
+    if (state.data) renderWeeklySummary();
   } catch (error) {
     console.warn("Extended climate outlooks unavailable", error);
     state.climateOutlooks = null;
     products.forEach(([, grid, meta]) => renderOutlookProduct(null, grid, meta));
     renderFreshness();
+    if (state.data) renderWeeklySummary();
   }
 }
 
@@ -224,6 +267,28 @@ function rainChange(station) {
   return Number((currentValue - old.precipitation_7d_mm).toFixed(1));
 }
 
+function thailandFourWeekSignal() {
+  const region = state.thailandRain?.regions?.find((item) => item.region_id === "th_key_regions");
+  const valid = (region?.weekly || []).filter((item) => hasNumber(item.precipitation_mm) && hasNumber(item.iso_year) && hasNumber(item.iso_week));
+  if (valid.length < 5) return null;
+  const latestYear = Math.max(...valid.map((item) => Number(item.iso_year)));
+  const current = valid.filter((item) => Number(item.iso_year) === latestYear).slice(-4);
+  if (current.length < 4) return null;
+  const baseline = current.map((item) => valid
+    .filter((other) => Number(other.iso_year) < latestYear && Number(other.iso_week) === Number(item.iso_week))
+    .map((other) => Number(other.precipitation_mm))).map((values) => values.length ? sum(values) / values.length : null);
+  if (baseline.some((value) => value == null)) return null;
+  const currentTotal = sum(current.map((item) => item.precipitation_mm));
+  const baselineTotal = sum(baseline);
+  return {
+    currentTotal,
+    baselineTotal,
+    anomalyPct: baselineTotal ? (currentTotal - baselineTotal) / baselineTotal * 100 : null,
+    endDate: current.at(-1).week_end,
+    baselineYears: [...new Set(valid.filter((item) => Number(item.iso_year) < latestYear).map((item) => Number(item.iso_year)))],
+  };
+}
+
 function populateCountries(stations) {
   const select = $("#countryFilter");
   const current = select.value;
@@ -255,9 +320,23 @@ function renderMetrics() {
   const stations = scopedStations();
   const rain = stations.map((item) => item.summary?.precipitation_7d_mm).filter((value) => value != null);
   $("#avgRain").textContent = rain.length ? `${number(sum(rain) / rain.length)} mm` : "—";
+  const context = productionContext(stations);
+  const weightedRainEntries = context.entries.filter((item) => hasNumber(item.station.summary?.precipitation_7d_mm));
+  const productionTotal = sum(weightedRainEntries.map((item) => item.weight.estimated_production_t));
+  const weightedRain = productionTotal
+    ? sum(weightedRainEntries.map((item) => Number(item.station.summary.precipitation_7d_mm) * Number(item.weight.estimated_production_t))) / productionTotal
+    : null;
+  $("#weightedRain").textContent = weightedRain == null
+    ? "产量权重 MISSING；上方为地点等权"
+    : `产量加权 ${number(weightedRain)} mm；覆盖${number(context.coveragePct, 2)}%${context.denominator}`;
   for (const code of ["HEAVY_RAIN", "DRY", "HEAT"]) {
     const count = stations.filter((item) => item.summary?.weather_states?.includes(code)).length;
     $(`#${code === "HEAVY_RAIN" ? "heavy" : code.toLowerCase()}Count`).textContent = `${count} 个`;
+    const exposure = productionExposure(stations, code);
+    const exposureId = code === "HEAVY_RAIN" ? "heavyExposure" : `${code.toLowerCase()}Exposure`;
+    $(`#${exposureId}`).textContent = context.entries.length
+      ? `已纳入权重产量暴露 ${number(exposure.coveragePct, 2)}%${context.denominator}（${exposure.entries.length}/${count}点）`
+      : "产量权重 MISSING";
   }
   $("#resultCount").textContent = `${state.filtered.length}个地点`;
   document.querySelectorAll("[data-weather-filter]").forEach((card) => {
@@ -281,10 +360,13 @@ function renderWeeklySummary() {
   }
 
   const thresholds = state.data.thresholds || {};
-  const rainValues = stations.map((station) => station.summary?.precipitation_7d_mm).filter(hasNumber).map(Number);
   const heavy = stations.filter((station) => station.summary?.weather_states?.includes("HEAVY_RAIN"));
   const dry = stations.filter((station) => station.summary?.weather_states?.includes("DRY"));
   const heat = stations.filter((station) => station.summary?.weather_states?.includes("HEAT"));
+  const tappingRain = stations.filter((station) => Number(station.summary?.tapping_window_rain_days_7d || 0) > 0);
+  const weightContext = productionContext(stations, "all");
+  const heavyExposure = productionExposure(stations, "HEAVY_RAIN", "all");
+  const dryExposure = productionExposure(stations, "DRY", "all");
   const stationName = (station) => `${station.country}·${station.region}·${station.place}`;
   const previous = previousSnapshot();
   const previousById = new Map((previous?.stations || []).map((station) => [station.station_id, station]));
@@ -327,44 +409,59 @@ function renderWeeklySummary() {
   const verificationText = verificationMismatches.length
     ? verificationMismatches.slice(0, 3).map((item) => `${stationName(item.station)} ${item.period}实况${item.difference > 0 ? "高于" : "低于"}预报${number(Math.abs(item.difference))} mm`).join("；")
     : comparableVerification.length ? `未发现绝对误差 ≥ ${VERIFICATION_ERROR_ALERT_MM} mm 的地点` : "尚无可对齐样本，等待每日快照覆盖验证期";
+  const fourWeek = thailandFourWeekSignal();
+  const fourWeekText = fourWeek
+    ? `泰国重点区域最近4个完整周累计${number(fourWeek.currentTotal)} mm，2022年至上一年同周均值${number(fourWeek.baselineTotal)} mm，偏差${fourWeek.anomalyPct >= 0 ? "+" : ""}${number(fourWeek.anomalyPct)}%；截至${fourWeek.endDate}。`
+    : "泰国周度序列不足，2–8周水分背景保持MISSING。";
+  const climateProducts = Object.values(state.climateOutlooks?.products || {});
+  const climateAvailable = climateProducts.filter((item) => item.quality_status !== "MISSING");
+  const climateWarning = climateProducts.filter((item) => item.quality_status === "WARNING").length;
+  const climatePeriods = [...new Set(climateAvailable.map((item) => item.source_period || item.issued).filter(Boolean))];
+  const climateText = climateAvailable.length
+    ? `${climateAvailable.length}/${climateProducts.length}项中期及季节产品可用，${climateWarning}项为WARNING；当前起报/发布日期：${climatePeriods.join("、") || "见各图内标题"}。`
+    : "中期及季节展望尚未完成质量检查，保持MISSING。";
   const dates = stations.find((station) => station.daily?.length)?.daily || [];
   const period = dates.length ? `${dates[0].date}—${dates[dates.length - 1].date}` : "D0–D6";
   $("#weeklyPeriod").textContent = `${period} · 全部${stations.length}点`;
 
-  let judgment = "下一次更新重点复核7日累计降雨、晨间割胶作业窗和IMERG 24h/72h实况。";
+  let judgment = "0–7天先核验晨间割胶作业窗、原料到量和开割率；2–8周再看周度降雨与深层土壤水分是否持续；1–6月气候图只作背景。";
   if (heavy.length) {
-    judgment += ` 强降雨关注点需核验降雨持续性、开割率和原料到量。`;
+    judgment += " 强降雨关注点需验证是否连续阻断割胶，而不是把降雨机械解释为供应利多。";
   } else if (dry.length) {
-    judgment += ` 少雨关注点需结合9–81cm土壤水分和物候确认是否形成实际供给约束。`;
+    judgment += " 少雨关注点需结合9–81cm土壤水分和物候确认是否形成实际供给约束。";
   }
-  judgment += " 再用原料价格、库存及RU/NR基差月差检查市场是否已经反映。";
+  judgment += " 当前面板未接入原料价格、库存及RU/NR基差月差，因此价格是否已反映仍待跨模块验证。";
 
   $("#weeklySummary").innerHTML = `
     <article class="weekly-summary-block">
-      <h3>【事实】整体概览</h3>
-      <p>${stations.length}个代表点未来7日地点等权平均降雨${rainValues.length ? `${number(sum(rainValues) / rainValues.length)} mm` : "当前无法确认"}；强降雨关注${heavy.length}个、少雨关注${dry.length}个、高温关注${heat.length}个。</p>
-      <small>筛选阈值：7日降雨 ≥ ${thresholds.heavy_rain_total_7d_mm ?? "—"} mm / &lt; ${thresholds.dry_total_7d_mm ?? "—"} mm，日最高温 ≥ ${thresholds.hot_day_max_c ?? "—"}℃。</small>
+      <h3>【事实】0–7天 · 作业扰动</h3>
+      <p>${tappingRain.length}/${stations.length}个代表点的晨间割胶作业窗至少1天有雨；强降雨关注${heavy.length}个、少雨关注${dry.length}个、高温关注${heat.length}个。</p>
+      <p>已纳入权重的强降雨暴露${number(heavyExposure.coveragePct, 2)}%全球产量，少雨暴露${number(dryExposure.coveragePct, 2)}%全球产量。</p>
+      <small>阈值：7日降雨 ≥ ${thresholds.heavy_rain_total_7d_mm ?? "—"} mm / &lt; ${thresholds.dry_total_7d_mm ?? "—"} mm，日最高温 ≥ ${thresholds.hot_day_max_c ?? "—"}℃。产量权重覆盖${number(weightContext.coveragePct, 2)}%全球产量。</small>
     </article>
     <article class="weekly-summary-block">
-      <h3>【事实】新进入 / 退出关注</h3>
+      <h3>【事实】2–8周 · 水分背景</h3>
+      <p>${escapeHtml(fourWeekText)}</p>
+      <small>仅为泰国8个ERA5代表网格等权序列；不能替代全产区面积加权降雨或土壤墒情。</small>
+    </article>
+    <article class="weekly-summary-block">
+      <h3>【事实】变化与兑现</h3>
       <p>新进入：${escapeHtml(previous ? transitionText(transitions.entered) : "历史快照不足")}</p>
       <p>退出：${escapeHtml(previous ? transitionText(transitions.exited) : "历史快照不足")}</p>
-    </article>
-    <article class="weekly-summary-block">
-      <h3>【事实】7日预报明显调整</h3>
       <p>上调：${escapeHtml(changeText(rainUp))}</p>
       <p>下调：${escapeHtml(changeText(rainDown))}</p>
-      <small>较上次更新绝对变化 ≥ ${RAIN_CHANGE_ALERT_MM} mm。</small>
+      <p>${escapeHtml(verificationText)}</p>
+      <small>预报调整阈值${RAIN_CHANGE_ALERT_MM} mm；IMERG偏离阈值${VERIFICATION_ERROR_ALERT_MM} mm。</small>
     </article>
     <article class="weekly-summary-block">
-      <h3>【事实】预报与IMERG偏离</h3>
-      <p>${escapeHtml(verificationText)}</p>
-      <small>取可比24h/72h中绝对误差最大者；提示阈值 ${VERIFICATION_ERROR_ALERT_MM} mm。</small>
+      <h3>【事实】1–6月 · 气候背景</h3>
+      <p>${escapeHtml(climateText)}</p>
+      <small>概率与距平图不可直接换算为省级产量损失；须由后续天气实况和供应数据验证。</small>
     </article>
     <article class="weekly-summary-block weekly-summary-judgment">
       <h3>【本项目判断】后续验证指标</h3>
       <p>${escapeHtml(judgment)} 天气信号不等于天然橡胶供应或价格结论，仍需结合物候、原料供应、库存和价格结构验证。</p>
-      <small>预报：${escapeHtml(state.data.source?.source_name || "当前无法确认最新数据")}；实况估算：${escapeHtml(state.data.observation_source?.source_name || "当前无法确认最新数据")}。</small>
+      <small>产量权重：${escapeHtml(state.productionWeights?.data_type || "MISSING")} / ${escapeHtml(state.productionWeights?.overall_quality_status || "MISSING")}；未接入权重的地点不参与产量暴露合计。</small>
     </article>`;
 }
 
@@ -419,8 +516,11 @@ function mapMarkup(title, stations, bounds, width = 680, height = 340) {
     const point = projectPoint(station, bounds, width, height);
     const code = primaryState(station);
     const active = station.station_id === state.activeId ? " active" : "";
-    return `<g class="map-point${active}" tabindex="0" role="button" aria-label="${escapeHtml(station.country)} ${escapeHtml(station.region)} ${escapeHtml(station.place)}" data-id="${escapeHtml(station.station_id)}" transform="translate(${point.x.toFixed(1)},${point.y.toFixed(1)})">
-      <circle r="7" fill="${COLORS[code] || COLORS.NORMAL}"></circle>
+    const weight = productionWeight(station);
+    const radius = weight ? Math.min(10, 5 + Math.sqrt(Number(weight.share_of_country_pct || 0))) : 5;
+    const weightLabel = weight ? `，2025估算产量${formatTons(weight.estimated_production_t)}，占${station.country}${number(weight.share_of_country_pct, 2)}%` : "，产量权重缺失";
+    return `<g class="map-point${active}" tabindex="0" role="button" aria-label="${escapeHtml(station.country)} ${escapeHtml(station.region)} ${escapeHtml(station.place)}${escapeHtml(weightLabel)}" data-id="${escapeHtml(station.station_id)}" transform="translate(${point.x.toFixed(1)},${point.y.toFixed(1)})">
+      <circle r="${radius.toFixed(1)}" fill="${COLORS[code] || COLORS.NORMAL}"><title>${escapeHtml(weightLabel.slice(1))}</title></circle>
       <text x="10" y="4">${escapeHtml(station.place)}</text>
     </g>`;
   }).join("");
@@ -456,9 +556,11 @@ function renderRows() {
     const delta = change == null ? "—" : `${change > 0 ? "+" : ""}${number(change)} mm`;
     const observed = station.imerg || {};
     const verification = station.verification || {};
+    const weight = productionWeight(station);
     return `<tr tabindex="0" data-id="${escapeHtml(station.station_id)}" class="${station.station_id === state.activeId ? "active" : ""}">
       <td><strong>${escapeHtml(station.country)}</strong><br>${escapeHtml(station.region)}</td>
       <td>${escapeHtml(station.place)}</td>
+      <td class="production-weight-cell"><strong>${weight ? formatTons(weight.estimated_production_t) : "MISSING"}</strong><small>${weight ? `${station.country} ${number(weight.share_of_country_pct, 2)}% · 全球 ${number(weight.share_of_world_pct, 2)}%` : "统一口径待核验"}</small></td>
       <td><strong>${number(s.precipitation_7d_mm)} mm</strong></td>
       <td>${number(s.tapping_window_precipitation_7d_mm)} mm / ${s.tapping_window_rain_hours_7d ?? "—"}小时</td>
       <td>${delta}</td>
@@ -616,11 +718,15 @@ function renderDetail() {
   const verification = station.verification || {};
   const v24 = verification["24h"] || {};
   const v72 = verification["72h"] || {};
+  const weight = productionWeight(station);
   $("#stationDetail").innerHTML = `<div class="detail-head">
       <div><p>${escapeHtml(station.country)} · ${escapeHtml(station.region)}</p><h2>${escapeHtml(station.place)}</h2><p>${number(station.latitude, 2)}°, ${number(station.longitude, 2)}° · ${escapeHtml(station.timezone || "时区待确认")}</p></div>
       <div class="status-stack">${statusPills(station)}</div>
     </div>
     <div class="detail-metrics">
+      <div class="production-metric"><span>2025产量权重</span><strong>${weight ? formatTons(weight.estimated_production_t) : "MISSING"}</strong><small>${weight ? `${state.productionWeights?.data_type} / ${weight.quality_status}` : "统一口径待核验"}</small></div>
+      <div class="production-metric"><span>占${escapeHtml(station.country)}产量</span><strong>${weight ? percent(weight.share_of_country_pct) : "MISSING"}</strong></div>
+      <div class="production-metric"><span>占全球产量</span><strong>${weight ? percent(weight.share_of_world_pct) : "MISSING"}</strong></div>
       <div><span>7日降雨</span><strong>${number(s.precipitation_7d_mm)} mm</strong></div>
       <div><span>晨间割胶作业窗7日降雨</span><strong>${number(s.tapping_window_precipitation_7d_mm)} mm</strong></div>
       <div><span>晨间割胶作业窗雨日 / 雨小时</span><strong>${s.tapping_window_rain_days_7d ?? "—"} 天 / ${s.tapping_window_rain_hours_7d ?? "—"} 小时</strong></div>
@@ -635,7 +741,8 @@ function renderDetail() {
       <div><span>72h预报兑现率</span><strong>${percent(v72.realization_pct)}</strong><small>${escapeHtml(v72.status || "样本尚未形成")}</small></div>
     </div>
     <div class="forecast-strip" aria-label="${escapeHtml(station.place)}未来七天逐日预报">${days}</div>
-    <p class="detail-source">预报：${escapeHtml(state.data.source?.source_name)}；实况估算：${escapeHtml(state.data.observation_source?.source_name || "当前无法确认最新数据")}。兑现率=实况/验证期前预报，不是准确率。</p>`;
+    <p class="detail-source">预报：${escapeHtml(state.data.source?.source_name)}；实况估算：${escapeHtml(state.data.observation_source?.source_name || "当前无法确认最新数据")}。兑现率=实况/验证期前预报，不是准确率。</p>
+    <p class="detail-source">产量权重：${weight ? escapeHtml(state.productionWeights?.methodology || "当前无法确认最新数据") : "当前地点尚无同口径2025产量权重，保持MISSING。"}</p>`;
 }
 
 function selectStation(id, reveal = false) {
@@ -662,16 +769,19 @@ async function loadData() {
       .then((response) => response.ok ? response.json() : null)
       .then((mapData) => { state.mapData = mapData; if (state.data) renderMaps(); })
       .catch((error) => console.warn("Natural Earth map unavailable", error));
-    const [weatherResponse, historyResponse, thailandRainResponse] = await Promise.all([
+    const [weatherResponse, historyResponse, thailandRainResponse, productionWeightsResponse] = await Promise.all([
       fetch(`data/weather.json?v=${Date.now()}`, {cache:"no-store"}),
       fetch(`data/history.json?v=${Date.now()}`, {cache:"no-store"}),
       fetch(`data/thailand-weekly-rain.json?v=${Date.now()}`, {cache:"no-store"}),
+      fetch(`data/production-weights.json?v=${Date.now()}`, {cache:"no-store"}),
     ]);
     if (!weatherResponse.ok) throw new Error(`weather.json ${weatherResponse.status}`);
     state.data = await weatherResponse.json();
     state.history = historyResponse.ok ? (await historyResponse.json()).snapshots || [] : [];
     state.thailandRain = thailandRainResponse.ok ? await thailandRainResponse.json().catch(() => null) : null;
+    state.productionWeights = productionWeightsResponse.ok ? await productionWeightsResponse.json().catch(() => null) : null;
     renderFreshness();
+    populateProductionWeightMethod();
     $("#updatedAt").textContent = formatUpdate(state.data.generated_at_utc);
     const quality = state.data.overall_quality_status || "MISSING";
     $("#qualityBadge").textContent = quality;

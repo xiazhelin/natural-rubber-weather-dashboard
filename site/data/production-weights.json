@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "reference_year": 2025,
+  "data_type": "ESTIMATE",
+  "overall_quality_status": "WARNING",
+  "prepared_at": "2026-09-14",
+  "unit": "metric_ton_dry_rubber",
+  "methodology": "OAE 2024年统一省级产量结构 × OAE 2025年泰国产量总量；全球占比使用ANRPC于2026年5月报告中修订的2025年全球产量。2025年统一省级正式表发布后应整体替换，不混用零散省级快报。",
+  "denominators": {
+    "thailand_2025_production_t": 4892544,
+    "world_2025_production_t": 14971000,
+    "thailand_share_of_world_pct": 32.6801,
+    "tracked_thailand_production_t": 2349131,
+    "tracked_share_of_thailand_pct": 48.0145,
+    "tracked_share_of_world_pct": 15.6912
+  },
+  "sources": [
+    {
+      "source_name": "Thailand Office of Agricultural Economics (OAE) provincial rubber production dataset",
+      "url": "https://catalog.oae.go.th/en/dataset/dataoae1404",
+      "period": "2024",
+      "data_type": "FACT",
+      "use": "统一省级产量结构",
+      "source_data_date": "2026-07-07"
+    },
+    {
+      "source_name": "Thailand OAE Agricultural Commodity Calendar 2025/26",
+      "url": "https://catalog.oae.go.th/th/dataset/8f9fc13d-03ea-4929-a644-26672c9d617b/resource/6f1c0eac-a065-44d2-95e1-4e8784fb8073/download/calendar69.pdf",
+      "period": "2025",
+      "data_type": "ESTIMATE",
+      "use": "泰国产量总量"
+    },
+    {
+      "source_name": "ANRPC Monthly Natural Rubber Market Report, May 2026",
+      "url": "https://www.anrpc.org/newsla/anrpc-releases-monthly-nr-statistical-report%2C-may-2026",
+      "period": "2025",
+      "data_type": "ESTIMATE",
+      "use": "全球产量总量"
+    }
+  ],
+  "stations": {
+    "th_south_surat_thani": {
+      "province_name_th": "สุราษฎร์ธานี",
+      "estimated_production_t": 451196,
+      "share_of_country_pct": 9.2221,
+      "share_of_world_pct": 3.0138,
+      "quality_status": "WARNING"
+    },
+    "th_south_nakhon_si_thammarat": {
+      "province_name_th": "นครศรีธรรมราช",
+      "estimated_production_t": 387603,
+      "share_of_country_pct": 7.9223,
+      "share_of_world_pct": 2.589,
+      "quality_status": "WARNING"
+    },
+    "th_south_songkhla": {
+      "province_name_th": "สงขลา",
+      "estimated_production_t": 415038,
+      "share_of_country_pct": 8.4831,
+      "share_of_world_pct": 2.7723,
+      "quality_status": "WARNING"
+    },
+    "th_south_trang": {
+      "province_name_th": "ตรัง",
+      "estimated_production_t": 270349,
+      "share_of_country_pct": 5.5257,
+      "share_of_world_pct": 1.8058,
+      "quality_status": "WARNING"
+    },
+    "th_south_yala": {
+      "province_name_th": "ยะลา",
+      "estimated_production_t": 242169,
+      "share_of_country_pct": 4.9498,
+      "share_of_world_pct": 1.6176,
+      "quality_status": "WARNING"
+    },
+    "th_northeast_udon_thani": {
+      "province_name_th": "อุดรธานี",
+      "estimated_production_t": 136262,
+      "share_of_country_pct": 2.7851,
+      "share_of_world_pct": 0.9102,
+      "quality_status": "WARNING"
+    },
+    "th_northeast_bueng_kan": {
+      "province_name_th": "บึงกาฬ",
+      "estimated_production_t": 217889,
+      "share_of_country_pct": 4.4535,
+      "share_of_world_pct": 1.4554,
+      "quality_status": "WARNING"
+    },
+    "th_northeast_ubon": {
+      "province_name_th": "อุบลราชธานี",
+      "estimated_production_t": 139303,
+      "share_of_country_pct": 2.8473,
+      "share_of_world_pct": 0.9305,
+      "quality_status": "WARNING"
+    },
+    "th_east_rayong": {
+      "province_name_th": "ระยอง",
+      "estimated_production_t": 89322,
+      "share_of_country_pct": 1.8257,
+      "share_of_world_pct": 0.5966,
+      "quality_status": "WARNING"
+    }
+  }
+}

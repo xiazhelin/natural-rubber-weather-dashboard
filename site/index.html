@@ -38,8 +38,8 @@
     <section class="panel weekly-summary" aria-labelledby="weeklySummaryTitle">
       <div class="panel-heading">
         <div>
-          <p class="section-kicker">每周研判</p>
-          <h2 id="weeklySummaryTitle">每周天气文字总结</h2>
+          <p class="section-kicker">供给影响驾驶舱</p>
+          <h2 id="weeklySummaryTitle">天气对供给影响摘要</h2>
         </div>
         <span id="weeklyPeriod" class="source-badge">D0–D6 · 全部代表点</span>
       </div>
@@ -75,24 +75,28 @@
         <span>选中地点 · 7日平均降雨</span>
         <strong id="avgRain">—</strong>
         <small>mm，地点等权</small>
+        <small id="weightedRain">产量权重正在读取</small>
         <small class="metric-action">点击查看全部筛选地点 ↓</small>
       </button>
       <button type="button" class="metric-card warning" data-weather-filter="HEAVY_RAIN" aria-controls="weatherRows" aria-pressed="false">
         <span>强降雨关注地点</span>
         <strong id="heavyCount">—</strong>
         <small id="heavyRule">7日累计达到阈值</small>
+        <small id="heavyExposure">产量暴露正在读取</small>
         <small class="metric-action">点击查看地点 ↓</small>
       </button>
       <button type="button" class="metric-card dry" data-weather-filter="DRY" aria-controls="weatherRows" aria-pressed="false">
         <span>少雨关注地点</span>
         <strong id="dryCount">—</strong>
         <small id="dryRule">7日累计低于阈值</small>
+        <small id="dryExposure">产量暴露正在读取</small>
         <small class="metric-action">点击查看地点 ↓</small>
       </button>
       <button type="button" class="metric-card heat" data-weather-filter="HEAT" aria-controls="weatherRows" aria-pressed="false">
         <span>高温关注地点</span>
         <strong id="heatCount">—</strong>
         <small id="heatRule">7日最高温达到阈值</small>
+        <small id="heatExposure">产量暴露正在读取</small>
         <small class="metric-action">点击查看地点 ↓</small>
       </button>
     </section>
@@ -109,10 +113,11 @@
             <span><i class="dot dry"></i>少雨</span>
             <span><i class="dot heat"></i>高温</span>
             <span><i class="dot normal"></i>常规</span>
+            <span><i class="weight-dot"></i>圆点大小=产量权重</span>
           </div>
         </div>
         <div id="maps" class="maps" aria-live="polite"></div>
-        <p class="map-note">按经纬度投影的研究定位图；代表性网格点不等于种植面积边界。底图边界：<a href="https://www.naturalearthdata.com/downloads/110m-cultural-vectors/" target="_blank" rel="noreferrer">Natural Earth 1:110m</a>（公共领域，行政边界仅作定位示意）。</p>
+        <p class="map-note">按经纬度投影的研究定位图；有权重点的圆点大小按2025估算产量缩放，无权重点保持最小圆点。代表性网格点不等于种植面积边界。底图边界：<a href="https://www.naturalearthdata.com/downloads/110m-cultural-vectors/" target="_blank" rel="noreferrer">Natural Earth 1:110m</a>（公共领域，行政边界仅作定位示意）。</p>
       </article>
 
       <article class="panel detail-panel" id="detailPanel">
@@ -137,6 +142,7 @@
             <tr>
               <th>国家 / 产区</th>
               <th>代表地点</th>
+              <th>2025产量权重</th>
               <th>7日降雨</th>
               <th>晨间割胶作业窗 / 雨小时</th>
               <th>较上次更新</th>
@@ -439,6 +445,19 @@
         </dl>
         <p id="imergNote">当前无法确认最新数据</p>
         <a id="imergDocs" href="https://gpm.nasa.gov/data/imerg" target="_blank" rel="noopener">查看NASA官方产品文档 ↗</a>
+      </article>
+
+      <article class="method-card source-card">
+        <p class="section-kicker">产量权重口径</p>
+        <h2>2025产区产量权重</h2>
+        <dl>
+          <div><dt>数据状态</dt><dd id="weightStatus">MISSING</dd></div>
+          <div><dt>泰国产量</dt><dd id="weightThailandTotal">当前无法确认最新数据</dd></div>
+          <div><dt>全球产量</dt><dd id="weightWorldTotal">当前无法确认最新数据</dd></div>
+          <div><dt>覆盖范围</dt><dd id="weightCoverage">当前无法确认最新数据</dd></div>
+        </dl>
+        <p id="weightMethod">2025年统一省级正式值尚未接入，缺失时不以代表点数量替代。</p>
+        <a id="weightDocs" href="https://catalog.oae.go.th/en/dataset/dataoae1404" target="_blank" rel="noopener">查看OAE省级数据 ↗</a>
       </article>
 
       <article class="method-card caution-card">
