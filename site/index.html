@@ -117,7 +117,7 @@
           </div>
         </div>
         <div id="maps" class="maps" aria-live="polite"></div>
-        <p class="map-note">按经纬度投影的研究定位图；有权重点的圆点大小按2025估算产量缩放，无权重点保持最小圆点。代表性网格点不等于种植面积边界。底图边界：<a href="https://www.naturalearthdata.com/downloads/110m-cultural-vectors/" target="_blank" rel="noreferrer">Natural Earth 1:110m</a>（公共领域，行政边界仅作定位示意）。</p>
+        <p class="map-note">按经纬度投影的研究定位图；有权重点的圆点大小按各国最新统一口径产量缩放，无权重点保持最小圆点。代表性网格点不等于种植面积边界。底图边界：<a href="https://www.naturalearthdata.com/downloads/110m-cultural-vectors/" target="_blank" rel="noreferrer">Natural Earth 1:110m</a>（公共领域，行政边界仅作定位示意）。</p>
       </article>
 
       <article class="panel detail-panel" id="detailPanel">
@@ -142,7 +142,7 @@
             <tr>
               <th>国家 / 产区</th>
               <th>代表地点</th>
-              <th>2025产量权重</th>
+              <th>产量权重（最新统一口径）</th>
               <th>7日降雨</th>
               <th>晨间割胶作业窗 / 雨小时</th>
               <th>较上次更新</th>
@@ -449,15 +449,16 @@
 
       <article class="method-card source-card">
         <p class="section-kicker">产量权重口径</p>
-        <h2>2025产区产量权重</h2>
+        <h2>产区产量权重</h2>
         <dl>
           <div><dt>数据状态</dt><dd id="weightStatus">MISSING</dd></div>
           <div><dt>泰国产量</dt><dd id="weightThailandTotal">当前无法确认最新数据</dd></div>
+          <div><dt>印尼产量</dt><dd id="weightIndonesiaTotal">当前无法确认最新数据</dd></div>
           <div><dt>全球产量</dt><dd id="weightWorldTotal">当前无法确认最新数据</dd></div>
           <div><dt>覆盖范围</dt><dd id="weightCoverage">当前无法确认最新数据</dd></div>
         </dl>
-        <p id="weightMethod">2025年统一省级正式值尚未接入，缺失时不以代表点数量替代。</p>
-        <a id="weightDocs" href="https://catalog.oae.go.th/en/dataset/dataoae1404" target="_blank" rel="noopener">查看OAE省级数据 ↗</a>
+        <p id="weightMethod">统一省级产量权重尚未接入，缺失时不以代表点数量替代。</p>
+        <a id="weightDocs" href="https://www.bps.go.id/id/statistics-table/2/MjU2NiMy/produksi-tanaman-perkebunan-menurut-provinsi-dan-jenis-tanaman.html" target="_blank" rel="noopener">查看BPS省级数据 ↗</a>
       </article>
 
       <article class="method-card caution-card">

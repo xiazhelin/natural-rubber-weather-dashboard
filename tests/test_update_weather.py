@@ -317,25 +317,35 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertIn("共${state.filtered.length}个匹配地点", script)
         self.assertEqual(script.count("selectStation(row.dataset.id, true)"), 2)
 
-    def test_2025_production_weights_are_traceable_and_consistent(self):
+    def test_production_weights_are_traceable_and_consistent(self):
         root = SCRIPT.parent.parent
         weights = json.loads((root / "site/data/production-weights.json").read_text(encoding="utf-8"))
         page = (root / "site/index.html").read_text(encoding="utf-8")
         script = (root / "site/assets/app.js").read_text(encoding="utf-8")
 
-        self.assertEqual(weights["reference_year"], 2025)
-        self.assertEqual(weights["data_type"], "ESTIMATE")
+        self.assertEqual(weights["reference_years"], [2024, 2025])
+        self.assertEqual(weights["data_type"], "MIXED")
         self.assertEqual(weights["overall_quality_status"], "WARNING")
-        self.assertEqual(len(weights["sources"]), 3)
+        self.assertEqual(len(weights["sources"]), 4)
+        self.assertEqual(weights["countries"]["印度尼西亚"]["data_type"], "FACT")
         trang = weights["stations"]["th_south_trang"]
         self.assertEqual(trang["estimated_production_t"], 270349)
         self.assertAlmostEqual(trang["share_of_country_pct"], 5.5257, places=4)
         self.assertAlmostEqual(trang["share_of_world_pct"], 1.8058, places=4)
+        palembang = weights["stations"]["id_sumatra_palembang"]
+        self.assertEqual(palembang["estimated_production_t"], 619600)
+        self.assertAlmostEqual(palembang["share_of_country_pct"], 29.0619, places=4)
+        self.assertAlmostEqual(palembang["share_of_world_pct"], 4.1387, places=4)
         self.assertEqual(
-            sum(item["estimated_production_t"] for item in weights["stations"].values()),
+            sum(item["estimated_production_t"] for key, item in weights["stations"].items() if key.startswith("th_")),
             weights["denominators"]["tracked_thailand_production_t"],
         )
-        self.assertIn("2025产量权重", page)
+        self.assertEqual(
+            sum(item["estimated_production_t"] for key, item in weights["stations"].items() if key.startswith("id_")),
+            weights["denominators"]["tracked_indonesia_production_t"],
+        )
+        self.assertIn("产量权重（最新统一口径）", page)
+        self.assertIn('id="weightIndonesiaTotal"', page)
         self.assertIn("production-weights.json", script)
         self.assertIn("function productionExposure(", script)
 

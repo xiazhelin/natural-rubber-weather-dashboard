@@ -59,9 +59,13 @@ function productionWeight(station) {
   return state.productionWeights?.stations?.[station?.station_id] || null;
 }
 
+function productionMeta(station) {
+  return state.productionWeights?.countries?.[station?.country] || {};
+}
+
 function productionContext(stations, country = $("#countryFilter")?.value || "all") {
   const shareKey = country === "all" ? "share_of_world_pct" : "share_of_country_pct";
-  const denominator = country === "all" ? "全球产量" : `${country}产量`;
+  const denominator = country === "all" ? "全球参考产量（2025分母）" : `${country}产量`;
   const entries = stations.map((station) => ({station, weight: productionWeight(station)}))
     .filter((item) => hasNumber(item.weight?.[shareKey]) && hasNumber(item.weight?.estimated_production_t));
   return {shareKey, denominator, entries, coveragePct: sum(entries.map((item) => item.weight[shareKey]))};
@@ -84,6 +88,7 @@ function renderFreshness() {
     ? "MISSING" : climateStatuses.every((value) => value === "PASS") ? "PASS" : "WARNING";
   const weights = state.productionWeights || {};
   const weightCount = Object.keys(weights.stations || {}).length;
+  const weightYears = [...new Set(Object.values(weights.countries || {}).map((item) => item.reference_year).filter(Boolean))].sort();
   const cards = [
     {
       title: "天气预报",
@@ -112,8 +117,8 @@ function renderFreshness() {
     {
       title: "产量权重",
       status: weights.overall_quality_status || "MISSING",
-      date: weights.reference_year ? `基准 ${weights.reference_year}年` : "年份待确认",
-      note: `${weightCount}/${weather.stations?.length ?? 0}个地点已接入；${weights.data_type || "MISSING"}，省级正式值待替换`,
+      date: weightYears.length ? `基准 ${weightYears.join("/")}年` : "年份待确认",
+      note: `${weightCount}/${weather.stations?.length ?? 0}个地点已接入；泰国估算、印尼BPS统一口径`,
     },
   ];
   $("#freshnessGrid").innerHTML = cards.map((card) => `<article class="freshness-card">
@@ -128,12 +133,14 @@ function populateProductionWeightMethod() {
   const status = weights.overall_quality_status || "MISSING";
   $("#weightStatus").textContent = `${status} · ${weights.data_type || "MISSING"}`;
   $("#weightThailandTotal").textContent = formatTons(d.thailand_2025_production_t);
+  $("#weightIndonesiaTotal").textContent = formatTons(d.indonesia_2024_production_t);
   $("#weightWorldTotal").textContent = formatTons(d.world_2025_production_t);
   $("#weightCoverage").textContent = hasNumber(d.tracked_share_of_thailand_pct)
-    ? `泰国 ${number(d.tracked_share_of_thailand_pct, 2)}% / 全球 ${number(d.tracked_share_of_world_pct, 2)}%`
+    ? `泰国 ${number(d.tracked_share_of_thailand_pct, 2)}% / 印尼 ${number(d.tracked_share_of_indonesia_pct, 2)}% / 全球参考 ${number(d.tracked_share_of_world_pct, 2)}%`
     : "当前无法确认最新数据";
-  $("#weightMethod").textContent = weights.methodology || "2025年统一省级正式值尚未接入，缺失时不以代表点数量替代。";
-  if (weights.sources?.[0]?.url) $("#weightDocs").href = weights.sources[0].url;
+  $("#weightMethod").textContent = weights.methodology || "统一省级产量权重尚未接入，缺失时不以代表点数量替代。";
+  const bps = weights.sources?.find((source) => source.source_name?.includes("BPS"));
+  if (bps?.url) $("#weightDocs").href = bps.url;
 }
 
 function temperatureMissingFigure() {
@@ -436,8 +443,8 @@ function renderWeeklySummary() {
     <article class="weekly-summary-block">
       <h3>【事实】0–7天 · 作业扰动</h3>
       <p>${tappingRain.length}/${stations.length}个代表点的晨间割胶作业窗至少1天有雨；强降雨关注${heavy.length}个、少雨关注${dry.length}个、高温关注${heat.length}个。</p>
-      <p>已纳入权重的强降雨暴露${number(heavyExposure.coveragePct, 2)}%全球产量，少雨暴露${number(dryExposure.coveragePct, 2)}%全球产量。</p>
-      <small>阈值：7日降雨 ≥ ${thresholds.heavy_rain_total_7d_mm ?? "—"} mm / &lt; ${thresholds.dry_total_7d_mm ?? "—"} mm，日最高温 ≥ ${thresholds.hot_day_max_c ?? "—"}℃。产量权重覆盖${number(weightContext.coveragePct, 2)}%全球产量。</small>
+      <p>已纳入权重的强降雨暴露${number(heavyExposure.coveragePct, 2)}%全球参考产量，少雨暴露${number(dryExposure.coveragePct, 2)}%全球参考产量。</p>
+      <small>阈值：7日降雨 ≥ ${thresholds.heavy_rain_total_7d_mm ?? "—"} mm / &lt; ${thresholds.dry_total_7d_mm ?? "—"} mm，日最高温 ≥ ${thresholds.hot_day_max_c ?? "—"}℃。产量权重覆盖${number(weightContext.coveragePct, 2)}%全球参考产量（2025分母；印尼省级值为2024年）。</small>
     </article>
     <article class="weekly-summary-block">
       <h3>【事实】2–8周 · 水分背景</h3>
@@ -517,8 +524,9 @@ function mapMarkup(title, stations, bounds, width = 680, height = 340) {
     const code = primaryState(station);
     const active = station.station_id === state.activeId ? " active" : "";
     const weight = productionWeight(station);
+    const meta = productionMeta(station);
     const radius = weight ? Math.min(10, 5 + Math.sqrt(Number(weight.share_of_country_pct || 0))) : 5;
-    const weightLabel = weight ? `，2025估算产量${formatTons(weight.estimated_production_t)}，占${station.country}${number(weight.share_of_country_pct, 2)}%` : "，产量权重缺失";
+    const weightLabel = weight ? `，${meta.reference_year || "最新"}年${meta.data_type === "ESTIMATE" ? "估算" : ""}产量${formatTons(weight.estimated_production_t)}，占${station.country}${number(weight.share_of_country_pct, 2)}%` : "，产量权重缺失";
     return `<g class="map-point${active}" tabindex="0" role="button" aria-label="${escapeHtml(station.country)} ${escapeHtml(station.region)} ${escapeHtml(station.place)}${escapeHtml(weightLabel)}" data-id="${escapeHtml(station.station_id)}" transform="translate(${point.x.toFixed(1)},${point.y.toFixed(1)})">
       <circle r="${radius.toFixed(1)}" fill="${COLORS[code] || COLORS.NORMAL}"><title>${escapeHtml(weightLabel.slice(1))}</title></circle>
       <text x="10" y="4">${escapeHtml(station.place)}</text>
@@ -557,10 +565,11 @@ function renderRows() {
     const observed = station.imerg || {};
     const verification = station.verification || {};
     const weight = productionWeight(station);
+    const meta = productionMeta(station);
     return `<tr tabindex="0" data-id="${escapeHtml(station.station_id)}" class="${station.station_id === state.activeId ? "active" : ""}">
       <td><strong>${escapeHtml(station.country)}</strong><br>${escapeHtml(station.region)}</td>
       <td>${escapeHtml(station.place)}</td>
-      <td class="production-weight-cell"><strong>${weight ? formatTons(weight.estimated_production_t) : "MISSING"}</strong><small>${weight ? `${station.country} ${number(weight.share_of_country_pct, 2)}% · 全球 ${number(weight.share_of_world_pct, 2)}%` : "统一口径待核验"}</small></td>
+      <td class="production-weight-cell"><strong>${weight ? formatTons(weight.estimated_production_t) : "MISSING"}</strong><small>${weight ? `${meta.reference_year}年 · ${station.country} ${number(weight.share_of_country_pct, 2)}% · 全球(${meta.global_share_denominator_year}分母) ${number(weight.share_of_world_pct, 2)}%` : "统一口径待核验"}</small></td>
       <td><strong>${number(s.precipitation_7d_mm)} mm</strong></td>
       <td>${number(s.tapping_window_precipitation_7d_mm)} mm / ${s.tapping_window_rain_hours_7d ?? "—"}小时</td>
       <td>${delta}</td>
@@ -719,14 +728,15 @@ function renderDetail() {
   const v24 = verification["24h"] || {};
   const v72 = verification["72h"] || {};
   const weight = productionWeight(station);
+  const meta = productionMeta(station);
   $("#stationDetail").innerHTML = `<div class="detail-head">
       <div><p>${escapeHtml(station.country)} · ${escapeHtml(station.region)}</p><h2>${escapeHtml(station.place)}</h2><p>${number(station.latitude, 2)}°, ${number(station.longitude, 2)}° · ${escapeHtml(station.timezone || "时区待确认")}</p></div>
       <div class="status-stack">${statusPills(station)}</div>
     </div>
     <div class="detail-metrics">
-      <div class="production-metric"><span>2025产量权重</span><strong>${weight ? formatTons(weight.estimated_production_t) : "MISSING"}</strong><small>${weight ? `${state.productionWeights?.data_type} / ${weight.quality_status}` : "统一口径待核验"}</small></div>
+      <div class="production-metric"><span>${weight ? `${meta.reference_year}年产量权重` : "产量权重"}</span><strong>${weight ? formatTons(weight.estimated_production_t) : "MISSING"}</strong><small>${weight ? `${meta.data_type} / ${weight.quality_status}` : "统一口径待核验"}</small></div>
       <div class="production-metric"><span>占${escapeHtml(station.country)}产量</span><strong>${weight ? percent(weight.share_of_country_pct) : "MISSING"}</strong></div>
-      <div class="production-metric"><span>占全球产量</span><strong>${weight ? percent(weight.share_of_world_pct) : "MISSING"}</strong></div>
+      <div class="production-metric"><span>占全球产量（${weight ? `${meta.global_share_denominator_year}分母` : "年份待确认"}）</span><strong>${weight ? percent(weight.share_of_world_pct) : "MISSING"}</strong></div>
       <div><span>7日降雨</span><strong>${number(s.precipitation_7d_mm)} mm</strong></div>
       <div><span>晨间割胶作业窗7日降雨</span><strong>${number(s.tapping_window_precipitation_7d_mm)} mm</strong></div>
       <div><span>晨间割胶作业窗雨日 / 雨小时</span><strong>${s.tapping_window_rain_days_7d ?? "—"} 天 / ${s.tapping_window_rain_hours_7d ?? "—"} 小时</strong></div>
@@ -742,7 +752,7 @@ function renderDetail() {
     </div>
     <div class="forecast-strip" aria-label="${escapeHtml(station.place)}未来七天逐日预报">${days}</div>
     <p class="detail-source">预报：${escapeHtml(state.data.source?.source_name)}；实况估算：${escapeHtml(state.data.observation_source?.source_name || "当前无法确认最新数据")}。兑现率=实况/验证期前预报，不是准确率。</p>
-    <p class="detail-source">产量权重：${weight ? escapeHtml(state.productionWeights?.methodology || "当前无法确认最新数据") : "当前地点尚无同口径2025产量权重，保持MISSING。"}</p>`;
+    <p class="detail-source">产量权重：${weight ? escapeHtml(meta.methodology || state.productionWeights?.methodology || "当前无法确认最新数据") : "当前地点尚无同口径产量权重，保持MISSING。"}</p>`;
 }
 
 function selectStation(id, reveal = false) {

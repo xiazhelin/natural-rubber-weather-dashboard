@@ -1,18 +1,41 @@
 {
   "schema_version": 1,
-  "reference_year": 2025,
-  "data_type": "ESTIMATE",
+  "reference_years": [2024, 2025],
+  "data_type": "MIXED",
   "overall_quality_status": "WARNING",
   "prepared_at": "2026-09-14",
   "unit": "metric_ton_dry_rubber",
-  "methodology": "OAE 2024年统一省级产量结构 × OAE 2025年泰国产量总量；全球占比使用ANRPC于2026年5月报告中修订的2025年全球产量。2025年统一省级正式表发布后应整体替换，不混用零散省级快报。",
+  "methodology": "泰国采用OAE 2024年统一省级产量结构 × OAE 2025年泰国产量总量；印尼采用BPS 2024年全国统一省级产量表。全球参考占比统一使用ANRPC于2026年5月报告中修订的2025年全球产量，印尼属于跨年参考值并在页面标明分母年份。",
+  "countries": {
+    "泰国": {
+      "reference_year": 2025,
+      "data_type": "ESTIMATE",
+      "quality_status": "WARNING",
+      "production_t": 4892544,
+      "global_share_denominator_year": 2025,
+      "methodology": "OAE 2024年统一省级产量结构按OAE 2025年泰国产量总量缩放；2025年统一省级正式表发布后应整体替换。"
+    },
+    "印度尼西亚": {
+      "reference_year": 2024,
+      "data_type": "FACT",
+      "quality_status": "PASS",
+      "production_t": 2132000,
+      "global_share_denominator_year": 2025,
+      "methodology": "BPS 2024年全国统一省级天然橡胶产量表，吨数按用户提供的BPS表转录；省内占比由213.2万吨全国总量重算。全球占比仅为2024省级产量除以ANRPC 2025全球产量的跨年参考值。"
+    }
+  },
   "denominators": {
     "thailand_2025_production_t": 4892544,
+    "indonesia_2024_production_t": 2132000,
     "world_2025_production_t": 14971000,
     "thailand_share_of_world_pct": 32.6801,
     "tracked_thailand_production_t": 2349131,
     "tracked_share_of_thailand_pct": 48.0145,
-    "tracked_share_of_world_pct": 15.6912
+    "tracked_thailand_share_of_world_pct": 15.6912,
+    "tracked_indonesia_production_t": 1517600,
+    "tracked_share_of_indonesia_pct": 71.182,
+    "tracked_indonesia_share_of_world_pct": 10.1369,
+    "tracked_share_of_world_pct": 25.8281
   },
   "sources": [
     {
@@ -36,6 +59,15 @@
       "period": "2025",
       "data_type": "ESTIMATE",
       "use": "全球产量总量"
+    },
+    {
+      "source_name": "BPS Statistics Indonesia: Produksi Tanaman Perkebunan Menurut Provinsi dan Jenis Tanaman",
+      "url": "https://www.bps.go.id/id/statistics-table/2/MjU2NiMy/produksi-tanaman-perkebunan-menurut-provinsi-dan-jenis-tanaman.html",
+      "period": "2024",
+      "data_type": "FACT",
+      "use": "印尼全国及省级天然橡胶产量",
+      "source_data_date": "2026-08-27",
+      "ingestion_method": "MANUAL_TRANSCRIPTION_USER_SUPPLIED"
     }
   ],
   "stations": {
@@ -101,6 +133,48 @@
       "share_of_country_pct": 1.8257,
       "share_of_world_pct": 0.5966,
       "quality_status": "WARNING"
+    },
+    "id_sumatra_medan": {
+      "province_name_id": "Sumatera Utara",
+      "estimated_production_t": 251500,
+      "share_of_country_pct": 11.7964,
+      "share_of_world_pct": 1.6799,
+      "quality_status": "PASS"
+    },
+    "id_sumatra_pekanbaru": {
+      "province_name_id": "Riau",
+      "estimated_production_t": 180700,
+      "share_of_country_pct": 8.4756,
+      "share_of_world_pct": 1.207,
+      "quality_status": "PASS"
+    },
+    "id_sumatra_jambi": {
+      "province_name_id": "Jambi",
+      "estimated_production_t": 222600,
+      "share_of_country_pct": 10.4409,
+      "share_of_world_pct": 1.4869,
+      "quality_status": "PASS"
+    },
+    "id_sumatra_palembang": {
+      "province_name_id": "Sumatera Selatan",
+      "estimated_production_t": 619600,
+      "share_of_country_pct": 29.0619,
+      "share_of_world_pct": 4.1387,
+      "quality_status": "PASS"
+    },
+    "id_sumatra_lampung": {
+      "province_name_id": "Lampung",
+      "estimated_production_t": 84800,
+      "share_of_country_pct": 3.9775,
+      "share_of_world_pct": 0.5664,
+      "quality_status": "PASS"
+    },
+    "id_kalimantan_pontianak": {
+      "province_name_id": "Kalimantan Barat",
+      "estimated_production_t": 158400,
+      "share_of_country_pct": 7.4296,
+      "share_of_world_pct": 1.058,
+      "quality_status": "PASS"
     }
   }
 }
