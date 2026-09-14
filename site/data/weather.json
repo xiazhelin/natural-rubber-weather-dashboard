@@ -1,7 +1,7 @@
 {
   "schema_version": 3,
   "dataset_id": "NR_PRODUCTION_REGION_WEATHER_MONITOR_V2",
-  "generated_at_utc": "2026-09-14T12:30:25Z",
+  "generated_at_utc": "2026-09-14T13:15:08Z",
   "forecast_horizon": "D0-D6",
   "forecast_6h_definition": {
     "metric": "Open-Meteo hourly precipitation summed into six-hour periods",
