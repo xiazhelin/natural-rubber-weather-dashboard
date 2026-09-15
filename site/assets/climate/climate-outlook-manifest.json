@@ -18,8 +18,8 @@
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-09-14T13:15:21Z",
-      "last_attempt_at_utc": "2026-09-14T13:15:21Z"
+      "last_success_at_utc": "2026-09-15T13:14:10Z",
+      "last_attempt_at_utc": "2026-09-15T13:14:10Z"
     },
     "iri_precip": {
       "title": "IRI季节降水概率",
@@ -50,8 +50,8 @@
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-09-14T13:15:21Z",
-      "last_attempt_at_utc": "2026-09-14T13:15:21Z"
+      "last_success_at_utc": "2026-09-15T13:14:10Z",
+      "last_attempt_at_utc": "2026-09-15T13:14:10Z"
     },
     "nmme_precip": {
       "title": "NMME月度降水距平",
@@ -83,8 +83,8 @@
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-09-14T13:15:21Z",
-      "last_attempt_at_utc": "2026-09-14T13:15:21Z"
+      "last_success_at_utc": "2026-09-15T13:14:10Z",
+      "last_attempt_at_utc": "2026-09-15T13:14:10Z"
     },
     "nmme_temperature": {
       "title": "NMME月度2米气温距平",
@@ -115,11 +115,10 @@
           "filename": "nmme-temperature-4.png"
         }
       ],
-      "quality_status": "WARNING",
-      "last_success_at_utc": "2026-09-14T12:30:35Z",
-      "last_attempt_at_utc": "2026-09-14T13:15:21Z",
-      "warning": "<urlopen error [Errno 111] Connection refused>"
+      "quality_status": "PASS",
+      "last_success_at_utc": "2026-09-15T13:14:10Z",
+      "last_attempt_at_utc": "2026-09-15T13:14:10Z"
     }
   },
-  "updated_at_utc": "2026-09-14T13:15:21Z"
+  "updated_at_utc": "2026-09-15T13:14:10Z"
 }
