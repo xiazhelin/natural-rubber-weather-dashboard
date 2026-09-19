@@ -18,8 +18,8 @@
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-09-18T13:15:47Z",
-      "last_attempt_at_utc": "2026-09-18T13:15:47Z"
+      "last_success_at_utc": "2026-09-19T13:12:32Z",
+      "last_attempt_at_utc": "2026-09-19T13:12:32Z"
     },
     "iri_precip": {
       "title": "IRI季节降水概率",
@@ -50,8 +50,8 @@
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-09-18T13:15:47Z",
-      "last_attempt_at_utc": "2026-09-18T13:15:47Z"
+      "last_success_at_utc": "2026-09-19T13:12:32Z",
+      "last_attempt_at_utc": "2026-09-19T13:12:32Z"
     },
     "nmme_precip": {
       "title": "NMME月度降水距平",
@@ -83,8 +83,8 @@
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-09-18T13:15:47Z",
-      "last_attempt_at_utc": "2026-09-18T13:15:47Z"
+      "last_success_at_utc": "2026-09-19T13:12:32Z",
+      "last_attempt_at_utc": "2026-09-19T13:12:32Z"
     },
     "nmme_temperature": {
       "title": "NMME月度2米气温距平",
@@ -116,9 +116,9 @@
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-09-18T13:15:47Z",
-      "last_attempt_at_utc": "2026-09-18T13:15:47Z"
+      "last_success_at_utc": "2026-09-19T13:12:32Z",
+      "last_attempt_at_utc": "2026-09-19T13:12:32Z"
     }
   },
-  "updated_at_utc": "2026-09-18T13:15:47Z"
+  "updated_at_utc": "2026-09-19T13:12:32Z"
 }
