@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "dataset_id": "THAILAND_WEEKLY_RAIN_ERA5_V1",
-  "generated_at_utc": "2026-09-22T13:13:20Z",
+  "generated_at_utc": "2026-09-23T13:14:19Z",
   "period": {
     "start_date": "2022-01-03",
     "end_date": "2026-09-13",
