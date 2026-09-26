@@ -92,6 +92,24 @@ class CapacityDataTest(unittest.TestCase):
                 self.assertTrue(f["survey_observations"])
                 self.assertTrue(all(l["design_capacity"] is None and l["formed_capacity"] is None for l in f["lines"]))
 
+    def test_nr_model_and_census_revision(self):
+        data = json.loads((DATA / "tyre-factories.json").read_text(encoding="utf-8"))
+        self.assertEqual(data["model"]["kg_per_tire_range"], {"PCR/LTR": [2.6, 3.0], "TBR": [22, 23]})
+        self.assertEqual(data["model"]["source_type"], "USER_ASSUMPTION")
+        by_id = {f["id"]: f for f in data["factories"]}
+        for name in ("kh_triangle_svay_rieng", "my_wanli_selangor"):
+            self.assertEqual(by_id[name]["status"], "PLANNED")
+            self.assertTrue(all(l["formed_capacity"] is None for l in by_id[name]["lines"]))
+        firemax = by_id["kh_firemax_snoul"]
+        self.assertTrue(all(l["design_capacity"] is None for l in firemax["lines"]))
+        self.assertTrue(all(not c["include_in_totals"] for c in firemax["capacity_claims"]))
+        self.assertNotIn("nhtsa_1l9", {c["id"] for c in data["registry_candidates"]})
+        excluded = next(c for c in data["excluded_registry_records"] if c["id"] == "nhtsa_1l9")
+        self.assertIsNone(excluded["manufacturer_id"])
+        self.assertEqual(excluded["previous_manufacturer_id"], "panther")
+        self.assertEqual(excluded["quality"], "FAIL")
+        self.assertEqual(data["census_metadata"]["registry_candidates"], len(data["registry_candidates"]))
+
     def test_thailand_full_province_coverage(self):
         data = json.loads((DATA / "rubber-regions.json").read_text(encoding="utf-8"))
         provinces = [item for item in data["regions"] if item["country"] == "泰国"]

@@ -1,0 +1,1379 @@
+{
+  "schema_version": "CENSUS_ADDITIONS_B_V1",
+  "as_of": "2026-09-26",
+  "sources": {
+    "C2_MRF_2026": {
+      "title": "MRF FY2025–26年报，PDF第55页厂址清单（印刷页53）",
+      "url": "https://www.mrftyres.com/downloads/Annual%20Report%20-%20Final%2013.7.2026.pdf",
+      "published": null,
+      "accessed": "2026-09-26",
+      "note": "年报报告期截至2026-03-31；官方财务页链接已核。Perambalur明确2 plants，本批按同地址厂区合并一条，不拆造门牌；未披露的分厂能力不从集团数据分摊。"
+    },
+    "C2_NANKANG_2025": {
+      "title": "南港轮胎2025-12-11法说会，第6–8页工厂地址和最大日产能",
+      "url": "https://www.nankang-tyre.com/files/investors_stock_legal/1765441829141.pdf",
+      "published": "2025-12-11",
+      "accessed": "2026-09-26",
+      "note": "Xinfeng 20,000条/日，混合汽车/轻卡/摩托胎；Zhangjiagang 19,000条/日，以轿车子午线胎为主。保留日单位，不乘365年化。"
+    },
+    "C2_OZKA_CONTACT": {
+      "title": "ÖZKA官网：两处工厂与销售仓库分列",
+      "url": "https://ozkatyres.com/en-int/contact-us",
+      "published": null,
+      "accessed": "2026-09-26",
+      "note": "仅Factory-Headquarter和Factory-2列入；销售办公室/仓库不计工厂。"
+    },
+    "C2_OZKA_PROFILE": {
+      "title": "ÖZKA公司历史与产品范围",
+      "url": "https://ozkatyres.com/en-int/history",
+      "published": null,
+      "accessed": "2026-09-26",
+      "note": "农业、工业及其他多胎型；不把集团产品目录分配为每厂已形成产能。"
+    },
+    "C2_RALSON_CONTACT": {
+      "title": "Ralson官网：Corporate Office & Works、Unit-2、Unit-3与Pithampur工厂地址",
+      "url": "https://www.ralson.com/landing-page/contact.php",
+      "published": null,
+      "accessed": "2026-09-26",
+      "note": ""
+    },
+    "C2_RALSON_TBR": {
+      "title": "Ralson商业胎官网：Indore/Pithampur当前TBR能力100万条/年",
+      "url": "https://www.ralson.com/truck/about.php",
+      "published": null,
+      "accessed": "2026-09-26",
+      "note": "页面未标发布日期，数值以本次访问所见为准；只确认当期run-rate，不等于2025全年有效能力或实际产量。"
+    },
+    "C2_PANTHER_CONTACT": {
+      "title": "Panther Tyres官网工厂地址",
+      "url": "https://panthertyres.com/contact/",
+      "published": null,
+      "accessed": "2026-09-26",
+      "note": "厂址29.5km Lahore-Sheikhupura Road；英国同名NHTSA登记不能视作本集团厂区。"
+    },
+    "C2_PANTHER_AR2025": {
+      "title": "Panther Tyres 2025年报，附注39产能及实际产量",
+      "url": "https://panthertyres.com/wp-content/uploads/2025/10/PTL-Annual-Report-2025.pdf",
+      "published": null,
+      "accessed": "2026-09-26",
+      "note": "官方搜索索引可核9885600条/套能力及6756256实际产出、内胎另列；整体混合类型不能套PCR/TBR系数。本批未下载全本且不将集团数据分摊厂级。"
+    },
+    "C2_CASUMINA_PROFILE": {
+      "title": "Casumina官网公司历史与成员企业地址",
+      "url": "https://www.casumina.com.vn/about",
+      "published": null,
+      "accessed": "2026-09-26",
+      "note": "按现官网行政区名称；原平阳省新渊现归胡志明市。Radial历史规划100万TBR与2020所述35万不能混作同口径当前已形成能力。"
+    },
+    "C2_CASUMINA_2025": {
+      "title": "Casumina官网：Patagonia M/T半钢设备项目投运",
+      "url": "https://www.casumina.com.vn/post/casumina-gan-bien-cong-trinh-san-xuat-lop-ban-thep-patagonia-mt-chao-mung-dai-hoi-dang-bo-tap-doan-hoa-chat-viet-nam-lan-thu-iv",
+      "published": "2025-06-23",
+      "accessed": "2026-09-26",
+      "note": "项目2023Q2开工、2025-06中旬投运；公司半钢能力提升到150万条/年。原文公司总量，未强行写成单个厂级有效能力。"
+    },
+    "C2_BAREZ_PROFILE": {
+      "title": "Barez集团官网：Kerman/Kordestan历史及厂址",
+      "url": "https://barez.org/aboutus",
+      "published": null,
+      "accessed": "2026-09-26",
+      "note": "Kerman与Kordestan为轮胎基地；Sirjan有再生胶/翻新/材料项目，不新增为新胎厂。"
+    },
+    "C2_BAREZ_LORESTAN": {
+      "title": "Barez官网：Lorestan新厂及既有厂扩建计划",
+      "url": "https://en.barez.org/blog/Barez-unveils-new-greenfield-tire-project-in-western-Iran",
+      "published": "2024-10-21",
+      "accessed": "2026-09-26",
+      "note": "企业官网转载公司向ERJ确认的计划；2025目标不代表已投产，2026最新完成度未确认。单位ktpa指轮胎质量，非天然胶。"
+    },
+    "C2_FATE_COMPANY": {
+      "title": "FATE官网公司与历史厂区介绍",
+      "url": "https://www.fate.com.ar/paginas/3/empresa",
+      "published": null,
+      "accessed": "2026-09-26",
+      "note": "San Fernando历史工厂，不能根据静态官网宣称2026仍在产。"
+    },
+    "C2_FATE_CONTACT": {
+      "title": "FATE官网联系地址",
+      "url": "https://fate.com.ar/contacto",
+      "published": null,
+      "accessed": "2026-09-26",
+      "note": ""
+    },
+    "C2_FATE_CLOSURE": {
+      "title": "阿根廷众议院议员提案：记录FATE于2026-02-18宣布工业厂停产",
+      "url": "https://rest.hcdn.gob.ar/web/tramites-parlamentarios/render/adjunto/69960442efa5c.pdf",
+      "published": "2026-02-18",
+      "accessed": "2026-09-26",
+      "note": "PDF第2页援引企业声明；本项目只采停产事件，不采文中政策归因。尚待企业更新/复产情况后续核验。"
+    },
+    "C2_HFT_AR2024": {
+      "title": "Hwa Fong Rubber Thailand 2024 One Report，PDF第29、69页两厂地址",
+      "url": "https://www.duro.co.th/Form56/upload_Form%2056-1%20Annual%20Report%202024%20(Final%2026.3.25).pdf",
+      "published": "2025-03-26",
+      "accessed": "2026-09-26",
+      "note": "工厂1含内胎/外胎/混炼；工厂2另址。2970.3万外胎/年为公司两厂总数且混合自行车/摩托等，不能拆厂或套汽车胎NR系数。"
+    },
+    "C2_HFT_CONTACT": {
+      "title": "HFT官网两厂联系地址",
+      "url": "https://www.duro.co.th/th/contact",
+      "published": null,
+      "accessed": "2026-09-26",
+      "note": ""
+    }
+  },
+  "factories": [
+    {
+      "id": "in_mrf_tiruvottiyur",
+      "manufacturer_id": "mrf",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "MRF",
+      "site": "Tiruvottiyur",
+      "country": "印度",
+      "province": "Tamil Nadu",
+      "place": "Chennai",
+      "address": "Tiruvottiyur High Road, Tiruvottiyur, Chennai, Tamil Nadu, India",
+      "address_quality": "WARNING",
+      "address_precision": "企业披露地区/道路，具体门牌待核",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": false,
+      "address_source_ids": [
+        "C2_MRF_2026"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2026-03-31",
+      "status_basis": "厂区存在由企业目录确认；访问日期不冒充最新运营核验日期",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_MRF_2026"
+      ],
+      "note": "【事实】MRF FY2025–26年报厂址清单。年报确认地点；分厂胎种、设计、已形成能力未确认，不用集团总量分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "未获得可独立核验的分厂分胎型能力；不从集团数字分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_mrf_kottayam",
+      "manufacturer_id": "mrf",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "MRF",
+      "site": "Kottayam",
+      "country": "印度",
+      "province": "Kerala",
+      "place": "Kottayam",
+      "address": "No. 2, Vadavathoor, Kottayam, Kerala, India",
+      "address_quality": "PASS",
+      "address_precision": "企业披露厂区地址；未核门口坐标",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "C2_MRF_2026"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2026-03-31",
+      "status_basis": "厂区存在由企业目录确认；访问日期不冒充最新运营核验日期",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_MRF_2026"
+      ],
+      "note": "【事实】MRF FY2025–26年报厂址清单。年报确认地点；分厂胎种、设计、已形成能力未确认，不用集团总量分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "未获得可独立核验的分厂分胎型能力；不从集团数字分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_mrf_goa",
+      "manufacturer_id": "mrf",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "MRF",
+      "site": "Goa/Ponda",
+      "country": "印度",
+      "province": "Goa",
+      "place": "Ponda",
+      "address": "No. 1, Ponda, Goa, India",
+      "address_quality": "WARNING",
+      "address_precision": "企业披露地区/道路，具体门牌待核",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": false,
+      "address_source_ids": [
+        "C2_MRF_2026"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2026-03-31",
+      "status_basis": "厂区存在由企业目录确认；访问日期不冒充最新运营核验日期",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_MRF_2026"
+      ],
+      "note": "【事实】MRF FY2025–26年报厂址清单。年报确认地点；分厂胎种、设计、已形成能力未确认，不用集团总量分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "未获得可独立核验的分厂分胎型能力；不从集团数字分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_mrf_arkonam",
+      "manufacturer_id": "mrf",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "MRF",
+      "site": "Arkonam",
+      "country": "印度",
+      "province": "Tamil Nadu",
+      "place": "Arkonam",
+      "address": "Arkonam–Tiruttani Road, Ichiputhur, Arkonam, Tamil Nadu, India",
+      "address_quality": "WARNING",
+      "address_precision": "企业披露地区/道路，具体门牌待核",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": false,
+      "address_source_ids": [
+        "C2_MRF_2026"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2026-03-31",
+      "status_basis": "厂区存在由企业目录确认；访问日期不冒充最新运营核验日期",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_MRF_2026"
+      ],
+      "note": "【事实】MRF FY2025–26年报厂址清单。年报确认地点；分厂胎种、设计、已形成能力未确认，不用集团总量分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "未获得可独立核验的分厂分胎型能力；不从集团数字分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_mrf_medak",
+      "manufacturer_id": "mrf",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "MRF",
+      "site": "Medak",
+      "country": "印度",
+      "province": "Telangana",
+      "place": "Sadasivapet",
+      "address": "No. 2, Sadasivapet, Sangareddy, Telangana, India",
+      "address_quality": "WARNING",
+      "address_precision": "企业披露地区/道路，具体门牌待核",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": false,
+      "address_source_ids": [
+        "C2_MRF_2026"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2026-03-31",
+      "status_basis": "厂区存在由企业目录确认；访问日期不冒充最新运营核验日期",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_MRF_2026"
+      ],
+      "note": "【事实】MRF FY2025–26年报厂址清单。年报确认地点；分厂胎种、设计、已形成能力未确认，不用集团总量分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "未获得可独立核验的分厂分胎型能力；不从集团数字分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_mrf_puducherry",
+      "manufacturer_id": "mrf",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "MRF",
+      "site": "Puducherry",
+      "country": "印度",
+      "province": "Puducherry",
+      "place": "Nettapakkam",
+      "address": "Eripakkam Village, Nettapakkam Commune, Puducherry, India",
+      "address_quality": "WARNING",
+      "address_precision": "企业披露地区/道路，具体门牌待核",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": false,
+      "address_source_ids": [
+        "C2_MRF_2026"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2026-03-31",
+      "status_basis": "厂区存在由企业目录确认；访问日期不冒充最新运营核验日期",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_MRF_2026"
+      ],
+      "note": "【事实】MRF FY2025–26年报厂址清单。年报确认地点；分厂胎种、设计、已形成能力未确认，不用集团总量分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "未获得可独立核验的分厂分胎型能力；不从集团数字分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_mrf_ankenpally",
+      "manufacturer_id": "mrf",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "MRF",
+      "site": "Ankenpally",
+      "country": "印度",
+      "province": "Telangana",
+      "place": "Sadasivapet",
+      "address": "No. 2, Sadasivapet, Sangareddy, Telangana, India",
+      "address_quality": "WARNING",
+      "address_precision": "企业披露地区/道路，具体门牌待核",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": false,
+      "address_source_ids": [
+        "C2_MRF_2026"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2026-03-31",
+      "status_basis": "厂区存在由企业目录确认；访问日期不冒充最新运营核验日期",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_MRF_2026"
+      ],
+      "note": "【事实】MRF FY2025–26年报厂址清单。年报确认地点；分厂胎种、设计、已形成能力未确认，不用集团总量分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "未获得可独立核验的分厂分胎型能力；不从集团数字分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_mrf_perambalur",
+      "manufacturer_id": "mrf",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "MRF",
+      "site": "Perambalur（同址两厂合并记录）",
+      "country": "印度",
+      "province": "Tamil Nadu",
+      "place": "Perambalur",
+      "address": "Naranamangalam Village & Post, Alathur Taluk, Perambalur District, Tamil Nadu, India",
+      "address_quality": "WARNING",
+      "address_precision": "企业披露地区/道路，具体门牌待核",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": false,
+      "address_source_ids": [
+        "C2_MRF_2026"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2026-03-31",
+      "status_basis": "厂区存在由企业目录确认；访问日期不冒充最新运营核验日期",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_MRF_2026"
+      ],
+      "note": "【事实】MRF FY2025–26年报厂址清单。年报确认地点；分厂胎种、设计、已形成能力未确认，不用集团总量分摊。 官方明确同地址2 plants；暂按厂区合并，未计为两个独立定位点。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "未获得可独立核验的分厂分胎型能力；不从集团数字分摊。"
+        }
+      ],
+      "reported_factory_count": 2
+    },
+    {
+      "id": "in_mrf_dahej",
+      "manufacturer_id": "mrf",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "MRF",
+      "site": "Dahej",
+      "country": "印度",
+      "province": "Gujarat",
+      "place": "Bharuch",
+      "address": "Plot No. D-II-16, Dahej Industrial Area, Galenda Village, Taluka Vagara, Bharuch District, Gujarat, India",
+      "address_quality": "PASS",
+      "address_precision": "企业披露厂区地址；未核门口坐标",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "C2_MRF_2026"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2026-03-31",
+      "status_basis": "厂区存在由企业目录确认；访问日期不冒充最新运营核验日期",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_MRF_2026"
+      ],
+      "note": "【事实】MRF FY2025–26年报厂址清单。年报确认地点；分厂胎种、设计、已形成能力未确认，不用集团总量分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "未获得可独立核验的分厂分胎型能力；不从集团数字分摊。"
+        }
+      ]
+    },
+    {
+      "id": "tr_ozka_headquarters",
+      "manufacturer_id": "ozka",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "ÖZKA",
+      "site": "Başiskele厂区1（总部厂）",
+      "country": "土耳其",
+      "province": "Kocaeli",
+      "place": "Başiskele",
+      "address": "Mahmutpaşa Mah. Kanalyolu Cad. No:129, Başiskele, Kocaeli, Turkey",
+      "address_quality": "PASS",
+      "address_precision": "企业披露厂区地址；未核门口坐标",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "C2_OZKA_CONTACT",
+        "C2_OZKA_PROFILE"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "UNKNOWN",
+      "status_as_of": null,
+      "status_basis": "厂区存在由企业目录确认；访问日期不冒充最新运营核验日期",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_OZKA_CONTACT",
+        "C2_OZKA_PROFILE"
+      ],
+      "note": "【事实】企业材料确认厂区；当前无法确认最新分胎型产能、全年有效产能与实际天然胶耗量。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "未获得可独立核验的分厂分胎型能力；不从集团数字分摊。"
+        }
+      ]
+    },
+    {
+      "id": "tr_ozka_factory2",
+      "manufacturer_id": "ozka",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "ÖZKA",
+      "site": "Başiskele厂区2",
+      "country": "土耳其",
+      "province": "Kocaeli",
+      "place": "Başiskele",
+      "address": "Karadenizliler Mah. Başyiğit Cad. No:178, Başiskele, Kocaeli, Turkey",
+      "address_quality": "PASS",
+      "address_precision": "企业披露厂区地址；未核门口坐标",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "C2_OZKA_CONTACT",
+        "C2_OZKA_PROFILE"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "UNKNOWN",
+      "status_as_of": null,
+      "status_basis": "厂区存在由企业目录确认；访问日期不冒充最新运营核验日期",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_OZKA_CONTACT",
+        "C2_OZKA_PROFILE"
+      ],
+      "note": "【事实】企业材料确认厂区；当前无法确认最新分胎型产能、全年有效产能与实际天然胶耗量。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "未获得可独立核验的分厂分胎型能力；不从集团数字分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_ralson_ludhiana",
+      "manufacturer_id": "ralson",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "Ralson",
+      "site": "Ludhiana总厂",
+      "country": "印度",
+      "province": "Punjab",
+      "place": "Ludhiana",
+      "address": "Ralson Nagar, G.T. Road, Ludhiana 141014, Punjab, India",
+      "address_quality": "PASS",
+      "address_precision": "企业披露厂区地址；未核门口坐标",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "C2_RALSON_CONTACT"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "UNKNOWN",
+      "status_as_of": null,
+      "status_basis": "厂区存在由企业目录确认；访问日期不冒充最新运营核验日期",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_RALSON_CONTACT"
+      ],
+      "note": "【事实】企业材料确认厂区；当前无法确认最新分胎型产能、全年有效产能与实际天然胶耗量。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "未获得可独立核验的分厂分胎型能力；不从集团数字分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_ralson_mallipur",
+      "manufacturer_id": "ralson",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "Ralson",
+      "site": "Doraha Unit-2",
+      "country": "印度",
+      "province": "Punjab",
+      "place": "Ludhiana",
+      "address": "25th Mile Stone, Village Mallipur, G.T. Road, Doraha 141421, Ludhiana District, Punjab, India",
+      "address_quality": "PASS",
+      "address_precision": "企业披露厂区地址；未核门口坐标",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "C2_RALSON_CONTACT"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "UNKNOWN",
+      "status_as_of": null,
+      "status_basis": "厂区存在由企业目录确认；访问日期不冒充最新运营核验日期",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_RALSON_CONTACT"
+      ],
+      "note": "【事实】企业材料确认厂区；当前无法确认最新分胎型产能、全年有效产能与实际天然胶耗量。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "未获得可独立核验的分厂分胎型能力；不从集团数字分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_ralson_kot_panaich",
+      "manufacturer_id": "ralson",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "Ralson",
+      "site": "Doraha Unit-3",
+      "country": "印度",
+      "province": "Punjab",
+      "place": "Ludhiana",
+      "address": "Village Kot Panaich, G.T. Road, Doraha, Ludhiana District, Punjab, India",
+      "address_quality": "WARNING",
+      "address_precision": "企业披露地区/道路，具体门牌待核",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": false,
+      "address_source_ids": [
+        "C2_RALSON_CONTACT"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "UNKNOWN",
+      "status_as_of": null,
+      "status_basis": "厂区存在由企业目录确认；访问日期不冒充最新运营核验日期",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_RALSON_CONTACT"
+      ],
+      "note": "【事实】企业材料确认厂区；当前无法确认最新分胎型产能、全年有效产能与实际天然胶耗量。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "未获得可独立核验的分厂分胎型能力；不从集团数字分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_ralson_pithampur",
+      "manufacturer_id": "ralson",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "Ralson",
+      "site": "Pithampur/Indore全钢厂",
+      "country": "印度",
+      "province": "Madhya Pradesh",
+      "place": "Pithampur",
+      "address": "Plot No. 52 to 60, Smart Industrial Park, Near Natrip, Pithampur 454774, Madhya Pradesh, India",
+      "address_quality": "PASS",
+      "address_precision": "企业披露厂区地址；未核门口坐标",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "C2_RALSON_CONTACT",
+        "C2_RALSON_TBR"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官网产品与工厂介绍明确现有生产能力；日期为网页访问日，不是产能公告日",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_RALSON_CONTACT",
+        "C2_RALSON_TBR"
+      ],
+      "note": "【事实】公司商业胎官网明确Pithampur工厂TBR现有能力100万条/年；扩产提及但未给可核新规模，未自动翻倍。",
+      "lines": [
+        {
+          "type": "TBR",
+          "capacity_unit": "万条/年",
+          "design_capacity": 100,
+          "design_as_of": "2026-09-26",
+          "formed_capacity": 100,
+          "formed_as_of": "2026-09-26",
+          "effective_capacity_2025": null,
+          "quality": "WARNING",
+          "capacity_as_of_basis": "UNDATED_PAGE_ACCESSED",
+          "source_ids": [
+            "C2_RALSON_TBR"
+          ],
+          "note": "官网现有能力100万条/年，设计字段此处表示公司披露能力而非原环评设计；未披露公告日期。不能当作2025全年有效能力或实际产量。"
+        }
+      ]
+    },
+    {
+      "id": "tw_nankang_xinfeng",
+      "manufacturer_id": "nankang",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "南港轮胎",
+      "site": "新丰厂",
+      "country": "中国台湾",
+      "province": "新竹县",
+      "place": "新丰乡",
+      "address": "No. 399, Xinxing Road, Xinfeng Township, Hsinchu County, Taiwan",
+      "address_quality": "PASS",
+      "address_precision": "企业披露厂区地址；未核门口坐标",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "C2_NANKANG_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "OPERATING",
+      "status_as_of": "2025-12-11",
+      "status_basis": "2025-12-11法说会公司工厂介绍",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_NANKANG_2025"
+      ],
+      "note": "【事实】2025法说会披露新丰厂最大2万条/日；混合胎型不能按半钢或全钢统一折算。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "条/日",
+          "design_capacity": 20000,
+          "design_as_of": "2025-12-11",
+          "formed_capacity": 20000,
+          "formed_as_of": "2025-12-11",
+          "effective_capacity_2025": null,
+          "quality": "WARNING",
+          "note": "最大日产能；汽车/全钢轻卡/摩托混合，不能整厂套半钢系数；未给工作日不年化。"
+        }
+      ]
+    },
+    {
+      "id": "cn_nankang_zhangjiagang",
+      "manufacturer_id": "nankang",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "南港轮胎",
+      "site": "张家港厂",
+      "country": "中国",
+      "province": "江苏",
+      "place": "张家港",
+      "address": "江苏省张家港保税区上海路（官方披露未列门牌号）",
+      "address_quality": "WARNING",
+      "address_precision": "企业披露地区/道路，具体门牌待核",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": false,
+      "address_source_ids": [
+        "C2_NANKANG_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "OPERATING",
+      "status_as_of": "2025-12-11",
+      "status_basis": "2025-12-11法说会工厂介绍",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_NANKANG_2025"
+      ],
+      "note": "【事实】企业材料确认厂区；当前无法确认最新分胎型产能、全年有效产能与实际天然胶耗量。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "条/日",
+          "design_capacity": 19000,
+          "design_as_of": "2025-12-11",
+          "formed_capacity": 19000,
+          "formed_as_of": "2025-12-11",
+          "effective_capacity_2025": null,
+          "quality": "WARNING",
+          "note": "轿车子午线轮胎为主要产品，最大日产能1.9万条；未披露年度工作日，不乘365年化。"
+        }
+      ]
+    },
+    {
+      "id": "pk_panther_sheikhupura",
+      "manufacturer_id": "panther",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "Panther Tyres",
+      "site": "Sheikhupura工厂",
+      "country": "巴基斯坦",
+      "province": "Punjab",
+      "place": "Sheikhupura",
+      "address": "29.5 km Lahore-Sheikhupura Road, Sheikhupura, Pakistan",
+      "address_quality": "PASS",
+      "address_precision": "企业披露厂区地址；未核门口坐标",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "C2_PANTHER_CONTACT",
+        "C2_PANTHER_AR2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "UNKNOWN",
+      "status_as_of": null,
+      "status_basis": "厂区存在由企业目录确认；访问日期不冒充最新运营核验日期",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_PANTHER_CONTACT",
+        "C2_PANTHER_AR2025"
+      ],
+      "note": "【事实】企业官网确认Sheikhupura生产基地。2025年报附注39披露公司988.56万条/套能力、675.6256万实际条/套，但含多种胎型/套，未独立确认厂级范围，未套半钢/全钢系数；内胎数据不与外胎相加。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "未获得可独立核验的分厂分胎型能力；不从集团数字分摊。"
+        }
+      ]
+    },
+    {
+      "id": "vn_casumina_radial_tanuyen",
+      "manufacturer_id": "casumina",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "Casumina（越南南方橡胶）",
+      "site": "Radial新渊厂",
+      "country": "越南",
+      "province": "胡志明市",
+      "place": "Tân Uyên",
+      "address": "Khu phố 7, Phường Tân Uyên, Thành phố Hồ Chí Minh, Vietnam（原Bình Dương省）",
+      "address_quality": "WARNING",
+      "address_precision": "已核地区/道路；具体门牌或物理边界待核",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": false,
+      "address_source_ids": [
+        "C2_CASUMINA_PROFILE",
+        "C2_CASUMINA_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "OPERATING",
+      "status_as_of": "2025-06-23",
+      "status_basis": "公司2025-06-23报道明确新增设备中旬投运",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_CASUMINA_PROFILE",
+        "C2_CASUMINA_2025"
+      ],
+      "note": "【事实】确认Radial基地及Patagonia半钢增量8.5万条/年。公司150万条总量未直接分配；同厂TBR当前能力待核。仅已核增量参与产能情景，是不完整下限，不是全厂总量。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": 8.5,
+          "design_as_of": "2025-06-23",
+          "formed_capacity": 8.5,
+          "formed_as_of": "2025-06-23",
+          "effective_capacity_2025": null,
+          "quality": "WARNING",
+          "capacity_scope": "CONFIRMED_INCREMENT_ONLY",
+          "source_ids": [
+            "C2_CASUMINA_2025"
+          ],
+          "note": "仅Patagonia M/T新增设备的8.5万条/年；不是全厂半钢总量。2025-06中旬投运不等于全年有效。官网150万条/年为公司半钢总量，未归厂、不另加150。",
+          "phases": [
+            {
+              "period": "2023-Q2",
+              "label": "Patagonia M/T设备项目开工",
+              "status": "已披露"
+            },
+            {
+              "period": "2025-06",
+              "label": "中旬投运8.5万条/年设备；属公司150万条/年总量内",
+              "status": "已披露"
+            }
+          ]
+        },
+        {
+          "type": "TBR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "2014厂历史设计100万条与2020官网35万条为不同阶段/口径；不当作2026当前能力。"
+        }
+      ]
+    },
+    {
+      "id": "vn_casumina_binhloi",
+      "manufacturer_id": "casumina",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "Casumina（越南南方橡胶）",
+      "site": "Bình Lợi厂",
+      "country": "越南",
+      "province": "胡志明市",
+      "place": "Hiệp Bình",
+      "address": "2/3 Kha Vạn Cân, Phường Hiệp Bình, Thành phố Hồ Chí Minh, Vietnam",
+      "address_quality": "PASS",
+      "address_precision": "企业披露厂区地址；未核门口坐标",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "C2_CASUMINA_PROFILE"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "UNKNOWN",
+      "status_as_of": null,
+      "status_basis": "企业材料确认厂区；访问日期不冒充运营核验日期",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_CASUMINA_PROFILE"
+      ],
+      "note": "【事实】企业材料确认厂区；当前无法确认最新分胎型产能、全年有效产能与实际天然胶耗量。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "未取得分厂可核数字，不从集团能力分摊。"
+        }
+      ]
+    },
+    {
+      "id": "vn_casumina_hocmon",
+      "manufacturer_id": "casumina",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "Casumina（越南南方橡胶）",
+      "site": "Hóc Môn厂",
+      "country": "越南",
+      "province": "胡志明市",
+      "place": "Tân Thới Hiệp",
+      "address": "Khu phố 2, Phường Tân Thới Hiệp, Thành phố Hồ Chí Minh, Vietnam",
+      "address_quality": "WARNING",
+      "address_precision": "已核地区/道路；具体门牌或物理边界待核",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": false,
+      "address_source_ids": [
+        "C2_CASUMINA_PROFILE"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "UNKNOWN",
+      "status_as_of": null,
+      "status_basis": "企业材料确认厂区；访问日期不冒充运营核验日期",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_CASUMINA_PROFILE"
+      ],
+      "note": "【事实】企业材料确认厂区；当前无法确认最新分胎型产能、全年有效产能与实际天然胶耗量。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "未取得分厂可核数字，不从集团能力分摊。"
+        }
+      ]
+    },
+    {
+      "id": "ir_barez_kerman",
+      "manufacturer_id": "barez",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "Barez",
+      "site": "Kerman基地",
+      "country": "伊朗",
+      "province": "Kerman",
+      "place": "Kerman",
+      "address": "Kilometre 25, Kerman–Joupar Road, Kerman, Iran",
+      "address_quality": "PASS",
+      "address_precision": "企业披露厂区地址；未核门口坐标",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "C2_BAREZ_PROFILE",
+        "C2_BAREZ_LORESTAN"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "UNKNOWN",
+      "status_as_of": null,
+      "status_basis": "企业材料确认厂区；访问日期不冒充运营核验日期",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_BAREZ_PROFILE",
+        "C2_BAREZ_LORESTAN"
+      ],
+      "note": "【事实】集团官网确认轮胎基地。官网125,000吨/年为集团口径，不能拆厂或视为天然胶吨数；2024扩产目标需后续核实际完成度。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "未取得分厂可核数字，不从集团能力分摊。"
+        }
+      ]
+    },
+    {
+      "id": "ir_barez_kordestan",
+      "manufacturer_id": "barez",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "Barez",
+      "site": "Kordestan基地",
+      "country": "伊朗",
+      "province": "Kurdistan",
+      "place": "Dehgolan",
+      "address": "Dehgolan Industrial Estate, Hamedan–Sanandaj Highway, Kurdistan, Iran",
+      "address_quality": "WARNING",
+      "address_precision": "已核地区/道路；具体门牌或物理边界待核",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": false,
+      "address_source_ids": [
+        "C2_BAREZ_PROFILE",
+        "C2_BAREZ_LORESTAN"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "UNKNOWN",
+      "status_as_of": null,
+      "status_basis": "企业材料确认厂区；访问日期不冒充运营核验日期",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_BAREZ_PROFILE",
+        "C2_BAREZ_LORESTAN"
+      ],
+      "note": "【事实】集团官网确认轮胎基地。官网125,000吨/年为集团口径，不能拆厂或视为天然胶吨数；2024扩产目标需后续核实际完成度。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "官网确认PCR/SUV生产基地，但未获得已形成条数产能；2027规划66ktpa是轮胎质量，不能套每条NR系数。"
+        }
+      ]
+    },
+    {
+      "id": "ir_barez_lorestan",
+      "manufacturer_id": "barez",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "Barez",
+      "site": "Lorestan/Aligoudarz新建项目",
+      "country": "伊朗",
+      "province": "Lorestan",
+      "place": "Aligoudarz",
+      "address": "Aligoudarz, Lorestan, Iran（具体工业园/地块未获核验）",
+      "address_quality": "WARNING",
+      "address_precision": "已核地区/道路；具体门牌或物理边界待核",
+      "address_scope": "PROJECT_AREA",
+      "physical_address_verified": false,
+      "address_source_ids": [
+        "C2_BAREZ_LORESTAN"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "BUILDING",
+      "status_as_of": "2024-10-21",
+      "status_basis": "2024官网确认已开工；2026当前施工/投产状态未确认，不能按旧目标日期自动转运营",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_BAREZ_LORESTAN"
+      ],
+      "note": "【事实】企业2024公告已开始建设的未来轮胎厂。原定2025一期、2027二期；一期目标日期已过但未找到可靠竣工事实，已形成仍null。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万吨轮胎/年",
+          "design_capacity": 3.5,
+          "design_as_of": "2024-10-21",
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "WARNING",
+          "source_ids": [
+            "C2_BAREZ_LORESTAN"
+          ],
+          "note": "项目TBR+轻卡混合；终期35ktpa轮胎质量；既非条数也非天然胶吨。不得与一期15ktpa相加。",
+          "phases": [
+            {
+              "period": "2025-07",
+              "label": "一期原计划15ktpa（1.5万吨轮胎/年）；是否达成待核",
+              "status": "原规划·待核"
+            },
+            {
+              "period": "2027-03",
+              "label": "二期后合计35ktpa（3.5万吨轮胎/年），非新增35ktpa",
+              "status": "规划"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ar_fate_sanfernando",
+      "manufacturer_id": "fate",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "FATE",
+      "site": "San Fernando/Virreyes历史厂",
+      "country": "阿根廷",
+      "province": "Buenos Aires",
+      "place": "San Fernando",
+      "address": "Av. Blanco Encalada 3003, B1644GPK Victoria, Buenos Aires, Argentina",
+      "address_quality": "WARNING",
+      "address_precision": "官方联系地址；与历史工厂门址关系待核",
+      "address_scope": "COMPANY_CONTACT",
+      "physical_address_verified": false,
+      "address_source_ids": [
+        "C2_FATE_CONTACT",
+        "C2_FATE_COMPANY",
+        "C2_FATE_CLOSURE"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "CLOSED",
+      "status_as_of": "2026-02-18",
+      "status_basis": "国会提案第2页记录公司当日停止厂区生产公告；后续是否复产尚待确认",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_FATE_CONTACT",
+        "C2_FATE_COMPANY",
+        "C2_FATE_CLOSURE"
+      ],
+      "note": "【事实】历史San Fernando轮胎基地，2026-02-18公司停产事件已被议会原件记录。旧官网仍显示公司/产品，不能覆盖停产事实。本批不计入当前在产耗胶，未将旧混合500万条设计口径套汽车胎单耗。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "未取得分厂可核数字，不从集团能力分摊。"
+        }
+      ]
+    },
+    {
+      "id": "th_hwafong_bangpoo1",
+      "manufacturer_id": "hwafong",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "华丰橡胶 Hwa Fong",
+      "site": "Bangpoo工厂1",
+      "country": "泰国",
+      "province": "北榄",
+      "place": "Bangpoo",
+      "address": "317 Moo 4, Soi 6C, Bangpoo Industrial Estate, Phraeksa, Mueang Samut Prakan, Samut Prakan 10280, Thailand",
+      "address_quality": "PASS",
+      "address_precision": "企业披露厂区地址；未核门口坐标",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "C2_HFT_AR2024",
+        "C2_HFT_CONTACT"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2024-12-31",
+      "status_basis": "企业材料确认厂区；访问日期不冒充运营核验日期",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_HFT_AR2024",
+        "C2_HFT_CONTACT"
+      ],
+      "note": "【事实】泰国2024年报明确两厂。两厂公司2970.3万外胎能力含自行车/摩托/小型运载车，不能分摊厂级、不能按PCR/TBR单耗计算；内胎不并入外胎。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "未取得分厂可核数字，不从集团能力分摊。"
+        }
+      ]
+    },
+    {
+      "id": "th_hwafong_bangpoo2",
+      "manufacturer_id": "hwafong",
+      "census_record_type": "COMPANY_FACTORY",
+      "company": "华丰橡胶 Hwa Fong",
+      "site": "Bangpoo工厂2",
+      "country": "泰国",
+      "province": "北榄",
+      "place": "Bangpoo",
+      "address": "865/1 Moo 4, Soi 11B, Bangpoo Industrial Estate, Phraeksa, Mueang Samut Prakan, Samut Prakan 10280, Thailand",
+      "address_quality": "PASS",
+      "address_precision": "企业披露厂区地址；未核门口坐标",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "C2_HFT_AR2024",
+        "C2_HFT_CONTACT"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "MISSING；本批未取得可核验厂门/城市坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2024-12-31",
+      "status_basis": "企业材料确认厂区；访问日期不冒充运营核验日期",
+      "quality": "WARNING",
+      "source_ids": [
+        "C2_HFT_AR2024",
+        "C2_HFT_CONTACT"
+      ],
+      "note": "【事实】泰国2024年报明确两厂。两厂公司2970.3万外胎能力含自行车/摩托/小型运载车，不能分摊厂级、不能按PCR/TBR单耗计算；内胎不并入外胎。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "未取得分厂可核数字，不从集团能力分摊。"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "本批27个厂区/项目来自9个原未覆盖集团；MRF Perambalur同址两厂合并成一个厂区条目，不能把27称为独立工厂建筑总数。",
+    "仅Ralson Pithampur TBR 100万条/年及Casumina Radial Patagonia增量8.5万条/年进入本批可按年测算的已形成分胎型能力；其余有数值但日单位、吨轮胎、混合产品、集团总量或未来目标不能直接混合入年耗胶。",
+    "MRF年报Natural Rubber commodity exposure数量是商品风险敞口，不直接认作实际天然胶消耗；FY2025–26不等于2025自然年。",
+    "候选登记 nhtsa_1l9 属英国Panther Tyres Ltd，同名不证明为巴基斯坦Panther集团，建议从该集团候选计数中剔除，保留修订记录。",
+    "Casumina官网2020TBR35万条、2014厂规划100万条与2025半钢150万条均非同口径；保留文字冲突，不填满产总数；2025能明确归厂的仅新增8.5万条设备。",
+    "Barez Sirjan再生/翻新胶与材料项目不列为新胎厂；Lorestan虽2025原计划日期已过，2026新证据缺失时不能自动转为已投产。",
+    "全部位置目前经纬度null；未为了地图覆盖制造厂门坐标。实际详细地址与坐标质量单列。",
+    "PDF原文已通过官方文档文本核阅相关页。部分web截图和本地下载失败，本批不宣称逐页视觉验收；MRF、南港、HFT数据均保留原链接与对应页码供复核。"
+  ],
+  "candidate_corrections": [
+    {
+      "candidate_id": "nhtsa_1l9",
+      "action": "EXCLUDE_FROM_MANUFACTURER_MATCH",
+      "manufacturer_id": "panther",
+      "quality": "FAIL",
+      "reason": "登记公司在英国Aintree/Liverpool；未有股权/集团归属证据，不能仅以Panther Tyres同名映射巴基斯坦集团。",
+      "source_ids": [
+        "C2_PANTHER_CONTACT"
+      ]
+    }
+  ]
+}

@@ -46,6 +46,18 @@
         <div id="censusSources"></div>
       </details>
       <div id="tyreStats" class="capacity-stats" aria-live="polite"></div>
+      <section class="nr-panel" aria-labelledby="nrTitle">
+        <h3 id="nrTitle">名录天然胶耗用粗估 · 区间情景</h3>
+        <p>半钢每1000条2.6–3.0吨，全钢22–23吨（用户研究假设）。A+B仅涵盖可拆分且可年化的已知能力，不是全球消费总量；未披露保持缺失，设计目标不冒充实产。</p>
+        <div class="nr-controls">
+          <label>日能力年化天数（0＝不年化）<input id="nrDays" type="number" min="0" max="366" step="1" value="0" required></label>
+          <label>情景负荷 %（非观测开工率）<input id="nrLoad" type="number" min="0" max="100" step="1" value="100" required></label>
+        </div>
+        <div id="nrTotals" class="capacity-stats" aria-live="polite"></div>
+        <p id="nrScenario" class="capacity-footnote"></p>
+        <details><summary>查看全球粗估逐厂纳入明细（可点击厂区）</summary><div id="nrLedger" class="census-table"></div></details>
+        <p class="capacity-footnote">A与B数据期不同，B含2025行业估计及当前状态待核厂；此处只提供结构量级。未来桶包括已核设计减已形成差额，该差额不等于确定投产计划。厂级实际年度耗胶仍须以投料/产量核实。</p>
+      </section>
       <div class="capacity-controls">
         <label>记录层<select id="tyreEvidence"><option value="factory">已收录厂区</option><option value="registry">登记待核线索</option></select></label>
         <label>企业／集团<select id="tyreManufacturer"><option value="all">全部企业</option></select></label>
@@ -56,8 +68,14 @@
       </div>
       <div class="capacity-workspace">
         <div class="capacity-map-card">
-          <div class="capacity-map-top"><strong>工厂定位</strong><span>选择国家可放大；具体地址与坐标精度见厂区卡片</span></div>
-          <div id="tyreSvg" class="capacity-map" aria-live="polite"></div>
+          <div class="capacity-map-top"><strong>工厂定位</strong><span>选择国家自动定位；具体地址与坐标精度见厂区卡片</span></div>
+          <div id="tyreMapTools" class="capacity-map-tools" role="group" aria-label="轮胎厂地图控制">
+            <button type="button" data-map-action="in" aria-label="放大轮胎厂地图" title="放大">＋</button><button type="button" data-map-action="out" aria-label="缩小轮胎厂地图" title="缩小">−</button><button type="button" data-map-action="reset">复位</button>
+            <output aria-label="轮胎厂地图缩放比例" aria-live="polite">100%</output>
+            <button type="button" data-map-action="left" aria-label="轮胎厂地图向西移动" title="向西">←</button><button type="button" data-map-action="up" aria-label="轮胎厂地图向北移动" title="向北">↑</button><button type="button" data-map-action="down" aria-label="轮胎厂地图向南移动" title="向南">↓</button><button type="button" data-map-action="right" aria-label="轮胎厂地图向东移动" title="向东">→</button>
+          </div>
+          <p id="tyreMapHelp" class="capacity-map-help">鼠标拖动平移；手机用方向按钮。地图聚焦后可用方向键、＋／−、Home 复位。</p>
+          <div id="tyreSvg" class="capacity-map" tabindex="0" role="region" aria-label="可缩放轮胎厂地图" aria-describedby="tyreMapHelp"></div>
           <p id="tyreMapCoverage" class="capacity-footnote"></p>
           <div class="capacity-legend"><span><i class="capacity-key operating"></i>运营</span><span><i class="capacity-key ramping"></i>爬坡</span><span><i class="capacity-key building"></i>在建</span><span><i class="capacity-key planned"></i>规划／状态待核</span></div>
         </div>
@@ -91,7 +109,13 @@
       <div class="capacity-workspace">
         <div class="capacity-map-card">
           <div class="capacity-map-top"><strong>省级产量定位</strong><span>省级圆点大小代表本国产量占比；非省界着色图</span></div>
-          <div id="rubberSvg" class="capacity-map" aria-live="polite"></div>
+          <div id="rubberMapTools" class="capacity-map-tools" role="group" aria-label="橡胶产区地图控制">
+            <button type="button" data-map-action="in" aria-label="放大橡胶产区地图" title="放大">＋</button><button type="button" data-map-action="out" aria-label="缩小橡胶产区地图" title="缩小">−</button><button type="button" data-map-action="reset">复位</button>
+            <output aria-label="橡胶产区地图缩放比例" aria-live="polite">100%</output>
+            <button type="button" data-map-action="left" aria-label="橡胶产区地图向西移动" title="向西">←</button><button type="button" data-map-action="up" aria-label="橡胶产区地图向北移动" title="向北">↑</button><button type="button" data-map-action="down" aria-label="橡胶产区地图向南移动" title="向南">↓</button><button type="button" data-map-action="right" aria-label="橡胶产区地图向东移动" title="向东">→</button>
+          </div>
+          <p id="rubberMapHelp" class="capacity-map-help">鼠标拖动平移；手机用方向按钮。地图聚焦后可用方向键、＋／−、Home 复位。</p>
+          <div id="rubberSvg" class="capacity-map" tabindex="0" role="region" aria-label="可缩放橡胶产区地图" aria-describedby="rubberMapHelp"></div>
           <div class="capacity-legend"><span><i class="capacity-key province"></i>省级记录</span><span><i class="capacity-key national"></i>全国记录</span><span>2025 初值／预测值标 WARNING</span></div>
         </div>
         <aside id="rubberDetail" class="capacity-detail" aria-live="polite"><p>点击地图或下方名单查看产区口径。</p></aside>
@@ -104,7 +128,7 @@
       <h2 id="capacityMethodTitle">口径与更新入口</h2>
       <div>
         <p><strong>轮胎：</strong>设计产能是项目名义规模；已形成是披露时点的年化能力；全年有效产能需要按投产、检修及技术可用时间加权；实际产量或耗胶不能用设计值冒充。</p>
-        <p><strong>耗胶模型：</strong>半钢 2.1327 kg／条 = 11 kg 胎重 × 19% 天然胶占比 ÷ 98% 收率；全钢 22.5510 kg／条 = 65 kg × 34% ÷ 98%。19%／34% 取自 <a href="https://www.bls.gov/opub/btn/volume-9/why-the-prices-of-natural-and-synthetic-rubber-do-not-always-bounce-together.htm" target="_blank" rel="noopener noreferrer">BLS 引用 USTMA</a>的代表性胎材结构，胎重和收率是本项目假设，并非 2025 年实测。跨国应用仅作情景估算，需以企业投料和产品结构校准；工程胎不套用。</p>
+        <p><strong>耗胶模型 V2：</strong>用户指定半钢2.6–3.0吨/千条、全钢22–23吨/千条，等价于2.6–3.0与22–23kg/条。万吨/年 = 万条/年 × kg/条 ÷ 1000；不再使用旧版2.1327/22.551中心单耗，不额外叠加损耗率。区间是研究假设，不是统计置信区间；工程胎、混合胎种和翻新胎不套用。日能力默认不年化，输入天数后仅形成额外情景，不写回事实数据。</p>
         <p><strong>更新：</strong>企业名录、厂区及省级产量分别维护，可持续补充地址、扩产阶段与披露数据。每条记录保留来源、数据期及核验状态；修订通过校验后随网站发布。</p>
       </div>
     </section>

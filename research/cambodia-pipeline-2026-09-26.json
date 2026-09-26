@@ -1,0 +1,310 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-26",
+  "scope": "柬埔寨用户截图逐项原始来源核验，并补充三角柬埔寨及万力马来西亚未来项目。产能单位万条/年；核验日不等于数值观察日。不得将规划、投产仪式或登记 Active 视为全部已形成，更不得视为实际耗胶。",
+  "merge_instructions": "sources 按键合并；updates 按厂区 id 合并并保留未列字段；new_factories 按 id 去重加入。registry_candidate_ids 关联同一实体，不能作为额外厂区或产能重复计入。福麦斯仅待核项目，不进入任何已核验产能桶。",
+  "sources": {
+    "KH_SAILUN_TBR_20250107": {
+      "title": "赛轮轮胎：柬埔寨全钢子午线轮胎扩建项目公告，临2025-004",
+      "url": "https://static.cninfo.com.cn/finalpage/2025-01-07/1222244960.PDF",
+      "published": "2025-01-07",
+      "accessed_at": "2026-09-26",
+      "source_type": "COMPANY_FILING",
+      "evidence": "第1–2页：此前165万条全钢项目已批量生产；本次新增165万条全钢项目。原项目与本次增量并非同一笔，但合计330与增量165不能再次相加。"
+    },
+    "KH_TONGYONG_AR2025": {
+      "title": "通用股份2025年年度报告，厂级设计/达产产能表",
+      "url": "https://www.ty-tyre.com/uploadfile/2026/0509/20260509090733509.pdf",
+      "published": "2026-05-09",
+      "accessed_at": "2026-09-26",
+      "source_type": "COMPANY_OFFICIAL",
+      "evidence": "PDF第32–33页：截至2025年底，一期PCR500/TBR90设计及达产；二期PCR设计350、达产200，TBR设计75、达产50；预计2026完成。上传日期与报告观察期分开。"
+    },
+    "KH_DOUBLESTAR_PLAN2023": {
+      "title": "青岛双星：在柬埔寨设立子公司并投资建厂公告",
+      "url": "https://static.cninfo.com.cn/finalpage/2023-02-21/1215907756.PDF",
+      "published": "2023-02-21",
+      "accessed_at": "2026-09-26",
+      "source_type": "COMPANY_FILING",
+      "evidence": "规划全钢150万条、半钢700万条，选址桔井省经济特区。项目包含国内设备转移，全球净增量另需核对国内退出，不能直接等同毛新增。"
+    },
+    "KH_DOUBLESTAR_AR2025": {
+      "title": "青岛双星2025年年度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-04-29/1225227803.PDF",
+      "published": "2026-04-29",
+      "accessed_at": "2026-09-26",
+      "source_type": "COMPANY_FILING",
+      "evidence": "PDF第14–15页：柬埔寨工厂已生产销售，PCR全线投产但继续推进达产、释放产能。未据此将700/150设计量填入已形成量或全年有效量。"
+    },
+    "KH_DOUBLESTAR_H12026": {
+      "title": "青岛双星2026年半年度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-14/1225472611.PDF",
+      "published": "2026-08-14",
+      "accessed_at": "2026-09-26",
+      "source_type": "COMPANY_FILING",
+      "evidence": "公司继续将柬埔寨列为生产基地，合并主体含新双星（柬埔寨）；未取得可直接录入的厂级分胎种最新已形成数值。"
+    },
+    "KH_DOUBLESTAR_NHTSA": {
+      "title": "NHTSA NEWBUSTAR (CAMBODIA) TIRE CO., LTD. 厂商登记",
+      "url": "https://vpic.nhtsa.dot.gov/mid/manufacturer/details/22873",
+      "published": "2025-02-14",
+      "accessed_at": "2026-09-26",
+      "source_type": "GOVERNMENT_REGISTER",
+      "evidence": "登记地址细至村、乡、园区及Room303；这是申报联系地址，并非已验证厂门位置。"
+    },
+    "WANLI_GZ_SASAC_20260803": {
+      "title": "广州国资委：广州工控集团出访东盟多国，深化全球产业链东南亚布局",
+      "url": "https://gzw.gz.gov.cn/qy/qydt/content/post_10948736.html",
+      "published": "2026-08-03",
+      "accessed_at": "2026-09-26",
+      "source_type": "GOVERNMENT",
+      "evidence": "柬埔寨总体规划1200万半钢，一期即将竣工验收；马来西亚与成功产业签合资协议，雪兰莪项目设计500万半钢和120万全钢。"
+    },
+    "KH_WANLI_AKP_20260112": {
+      "title": "AKP: Cambodia Strengthens Industrial Ties with China as Wanli Tire Opens Major Manufacturing Hub",
+      "url": "https://www.akp.gov.kh/index.php/post/detail/358753",
+      "published": "2026-01-12",
+      "accessed_at": "2026-09-26",
+      "source_type": "GOVERNMENT_NEWS_AGENCY",
+      "evidence": "政府新闻社记录2026-01-12启用仪式，厂址为柴桢省Chantrea区Xin Bavet经济特区；仪式并不证明全项目1200万条已形成。"
+    },
+    "KH_FIREMAX_NHTSA": {
+      "title": "NHTSA FIREMAX (CAMBODIA) TIRES CO., LTD. 厂商登记",
+      "url": "https://vpic.nhtsa.dot.gov/mid/manufacturer/details/24483",
+      "published": "2025-07-15",
+      "accessed_at": "2026-09-26",
+      "source_type": "GOVERNMENT_REGISTER",
+      "evidence": "确认柬埔寨实体及Snoul、Kratie地址；生产起止日期为空，登记不披露800/120产能，也不证明当前已达产。"
+    },
+    "KH_TRIANGLE_FS20260116": {
+      "title": "三角轮胎：柬埔寨700万条项目可行性研究报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-01-16/1224935039.PDF",
+      "published": "2026-01-16",
+      "accessed_at": "2026-09-26",
+      "source_type": "COMPANY_FILING",
+      "evidence": "第7–8页、33页：半钢600万条、全钢100万条，建设全过程计划17个月；设计天然胶36780吨/年为可研情景，非实际消费。选址仅披露柴桢省。"
+    },
+    "KH_TRIANGLE_H12026": {
+      "title": "三角轮胎2026年半年度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-27/1225510751.PDF",
+      "published": "2026-08-27",
+      "accessed_at": "2026-09-26",
+      "source_type": "COMPANY_FILING",
+      "evidence": "PDF第16页重大非股权投资：柬埔寨700万条项目仍履行国内对外投资审批，尚未实际出资；不能因原计划2026年3月开工而改写为实际已开工。"
+    }
+  },
+  "updates": [
+    {
+      "id": "kh_sailun_cart",
+      "note": "已形成数仅核到2025-05-21年化能力，不等于2025全年有效，也不是2026最新。2025-01公告明确原全钢165万条以外再新增165万条，设计合计330万条；不是两个重复项目，但新增一期的形成能力仍待核，不能按截图把两期各165全部计入已形成。",
+      "source_ids": ["SAILUN_2025_IR", "SAILUN_2025_AR", "KH_SAILUN_TBR_20250107"],
+      "registry_candidate_ids": ["nhtsa_05y"],
+      "capacity_audit": {
+        "verified_at": "2026-09-26",
+        "latest_formed_observation": "2025-05-21",
+        "tbr_base_design": 165,
+        "tbr_expansion_design": 165,
+        "tbr_design_total": 330,
+        "capacity_unit": "万条/年",
+        "expansion_formed_capacity": null,
+        "expansion_latest_status": "MISSING",
+        "pipeline_increment_capacity": null,
+        "note": "原始公告核实了增量设计，未核实该增量截至2026-09-26仍待投产或已形成多少；仅按历史设计330减已形成165的差额计一次，不额外追加165，不视作2026最新待投产量。"
+      }
+    },
+    {
+      "id": "kh_tongyong_sihanouk",
+      "note": "一期与二期四条产线均已在名录；2025年报原始产能表核实一期PCR500/TBR90、二期设计PCR350/TBR75及年末已形成PCR200/TBR50。二期设计减年末已形成为PCR150/TBR25，仅是2025年末待释放差额，不是2026最新待投产量。利用率大于100%为公司披露，不反推全年产量。",
+      "source_ids": ["TONGYONG_2025", "BLS_NR_MODEL", "KH_TONGYONG_AR2025"],
+      "registry_candidate_ids": ["nhtsa_076"],
+      "address": "Sihanoukville Special Economic Zone, Sihanoukville, Preah Sihanouk 180101, Cambodia",
+      "address_quality": "WARNING",
+      "address_precision": "已核园区，登记地址无道路门牌或地块号",
+      "address_scope": "REGISTRY_ADDRESS",
+      "physical_address_verified": false,
+      "address_source_ids": ["NHTSA_DOT_20260926"],
+      "address_verified_at": "2026-09-26",
+      "capacity_audit": {
+        "verified_at": "2026-09-26",
+        "latest_formed_observation": "2025-12-31",
+        "pcr_design_total": 850,
+        "tbr_design_total": 165,
+        "pcr_formed_total": 700,
+        "tbr_formed_total": 140,
+        "capacity_unit": "万条/年",
+        "historical_unformed_difference": {"as_of": "2025-12-31", "PCR/LTR": 150, "TBR": 25, "data_type": "DERIVED"},
+        "current_pipeline_increment_capacity": null,
+        "note": "二期2026完成是年报计划。未取得原始源最新分胎种形成量，旧观察值带日期保留，不标成2026实际。"
+      }
+    }
+  ],
+  "new_factories": [
+    {
+      "id": "kh_doublestar_kratie",
+      "manufacturer_id": "doublestar",
+      "company": "青岛双星",
+      "site": "新双星柬埔寨桔井",
+      "country": "柬埔寨",
+      "province": "桔井 Kratie",
+      "place": "Snoul / Kratie Special Economic Zone",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "未核厂门坐标，不由办公登记地址推断",
+      "status": "RAMPING",
+      "status_as_of": "2025-12-31",
+      "status_disclosed_at": "2026-04-29",
+      "quality": "WARNING",
+      "census_record_type": "COMPANY_FACTORY",
+      "address": "Kratie Special Economic Zone, Room 303, Trapaing Srer Village, Pi Thnou Commune, Snoul, Kratie 100203, Cambodia",
+      "address_quality": "WARNING",
+      "address_precision": "厂商申报联系地址，园区已由公司公告交叉核验；非厂门门牌",
+      "address_scope": "REGISTRY_ADDRESS",
+      "physical_address_verified": false,
+      "address_source_ids": ["KH_DOUBLESTAR_NHTSA", "KH_DOUBLESTAR_PLAN2023"],
+      "address_verified_at": "2026-09-26",
+      "source_ids": ["KH_DOUBLESTAR_PLAN2023", "KH_DOUBLESTAR_AR2025", "KH_DOUBLESTAR_H12026", "KH_DOUBLESTAR_NHTSA"],
+      "note": "2023规划700万半钢+150万全钢。2025年报确认PCR全线投产且继续释放产能，2026半年报仍列为生产基地；不能据此将设计全量700/150视作已形成或全年有效。含国内设备转移，全球净增量须核对原国内产能退出。",
+      "lines": [
+        {"type": "PCR/LTR", "capacity_unit": "万条/年", "design_capacity": 700, "design_as_of": "2023-02-21", "formed_capacity": null, "formed_as_of": null, "effective_capacity_2025": null, "status": "RAMPING", "pipeline_increment_capacity": null, "source_ids": ["KH_DOUBLESTAR_PLAN2023", "KH_DOUBLESTAR_AR2025"]},
+        {"type": "TBR", "capacity_unit": "万条/年", "design_capacity": 150, "design_as_of": "2023-02-21", "formed_capacity": null, "formed_as_of": null, "effective_capacity_2025": null, "status": "OPERATING", "pipeline_increment_capacity": null, "source_ids": ["KH_DOUBLESTAR_PLAN2023", "KH_DOUBLESTAR_AR2025"]}
+      ]
+    },
+    {
+      "id": "kh_wanli_svay_rieng",
+      "manufacturer_id": "wanli",
+      "company": "万力轮胎",
+      "site": "柬埔寨新巴域基地",
+      "country": "柬埔寨",
+      "province": "柴桢 Svay Rieng",
+      "place": "Chantrea District / Xin Bavet SEZ",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "未核厂门坐标",
+      "status": "RAMPING",
+      "status_as_of": "2026-08-03",
+      "quality": "WARNING",
+      "census_record_type": "COMPANY_FACTORY",
+      "registry_candidate_ids": ["nhtsa_08t"],
+      "address": "Xin Bavet SEZ, Prey Koki Village, Prey Koki Commune, Chantrea District, Svay Rieng 200108, Cambodia",
+      "address_quality": "WARNING",
+      "address_precision": "登记地址细至村/乡/园区；政府新闻确认厂区所在园区，未核厂门",
+      "address_scope": "REGISTRY_ADDRESS",
+      "physical_address_verified": false,
+      "address_source_ids": ["NHTSA_DOT_20260926", "KH_WANLI_AKP_20260112"],
+      "address_verified_at": "2026-09-26",
+      "source_ids": ["WANLI_GZ_SASAC_20260803", "KH_WANLI_AKP_20260112"],
+      "note": "2026-01-12举办启用仪式；2026-08-03广州国资委仍将1200万条表述为总体规划，并称一期即将竣工验收。不能将总体规划1200填成已形成1200。分期设计、当前已形成、余下待投产量均待核。",
+      "lines": [
+        {"type": "PCR/LTR", "capacity_unit": "万条/年", "design_capacity": 1200, "design_as_of": "2026-08-03", "formed_capacity": null, "formed_as_of": null, "effective_capacity_2025": null, "status": "RAMPING", "pipeline_increment_capacity": null, "source_ids": ["WANLI_GZ_SASAC_20260803"], "phases": [{"period": "2026-01-12", "label": "启用仪式，不代表1200全部形成", "status": "已披露"}, {"period": "2026-08-03", "label": "一期即将竣工验收；分期数量待核", "status": "官方最新可核进度"}]}
+      ]
+    },
+    {
+      "id": "kh_firemax_snoul",
+      "manufacturer_id": "firemax",
+      "company": "福麦斯",
+      "site": "柬埔寨桔井 Snoul 项目（产能待核）",
+      "country": "柬埔寨",
+      "province": "桔井 Kratie",
+      "place": "Snoul / U B E SNOUL SEZ",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "未定位；Room303为申报地址，不能当厂门",
+      "status": "UNKNOWN",
+      "status_as_of": null,
+      "quality": "WARNING",
+      "census_record_type": "PROJECT_PENDING",
+      "registry_candidate_ids": ["nhtsa_08v"],
+      "address": "U B E SNOUL SEZ (Room 303 Trapaing Srer Village), Pi Thnou Commune, Snoul, Kratie 100600, Cambodia",
+      "address_quality": "WARNING",
+      "address_precision": "厂商登记联系地址，非已核物理厂址",
+      "address_scope": "REGISTRY_ADDRESS",
+      "physical_address_verified": false,
+      "address_source_ids": ["KH_FIREMAX_NHTSA"],
+      "address_verified_at": "2026-09-26",
+      "source_ids": ["KH_FIREMAX_NHTSA"],
+      "note": "此前已经有DOT登记候选，并非完全漏列。此次提升为明确待核项目；用户表800万PCR/120万TBR仅保留待核线索，目前未取得公司或政府原始容量文件，设计、已形成、有效产能正式数值均为空，不进入已核验或未来产能加总。登记Active不证明在产。",
+      "capacity_claims": [
+        {"type": "PCR/LTR", "reported_design_capacity": 800, "capacity_unit": "万条/年", "verification_status": "USER_PROVIDED_PENDING", "claim_as_of": "2024", "claim_source": "用户提供柬埔寨截图，标注2024二手规划", "include_in_totals": false},
+        {"type": "TBR", "reported_design_capacity": 120, "capacity_unit": "万条/年", "verification_status": "USER_PROVIDED_PENDING", "claim_as_of": "2024", "claim_source": "用户提供柬埔寨截图，标注2024二手规划", "include_in_totals": false}
+      ],
+      "lines": [
+        {"type": "PCR/LTR", "capacity_unit": "万条/年", "design_capacity": null, "design_as_of": null, "formed_capacity": null, "formed_as_of": null, "effective_capacity_2025": null, "status": "UNKNOWN", "pipeline_increment_capacity": null},
+        {"type": "TBR", "capacity_unit": "万条/年", "design_capacity": null, "design_as_of": null, "formed_capacity": null, "formed_as_of": null, "effective_capacity_2025": null, "status": "UNKNOWN", "pipeline_increment_capacity": null}
+      ]
+    },
+    {
+      "id": "kh_triangle_svay_rieng",
+      "manufacturer_id": "triangle",
+      "company": "三角轮胎",
+      "site": "柬埔寨柴桢700万条规划项目",
+      "country": "柬埔寨",
+      "province": "柴桢 Svay Rieng",
+      "place": "Svay Rieng Province（具体地块待披露）",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "仅核省份，不虚构厂门坐标",
+      "status": "PLANNED",
+      "status_as_of": "2026-06-30",
+      "status_disclosed_at": "2026-08-27",
+      "quality": "WARNING",
+      "census_record_type": "COMPANY_PROJECT",
+      "address": null,
+      "address_quality": "MISSING",
+      "address_precision": "公司仅披露柴桢省，具体道路/地块未取得",
+      "address_source_ids": ["KH_TRIANGLE_FS20260116"],
+      "address_verified_at": "2026-09-26",
+      "source_ids": ["KH_TRIANGLE_FS20260116", "KH_TRIANGLE_H12026"],
+      "note": "2026年半年报明确仍履行国内对外投资审批、尚未实际出资；保留PLANNED，不把年初预计开工日当作实际开工。设计600万半钢+100万全钢，计划建设17个月，实际投产日期当前无法确认。",
+      "reported_nr_scenario": {"value": 36780, "unit": "吨/年", "data_type": "ESTIMATE", "basis": "企业可研设计满产天然胶用量，不是实际消耗；不替代用户统一单耗模型", "as_of": "2026-01-16", "source_ids": ["KH_TRIANGLE_FS20260116"]},
+      "lines": [
+        {"type": "PCR/LTR", "capacity_unit": "万条/年", "design_capacity": 600, "design_as_of": "2026-01-16", "formed_capacity": null, "formed_as_of": null, "effective_capacity_2025": null, "status": "PLANNED", "status_as_of": "2026-06-30", "source_ids": ["KH_TRIANGLE_FS20260116", "KH_TRIANGLE_H12026"], "phases": [{"period": "审批完成后17个月建设计划", "label": "实际开工和投产日期待核", "status": "计划"}]},
+        {"type": "TBR", "capacity_unit": "万条/年", "design_capacity": 100, "design_as_of": "2026-01-16", "formed_capacity": null, "formed_as_of": null, "effective_capacity_2025": null, "status": "PLANNED", "status_as_of": "2026-06-30", "source_ids": ["KH_TRIANGLE_FS20260116", "KH_TRIANGLE_H12026"]}
+      ]
+    },
+    {
+      "id": "my_wanli_selangor",
+      "manufacturer_id": "wanli",
+      "company": "万力轮胎",
+      "site": "马来西亚雪兰莪合资规划基地",
+      "country": "马来西亚",
+      "province": "雪兰莪 Selangor",
+      "place": "Selangor（具体地址待披露）",
+      "latitude": null,
+      "longitude": null,
+      "coord_precision": "仅核州，未取得具体厂址坐标",
+      "status": "PLANNED",
+      "status_as_of": "2026-08-03",
+      "quality": "WARNING",
+      "census_record_type": "COMPANY_PROJECT",
+      "address": null,
+      "address_quality": "MISSING",
+      "address_precision": "官方仅披露雪兰莪州，未取得道路门牌或地块号",
+      "address_source_ids": ["WANLI_GZ_SASAC_20260803"],
+      "address_verified_at": "2026-09-26",
+      "source_ids": ["WANLI_GZ_SASAC_20260803"],
+      "note": "2026-08-03广州国资委披露万力与成功产业签署合资协议、共同投资约3.2亿美元，设计500万半钢+120万全钢。签约是规划事件，不能当作已开工或已形成；投产时点待核。该记录是马来西亚新项目，不得并入万力柬埔寨1200万条。",
+      "lines": [
+        {"type": "PCR/LTR", "capacity_unit": "万条/年", "design_capacity": 500, "design_as_of": "2026-08-03", "formed_capacity": null, "formed_as_of": null, "effective_capacity_2025": null, "status": "PLANNED", "status_as_of": "2026-08-03", "source_ids": ["WANLI_GZ_SASAC_20260803"]},
+        {"type": "TBR", "capacity_unit": "万条/年", "design_capacity": 120, "design_as_of": "2026-08-03", "formed_capacity": null, "formed_as_of": null, "effective_capacity_2025": null, "status": "PLANNED", "status_as_of": "2026-08-03", "source_ids": ["WANLI_GZ_SASAC_20260803"]}
+      ]
+    }
+  ],
+  "audit_notes": [
+    {"project": "赛轮CART", "before": "主表已有PCR2100设计/1900形成、TBR330设计/165形成", "finding": "全钢165+165为原项目加新增项目，不是重复；新增设计330不能再加165；截图将新增165同时填为形成165缺证据", "action": "保留原始带日期形成量，补充公告和去重说明", "quality": "WARNING"},
+    {"project": "通用一期与二期", "before": "四条产线均已入主表", "finding": "2025年报吻合用户表设计和年末形成量；全项目PCR850/TBR165设计不等于PCR700/TBR140形成", "action": "补充原始公司年报来源；历史待释放差额不自动视为2026未来增量", "quality": "WARNING"},
+    {"project": "新双星柬埔寨", "before": "主表缺失；当前DOT候选未覆盖", "finding": "700PCR/150TBR设计可核，生产活动可核，具体已形成及全年有效量未核", "action": "加入独立厂区与设计情景，实际桶留空", "quality": "WARNING"},
+    {"project": "万力柬埔寨", "before": "仅有nhtsa_08t候选，无正式容量记录", "finding": "总体设计1200PCR可核，启用仪式可核；2026-08仍为一期即将竣工验收，不支持1200全数已形成", "action": "加入厂区、设计情景和最新进度；关联DOT候选去重", "quality": "WARNING"},
+    {"project": "福麦斯柬埔寨", "before": "已有nhtsa_08v登记候选，全球75榜也已含firemax", "finding": "实体及登记地址可核；800PCR/120TBR仅用户图和二手报道线索，尚缺可直接核验原始容量文件", "action": "纳入待核项目跟踪但不计正式产能，不新增重复企业或虚构形成量", "quality": "MISSING"},
+    {"project": "三角柬埔寨", "before": "未在厂区主表", "finding": "600PCR/100TBR未来设计经公告可核；2026半年报仍待审批未出资", "action": "作为PLANNED单列未来桶；37,600–41,000吨/年为用户系数情景，36,780吨/年为企业可研情景，均不是当前实耗", "quality": "WARNING"},
+    {"project": "万力马来西亚", "before": "未在厂区主表", "finding": "州级选址与500PCR/120TBR设计由2026-08政府来源核实；只核到合资签约", "action": "独立PLANNED未来项目，不与万力柬埔寨混算", "quality": "WARNING"},
+    {"project": "柬埔寨范围完整性", "before": "还存在nhtsa_08f ZODO登记候选", "finding": "本次为用户图及新项目定向核验，不声称完成柬埔寨全部厂家普查；ZODO及新批准厂区仍需原始产能、建设进度与实体去重", "action": "保留待核队列，登记存在不填造容量", "quality": "WARNING"}
+  ],
+  "follow_up": [
+    "获取赛轮CART全钢新增165万条项目最新分胎种达产/实产披露；不以月度峰值乘12代替全年有效产能。",
+    "获取通用2026年中及以后厂级形成量；原始半年报获取受限时记录限制，不用工程投入比例折算轮胎能力。",
+    "核对双星设备转移与国内原厂退出，避免把毛投资能力当全球净增量。",
+    "向福麦斯公司或柬埔寨主管部门核验800/120原始文件及分期形成日期。",
+    "核验三角项目ODI批准、开工和达产里程碑；实际日期不能由17个月计划机械推进。",
+    "核验万力柬埔寨分期规模与实际达产量，万力马来西亚具体地址及建设进度。"
+  ]
+}

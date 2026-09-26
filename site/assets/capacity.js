@@ -12,6 +12,7 @@ const BOUNDS = {
 };
 const $ = (selector) => document.querySelector(selector);
 const state = {tyre: null, rubber: null, manufacturers: null, land: null, activeTyre: null, activeRubber: null};
+const mapViews = {tyre: {zoom: 1, x: 0, y: 0}, rubber: {zoom: 1, x: 0, y: 0}};
 
 function escapeHtml(value) {
   return String(value ?? "").replace(/[&<>"']/g, (char) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;"})[char]);
@@ -21,22 +22,37 @@ function number(value, digits = 0) {
   return value == null || !Number.isFinite(Number(value)) ? "MISSING" : Number(value).toLocaleString("zh-CN", {maximumFractionDigits: digits});
 }
 
+function nrRange(type, wan, model) {
+  const kg = model.kg_per_tire_range[type];
+  return kg && Number.isFinite(wan) && wan >= 0 ? {low: wan * 10 * kg[0], high: wan * 10 * kg[1]} : null;
+}
+
 function estimateNr(line, model) {
-  if (line.actual_nr_2025_t != null) return {tons: line.actual_nr_2025_t, kind: "FACT · 企业披露"};
-  const kg = model.kg_per_tire[line.type];
-  if (!kg) return null;
-  if (line.output_2025_wan != null) return {tons: line.output_2025_wan * 10 * kg, kind: "ESTIMATE · 产量×单耗"};
-  return null;
+  if (line.quality === "FAIL") return null;
+  if (Number.isFinite(line.actual_nr_2025_t) && line.actual_nr_2025_t >= 0)
+    return {low: line.actual_nr_2025_t, high: line.actual_nr_2025_t, kind: "FACT · 企业披露"};
+  const range = nrRange(line.type, line.output_2025_wan, model);
+  return range ? {...range, kind: "ESTIMATE · 产量×单耗区间"} : null;
 }
 
 function designNr(line, model) {
-  const kg = model.kg_per_tire[line.type];
-  return kg && line.design_capacity != null && !line.capacity_approximate && line.capacity_unit === "万条/年" ? line.design_capacity * 10 * kg : null;
+  return line.quality !== "FAIL" && line.capacity_unit === "万条/年" && !line.capacity_approximate ? nrRange(line.type, line.design_capacity, model) : null;
 }
 
 function formedNr(line, model) {
-  const kg = model.kg_per_tire[line.type];
-  return kg && line.formed_capacity != null && !line.formed_capacity_approximate && line.capacity_unit === "万条/年" ? line.formed_capacity * 10 * kg : null;
+  return line.quality !== "FAIL" && line.capacity_unit === "万条/年" && !line.formed_capacity_approximate ? nrRange(line.type, line.formed_capacity, model) : null;
+}
+
+function sumRanges(values) {
+  const known = values.filter((v) => v && Number.isFinite(v.low) && Number.isFinite(v.high));
+  return {low: known.length ? known.reduce((sum, v) => sum + v.low, 0) : null,
+    high: known.length ? known.reduce((sum, v) => sum + v.high, 0) : null, known: known.length, total: values.length};
+}
+
+function rangeText(range, unit = "万吨／年") {
+  if (!range || range.low == null) return "未披露／不可估";
+  const value = range.low === range.high ? number(range.low / 10000, 2) : `${number(range.low / 10000, 2)}–${number(range.high / 10000, 2)}`;
+  return `${value} ${unit}${range.known < range.total ? `（已知 ${range.known}/${range.total} 项小计）` : ""}`;
 }
 
 // Sum only comparable, non-overlapping line records; retain missing coverage.
@@ -46,15 +62,16 @@ function sumKnown(values) {
 }
 
 function factorySummary(item, model) {
+  const usable = item.quality === "FAIL" ? [] : item.lines.filter((l) => l.quality !== "FAIL");
   const types = Object.fromEntries(["PCR/LTR", "TBR"].map((type) => {
-    const lines = item.lines.filter((line) => line.type === type);
+    const lines = usable.filter((line) => line.type === type);
     const sum = (field) => sumKnown(lines.map((line) => line.capacity_unit === "万条/年" && !(field === "formed_capacity" ? line.formed_capacity_approximate : line.capacity_approximate) ? line[field] : null));
     const otherUnits = lines.filter((line) => line.capacity_unit !== "万条/年" && line.design_capacity != null);
     return [type, {design: sum("design_capacity"), formed: sum("formed_capacity"), effective: sum("effective_capacity_2025"), otherUnits}];
   }));
-  const actual = item.lines.map((line) => estimateNr(line, model));
-  return {types, formedNr: sumKnown(item.lines.map((line) => formedNr(line, model))), designNr: sumKnown(item.lines.map((line) => designNr(line, model))),
-    actualNr: sumKnown(actual.map((item) => item?.tons)), actualEstimated: actual.some((item) => item?.kind.startsWith("ESTIMATE"))};
+  const actual = usable.map((line) => estimateNr(line, model));
+  return {types, formedNr: sumRanges(usable.map((line) => formedNr(line, model))), designNr: sumRanges(usable.map((line) => designNr(line, model))),
+    actualNr: sumRanges(actual), actualEstimated: actual.some((item) => item?.kind.startsWith("ESTIMATE"))};
 }
 
 function totalText(summary, divisor = 1, unit = "万条／年") {
@@ -69,7 +86,7 @@ function factorySummaryHtml(item) {
     const value = summary.types[type];
     const historical = (item.survey_observations || []).filter((o) => o.comparable_type === type);
     return `<div><span>${TYPE[type]} · 设计</span><strong>${totalText(value.design)}</strong><small>已形成：${totalText(value.formed)}</small><small>2025 全年有效：${totalText(value.effective)}</small>${value.otherUnits.map((l) => `<small>另披露 ${number(l.design_capacity)} ${escapeHtml(l.capacity_unit)}，不擅自年化</small>`).join("")}${historical.map((o) => `<small>2025 行业估计：${escapeHtml(o.reported_capacity_text)}，不等于当前设计</small>`).join("")}</div>`;
-  }).join("")}<div><span>全厂已形成满负荷耗胶</span><strong>${totalText(summary.formedNr, 10000, "万吨／年")}</strong><small>ESTIMATE · 能力 × 单耗；未拆胎种不纳入</small></div><div><span>2025 年度耗胶</span><strong>${totalText(summary.actualNr, 10000, "万吨")}</strong><small>${summary.actualNr.value == null ? "缺少厂级投料／实际产量依据" : summary.actualEstimated ? "ESTIMATE · 含实际产量 × 单耗" : "FACT · 厂级投料披露"}</small></div></div><p class="summary-dates">汇总全厂全部已收录产线；设计满产耗胶：${totalText(summary.designNr, 10000, "万吨／年")}（ESTIMATE）。各产线披露日期见下方；未披露不等于零。</p>`;
+  }).join("")}<div><span>全厂已形成满负荷耗胶</span><strong>${rangeText(summary.formedNr)}</strong><small>ESTIMATE · 能力 × 用户单耗区间</small></div><div><span>2025 年度耗胶</span><strong>${rangeText(summary.actualNr, "万吨")}</strong><small>${summary.actualNr.low == null ? "缺少厂级投料／实际产量依据" : summary.actualEstimated ? "ESTIMATE · 含实际产量 × 单耗" : "FACT · 厂级投料披露"}</small></div></div><p class="summary-dates">汇总全厂全部已收录产线；设计满产耗胶：${rangeText(summary.designNr)}（ESTIMATE）。半钢2.6–3.0、全钢22–23吨/千条。各线日期见下方；不是当前实际消费。</p>`;
 }
 
 function hasCoordinates(item) {
@@ -86,16 +103,96 @@ function fitBounds(records) {
 }
 
 function coords(record, bounds, width, height) {
+  // A single Mercator scale keeps country views from stretching east–west.
+  const mercator = (latitude) => Math.log(Math.tan(Math.PI / 4 + Math.max(-85, Math.min(85, latitude)) * Math.PI / 360)) * 180 / Math.PI;
+  const north = mercator(bounds.north), south = mercator(bounds.south);
+  const scale = Math.min((width - 44) / (bounds.east - bounds.west), (height - 36) / (north - south));
   return {
-    x: 22 + (record.longitude - bounds.west) / (bounds.east - bounds.west) * (width - 44),
-    y: 18 + (bounds.north - record.latitude) / (bounds.north - bounds.south) * (height - 36)
+    x: width / 2 + (record.longitude - (bounds.west + bounds.east) / 2) * scale,
+    y: height / 2 + ((north + south) / 2 - mercator(record.latitude)) * scale
   };
 }
 
-function geometryCoords(value, out = []) {
-  if (typeof value?.[0] === "number") out.push(value);
-  else value?.forEach((item) => geometryCoords(item, out));
-  return out;
+function mapViewBox(view) {
+  const width = 920 / view.zoom, height = 460 / view.zoom;
+  return `${460 + view.x - width / 2} ${230 + view.y - height / 2} ${width} ${height}`;
+}
+
+function adjustMapView(view, action) {
+  if (action === "reset") Object.assign(view, {zoom: 1, x: 0, y: 0});
+  if (action === "in") view.zoom = Math.min(16, view.zoom * 2);
+  if (action === "out") view.zoom = Math.max(.25, view.zoom / 2);
+  if (action === "left") view.x -= 184 / view.zoom;
+  if (action === "right") view.x += 184 / view.zoom;
+  if (action === "up") view.y -= 92 / view.zoom;
+  if (action === "down") view.y += 92 / view.zoom;
+  return view;
+}
+
+function updateMapViewport(kind) {
+  const view = mapViews[kind], container = $(`#${kind}Svg`), svg = container.querySelector("svg");
+  if (!svg) return;
+  svg.setAttribute("viewBox", mapViewBox(view));
+  svg.querySelectorAll(".map-marker circle").forEach((circle) => circle.setAttribute("r", Number(circle.dataset.radius) / view.zoom));
+  svg.querySelectorAll(".map-marker text").forEach((label) => {
+    label.style.fontSize = `${12 / view.zoom}px`;
+    label.setAttribute("x", 12 / view.zoom);
+    label.setAttribute("y", -11 / view.zoom);
+  });
+  const tools = $(`#${kind}MapTools`);
+  tools.querySelector("output").textContent = `${number(view.zoom * 100)}%`;
+  tools.querySelector('[data-map-action="in"]').disabled = view.zoom >= 16;
+  tools.querySelector('[data-map-action="out"]').disabled = view.zoom <= .25;
+}
+
+function renderMap(records, kind, bounds, activeId, filterKey) {
+  const view = mapViews[kind];
+  if (view.filterKey !== filterKey) adjustMapView(view, "reset");
+  view.filterKey = filterKey;
+  $(`#${kind}Svg`).innerHTML = mapSvg(records, kind, bounds, activeId);
+  updateMapViewport(kind);
+}
+
+function bindMapControls(kind) {
+  const container = $(`#${kind}Svg`), view = mapViews[kind];
+  const apply = (action) => { adjustMapView(view, action); updateMapViewport(kind); };
+  $(`#${kind}MapTools`).addEventListener("click", (event) => {
+    const button = event.target.closest("[data-map-action]");
+    if (button) apply(button.dataset.mapAction);
+  });
+  container.addEventListener("keydown", (event) => {
+    if (event.ctrlKey || event.metaKey || event.altKey) return;
+    const action = {"+": "in", "=": "in", "-": "out", Home: "reset", ArrowLeft: "left", ArrowRight: "right", ArrowUp: "up", ArrowDown: "down"}[event.key];
+    if (action) { event.preventDefault(); apply(action); }
+  });
+  let drag = null, suppressClick = false;
+  container.addEventListener("pointerdown", (event) => {
+    // Keep native touch scrolling/pinch zoom; touch users can pan with the buttons.
+    if (event.pointerType === "touch" || event.button !== 0 || !container.querySelector("svg")) return;
+    const rect = container.getBoundingClientRect();
+    drag = {pointerId: event.pointerId, clientX: event.clientX, clientY: event.clientY, x: view.x, y: view.y,
+      scale: Math.min(rect.width / 920, rect.height / 460) * view.zoom};
+    suppressClick = false;
+  });
+  container.addEventListener("pointermove", (event) => {
+    if (!drag || event.pointerId !== drag.pointerId) return;
+    if (!event.buttons) { drag = null; return; }
+    const dx = event.clientX - drag.clientX, dy = event.clientY - drag.clientY;
+    if (Math.hypot(dx, dy) < 4 && !suppressClick) return;
+    if (!suppressClick) container.setPointerCapture(event.pointerId);
+    suppressClick = true;
+    view.x = drag.x - dx / drag.scale;
+    view.y = drag.y - dy / drag.scale;
+    container.classList.add("is-dragging");
+    updateMapViewport(kind);
+  });
+  const finish = () => { drag = null; container.classList.remove("is-dragging"); };
+  container.addEventListener("pointerup", finish);
+  container.addEventListener("pointercancel", finish);
+  container.addEventListener("lostpointercapture", finish);
+  container.addEventListener("click", (event) => {
+    if (suppressClick) { event.preventDefault(); event.stopPropagation(); suppressClick = false; }
+  }, true);
 }
 
 function landPath(geometry, bounds, width, height) {
@@ -109,18 +206,13 @@ function landPath(geometry, bounds, width, height) {
 
 function mapSvg(records, kind, view, activeId) {
   const bounds = typeof view === "string" ? BOUNDS[view] : view, width = 920, height = 460;
-  const inFrame = (record) => hasCoordinates(record) && record.longitude >= bounds.west && record.longitude <= bounds.east
-    && record.latitude >= bounds.south && record.latitude <= bounds.north;
-  const land = (state.land?.features || []).filter((feature) => {
-    const points = geometryCoords(feature.geometry?.coordinates);
-    return points.some(([lon, lat]) => lon >= bounds.west && lon <= bounds.east && lat >= bounds.south && lat <= bounds.north);
-  }).map((feature) => `<path class="land" d="${landPath(feature.geometry, bounds, width, height)}"/>`).join("");
+  const land = (state.land?.features || []).map((feature) => `<path class="land" d="${landPath(feature.geometry, bounds, width, height)}"/>`).join("");
   const grid = [0.25, 0.5, 0.75].flatMap((n) => [
     `<line class="grid" x1="${width * n}" y1="0" x2="${width * n}" y2="${height}"/>`,
     `<line class="grid" x1="0" y1="${height * n}" x2="${width}" y2="${height * n}"/>`
   ]).join("");
   const duplicates = new Map();
-  const markers = records.filter(inFrame).map((item) => {
+  const markers = records.filter(hasCoordinates).map((item) => {
     const point = coords(item, bounds, width, height);
     const key = `${item.latitude.toFixed(1)}:${item.longitude.toFixed(1)}`;
     const duplicate = duplicates.get(key) || 0;
@@ -132,16 +224,16 @@ function mapSvg(records, kind, view, activeId) {
     const radius = kind === "rubber" ? (item.level === "COUNTRY" ? 10 : Math.min(15, 5 + Math.sqrt((item.production_t || 0) / (national || 1)) * 22)) : 7;
     const color = kind === "rubber" ? (item.level === "PROVINCE" ? "#0b675c" : "#d58313") : COLORS[item.status] || "#8f8d9b";
     const label = kind === "rubber" ? `${item.country} ${item.province || "全国"} ${number(item.production_t)} ${item.production_unit || "吨"}` : `${item.company} ${item.site}`;
-    return `<g class="map-marker${active ? " active" : ""}" role="button" tabindex="0" data-kind="${kind}" data-id="${escapeHtml(item.id)}" aria-label="${escapeHtml(label)}" transform="translate(${point.x.toFixed(1)},${point.y.toFixed(1)})"><circle r="${radius.toFixed(1)}" fill="${color}"><title>${escapeHtml(label)}</title></circle>${active ? `<text x="12" y="-11">${escapeHtml(kind === "rubber" ? item.province || item.country : item.company)}</text>` : ""}</g>`;
+    return `<g class="map-marker${active ? " active" : ""}" role="button" tabindex="0" data-kind="${kind}" data-id="${escapeHtml(item.id)}" aria-label="${escapeHtml(label)}" transform="translate(${point.x.toFixed(1)},${point.y.toFixed(1)})"><circle r="${radius.toFixed(1)}" data-radius="${radius.toFixed(1)}" fill="${color}"><title>${escapeHtml(label)}</title></circle>${active ? `<text x="12" y="-11">${escapeHtml(kind === "rubber" ? item.province || item.country : item.company)}</text>` : ""}</g>`;
   }).join("");
-  return `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${kind === "rubber" ? "天然橡胶产区" : "轮胎厂"}研究定位地图"><defs><clipPath id="clip-${kind}"><rect x="0" y="0" width="${width}" height="${height}"/></clipPath></defs><rect x="0" y="0" width="${width}" height="${height}" fill="#e9f4f0"/>${grid}<g clip-path="url(#clip-${kind})">${land}${markers}</g></svg>`;
+  return `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${kind === "rubber" ? "天然橡胶产区" : "轮胎厂"}研究定位地图">${grid}${land}${markers}</svg>`;
 }
 
 function sourceList(ids, sources) {
   const unique = [...new Set(ids || [])].filter((id) => sources[id]);
   return unique.length ? `<h4>原始来源</h4><ol class="capacity-sources">${unique.map((id) => {
     const source = sources[id];
-    return `<li><a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.title)}</a> · ${escapeHtml(source.published || "未注明发布日期")}${source.accessed ? ` · 核验 ${escapeHtml(source.accessed)}` : ""}${source.note ? `<small>${escapeHtml(source.note)}</small>` : ""}</li>`;
+    return `<li><a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.title)}</a> · ${escapeHtml(source.published || "未注明发布日期")}${source.accessed || source.accessed_at ? ` · 核验 ${escapeHtml(source.accessed || source.accessed_at)}` : ""}${source.note ? `<small>${escapeHtml(source.note)}</small>` : ""}</li>`;
   }).join("")}</ol>` : "<p class=\"detail-note\">来源 MISSING，记录不得用于正式判断。</p>";
 }
 
@@ -158,15 +250,17 @@ function tyreDetail(item, type) {
       <div><dt>已形成能力</dt><dd>${line.formed_capacity == null ? "MISSING" : `${number(line.formed_capacity, 2)} ${escapeHtml(unit)}`} <small>${escapeHtml(line.formed_as_of || "尚未核实")}</small></dd></div>
       <div><dt>2025全年有效</dt><dd>${line.effective_capacity_2025 == null ? "MISSING" : `${number(line.effective_capacity_2025, 2)} ${escapeHtml(unit)}`}</dd></div>
       <div><dt>2025利用率</dt><dd>${line.utilization_2025_pct == null ? "MISSING" : `${number(line.utilization_2025_pct, 2)}% <small>不能单独反推全年产量</small>`}</dd></div>
-      <div><dt>2025耗胶</dt><dd>${nr ? `${number(nr.tons / 10000, 2)} 万吨 <small>${escapeHtml(nr.kind)}</small>` : "MISSING"}</dd></div>
-      <div><dt>已形成满负荷情景</dt><dd>${formed == null ? "MISSING" : `${number(formed / 10000, 2)} 万吨／年 <small>ESTIMATE，不是实际耗胶</small>`}</dd></div>
-      <div><dt>设计满产情景</dt><dd>${full == null ? "MISSING" : `${number(full / 10000, 2)} 万吨／年 <small>ESTIMATE，不是实际耗胶</small>`}</dd></div>
+      <div><dt>2025耗胶</dt><dd>${nr ? `${rangeText(nr, "万吨")} <small>${escapeHtml(nr.kind)}</small>` : "MISSING"}</dd></div>
+      <div><dt>已形成满负荷情景</dt><dd>${formed == null ? "MISSING" : `${rangeText(formed)} <small>ESTIMATE，不是实际耗胶</small>`}</dd></div>
+      <div><dt>设计满产情景</dt><dd>${full == null ? "MISSING" : `${rangeText(full)} <small>ESTIMATE，不是实际耗胶</small>`}</dd></div>
     </dl>${line.phases?.length ? `<small>扩产周期：${line.phases.map((phase) => `${escapeHtml(phase.period)} ${escapeHtml(phase.label)}（${escapeHtml(phase.status)}）`).join(" → ")}</small>` : ""}${line.note ? `<small>${escapeHtml(line.note)}</small>` : ""}</div>`;
   }).join("");
   const ids = [...(item.source_ids || []), ...(item.address_source_ids || []), ...(item.coordinate_source_ids || []), ...visible.flatMap((line) => line.source_ids || [])];
   const address = item.address ? `${escapeHtml(item.address)} <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.company} ${item.address}`)}" target="_blank" rel="noopener noreferrer">地图查址 ↗</a>` : "具体厂址 MISSING · 当前无法确认";
   const historical = (item.survey_observations || []).map((o) => `<div class="capacity-line"><strong>2025 行业调查 · ${escapeHtml(TYPE[o.comparable_type])}</strong><p>${escapeHtml(o.reported_capacity_text)} · ESTIMATE / WARNING</p><small>原表胎种代码：${escapeHtml(o.product_types)}；PDF 第 ${number(o.source_page)} 页；DOT ${escapeHtml(o.dot_codes.join(" / "))}。</small><small>${escapeHtml(o.note)} u/d＝条/日，u/y＝条/年，t/y＝轮胎吨/年，t/m＝轮胎吨/月，t/d＝轮胎吨/日；不能当作天然胶吨数。与较新企业披露不合并求和。</small></div>`).join("");
-  return `<h3>${escapeHtml(item.company)} · ${escapeHtml(item.site)}</h3><p class="detail-sub">${escapeHtml(item.country)} · ${escapeHtml(item.province || item.place)} · ${escapeHtml(STATUS[item.status] || item.status)} · ${escapeHtml(item.quality)}${item.census_record_type === "HISTORICAL_SURVEY_FACTORY" ? " · 2025行业普查厂区" : ""}</p>${factorySummaryHtml(item)}<div class="factory-address"><strong>${item.address_scope === "REGISTRY_ADDRESS" ? "登记地址 · 物理厂址待核" : "厂区地址"}</strong><p>${address}</p><small>地址核验：${escapeHtml(item.address_quality || "MISSING")} · ${escapeHtml(item.coord_precision || "坐标待核")}</small></div><p class="detail-note">${escapeHtml(item.note || "厂区地址与地图坐标精度分别核验；产能以逐项披露日期为准。")}</p>${historical}${lines}${sourceList(ids, state.tyre.sources)}`;
+  const claims = (item.capacity_claims || []).map((c) => `<p class="detail-note">待核线索：${escapeHtml(TYPE[c.type])} ${number(c.reported_design_capacity)} ${escapeHtml(c.capacity_unit)} · ${escapeHtml(c.claim_as_of)}。${escapeHtml(c.claim_source)}；未进入产能及耗胶合计。</p>`).join("");
+  const reported = item.reported_nr_scenario ? `<p class="detail-note">企业可研耗胶情景：${number(item.reported_nr_scenario.value)} ${escapeHtml(item.reported_nr_scenario.unit)} · ${escapeHtml(item.reported_nr_scenario.as_of)}。${escapeHtml(item.reported_nr_scenario.basis)}</p>` : "";
+  return `<h3>${escapeHtml(item.company)} · ${escapeHtml(item.site)}</h3><p class="detail-sub">${escapeHtml(item.country)} · ${escapeHtml(item.province || item.place)} · ${escapeHtml(STATUS[item.status] || item.status)} · ${escapeHtml(item.quality)}${item.census_record_type === "HISTORICAL_SURVEY_FACTORY" ? " · 2025行业普查厂区" : ""}</p>${factorySummaryHtml(item)}<div class="factory-address"><strong>${item.address_scope === "REGISTRY_ADDRESS" ? "登记地址 · 物理厂址待核" : "厂区地址"}</strong><p>${address}</p><small>地址核验：${escapeHtml(item.address_quality || "MISSING")} · ${escapeHtml(item.coord_precision || "坐标待核")}</small></div><p class="detail-note">${escapeHtml(item.note || "厂区地址与地图坐标精度分别核验；产能以逐项披露日期为准。")}</p>${claims}${reported}${historical}${lines}${sourceList(ids, state.tyre.sources)}`;
 }
 
 function rubberDetail(item) {
@@ -191,6 +285,94 @@ function stat(label, value, note) {
   return `<div class="capacity-stat"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong><small>${escapeHtml(note)}</small></div>`;
 }
 
+function aggregateNr(factories, model, options = {}) {
+  const days = options.days ?? 0, loadPct = options.loadPct ?? 100;
+  if (!Number.isFinite(days) || days < 0 || days > 366 || !Number.isFinite(loadPct) || loadPct < 0 || loadPct > 100)
+    throw new Error("情景参数超出范围");
+  const rows = [], excluded = {closed: 0, daily: 0, mixed: 0, overlap: 0, failed: 0};
+  const add = (f, type, wan, bucket, basis, date, sources) => {
+    const nr = nrRange(type, wan, model);
+    if (nr && wan > 0) rows.push({factory_id: f.id, company: f.company, site: f.site, country: f.country, type,
+      capacity_wan: wan, bucket, basis, as_of: date || "日期未核", source_ids: sources || f.source_ids,
+      low: nr.low, high: nr.high});
+  };
+  for (const f of factories) {
+    if (f.quality === "FAIL") { excluded.failed++; continue; }
+    if (f.status === "CLOSED") { excluded.closed++; continue; }
+    if (f.census_record_type === "REGISTRY_CANDIDATE") continue;
+    for (const l of f.lines) {
+      if (l.quality === "FAIL") { excluded.failed++; continue; }
+      const lineStatus = l.status || f.status;
+      if (lineStatus === "CLOSED") continue;
+      const future = ["PLANNED", "BUILDING"].includes(lineStatus);
+      if (!future && formedNr(l, model))
+        add(f, l.type, l.formed_capacity, "FORMED", l.capacity_scope === "CONFIRMED_INCREMENT_ONLY" ? "仅已核增量；非全厂总数" : "已披露形成能力", l.formed_as_of, l.source_ids);
+      if (!future && l.capacity_unit === "条/日" && model.kg_per_tire_range[l.type]
+          && Number.isFinite(l.formed_capacity) && !l.formed_capacity_approximate) {
+        if (days > 0) add(f, l.type, l.formed_capacity * days / 10000, "FORMED", "已披露日能力×情景天数", l.formed_as_of, l.source_ids);
+        else excluded.daily++;
+      }
+      // A design-minus-formed gap is potential, not a dated commissioning forecast.
+      let pending = Number.isFinite(l.pipeline_increment_capacity) ? l.pipeline_increment_capacity
+        : future ? l.design_capacity
+        : Number.isFinite(l.formed_capacity) && Number.isFinite(l.design_capacity) ? Math.max(0, l.design_capacity - l.formed_capacity) : null;
+      if (l.capacity_unit === "万条/年" && !l.capacity_approximate)
+        add(f, l.type, pending, "PIPELINE", future ? "在建／规划设计" : "历史设计未形成差额／核实增量",
+          future || Number.isFinite(l.pipeline_increment_capacity) ? l.design_as_of : `设计${l.design_as_of || "未核"}／形成${l.formed_as_of || "未核"}`, l.source_ids);
+    }
+    const observations = f.survey_observations || [];
+    for (const o of observations) {
+      if (o.quality === "FAIL") { excluded.failed++; continue; }
+      if (["PLANNED", "BUILDING"].includes(f.status)) continue;
+      if (!model.kg_per_tire_range[o.comparable_type]) { excluded.mixed++; continue; }
+      const related = f.lines.filter((l) => l.type === o.comparable_type);
+      const blocked = related.some((l) => formedNr(l, model)
+        || (l.quality !== "FAIL" && l.capacity_unit === "条/日" && Number.isFinite(l.formed_capacity) && !l.formed_capacity_approximate)
+        || l.status === "CLOSED"
+        || ["PLANNED", "BUILDING"].includes(l.status))
+        || observations.filter((v) => v.comparable_type === o.comparable_type).length !== 1;
+      if (blocked) { excluded.overlap++; continue; }
+      const annual = o.unit === "u/y" ? o.value : o.unit === "u/d" && days > 0 ? o.value * days : null;
+      if (annual == null) { if (o.unit === "u/d") excluded.daily++; continue; }
+      add(f, o.comparable_type, annual / 10000, "HISTORICAL", o.unit === "u/d" ? "历史日能力×情景天数" : "历史年能力", o.as_of, o.source_ids);
+    }
+  }
+  const inBucket = (bucket) => rows.filter((r) => r.bucket === bucket);
+  const current = rows.filter((r) => r.bucket !== "PIPELINE");
+  const combined = sumRanges(current);
+  return {rows, excluded, formed: sumRanges(inBucket("FORMED")), historical: sumRanges(inBucket("HISTORICAL")),
+    pipeline: sumRanges(inBucket("PIPELINE")), combined,
+    scenario: {...combined, low: combined.low == null ? null : combined.low * loadPct / 100,
+      high: combined.high == null ? null : combined.high * loadPct / 100},
+    coveredFactories: new Set(current.map((r) => r.factory_id)).size, factoryCount: factories.length,
+    days, loadPct};
+}
+
+function renderNrTotals(records, type, registry) {
+  const daysInput = $("#nrDays"), loadInput = $("#nrLoad");
+  if (!daysInput.checkValidity() || !loadInput.checkValidity()) {
+    $("#nrTotals").textContent = "请填写有效参数：年化天数0–366，情景负荷0–100%。";
+    $("#nrScenario").textContent = "参数无效，本次结果未计算。";
+    $("#nrLedger").textContent = "";
+    return;
+  }
+  const options = {days: Number(daysInput.value), loadPct: Number(loadInput.value)};
+  const global = aggregateNr(state.tyre.factories, state.tyre.model, options);
+  const filtered = records.map((f) => ({...f, lines: f.lines.filter((l) => type === "all" || l.type === type),
+    survey_observations: (f.survey_observations || []).filter((o) => type === "all" || o.comparable_type === type)}));
+  const selected = registry ? null : aggregateNr(filtered, state.tyre.model, options);
+  $("#nrTotals").innerHTML = stat("全球名录 · 满负荷粗估 A+B", rangeText(global.combined), `可估${global.coveredFactories}/${global.factoryCount}厂；不是全球实际消费`)
+    + stat("A · 已披露形成能力", rangeText(global.formed), `${global.formed.known}项；各项数据期不同`)
+    + stat("B · 历史调查补充", rangeText(global.historical), `${global.historical.known}项；不与同厂同胎种A重复`)
+    + stat("未来／未形成潜在增量", rangeText(global.pipeline), `${global.pipeline.known}项；不并入A+B`);
+  $("#nrScenario").textContent = `按${options.loadPct}%情景负荷（非观测开工率）：全球名录${rangeText(global.scenario)}。`
+    + (selected ? ` 当前筛选满负荷${rangeText(selected.combined)}，负荷情景${rangeText(selected.scenario)}，可估${selected.coveredFactories}/${selected.factoryCount}厂。` : " 登记线索层不参与耗胶计算。")
+    + ` 日能力${options.days ? `按${options.days}天/年假设换算，非企业有效生产天数` : "未年化"}；跳过日能力${global.excluded.daily}项、混合/非适用历史胎种${global.excluded.mixed}项、同厂同胎种已覆盖或不明确${global.excluded.overlap}项、已关闭${global.excluded.closed}厂、FAIL记录${global.excluded.failed}项。已收录但未能估算的厂区不补0。`;
+  const buckets = {FORMED: "A 已形成", HISTORICAL: "B 历史补充", PIPELINE: "未来／未形成"};
+  $("#nrLedger").innerHTML = `<table><thead><tr><th>国家 · 厂区</th><th>胎种</th><th>分类 / 数据期</th><th>基数 万条/年</th><th>满负荷耗胶 万吨/年</th></tr></thead><tbody>${global.rows.map((r) =>
+    `<tr><td><button type="button" data-nr-factory="${escapeHtml(r.factory_id)}">${escapeHtml(r.country)} · ${escapeHtml(r.company)} · ${escapeHtml(r.site)}</button></td><td>${escapeHtml(TYPE[r.type])}</td><td>${buckets[r.bucket]} · ${escapeHtml(r.as_of)}<small>${escapeHtml(r.basis)}</small></td><td>${number(r.capacity_wan, 2)}</td><td>${rangeText(r, "")}</td></tr>`).join("")}</tbody></table>`;
+}
+
 function renderTyres() {
   const data = state.tyre;
   const country = $("#tyreCountry").value, type = $("#tyreType").value, status = $("#tyreStatus").value;
@@ -209,9 +391,10 @@ function renderTyres() {
   const effectiveCount = visibleLines.filter((line) => line.effective_capacity_2025 != null).length;
   const nrCount = visibleLines.filter((line) => estimateNr(line, data.model)).length;
   const addresses = records.filter((item) => item.address && item.address_quality === "PASS").length;
+  renderNrTotals(records, type, registry);
   $("#tyreStats").innerHTML = stat(registry ? "登记候选地点（非厂数）" : "已收录厂区", `${records.length} 个`, registry ? "办公地址／历史记录仍待剔除" : `详细地址已核 ${addresses} 个`) + stat("分胎种产线", `${lineCount} 项`, `其中已形成能力有据 ${formedCount} 项`)
     + stat("全年有效产能有据", `${effectiveCount} 项`, "未核实保持 MISSING") + stat("厂级年度耗胶有据／可估", `${nrCount} 项`, "仅实耗或实际产量可用");
-  $("#tyreSvg").innerHTML = mapSvg(records, "tyre", country === "all" ? "world" : fitBounds(records), state.activeTyre);
+  renderMap(records, "tyre", country === "all" ? "world" : fitBounds(records), state.activeTyre, JSON.stringify([country, type, status, manufacturer, registry, query]));
   $("#tyreMapCoverage").textContent = registry ? "登记地址可能是办公地或旧址，尚未核实的不落地图、不计入厂区或产能总量；可在下方查看原始登记地址。" : `所选 ${records.length} 个厂区，地图已定位 ${records.filter(hasCoordinates).length} 个，${records.filter((r) => !hasCoordinates(r)).length} 个坐标待核。城市／地区近似点不是厂门定位；地址可点击单独查地图。`;
   $("#tyreDetail").innerHTML = tyreDetail(records.find((item) => item.id === state.activeTyre), type);
   $("#tyreList").innerHTML = records.map((item) => `<button type="button" data-kind="tyre" data-id="${escapeHtml(item.id)}" class="${item.id === state.activeTyre ? "active" : ""}"><strong>${escapeHtml(item.company)} · ${escapeHtml(item.site)}</strong><small>${escapeHtml(item.country)} · ${escapeHtml(item.lines.filter((line) => type === "all" || line.type === type).map((line) => TYPE[line.type] || line.type).join(" / "))} · ${escapeHtml(STATUS[item.status] || item.status)}</small></button>`).join("") || "<p>没有匹配的工厂。</p>";
@@ -258,7 +441,7 @@ function renderRubber() {
   const thAll = state.rubber.regions.filter((r) => r.country === "泰国" && r.level === "PROVINCE");
   const thSum = sumKnown(thAll.map((r) => r.production_t));
   $("#rubberCoverage").textContent = `泰国省级名录 ${thAll.length} 个，产量数值有据 ${thSum.known} 个；未列数值的省份保留 MISSING。全国披露 ${number(state.rubber.national_totals["泰国"]?.production_t)} 吨，已录省级合计 ${number(thSum.value)} 吨；差额单列核对，不分摊补数。`;
-  $("#rubberSvg").innerHTML = mapSvg(records, "rubber", view, state.activeRubber);
+  renderMap(records, "rubber", country === "all" ? view : fitBounds(records), state.activeRubber, JSON.stringify([country, view, query]));
   $("#rubberDetail").innerHTML = rubberDetail(records.find((item) => item.id === state.activeRubber));
   $("#rubberList").innerHTML = records.map((item) => `<button type="button" data-kind="rubber" data-id="${escapeHtml(item.id)}" class="${item.id === state.activeRubber ? "active" : ""}"><strong>${escapeHtml(item.country)} · ${escapeHtml(item.province || "全国")}</strong><small>${escapeHtml(item.year)} ${escapeHtml(item.data_type)} · ${number(item.production_t)} ${escapeHtml(item.production_unit || "吨")} · ${escapeHtml(item.quality)}</small></button>`).join("") || "<p>当前地图范围没有匹配的产区。</p>";
 }
@@ -269,6 +452,7 @@ function activate(kind, id) {
 }
 
 async function start() {
+  ["tyre", "rubber"].forEach(bindMapControls);
   const getJson = (url) => fetch(url, {cache: "no-store", signal: AbortSignal.timeout(12000)}).then((response) => {
     if (!response.ok) throw new Error(`${response.status} ${url}`);
     return response.json();
@@ -303,6 +487,15 @@ async function start() {
   });
   ["#rubberView", "#rubberSearch"].forEach((id) => $(id).addEventListener("input", () => state.rubber && renderRubber()));
   document.addEventListener("click", (event) => {
+    const nrFactory = event.target.closest("[data-nr-factory]");
+    if (nrFactory) {
+      $("#tyreEvidence").value = "factory";
+      ["#tyreManufacturer", "#tyreCountry", "#tyreType", "#tyreStatus"].forEach((id) => $(id).value = "all");
+      $("#tyreSearch").value = "";
+      state.activeTyre = nrFactory.dataset.nrFactory;
+      renderTyres();
+      $("#tyreDetail").scrollIntoView({behavior: "smooth", block: "start"});
+    }
     const manufacturer = event.target.closest("[data-manufacturer]");
     if (manufacturer) {
       $("#tyreManufacturer").value = manufacturer.dataset.manufacturer;
@@ -319,6 +512,7 @@ async function start() {
     const target = event.target.closest(".map-marker[data-kind][data-id]");
     if (target && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); activate(target.dataset.kind, target.dataset.id); }
   });
+  ["#nrDays", "#nrLoad"].forEach((id) => $(id).addEventListener("input", () => state.tyre && renderTyres()));
 }
 
 function matchesTyreType(item, type) {
@@ -327,4 +521,4 @@ function matchesTyreType(item, type) {
 }
 
 if (typeof document !== "undefined") start();
-if (typeof module !== "undefined") module.exports = {estimateNr, designNr, formedNr, sumKnown, factorySummary, fitBounds, matchesTyreType};
+if (typeof module !== "undefined") module.exports = {nrRange, sumRanges, aggregateNr, estimateNr, designNr, formedNr, sumKnown, factorySummary, fitBounds, matchesTyreType, coords, mapViewBox, adjustMapView};

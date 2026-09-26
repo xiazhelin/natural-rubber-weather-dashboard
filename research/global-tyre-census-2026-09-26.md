@@ -1,5 +1,7 @@
 # 全球轮胎厂普查与泰国全省产量：阶段交接
 
+> 此为第一批238条历史快照。当前270条、单耗区间及未来项目请查看[第二批更新](global-tyre-census-2026-09-26-v2.md)，下文旧数不代表当前页面。
+
 核验截止：2026-09-26（Asia/Shanghai）  
 研究状态：PENDING；数据质量按字段分列。网页：`site/capacity.html`。
 
@@ -75,4 +77,3 @@
 - `research/*-census.json`和日印美洲文件为本批来源快照，**不要直接全量覆盖已集成主表**（主表另有国家归一、重复合并、关闭记录修订）。
 - 校验命令：`python3 -m unittest discover -s tests -p 'test_*.py'`、`node tests/test_capacity.js`、`node --check site/assets/capacity.js`、`git diff --check`。
 - 本批离线17项Python测试及JS断言通过；浏览器检查企业/国家/历史胎种筛选、登记层隔离、泰国77省、官方零值与MISSING、手机390px布局。没有在此批运行联网天气更新或部署。
-

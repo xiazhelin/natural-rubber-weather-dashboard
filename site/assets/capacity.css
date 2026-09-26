@@ -26,16 +26,24 @@
 .capacity-map-top { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
 .capacity-map-top strong { font-size: .95rem; }
 .capacity-map-top span { color: var(--muted); font-size: .68rem; text-align: right; }
+.capacity-map-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin-top: 10px; }
+.capacity-map-tools button { min-width: 40px; min-height: 40px; padding: 5px 9px; border: 1px solid #b9d3ca; border-radius: 6px; background: #fff; color: #0b5149; cursor: pointer; font: inherit; font-size: .82rem; font-weight: 800; }
+.capacity-map-tools button:hover { background: #e4f2eb; }
+.capacity-map-tools button:disabled { opacity: .4; cursor: default; }
+.capacity-map-tools button:focus-visible, .capacity-map:focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }
+.capacity-map-tools output { min-width: 48px; color: var(--muted); font-size: .72rem; text-align: center; }
+.capacity-map-help { margin: 7px 0 0; color: var(--muted); font-size: .68rem; }
 .capacity-map { width: 100%; aspect-ratio: 1.8; min-height: 260px; margin-top: 8px; overflow: hidden; border-radius: 9px; background: #e9f4f0; }
-.capacity-map svg { display: block; width: 100%; height: 100%; }
+.capacity-map svg { display: block; width: 100%; height: 100%; cursor: grab; user-select: none; }
+.capacity-map.is-dragging svg { cursor: grabbing; }
 .capacity-map .land { fill: #f8fbfa; stroke: #aac2b9; stroke-width: .7; vector-effect: non-scaling-stroke; }
 .capacity-map .grid { stroke: #d3e5df; stroke-width: .7; }
 .capacity-map .map-marker { cursor: pointer; }
-.capacity-map .map-marker circle { stroke: #fff; stroke-width: 2; filter: drop-shadow(0 1px 2px rgba(10,60,50,.35)); }
+.capacity-map .map-marker circle { stroke: #fff; stroke-width: 2; vector-effect: non-scaling-stroke; filter: drop-shadow(0 1px 2px rgba(10,60,50,.35)); }
 .capacity-map .map-marker.active circle { stroke: #102f2a; stroke-width: 3; }
 .capacity-map .map-marker:focus-visible { outline: none; }
 .capacity-map .map-marker:focus-visible circle { stroke: #d5e92f; stroke-width: 4; }
-.capacity-map .map-marker text { fill: #0b5149; font-size: 12px; font-weight: 800; paint-order: stroke; stroke: #fff; stroke-width: 3px; }
+.capacity-map .map-marker text { fill: #0b5149; font-size: 12px; font-weight: 800; paint-order: stroke; stroke: #fff; stroke-width: 3px; vector-effect: non-scaling-stroke; }
 .capacity-legend { display: flex; flex-wrap: wrap; gap: 7px 15px; margin-top: 10px; color: var(--muted); font-size: .7rem; }
 .capacity-legend span { display: inline-flex; align-items: center; gap: 5px; }
 .capacity-key { display: inline-block; width: 11px; height: 11px; border-radius: 50%; background: #0b675c; }
@@ -104,3 +112,10 @@
 @media (max-width: 980px) { .capacity-workspace { grid-template-columns: 1fr; } .capacity-detail { max-height: none; } .capacity-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 760px) { .capacity-intro, .capacity-section-head { flex-direction: column; } .capacity-intro span { flex: auto; } .capacity-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } .capacity-controls, .capacity-controls.rubber-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); } .capacity-search { grid-column: 1 / -1; } .capacity-method div { grid-template-columns: 1fr; } }
 @media (max-width: 500px) { .capacity-section { padding: 14px; } .capacity-map { min-height: 220px; } .capacity-map-top { flex-direction: column; } .capacity-stats, .capacity-list, .capacity-controls, .capacity-controls.rubber-controls, .capacity-benchmarks { grid-template-columns: 1fr; } .capacity-search { grid-column: auto; } }
+.nr-panel { margin: 18px 0 22px; padding: 18px; border: 1px solid #d1e3df; border-radius: 14px; background: #f3f8f6; }
+.nr-panel h3 { margin: 0 0 8px; }
+.nr-panel p { line-height: 1.65; }
+.nr-controls { display: flex; flex-wrap: wrap; gap: 14px; margin: 14px 0; }
+.nr-controls label { display: grid; gap: 6px; font-size: 13px; }
+.nr-controls input { width: 150px; padding: 9px; border: 1px solid #b6cdca; border-radius: 8px; }
+.nr-panel .capacity-stat strong { font-size: clamp(16px, 1.7vw, 24px); overflow-wrap: anywhere; }
