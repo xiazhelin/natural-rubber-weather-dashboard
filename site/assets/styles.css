@@ -63,6 +63,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
   letter-spacing: -0.04em;
 }
 
+.map-launch { flex: none; padding: 9px 13px; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; color: #fff; font-size: .8rem; font-weight: 700; text-decoration: none; }
+.map-launch:hover, .map-launch:focus-visible { background: rgba(255,255,255,.16); }
+
 .meta-line {
   display: flex;
   flex-wrap: wrap;

@@ -1,0 +1,236 @@
+"use strict";
+
+const DATA_ROOT = "data/capacity/";
+const LAND_URL = "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_110m_admin_0_countries.geojson";
+const STATUS = {OPERATING: "运营", RAMPING: "爬坡", BUILDING: "在建", PLANNED: "规划"};
+const TYPE = {"PCR/LTR": "半钢 PCR/LTR", TBR: "全钢 TBR", OTR: "工程胎 OTR", OTHER: "其他／未拆"};
+const COLORS = {OPERATING: "#0b675c", RAMPING: "#2387bd", BUILDING: "#d58b19", PLANNED: "#8f8d9b"};
+const BOUNDS = {
+  world: {west: -170, east: 180, south: -56, north: 77},
+  asia: {west: 91, east: 145, south: -12, north: 28},
+  africa: {west: -20, east: 49, south: -13, north: 24}
+};
+const $ = (selector) => document.querySelector(selector);
+const state = {tyre: null, rubber: null, land: null, activeTyre: null, activeRubber: null};
+
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (char) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;"})[char]);
+}
+
+function number(value, digits = 0) {
+  return value == null || !Number.isFinite(Number(value)) ? "MISSING" : Number(value).toLocaleString("zh-CN", {maximumFractionDigits: digits});
+}
+
+function estimateNr(line, model) {
+  if (line.actual_nr_2025_t != null) return {tons: line.actual_nr_2025_t, kind: "FACT · 企业披露"};
+  const kg = model.kg_per_tire[line.type];
+  if (!kg) return null;
+  if (line.output_2025_wan != null) return {tons: line.output_2025_wan * 10 * kg, kind: "ESTIMATE · 产量×单耗"};
+  return null;
+}
+
+function designNr(line, model) {
+  const kg = model.kg_per_tire[line.type];
+  return kg && line.design_capacity != null && !line.capacity_approximate && line.capacity_unit === "万条/年" ? line.design_capacity * 10 * kg : null;
+}
+
+function formedNr(line, model) {
+  const kg = model.kg_per_tire[line.type];
+  return kg && line.formed_capacity != null && line.capacity_unit === "万条/年" ? line.formed_capacity * 10 * kg : null;
+}
+
+function coords(record, bounds, width, height) {
+  return {
+    x: 22 + (record.longitude - bounds.west) / (bounds.east - bounds.west) * (width - 44),
+    y: 18 + (bounds.north - record.latitude) / (bounds.north - bounds.south) * (height - 36)
+  };
+}
+
+function geometryCoords(value, out = []) {
+  if (typeof value?.[0] === "number") out.push(value);
+  else value?.forEach((item) => geometryCoords(item, out));
+  return out;
+}
+
+function landPath(geometry, bounds, width, height) {
+  const polygons = geometry?.type === "Polygon" ? [geometry.coordinates]
+    : geometry?.type === "MultiPolygon" ? geometry.coordinates : [];
+  return polygons.flatMap((polygon) => polygon.map((ring) => ring.map(([longitude, latitude], index) => {
+    const point = coords({longitude, latitude}, bounds, width, height);
+    return `${index ? "L" : "M"}${point.x.toFixed(1)},${point.y.toFixed(1)}`;
+  }).join("") + "Z")).join("");
+}
+
+function mapSvg(records, kind, view, activeId) {
+  const bounds = BOUNDS[view], width = 920, height = 460;
+  const inFrame = (record) => record.longitude >= bounds.west && record.longitude <= bounds.east
+    && record.latitude >= bounds.south && record.latitude <= bounds.north;
+  const land = (state.land?.features || []).filter((feature) => {
+    const points = geometryCoords(feature.geometry?.coordinates);
+    return points.some(([lon, lat]) => lon >= bounds.west && lon <= bounds.east && lat >= bounds.south && lat <= bounds.north);
+  }).map((feature) => `<path class="land" d="${landPath(feature.geometry, bounds, width, height)}"/>`).join("");
+  const grid = [0.25, 0.5, 0.75].flatMap((n) => [
+    `<line class="grid" x1="${width * n}" y1="0" x2="${width * n}" y2="${height}"/>`,
+    `<line class="grid" x1="0" y1="${height * n}" x2="${width}" y2="${height * n}"/>`
+  ]).join("");
+  const duplicates = new Map();
+  const markers = records.filter(inFrame).map((item) => {
+    const point = coords(item, bounds, width, height);
+    const key = `${item.latitude.toFixed(1)}:${item.longitude.toFixed(1)}`;
+    const duplicate = duplicates.get(key) || 0;
+    duplicates.set(key, duplicate + 1);
+    point.x += duplicate % 3 * 8;
+    point.y += Math.floor(duplicate / 3) * 8;
+    const active = item.id === activeId;
+    const national = state.rubber?.national_totals?.[item.country]?.production_t;
+    const radius = kind === "rubber" ? (item.level === "COUNTRY" ? 10 : Math.min(15, 5 + Math.sqrt((item.production_t || 0) / (national || 1)) * 22)) : 7;
+    const color = kind === "rubber" ? (item.level === "PROVINCE" ? "#0b675c" : "#d58313") : COLORS[item.status] || "#8f8d9b";
+    const label = kind === "rubber" ? `${item.country} ${item.province || "全国"} ${number(item.production_t)} ${item.production_unit || "吨"}` : `${item.company} ${item.site}`;
+    return `<g class="map-marker${active ? " active" : ""}" role="button" tabindex="0" data-kind="${kind}" data-id="${escapeHtml(item.id)}" aria-label="${escapeHtml(label)}" transform="translate(${point.x.toFixed(1)},${point.y.toFixed(1)})"><circle r="${radius.toFixed(1)}" fill="${color}"><title>${escapeHtml(label)}</title></circle>${active ? `<text x="12" y="-11">${escapeHtml(kind === "rubber" ? item.province || item.country : item.company)}</text>` : ""}</g>`;
+  }).join("");
+  return `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${kind === "rubber" ? "天然橡胶产区" : "轮胎厂"}研究定位地图"><defs><clipPath id="clip-${kind}"><rect x="0" y="0" width="${width}" height="${height}"/></clipPath></defs><rect x="0" y="0" width="${width}" height="${height}" fill="#e9f4f0"/>${grid}<g clip-path="url(#clip-${kind})">${land}${markers}</g></svg>`;
+}
+
+function sourceList(ids, sources) {
+  const unique = [...new Set(ids || [])].filter((id) => sources[id]);
+  return unique.length ? `<h4>原始来源</h4><ol class="capacity-sources">${unique.map((id) => {
+    const source = sources[id];
+    return `<li><a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.title)}</a> · ${escapeHtml(source.published || "日期待核")}</li>`;
+  }).join("")}</ol>` : "<p class=\"detail-note\">来源 MISSING，记录不得用于正式判断。</p>";
+}
+
+function tyreDetail(item, type) {
+  if (!item) return "<p>当前筛选没有厂区。</p>";
+  const visible = item.lines.filter((line) => type === "all" || line.type === type);
+  const lines = visible.map((line) => {
+    const nr = estimateNr(line, state.tyre.model);
+    const full = designNr(line, state.tyre.model);
+    const formed = formedNr(line, state.tyre.model);
+    const unit = line.capacity_unit || "万条/年";
+    return `<div class="capacity-line"><strong>${escapeHtml(TYPE[line.type] || line.type)}${line.phase_name ? ` · ${escapeHtml(line.phase_name)}` : ""}</strong><dl>
+      <div><dt>设计／披露能力</dt><dd>${line.capacity_lower_bound != null ? `＞${number(line.capacity_lower_bound, 2)}` : `${line.capacity_approximate ? "约 " : ""}${number(line.design_capacity, 2)}`} ${escapeHtml(unit)} <small>${escapeHtml(line.design_as_of || "日期未标")}</small></dd></div>
+      <div><dt>已形成能力</dt><dd>${line.formed_capacity == null ? "MISSING" : `${number(line.formed_capacity, 2)} ${escapeHtml(unit)}`} <small>${escapeHtml(line.formed_as_of || "尚未核实")}</small></dd></div>
+      <div><dt>2025全年有效</dt><dd>${line.effective_capacity_2025 == null ? "MISSING" : `${number(line.effective_capacity_2025, 2)} ${escapeHtml(unit)}`}</dd></div>
+      <div><dt>2025利用率</dt><dd>${line.utilization_2025_pct == null ? "MISSING" : `${number(line.utilization_2025_pct, 2)}% <small>不能单独反推全年产量</small>`}</dd></div>
+      <div><dt>2025耗胶</dt><dd>${nr ? `${number(nr.tons / 10000, 2)} 万吨 <small>${escapeHtml(nr.kind)}</small>` : "MISSING"}</dd></div>
+      <div><dt>已形成满负荷情景</dt><dd>${formed == null ? "MISSING" : `${number(formed / 10000, 2)} 万吨／年 <small>ESTIMATE，不是实际耗胶</small>`}</dd></div>
+      <div><dt>设计满产情景</dt><dd>${full == null ? "MISSING" : `${number(full / 10000, 2)} 万吨／年 <small>ESTIMATE，不是实际耗胶</small>`}</dd></div>
+    </dl>${line.phases?.length ? `<small>扩产周期：${line.phases.map((phase) => `${escapeHtml(phase.period)} ${escapeHtml(phase.label)}（${escapeHtml(phase.status)}）`).join(" → ")}</small>` : ""}${line.note ? `<small>${escapeHtml(line.note)}</small>` : ""}</div>`;
+  }).join("");
+  const ids = [...(item.source_ids || []), ...visible.flatMap((line) => line.source_ids || [])];
+  return `<h3>${escapeHtml(item.company)} · ${escapeHtml(item.site)}</h3><p class="detail-sub">${escapeHtml(item.country)} · ${escapeHtml(item.province || item.place)} · ${escapeHtml(STATUS[item.status] || item.status)} · ${escapeHtml(item.quality)}</p><p class="detail-note">${escapeHtml(item.note || "坐标为城市或行政区定位，不代表厂界。")}</p>${lines}${sourceList(ids, state.tyre.sources)}`;
+}
+
+function rubberDetail(item) {
+  if (!item) return "<p>当前筛选没有产区。</p>";
+  const national = state.rubber.national_totals[item.country];
+  const share = item.level === "PROVINCE" && national?.production_t ? `${number(item.production_t / national.production_t * 100, 2)}%` : "不适用";
+  return `<h3>${escapeHtml(item.country)} · ${escapeHtml(item.province || "全国")}</h3><p class="detail-sub">${escapeHtml(item.year)} 年 · ${escapeHtml(item.data_type)} · ${escapeHtml(item.quality)}</p><dl>
+    <div><dt>天然胶产量</dt><dd>${number(item.production_t)} ${escapeHtml(item.production_unit || "吨")}</dd></div>
+    <div><dt>全国占比</dt><dd>${share} <small>同年、同国内口径</small></dd></div>
+    <div><dt>生产性面积</dt><dd>${number(item.productive_area)} ${escapeHtml(item.area_unit || "")} <small>${escapeHtml(item.area_definition || "口径待核")}</small></dd></div>
+    <div><dt>地理层级</dt><dd>${item.level === "PROVINCE" ? "省级" : "国家级"}</dd></div>
+    <div><dt>空间定位</dt><dd>${escapeHtml(item.coord_precision)}</dd></div>
+  </dl><p class="detail-note">${escapeHtml(item.note || "年产量不是产能；未核实的可割胶面积保持 MISSING。")}</p>${sourceList(item.source_ids, state.rubber.sources)}`;
+}
+
+function fillCountrySelect(selector, records) {
+  const countries = [...new Set(records.map((item) => item.country))].sort((a, b) => a.localeCompare(b, "zh-CN"));
+  $(selector).insertAdjacentHTML("beforeend", countries.map((country) => `<option value="${escapeHtml(country)}">${escapeHtml(country)}</option>`).join(""));
+}
+
+function stat(label, value, note) {
+  return `<div class="capacity-stat"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong><small>${escapeHtml(note)}</small></div>`;
+}
+
+function renderTyres() {
+  const data = state.tyre;
+  const country = $("#tyreCountry").value, type = $("#tyreType").value, status = $("#tyreStatus").value;
+  const query = $("#tyreSearch").value.trim().toLowerCase();
+  const records = data.factories.filter((item) => (country === "all" || item.country === country)
+    && (type === "all" || item.lines.some((line) => line.type === type))
+    && (status === "all" || item.status === status)
+    && (!query || `${item.company} ${item.site} ${item.country} ${item.province || ""}`.toLowerCase().includes(query)));
+  if (!records.some((item) => item.id === state.activeTyre)) state.activeTyre = records[0]?.id || null;
+  const visibleLines = records.flatMap((item) => item.lines.filter((line) => type === "all" || line.type === type));
+  const lineCount = visibleLines.length;
+  const formedCount = visibleLines.filter((line) => line.formed_capacity != null).length;
+  const effectiveCount = visibleLines.filter((line) => line.effective_capacity_2025 != null).length;
+  const nrCount = visibleLines.filter((line) => estimateNr(line, data.model)).length;
+  $("#tyreStats").innerHTML = stat("已收录厂区", `${records.length} 个`, "当前筛选样本") + stat("分胎种产线", `${lineCount} 项`, `其中已形成能力有据 ${formedCount} 项`)
+    + stat("全年有效产能有据", `${effectiveCount} 项`, "未核实保持 MISSING") + stat("厂级年度耗胶有据／可估", `${nrCount} 项`, "仅实耗或实际产量可用");
+  $("#tyreSvg").innerHTML = mapSvg(records, "tyre", "world", state.activeTyre);
+  $("#tyreDetail").innerHTML = tyreDetail(records.find((item) => item.id === state.activeTyre), type);
+  $("#tyreList").innerHTML = records.map((item) => `<button type="button" data-kind="tyre" data-id="${escapeHtml(item.id)}" class="${item.id === state.activeTyre ? "active" : ""}"><strong>${escapeHtml(item.company)} · ${escapeHtml(item.site)}</strong><small>${escapeHtml(item.country)} · ${escapeHtml(item.lines.filter((line) => type === "all" || line.type === type).map((line) => TYPE[line.type] || line.type).join(" / "))} · ${escapeHtml(STATUS[item.status] || item.status)}</small></button>`).join("") || "<p>没有匹配的工厂。</p>";
+}
+
+function renderGroupBenchmarks() {
+  const rows = state.tyre.group_benchmarks || [];
+  $("#groupBenchmarks").innerHTML = rows.map((item) => `<article><h3>${escapeHtml(item.company)} · ${escapeHtml(item.year)}</h3><p>集团天然胶实际耗用：<strong>${number(item.actual_nr_t / 10000, 2)} 万吨</strong> · FACT</p><p>${escapeHtml(item.note)}</p>${sourceList(item.source_ids, state.tyre.sources)}</article>`).join("");
+}
+
+function renderRubber() {
+  const country = $("#rubberCountry").value, view = $("#rubberView").value, query = $("#rubberSearch").value.trim().toLowerCase();
+  const bounds = BOUNDS[view];
+  const records = state.rubber.regions.filter((item) => (country === "all" || item.country === country)
+    && item.longitude >= bounds.west && item.longitude <= bounds.east && item.latitude >= bounds.south && item.latitude <= bounds.north
+    && (!query || `${item.country} ${item.province || ""} ${item.name || ""}`.toLowerCase().includes(query)));
+  if (!records.some((item) => item.id === state.activeRubber)) state.activeRubber = records[0]?.id || null;
+  const province = records.filter((item) => item.level === "PROVINCE");
+  const countryRecords = records.filter((item) => item.level === "COUNTRY");
+  const th = province.filter((item) => item.country === "泰国").reduce((n, item) => n + item.production_t, 0);
+  const id = province.filter((item) => item.country === "印度尼西亚").reduce((n, item) => n + item.production_t, 0);
+  $("#rubberStats").innerHTML = stat("省级记录", `${province.length} 个`, "不是所有产区的完整普查")
+    + stat("国家级记录", `${countryRecords.length} 个`, "不得向省级分配")
+    + stat("泰国省级样本", th ? `${number(th / 10000, 1)} 万吨` : "—", "2025f · 生胶片口径")
+    + stat("印尼省级样本", id ? `${number(id / 10000, 1)} 万吨` : "—", "2025初值 · 干胶口径");
+  $("#rubberSvg").innerHTML = mapSvg(records, "rubber", view, state.activeRubber);
+  $("#rubberDetail").innerHTML = rubberDetail(records.find((item) => item.id === state.activeRubber));
+  $("#rubberList").innerHTML = records.map((item) => `<button type="button" data-kind="rubber" data-id="${escapeHtml(item.id)}" class="${item.id === state.activeRubber ? "active" : ""}"><strong>${escapeHtml(item.country)} · ${escapeHtml(item.province || "全国")}</strong><small>${escapeHtml(item.year)} ${escapeHtml(item.data_type)} · ${number(item.production_t)} ${escapeHtml(item.production_unit || "吨")} · ${escapeHtml(item.quality)}</small></button>`).join("") || "<p>当前地图范围没有匹配的产区。</p>";
+}
+
+function activate(kind, id) {
+  if (kind === "tyre") { state.activeTyre = id; renderTyres(); }
+  else { state.activeRubber = id; renderRubber(); }
+}
+
+async function start() {
+  const getJson = (url) => fetch(url, {cache: "no-store"}).then((response) => {
+    if (!response.ok) throw new Error(`${response.status} ${url}`);
+    return response.json();
+  });
+  const [tyre, rubber, land] = await Promise.allSettled([
+    getJson(`${DATA_ROOT}tyre-factories.json`), getJson(`${DATA_ROOT}rubber-regions.json`), getJson(LAND_URL)
+  ]);
+  state.land = land.status === "fulfilled" ? land.value : null;
+  if (tyre.status === "fulfilled") {
+    state.tyre = tyre.value;
+    fillCountrySelect("#tyreCountry", state.tyre.factories);
+    renderTyres();
+    renderGroupBenchmarks();
+  } else $("#tyreSvg").textContent = `轮胎数据读取失败：${tyre.reason.message}`;
+  if (rubber.status === "fulfilled") {
+    state.rubber = rubber.value;
+    fillCountrySelect("#rubberCountry", state.rubber.regions);
+    renderRubber();
+  } else $("#rubberSvg").textContent = `产区数据读取失败：${rubber.reason.message}`;
+  $("#atlasUpdated").textContent = `文件修订：轮胎 ${state.tyre?.updated_at || "MISSING"} · 产区 ${state.rubber?.updated_at || "MISSING"}${state.land ? "" : " · 底图暂不可用"}`;
+  ["#tyreCountry", "#tyreType", "#tyreStatus", "#tyreSearch"].forEach((id) => $(id).addEventListener("input", () => state.tyre && renderTyres()));
+  $("#rubberCountry").addEventListener("change", () => {
+    if ($("#rubberCountry").value === "科特迪瓦") $("#rubberView").value = "africa";
+    else if ($("#rubberView").value === "africa") $("#rubberView").value = "asia";
+    if (state.rubber) renderRubber();
+  });
+  ["#rubberView", "#rubberSearch"].forEach((id) => $(id).addEventListener("input", () => state.rubber && renderRubber()));
+  document.addEventListener("click", (event) => {
+    const target = event.target.closest("[data-kind][data-id]");
+    if (target) activate(target.dataset.kind, target.dataset.id);
+  });
+  document.addEventListener("keydown", (event) => {
+    const target = event.target.closest(".map-marker[data-kind][data-id]");
+    if (target && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); activate(target.dataset.kind, target.dataset.id); }
+  });
+}
+
+if (typeof document !== "undefined") start();
+if (typeof module !== "undefined") module.exports = {estimateNr, designNr, formedNr};

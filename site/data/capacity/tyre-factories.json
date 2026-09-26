@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-26",
+  "scope": "已核原始披露的厂区样本，不是全球轮胎工厂普查；集团合并产能和集团天然胶耗用不得分摊到厂区。",
+  "model": {
+    "id": "CN_NR_DEMAND_RESEARCH_2025_V1",
+    "kg_per_tire": {"PCR/LTR": 2.1327, "TBR": 22.5510},
+    "note": "半钢/全钢中心单耗为研究假设，跨国迁移仅属情景估算；工程胎、混合胎及无法拆分品类不估。"
+  },
+  "sources": {
+    "LINGLONG_2025": {"title": "玲珑轮胎 2025 年年度报告，第28–29页", "url": "https://static.cninfo.com.cn/finalpage/2026-04-28/1225207707.PDF", "published": "2026-04-28"},
+    "SAILUN_2025_IR": {"title": "赛轮轮胎投资者关系记录，海外基地已形成产能", "url": "https://www.sailungroup.com/upload/file/20250807/1754533213752073714.pdf", "published": "2025-08-07"},
+    "SAILUN_2025_AR": {"title": "赛轮轮胎 2025 年年度报告，集团产能与原料", "url": "https://static.cninfo.com.cn/finalpage/2026-04-28/1225201460.PDF", "published": "2026-04-28"},
+    "SAILUN_ID_2026": {"title": "赛轮轮胎印尼项目调整公告（临2026-002）", "url": "https://static.cninfo.com.cn/finalpage/2026-01-27/1224950960.PDF", "published": "2026-01-27"},
+    "SAILUN_EGYPT_2026": {"title": "赛轮轮胎埃及项目投资公告", "url": "https://static.cninfo.com.cn/finalpage/2026-06-18/1225375195.PDF", "published": "2026-06-18"},
+    "SAILUN_MEXICO_2026": {"title": "赛轮轮胎 2026 年投资者关系活动记录", "url": "https://dataclouds.cninfo.com.cn/shgonggao/investor/2026/20260508/009c0a116a44433ca02738cae472f8de.PDF", "published": "2026-05-08"},
+    "SAILUN_MEXICO_2025": {"title": "赛轮墨西哥首胎下线及设计规模公告", "url": "https://sea.sailungroup.com/content/details117_1963.html", "published": "2025-06-04"},
+    "TONGYONG_2025": {"title": "通用股份 2025 年年度报告，第31–32页", "url": "https://static.cninfo.com.cn/finalpage/2026-04-30/1225254309.PDF", "published": "2026-04-30"},
+    "ZHONGCE_2025": {"title": "中策橡胶 2025 年年度报告，第25–26页", "url": "https://static.cninfo.com.cn/finalpage/2026-04-17/1225109514.PDF", "published": "2026-04-17"},
+    "PRINX_2026_H1": {"title": "浦林成山 2026 年中期报告，第18/33页", "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800481.pdf", "published": "2026-08-28"},
+    "CONTINENTAL_PT_2026": {"title": "Continental Lousado 4.5 亿条轮胎公告", "url": "https://www.continental.com/fileadmin/__imported/sites/corporate/portugal/english/files/2026/20260128-pr-continental-450_millionth_tire_lousado_en.pdf", "published": "2026-02-20"},
+    "CONTINENTAL_US_2026": {"title": "Continental Mount Vernon 工厂公告", "url": "https://www.continental.com/en/press/press-releases/invest-in-highly-automated-warehouse-at-mount-vernon/", "published": "2026-05-08"},
+    "BRIDGESTONE_INDIA_2024": {"title": "Bridgestone 印度工厂扩产公告", "url": "https://www.bridgestone.com/corporate/news/2024110801.html", "published": "2024-11-08"},
+    "BLS_NR_MODEL": {"title": "美国劳工统计局引用 USTMA 轮胎材料构成", "url": "https://www.bls.gov/opub/btn/volume-9/why-the-prices-of-natural-and-synthetic-rubber-do-not-always-bounce-together.htm", "published": "2020"}
+  },
+  "group_benchmarks": [
+    {"company": "中策橡胶", "year": 2025, "actual_nr_t": 727262.70, "note": "集团口径；年报另披露半钢设计/达产 10,700/8,053 万条，全钢 2,700/2,429 万条。不能分摊给泰国、印尼或其他单厂。", "source_ids": ["ZHONGCE_2025"]},
+    {"company": "赛轮轮胎", "year": 2025, "actual_nr_t": 520095.09, "note": "集团口径；未披露可按厂区、胎种拆分的天然胶实际投料。", "source_ids": ["SAILUN_2025_AR"]},
+    {"company": "玲珑轮胎", "year": 2025, "actual_nr_t": 431705, "note": "集团口径；覆盖境内及海外，不分摊到本页所列各厂区。", "source_ids": ["LINGLONG_2025"]},
+    {"company": "通用股份", "year": 2025, "actual_nr_t": 128100, "note": "年报以 12.81 万吨披露（存在四舍五入）；集团口径，不单独计作泰国或柬埔寨用胶。", "source_ids": ["TONGYONG_2025"]}
+  ],
+  "factories": [
+    {
+      "id": "cn_linglong_zhaoyuan", "company": "玲珑轮胎", "site": "山东招远", "country": "中国", "province": "山东", "place": "招远", "latitude": 37.36, "longitude": 120.40, "coord_precision": "城市定位", "status": "OPERATING", "quality": "PASS",
+      "note": "年报披露厂级年末达产能力与利用率；缺少与全年口径匹配的厂级实产量和有效产能，不据此反推实际耗胶。",
+      "source_ids": ["LINGLONG_2025", "BLS_NR_MODEL"],
+      "lines": [
+        {"type": "PCR/LTR", "capacity_unit": "万条/年", "design_capacity": 3000, "design_as_of": "2025-12-31", "formed_capacity": 3000, "formed_as_of": "2025-12-31", "formed_capacity_2025": 3000, "effective_capacity_2025": null, "utilization_2025_pct": 96.05},
+        {"type": "TBR", "capacity_unit": "万条/年", "design_capacity": 585, "design_as_of": "2025-12-31", "formed_capacity": 585, "formed_as_of": "2025-12-31", "formed_capacity_2025": 585, "effective_capacity_2025": null, "utilization_2025_pct": 73.04}
+      ]
+    },
+    {
+      "id": "cn_linglong_dezhou", "company": "玲珑轮胎", "site": "山东德州", "country": "中国", "province": "山东", "place": "德州", "latitude": 37.43, "longitude": 116.36, "coord_precision": "城市定位", "status": "OPERATING", "quality": "PASS", "source_ids": ["LINGLONG_2025", "BLS_NR_MODEL"],
+      "lines": [
+        {"type": "PCR/LTR", "capacity_unit": "万条/年", "design_capacity": 1200, "design_as_of": "2025-12-31", "formed_capacity": 1075, "formed_as_of": "2025-12-31", "formed_capacity_2025": 1075, "effective_capacity_2025": null, "utilization_2025_pct": 83.21},
+        {"type": "TBR", "capacity_unit": "万条/年", "design_capacity": 320, "design_as_of": "2025-12-31", "formed_capacity": 300, "formed_as_of": "2025-12-31", "formed_capacity_2025": 300, "effective_capacity_2025": null, "utilization_2025_pct": 83.58}
+      ]
+    },
+    {
+      "id": "cn_linglong_guangxi", "company": "玲珑轮胎", "site": "广西基地", "country": "中国", "province": "广西", "place": "柳州附近", "latitude": 24.33, "longitude": 109.43, "coord_precision": "城市级近似定位", "status": "OPERATING", "quality": "WARNING", "note": "省份及厂级容量来自年报；坐标仅取柳州研究定位，不作为厂址。", "source_ids": ["LINGLONG_2025", "BLS_NR_MODEL"],
+      "lines": [
+        {"type": "PCR/LTR", "capacity_unit": "万条/年", "design_capacity": 1200, "design_as_of": "2025-12-31", "formed_capacity": 1200, "formed_as_of": "2025-12-31", "formed_capacity_2025": 1200, "effective_capacity_2025": null, "utilization_2025_pct": 93.98},
+        {"type": "TBR", "capacity_unit": "万条/年", "design_capacity": 200, "design_as_of": "2025-12-31", "formed_capacity": 200, "formed_as_of": "2025-12-31", "formed_capacity_2025": 200, "effective_capacity_2025": null, "utilization_2025_pct": 64.19}
+      ]
+    },
+    {
+      "id": "cn_linglong_hubei", "company": "玲珑轮胎", "site": "湖北基地", "country": "中国", "province": "湖北", "place": "荆门附近", "latitude": 31.04, "longitude": 112.20, "coord_precision": "城市级近似定位", "status": "OPERATING", "quality": "WARNING", "note": "省份及厂级容量来自年报；坐标只为研究定位。", "source_ids": ["LINGLONG_2025", "BLS_NR_MODEL"],
+      "lines": [
+        {"type": "PCR/LTR", "capacity_unit": "万条/年", "design_capacity": 1200, "design_as_of": "2025-12-31", "formed_capacity": 1075, "formed_as_of": "2025-12-31", "formed_capacity_2025": 1075, "effective_capacity_2025": null, "utilization_2025_pct": 89.99},
+        {"type": "TBR", "capacity_unit": "万条/年", "design_capacity": 240, "design_as_of": "2025-12-31", "formed_capacity": 240, "formed_as_of": "2025-12-31", "formed_capacity_2025": 240, "effective_capacity_2025": null, "utilization_2025_pct": 55.05}
+      ]
+    },
+    {
+      "id": "cn_linglong_jilin", "company": "玲珑轮胎", "site": "吉林基地", "country": "中国", "province": "吉林", "place": "长春附近", "latitude": 43.82, "longitude": 125.32, "coord_precision": "城市级近似定位", "status": "OPERATING", "quality": "WARNING", "note": "设计规模与达产规模差异明显；不得把设计当作 2025 可用产能。", "source_ids": ["LINGLONG_2025", "BLS_NR_MODEL"],
+      "lines": [
+        {"type": "PCR/LTR", "capacity_unit": "万条/年", "design_capacity": 1200, "design_as_of": "2025-12-31", "formed_capacity": 600, "formed_as_of": "2025-12-31", "formed_capacity_2025": 600, "effective_capacity_2025": null, "utilization_2025_pct": 65.48},
+        {"type": "TBR", "capacity_unit": "万条/年", "design_capacity": 200, "design_as_of": "2025-12-31", "formed_capacity": 120, "formed_as_of": "2025-12-31", "formed_capacity_2025": 120, "effective_capacity_2025": null, "utilization_2025_pct": 73.61}
+      ]
+    },
+    {
+      "id": "th_linglong_chonburi", "company": "玲珑轮胎", "site": "泰国春武里", "country": "泰国", "province": "春武里", "place": "春武里", "latitude": 13.36, "longitude": 100.98, "coord_precision": "省府近似定位", "status": "OPERATING", "quality": "WARNING", "note": "半钢 2025 年达产新增 200 万条已包含在 1500 万条中；公司 2025 年报数不是独立的全年有效产能。", "source_ids": ["LINGLONG_2025", "BLS_NR_MODEL"],
+      "lines": [
+        {"type": "PCR/LTR", "capacity_unit": "万条/年", "design_capacity": 1500, "design_as_of": "2025-12-31", "formed_capacity": 1500, "formed_as_of": "2025-12-31", "formed_capacity_2025": 1500, "effective_capacity_2025": null, "utilization_2025_pct": 80.56, "phases": [{"period": "2025", "label": "半钢达产能力增加 200 万条，已含于 1500", "status": "已披露"}]},
+        {"type": "TBR", "capacity_unit": "万条/年", "design_capacity": 220, "design_as_of": "2025-12-31", "formed_capacity": 220, "formed_as_of": "2025-12-31", "formed_capacity_2025": 220, "effective_capacity_2025": null, "utilization_2025_pct": 83.65}
+      ]
+    },
+    {
+      "id": "rs_linglong_zrenjanin", "company": "玲珑轮胎", "site": "塞尔维亚兹雷尼亚宁", "country": "塞尔维亚", "province": "伏伊伏丁那", "place": "兹雷尼亚宁", "latitude": 45.38, "longitude": 20.39, "coord_precision": "城市定位", "status": "RAMPING", "quality": "WARNING", "note": "2025 年末铺设产线、达产能力及全年产出是三个不同量；2026 年最新逐线达产数待核。", "source_ids": ["LINGLONG_2025", "BLS_NR_MODEL"],
+      "lines": [
+        {"type": "PCR/LTR", "capacity_unit": "万条/年", "design_capacity": 1200, "design_as_of": "2025-12-31", "formed_capacity": 1075, "formed_as_of": "2025-12-31", "formed_capacity_2025": 1075, "effective_capacity_2025": null, "utilization_2025_pct": 56.37, "phases": [{"period": "2025", "label": "新增达产能力 775 万条，已含于 1075", "status": "已披露"}, {"period": "2026-11", "label": "剩余在建部分原计划完成", "status": "计划，待核"}]},
+        {"type": "TBR", "capacity_unit": "万条/年", "design_capacity": 240, "design_as_of": "2025-12-31", "formed_capacity": 200, "formed_as_of": "2025-12-31", "formed_capacity_2025": 200, "effective_capacity_2025": null, "utilization_2025_pct": 57.51, "phases": [{"period": "2025", "label": "新增达产能力 100 万条，已含于 200", "status": "已披露"}]}
+      ]
+    },
+    {
+      "id": "kh_sailun_cart", "company": "赛轮轮胎", "site": "CART TIRE 柴桢", "country": "柬埔寨", "province": "柴桢", "place": "齐鲁经济特区", "latitude": 11.12, "longitude": 106.80, "coord_precision": "省级近似定位", "status": "OPERATING", "quality": "WARNING", "note": "已形成数仅核到 2025-05-21 年化能力，不等于 2025 全年有效，也不是 2026 最新。新增全钢 165 万条项目不能与扩建后总量重复加。", "source_ids": ["SAILUN_2025_IR", "SAILUN_2025_AR"],
+      "lines": [
+        {"type": "PCR/LTR", "capacity_unit": "万条/年", "design_capacity": 2100, "design_as_of": "2024-12-31", "formed_capacity": 1900, "formed_as_of": "2025-05-21", "effective_capacity_2025": null, "phases": [{"period": "2024–2025", "label": "半钢扩建后全项目设计 2100", "status": "设计已披露"}]},
+        {"type": "TBR", "capacity_unit": "万条/年", "design_capacity": 330, "design_as_of": "2025-01", "formed_capacity": 165, "formed_as_of": "2025-05-21", "effective_capacity_2025": null, "phases": [{"period": "2025-01", "label": "新增 165 万条决策；形成能力待核", "status": "待核"}]}
+      ]
+    },
+    {
+      "id": "vn_sailun_tayninh", "company": "赛轮轮胎", "site": "越南西宁福东", "country": "越南", "province": "西宁", "place": "福东工业园", "latitude": 11.26, "longitude": 106.07, "coord_precision": "园区近似定位", "status": "OPERATING", "quality": "WARNING", "note": "以下逐基地已形成数披露较旧；不得由集团 2025 年报总产能反推更新。OTR 为轮胎产品吨数，不是耗胶吨数。", "source_ids": ["SAILUN_2025_IR", "SAILUN_2025_AR"],
+      "lines": [
+        {"type": "PCR/LTR", "capacity_unit": "万条/年", "design_capacity": 1600, "design_as_of": "2025-05-21", "formed_capacity": 1600, "formed_as_of": "2025-05-21", "effective_capacity_2025": null},
+        {"type": "TBR", "capacity_unit": "万条/年", "design_capacity": 260, "design_as_of": "2025-05-21", "formed_capacity": 260, "formed_as_of": "2025-05-21", "effective_capacity_2025": null},
+        {"type": "OTR", "capacity_unit": "万吨轮胎/年", "design_capacity": 10, "design_as_of": "2025-05-21", "formed_capacity": 10, "formed_as_of": "2025-05-21", "effective_capacity_2025": null}
+      ]
+    },
+    {
+      "id": "vn_actr_tayninh", "company": "赛轮／固铂 ACTR", "site": "越南西宁合资厂", "country": "越南", "province": "西宁", "place": "福东工业园", "latitude": 11.29, "longitude": 106.10, "coord_precision": "园区近似定位", "status": "OPERATING", "quality": "WARNING", "note": "合资工厂 100% 产能单列，与赛轮越南 TBR 260 万条不重复；股权折算另做。", "source_ids": ["SAILUN_2025_IR"],
+      "lines": [{"type": "TBR", "capacity_unit": "万条/年", "design_capacity": 265, "design_as_of": "2025-05-21", "formed_capacity": 265, "formed_as_of": "2025-05-21", "effective_capacity_2025": null}]
+    },
+    {
+      "id": "id_sailun_demak", "company": "赛轮轮胎", "site": "印尼中爪哇德马克", "country": "印度尼西亚", "province": "中爪哇", "place": "德马克 JIPS", "latitude": -6.90, "longitude": 110.63, "coord_precision": "县级近似定位", "status": "RAMPING", "quality": "WARNING", "note": "2026-01 调整后的项目设计取代用户底稿旧版半钢 300／全钢 60／OTR 3.7 万吨；2025 首胎下线不能证明所有产品线达产。", "source_ids": ["SAILUN_ID_2026", "SAILUN_2025_AR"],
+      "lines": [
+        {"type": "PCR/LTR", "capacity_unit": "万条/年", "design_capacity": 600, "design_as_of": "2026-01-27", "formed_capacity": null, "formed_as_of": null, "effective_capacity_2025": null, "phases": [{"period": "2025", "label": "首条半钢胎下线", "status": "爬坡"}, {"period": "2026-01", "label": "项目设计调整为 600 万条", "status": "设计已披露"}]},
+        {"type": "TBR", "capacity_unit": "万条/年", "design_capacity": 75, "design_as_of": "2026-01-27", "formed_capacity": null, "formed_as_of": null, "effective_capacity_2025": null, "note": "2025-08-01 首胎下线，但年化已形成能力待核。"},
+        {"type": "OTR", "capacity_unit": "万吨轮胎/年", "design_capacity": 1, "design_as_of": "2026-01-27", "formed_capacity": null, "formed_as_of": null, "effective_capacity_2025": null, "note": "2025-08-01 首胎下线，但年化已形成能力待核。"}
+      ]
+    },
+    {
+      "id": "mx_sailun_guanajuato", "company": "赛轮轮胎", "site": "墨西哥瓜纳华托", "country": "墨西哥", "province": "瓜纳华托", "place": "Castro del Río 园区", "latitude": 20.70, "longitude": -101.37, "coord_precision": "工业园近似定位", "status": "RAMPING", "quality": "WARNING", "note": "2025-05-29 首胎下线，2026 上半年仍爬坡；工程进度 95% 不是产能利用率。", "source_ids": ["SAILUN_MEXICO_2025", "SAILUN_MEXICO_2026"],
+      "lines": [{"type": "PCR/LTR", "capacity_unit": "万条/年", "design_capacity": 600, "design_as_of": "2026-05-08", "formed_capacity": null, "formed_as_of": null, "effective_capacity_2025": null, "phases": [{"period": "2025-05", "label": "首胎下线", "status": "爬坡"}, {"period": "2026-H1", "label": "继续爬坡", "status": "待核达产"}]}]
+    },
+    {
+      "id": "eg_sailun_suez", "company": "赛轮轮胎", "site": "埃及苏伊士 Shams", "country": "埃及", "province": "苏伊士", "place": "苏伊士运河经济区", "latitude": 29.96, "longitude": 32.55, "coord_precision": "地区定位", "status": "BUILDING", "quality": "WARNING", "note": "项目仍在建设；已形成与耗胶均 MISSING。原底稿 300/60 万条一期规模已被 2026 扩建公告更新，新增项目不算当前产出。", "source_ids": ["SAILUN_EGYPT_2026"],
+      "lines": [
+        {"type": "PCR/LTR", "capacity_unit": "万条/年", "design_capacity": 900, "design_as_of": "2026-06-18", "formed_capacity": null, "formed_as_of": null, "effective_capacity_2025": null, "phases": [{"period": "2025", "label": "原一期设计 300", "status": "旧版"}, {"period": "2026-04", "label": "扩建新增 600，合计 900", "status": "在建"}]},
+        {"type": "TBR", "capacity_unit": "万条/年", "design_capacity": 165, "design_as_of": "2026-06-18", "formed_capacity": null, "formed_as_of": null, "effective_capacity_2025": null, "phases": [{"period": "2025", "label": "原一期设计 60", "status": "旧版"}, {"period": "2026-04", "label": "扩建新增 105，合计 165", "status": "在建"}]}
+      ]
+    },
+    {
+      "id": "th_prinx_chonburi", "company": "浦林成山", "site": "泰国春武里", "country": "泰国", "province": "春武里", "place": "春武里", "latitude": 13.18, "longitude": 101.29, "coord_precision": "县级近似定位", "status": "OPERATING", "quality": "PASS", "note": "2026 中报当前产能与设计规模一致；2026 上半年利用率不能当成 2025 全年有效或全年耗胶。", "source_ids": ["PRINX_2026_H1"],
+      "lines": [
+        {"type": "PCR/LTR", "capacity_unit": "万条/年", "design_capacity": 1000, "design_as_of": "2026-06-30", "formed_capacity": 1000, "formed_as_of": "2026-06-30", "effective_capacity_2025": null, "note": "2026H1 利用率 91.9%，不作为全年值。"},
+        {"type": "TBR", "capacity_unit": "万条/年", "design_capacity": 200, "design_as_of": "2026-06-30", "formed_capacity": 200, "formed_as_of": "2026-06-30", "effective_capacity_2025": null, "note": "2026H1 利用率 76.4%，不作为全年值。"}
+      ]
+    },
+    {
+      "id": "my_prinx_kedah", "company": "浦林成山", "site": "马来西亚吉打橡胶城", "country": "马来西亚", "province": "吉打", "place": "吉打橡胶城", "latitude": 6.00, "longitude": 100.50, "coord_precision": "州级近似定位", "status": "BUILDING", "quality": "WARNING", "note": "2025Q4 开工、2026Q4 目标首胎、2027–28 规划爬坡；目标日期不是已投产事实。", "source_ids": ["PRINX_2026_H1"],
+      "lines": [
+        {"type": "PCR/LTR", "capacity_unit": "万条/年", "design_capacity": 600, "design_as_of": "2026-06-30", "formed_capacity": null, "formed_as_of": null, "effective_capacity_2025": null, "phases": [{"period": "2025-Q4", "label": "动工", "status": "在建"}, {"period": "2026-Q4", "label": "目标首胎", "status": "计划"}, {"period": "2027–28", "label": "规划爬坡", "status": "计划"}]},
+        {"type": "TBR", "capacity_unit": "万条/年", "design_capacity": 60, "design_as_of": "2026-06-30", "formed_capacity": null, "formed_as_of": null, "effective_capacity_2025": null}
+      ]
+    },
+    {
+      "id": "pt_continental_lousado", "company": "Continental", "site": "葡萄牙 Lousado", "country": "葡萄牙", "province": "波尔图区", "place": "Lousado", "latitude": 41.35, "longitude": -8.53, "coord_precision": "城镇定位", "status": "OPERATING", "quality": "WARNING", "note": "PLT 合计年化能力为超过 1950 万条，不强拆为单独 PCR；缺厂级全年有效产能、2025 分品类产量及耗胶。", "source_ids": ["CONTINENTAL_PT_2026"],
+      "lines": [{"type": "PCR/LTR", "capacity_unit": "万条/年", "design_capacity": null, "capacity_lower_bound": 1950, "design_as_of": "2026-02-20", "formed_capacity": null, "formed_as_of": null, "effective_capacity_2025": null, "note": "公司只披露年产能超过 1950 万条；1950 是严格下限，不能按精确设计值测算满产耗胶。"}]
+    },
+    {
+      "id": "us_continental_mount_vernon", "company": "Continental", "site": "美国 Mount Vernon", "country": "美国", "province": "伊利诺伊", "place": "Mount Vernon", "latitude": 38.32, "longitude": -88.90, "coord_precision": "城市定位", "status": "OPERATING", "quality": "WARNING", "note": "公司披露各胎种合计约 1140 万条／年，乘用／轻卡／商用混合，不能直接用单一胎种系数计算耗胶。", "source_ids": ["CONTINENTAL_US_2026"],
+      "lines": [{"type": "OTHER", "capacity_unit": "万条/年", "design_capacity": 1140, "capacity_approximate": true, "design_as_of": "2026-05-08", "formed_capacity": null, "formed_as_of": null, "effective_capacity_2025": null}]
+    },
+    {
+      "id": "in_bridgestone_pune", "company": "Bridgestone", "site": "印度 Pune", "country": "印度", "province": "马哈拉施特拉", "place": "Pune", "latitude": 18.52, "longitude": 73.86, "coord_precision": "城市定位", "status": "OPERATING", "quality": "WARNING", "note": "2024-10 日产能披露较旧；没有核实全年运行天数，不能把日值乘 365 冒充年有效产能。", "source_ids": ["BRIDGESTONE_INDIA_2024"],
+      "lines": [
+        {"type": "PCR/LTR", "capacity_unit": "条/日", "design_capacity": 11000, "design_as_of": "2024-10", "formed_capacity": null, "formed_as_of": null, "effective_capacity_2025": null, "phases": [{"period": "至 2029", "label": "Pune 计划新增约 110 万条／年", "status": "计划，尚未形成"}]},
+        {"type": "TBR", "capacity_unit": "条/日", "design_capacity": 1900, "design_as_of": "2024-10", "formed_capacity": null, "formed_as_of": null, "effective_capacity_2025": null}
+      ]
+    },
+    {
+      "id": "th_tongyong_rayong", "company": "通用股份", "site": "泰国罗勇", "country": "泰国", "province": "罗勇", "place": "泰中罗勇工业园", "latitude": 12.84, "longitude": 101.10, "coord_precision": "工业园近似定位", "status": "RAMPING", "quality": "WARNING", "note": "一期运营、二期爬坡；2025 年末达产与全年有效产能不同，利用率只作为独立披露事实。", "source_ids": ["TONGYONG_2025", "BLS_NR_MODEL"],
+      "lines": [
+        {"type": "PCR/LTR", "phase_name": "一期", "capacity_unit": "万条/年", "design_capacity": 600, "design_as_of": "2025-12-31", "formed_capacity": 600, "formed_as_of": "2025-12-31", "effective_capacity_2025": null, "utilization_2025_pct": 118.32},
+        {"type": "TBR", "phase_name": "一期", "capacity_unit": "万条/年", "design_capacity": 130, "design_as_of": "2025-12-31", "formed_capacity": 130, "formed_as_of": "2025-12-31", "effective_capacity_2025": null, "utilization_2025_pct": 84.47},
+        {"type": "PCR/LTR", "phase_name": "二期", "capacity_unit": "万条/年", "design_capacity": 1000, "design_as_of": "2025-12-31", "formed_capacity": 500, "formed_as_of": "2025-12-31", "effective_capacity_2025": null, "utilization_2025_pct": 52.01, "phases": [{"period": "2026", "label": "二期计划完成", "status": "计划，待核"}]}
+      ]
+    },
+    {
+      "id": "kh_tongyong_sihanouk", "company": "通用股份", "site": "柬埔寨西哈努克港", "country": "柬埔寨", "province": "西哈努克", "place": "西哈努克港经济特区", "latitude": 10.65, "longitude": 103.53, "coord_precision": "园区近似定位", "status": "RAMPING", "quality": "WARNING", "note": "一期运营、二期爬坡；利用率大于 100% 是公司披露值，不能用年末达产值反推全年产量。", "source_ids": ["TONGYONG_2025", "BLS_NR_MODEL"],
+      "lines": [
+        {"type": "PCR/LTR", "phase_name": "一期", "capacity_unit": "万条/年", "design_capacity": 500, "design_as_of": "2025-12-31", "formed_capacity": 500, "formed_as_of": "2025-12-31", "effective_capacity_2025": null, "utilization_2025_pct": 132.16},
+        {"type": "TBR", "phase_name": "一期", "capacity_unit": "万条/年", "design_capacity": 90, "design_as_of": "2025-12-31", "formed_capacity": 90, "formed_as_of": "2025-12-31", "effective_capacity_2025": null, "utilization_2025_pct": 114.29},
+        {"type": "PCR/LTR", "phase_name": "二期", "capacity_unit": "万条/年", "design_capacity": 350, "design_as_of": "2025-12-31", "formed_capacity": 200, "formed_as_of": "2025-12-31", "effective_capacity_2025": null, "utilization_2025_pct": 37.02, "phases": [{"period": "2026", "label": "二期计划完成", "status": "计划，待核"}]},
+        {"type": "TBR", "phase_name": "二期", "capacity_unit": "万条/年", "design_capacity": 75, "design_as_of": "2025-12-31", "formed_capacity": 50, "formed_as_of": "2025-12-31", "effective_capacity_2025": null, "utilization_2025_pct": 36.76}
+      ]
+    }
+  ]
+}

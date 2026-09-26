@@ -23,6 +23,17 @@
 
 天气关注状态只是筛选条件，不代表割胶、产量或价格结论。必须结合物候、持续时间、原料供应、加工利润及库存交叉验证。
 
+## 轮胎产能与橡胶产区地图
+
+`site/capacity.html` 在同一页展示已核验的全球轮胎厂样本和天然橡胶产区样本，并与天气首页互相链接。**这是可逐步扩充的研究底库，不是全球工厂／省份普查。** 厂区卡片区分设计、已形成、2025 全年有效产能与年度耗胶；没有逐厂依据的字段保持 `MISSING`。集团实耗另列，不分摊为工厂实耗。设计和已形成能力都可显示满负荷耗胶情景，采用中国研究版的半钢 2.1327 kg／条、全钢 22.5510 kg／条系数，不代表实际消费；工程胎不套用。产区图以泰国和印尼的 2025 省级记录为主，其他国家当前仅列全国点；泰国生胶片与印尼干胶不能跨国加总。
+
+更新入口是两个版本化、可直接读取的静态 JSON：
+
+- `site/data/capacity/tyre-factories.json`：每个厂区的国家、坐标、状态、胎种／阶段、设计与已形成能力、年度有效能力、实际产量、质量状态及原始来源。
+- `site/data/capacity/rubber-regions.json`：省级或国家级年产量、生产性面积、单位、预测／初值状态、坐标精度及原始来源。
+
+新增或修订一条记录时，保留同一 `id`，更新数据日期和 `source_ids`；先核对原始公告、单位、统计口径与旧值是否可比，再运行下方校验。关闭产线应更新状态和变更说明，不能只累加扩产。提交到发布分支 `main` 后，工作流对 `site/**` 的变动自动校验并部署。GitHub Pages 只提供公开读取，不提供匿名写入；后续微信小程序或 App 可直接消费这两份 JSON，只有需要在线编辑、审批与历史版本时才增设受控写入 API。
+
 ## 更新方式
 
 默认每天 21:00（`Asia/Shanghai`）自动更新并重新发布。同时保留维护者手动更新：
@@ -56,6 +67,7 @@ IMERG GeoTIFF的NASA PPS HTTPS入口需凭据。不配置时，Open-Meteo预报�
 
 ```bash
 python3 -m unittest discover -s tests -p "test_*.py"
+node tests/test_capacity.js
 python3 -m pip install -r requirements.txt
 python3 scripts/update_weather.py
 python3 -m http.server 8000 --directory site
@@ -69,7 +81,11 @@ python3 -m http.server 8000 --directory site
 config/locations.json          产区地点与研究阈值
 scripts/update_weather.py      官方数据更新脚本
 tests/test_update_weather.py   最小逻辑校验
+tests/test_capacity_data.py    地图数据口径与关联校验
+tests/test_capacity.js         耗胶情景最小校验
 site/                          GitHub Pages发布内容
+site/capacity.html             轮胎与橡胶产区地图
+site/data/capacity/           地图更新入口（静态JSON）
 site/data/thailand-weekly-rain.json  泰国分区周度降雨
 site/assets/climate/climate-outlook-manifest.json  中期/季节展望图片元数据
 .github/workflows/             手动更新与发布流程

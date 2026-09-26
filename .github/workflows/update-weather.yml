@@ -5,8 +5,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "site/index.html"
-      - "site/assets/**"
+      - "site/**"
       - "config/**"
       - "scripts/**"
       - "tests/**"
@@ -50,6 +49,9 @@ jobs:
 
       - name: 校验数据处理逻辑
         run: python -m unittest discover -s tests -p "test_*.py"
+
+      - name: 校验产能情景计算
+        run: node tests/test_capacity.js
 
       - name: 保存本次更新
         if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="全球轮胎厂产能与天然橡胶主产区产量研究地图；逐条保留来源、时期及质量状态。">
+  <title>全球轮胎产能与天然橡胶产区地图</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b5d55'/%3E%3Cpath d='M16 35c11-2 18-9 24-22 8 11 9 22 2 30-7 8-19 7-26-8Z' fill='%23d6f36a'/%3E%3Cpath d='M20 47c9-9 17-16 28-22' stroke='white' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/capacity.css">
+  <script src="assets/capacity.js" defer></script>
+</head>
+<body>
+  <header class="topbar capacity-header">
+    <div>
+      <p class="eyebrow">NATURAL RUBBER · CAPACITY ATLAS</p>
+      <h1>轮胎产能 × 天然橡胶产区</h1>
+      <p class="capacity-subtitle">从轮胎制造能力到产区供给：两个可追溯、可持续更新的研究地图</p>
+    </div>
+    <nav aria-label="站内导航" class="capacity-nav">
+      <a href="index.html">天气面板 ↗</a>
+      <a href="#tyreMap">轮胎厂</a>
+      <a href="#rubberMap">橡胶产区</a>
+    </nav>
+  </header>
+
+  <main class="capacity-main">
+    <section class="capacity-intro" aria-label="使用说明">
+      <p><strong>研究样本，不是全球普查。</strong>仅纳入能追溯到原始披露的厂区与产区；设计、已形成、全年有效产能及实际产量分别呈现。未核实不填零，规划产能不计作当前供给。</p>
+      <span id="atlasUpdated">正在读取数据…</span>
+    </section>
+
+    <section id="tyreMap" class="capacity-section" aria-labelledby="tyreTitle">
+      <div class="capacity-section-head">
+        <div>
+          <p class="section-kicker">CORE4_DEMAND · FACTORY LEVEL</p>
+          <h2 id="tyreTitle">全球轮胎厂产能地图</h2>
+          <p>按半钢、全钢及其他胎种查看设计规模、已形成能力、扩产进度与天然胶耗用证据。</p>
+        </div>
+        <span class="capacity-scope">样本覆盖 · 非行业总量</span>
+      </div>
+      <div id="tyreStats" class="capacity-stats" aria-live="polite"></div>
+      <div class="capacity-controls">
+        <label>国家／地区<select id="tyreCountry"><option value="all">全部</option></select></label>
+        <label>胎种<select id="tyreType"><option value="all">全部胎种</option><option value="PCR/LTR">半钢 PCR/LTR</option><option value="TBR">全钢 TBR</option><option value="OTR">工程胎 OTR</option><option value="OTHER">其他／未拆</option></select></label>
+        <label>进度<select id="tyreStatus"><option value="all">全部进度</option><option value="OPERATING">运营</option><option value="RAMPING">爬坡</option><option value="BUILDING">在建</option><option value="PLANNED">规划</option></select></label>
+        <label class="capacity-search">查找工厂<input id="tyreSearch" type="search" placeholder="企业、厂区、省份"></label>
+      </div>
+      <div class="capacity-workspace">
+        <div class="capacity-map-card">
+          <div class="capacity-map-top"><strong>工厂定位</strong><span>圆点为厂区所在地的城市／地区定位，不代表厂界</span></div>
+          <div id="tyreSvg" class="capacity-map" aria-live="polite"></div>
+          <div class="capacity-legend"><span><i class="capacity-key operating"></i>运营</span><span><i class="capacity-key ramping"></i>爬坡</span><span><i class="capacity-key building"></i>在建</span><span><i class="capacity-key planned"></i>规划</span></div>
+        </div>
+        <aside id="tyreDetail" class="capacity-detail" aria-live="polite"><p>点击地图或下方名单查看厂区明细。</p></aside>
+      </div>
+      <div id="tyreList" class="capacity-list" aria-label="轮胎厂名单"></div>
+      <p class="capacity-footnote">设计与已形成能力对应的“满负荷耗胶”都只是<strong>情景测算</strong>，并非当期需求；仅在有厂级实际投料或实际产量时才计算年度耗胶。年末达产能力 × 全年利用率不自动等于全年产量。不同胎种的“万条”不能直接相加，OTR吨数不能当作天然胶吨数。</p>
+      <div class="capacity-group">
+        <h3>集团披露的真实耗胶量</h3>
+        <p>用于校准模型，不能未经依据分摊到厂区。</p>
+        <div id="groupBenchmarks" class="capacity-benchmarks"></div>
+      </div>
+    </section>
+
+    <section id="rubberMap" class="capacity-section" aria-labelledby="rubberTitle">
+      <div class="capacity-section-head">
+        <div>
+          <p class="section-kicker">CORE2_SUPPLY · PROVINCE LEVEL</p>
+          <h2 id="rubberTitle">天然橡胶主产区产量地图</h2>
+          <p>优先用省级统一口径；没有可核省级数据的国家保留全国点，不向省份分摊。</p>
+        </div>
+        <span class="capacity-scope">年产量 ≠ 生产潜能</span>
+      </div>
+      <div id="rubberStats" class="capacity-stats" aria-live="polite"></div>
+      <div class="capacity-controls rubber-controls">
+        <label>国家／地区<select id="rubberCountry"><option value="all">全部</option></select></label>
+        <label>地图范围<select id="rubberView"><option value="asia">亚洲</option><option value="africa">非洲</option><option value="world">全球</option></select></label>
+        <label class="capacity-search">查找产区<input id="rubberSearch" type="search" placeholder="例如：南苏门答腊、董里"></label>
+      </div>
+      <div class="capacity-workspace">
+        <div class="capacity-map-card">
+          <div class="capacity-map-top"><strong>省级产量定位</strong><span>省级圆点大小代表本国产量占比；非省界着色图</span></div>
+          <div id="rubberSvg" class="capacity-map" aria-live="polite"></div>
+          <div class="capacity-legend"><span><i class="capacity-key province"></i>省级记录</span><span><i class="capacity-key national"></i>全国记录</span><span>2025 初值／预测值标 WARNING</span></div>
+        </div>
+        <aside id="rubberDetail" class="capacity-detail" aria-live="polite"><p>点击地图或下方名单查看产区口径。</p></aside>
+      </div>
+      <div id="rubberList" class="capacity-list" aria-label="橡胶产区名单"></div>
+      <p class="capacity-footnote">泰国 OAE 2025f 为生胶片口径，印尼农业部 2025 初值为干胶口径，<strong>两国产量不可直接相加</strong>。“产能”还需生产性面积、物候与可实现单产；当前未得统一理论吨位产能，标 MISSING。印尼 TM 成龄面积不等于当年已割胶面积；圆点不是省界或胶园边界。</p>
+    </section>
+
+    <section class="capacity-method" aria-labelledby="capacityMethodTitle">
+      <h2 id="capacityMethodTitle">口径与更新入口</h2>
+      <div>
+        <p><strong>轮胎：</strong>设计产能是项目名义规模；已形成是披露时点的年化能力；全年有效产能需要按投产、检修及技术可用时间加权；实际产量或耗胶不能用设计值冒充。</p>
+        <p><strong>耗胶模型：</strong>半钢 2.1327 kg／条 = 11 kg 胎重 × 19% 天然胶占比 ÷ 98% 收率；全钢 22.5510 kg／条 = 65 kg × 34% ÷ 98%。19%／34% 取自 <a href="https://www.bls.gov/opub/btn/volume-9/why-the-prices-of-natural-and-synthetic-rubber-do-not-always-bounce-together.htm" target="_blank" rel="noopener noreferrer">BLS 引用 USTMA</a>的代表性胎材结构，胎重和收率是本项目假设，并非 2025 年实测。跨国应用仅作情景估算，需以企业投料和产品结构校准；工程胎不套用。</p>
+        <p><strong>更新：</strong>维护者修改仓库中的 <code>site/data/capacity/tyre-factories.json</code> 或 <code>site/data/capacity/rubber-regions.json</code>，附上来源链接、数据期及质量状态；GitHub Actions 校验后自动重新发布。静态网页本身不提供匿名写入。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer><span>天然橡胶研究 · 产能与产量分开记录</span><span>最新值无法确认时显示 MISSING，不补零、不做交易建议。</span></footer>
+</body>
+</html>
