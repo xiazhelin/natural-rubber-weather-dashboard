@@ -1,0 +1,1272 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-26",
+  "ranking": {
+    "title": "Tire Business / ERJ 2025 全球轮胎制造商 75 强",
+    "edition": 2025,
+    "data_year": 2024,
+    "basis": "集团及其附属企业的轮胎制造相关销售额排名；不是厂区数量、产能或耗胶量排名。",
+    "source_ids": [
+      "TB_ERJ_GTR_2025"
+    ],
+    "notes": [
+      "采用可以逐行核验的 2025 原始公开表作为普查母表，2024 销售年度。2026 榜已存在，但本次未取得完整原始榜表；不得将本表标为 2026 最新排名。",
+      "原表第 39 名并列两家，因此无第 40 名；共 75 个排名主体。",
+      "入榜是普查范围，不代表该集团所有厂区均已收录。集团之间合资、控股与并购关系须逐厂去重，榜单销售额不可简单当作独立集团总量相加。",
+      "2026 中文转载中双星与锦湖并列出现；原始合并口径需复核后才切换母表。"
+    ]
+  },
+  "sources": {
+    "TB_ERJ_GTR_2025": {
+      "title": "European Rubber Journal Global Tire Report 2025，PDF pp. 3–5（刊内 pp. 19–21）",
+      "url": "https://www.european-rubber-journal.com/files/assets/documents/2151842/GTR%202025.pdf",
+      "published": "2025-11/12",
+      "accessed": "2026-09-26"
+    }
+  },
+  "manufacturers": [
+    {
+      "id": "michelin",
+      "rank": 1,
+      "name": "米其林",
+      "name_en": "Michelin",
+      "headquarters_country": "法国",
+      "aliases": [
+        "米其林集团",
+        "Group Michelin",
+        "Michelin",
+        "BFGoodrich",
+        "Tigar"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "bridgestone",
+      "rank": 2,
+      "name": "普利司通",
+      "name_en": "Bridgestone",
+      "headquarters_country": "日本",
+      "aliases": [
+        "Bridgestone",
+        "普利司通",
+        "Firestone"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "goodyear",
+      "rank": 3,
+      "name": "固特异",
+      "name_en": "Goodyear Tire & Rubber",
+      "headquarters_country": "美国",
+      "aliases": [
+        "Goodyear",
+        "固特异",
+        "Cooper",
+        "固铂"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "continental",
+      "rank": 4,
+      "name": "大陆马牌",
+      "name_en": "Continental",
+      "headquarters_country": "德国",
+      "aliases": [
+        "Continental",
+        "大陆集团",
+        "大陆马牌",
+        "Barum",
+        "General Tire"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "pirelli",
+      "rank": 5,
+      "name": "倍耐力",
+      "name_en": "Pirelli & C.",
+      "headquarters_country": "意大利",
+      "aliases": [
+        "Pirelli",
+        "倍耐力"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "sumitomo",
+      "rank": 6,
+      "name": "住友橡胶",
+      "name_en": "Sumitomo Rubber Industries",
+      "headquarters_country": "日本",
+      "aliases": [
+        "住友",
+        "Sumitomo",
+        "Falken",
+        "住友橡胶"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "hankook",
+      "rank": 7,
+      "name": "韩泰",
+      "name_en": "Hankook Tire & Technology",
+      "headquarters_country": "韩国",
+      "aliases": [
+        "韩泰",
+        "Hankook"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "yokohama",
+      "rank": 8,
+      "name": "优科豪马",
+      "name_en": "Yokohama Rubber",
+      "headquarters_country": "日本",
+      "aliases": [
+        "优科豪马",
+        "横滨",
+        "Yokohama",
+        "YOHT",
+        "ATG"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "zhongce",
+      "rank": 9,
+      "name": "中策橡胶",
+      "name_en": "Zhongce Rubber Group",
+      "headquarters_country": "中国",
+      "aliases": [
+        "中策",
+        "ZC Rubber",
+        "Zhongce",
+        "中策橡胶"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "sailun",
+      "rank": 10,
+      "name": "赛轮集团",
+      "name_en": "Sailun Group",
+      "headquarters_country": "中国",
+      "aliases": [
+        "赛轮",
+        "赛轮轮胎",
+        "赛轮集团",
+        "Sailun"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "toyo",
+      "rank": 11,
+      "name": "东洋轮胎",
+      "name_en": "Toyo Tire",
+      "headquarters_country": "日本",
+      "aliases": [
+        "Toyo",
+        "东洋轮胎",
+        "通伊欧"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "kumho",
+      "rank": 12,
+      "name": "锦湖轮胎",
+      "name_en": "Kumho Tire",
+      "headquarters_country": "韩国",
+      "aliases": [
+        "Kumho",
+        "锦湖",
+        "锦湖轮胎"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "mrf",
+      "rank": 13,
+      "name": "MRF",
+      "name_en": "MRF",
+      "headquarters_country": "印度",
+      "aliases": [
+        "MRF"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "apollo",
+      "rank": 14,
+      "name": "阿波罗轮胎",
+      "name_en": "Apollo Tyres",
+      "headquarters_country": "印度",
+      "aliases": [
+        "Apollo",
+        "阿波罗",
+        "Vredestein"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "linglong",
+      "rank": 15,
+      "name": "玲珑轮胎",
+      "name_en": "Linglong Group",
+      "headquarters_country": "中国",
+      "aliases": [
+        "玲珑轮胎",
+        "玲珑",
+        "Linglong"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "chengshin",
+      "rank": 16,
+      "name": "正新橡胶",
+      "name_en": "Maxxis International / Cheng Shin Rubber",
+      "headquarters_country": "中国台湾",
+      "aliases": [
+        "正新",
+        "Maxxis",
+        "Cheng Shin",
+        "CST",
+        "玛吉斯"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "giti",
+      "rank": 17,
+      "name": "佳通轮胎",
+      "name_en": "Giti Tire",
+      "headquarters_country": "新加坡",
+      "aliases": [
+        "佳通",
+        "Giti",
+        "Gajah Tunggal",
+        "GT"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "nexen",
+      "rank": 18,
+      "name": "耐克森轮胎",
+      "name_en": "Nexen Tire",
+      "headquarters_country": "韩国",
+      "aliases": [
+        "耐克森",
+        "Nexen"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "jk",
+      "rank": 19,
+      "name": "JK轮胎",
+      "name_en": "JK Tyre & Industries",
+      "headquarters_country": "印度",
+      "aliases": [
+        "JK Tyre",
+        "JK",
+        "Cavendish",
+        "Tornel"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "ceat",
+      "rank": 20,
+      "name": "CEAT",
+      "name_en": "CEAT",
+      "headquarters_country": "印度",
+      "aliases": [
+        "CEAT",
+        "西亚特"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "prinx",
+      "rank": 21,
+      "name": "浦林成山",
+      "name_en": "Prinx Chengshan",
+      "headquarters_country": "中国",
+      "aliases": [
+        "浦林成山",
+        "Prinx",
+        "Chengshan"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "doublecoin",
+      "rank": 22,
+      "name": "双钱轮胎",
+      "name_en": "Double Coin Holdings",
+      "headquarters_country": "中国",
+      "aliases": [
+        "双钱",
+        "Double Coin",
+        "Huayi",
+        "华谊"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "prometeon",
+      "rank": 23,
+      "name": "普罗米通",
+      "name_en": "Prometeon Tyre Group",
+      "headquarters_country": "意大利",
+      "aliases": [
+        "Prometeon",
+        "PTG",
+        "普罗米通"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "guizhou",
+      "rank": 24,
+      "name": "贵州轮胎",
+      "name_en": "Guizhou Tyre",
+      "headquarters_country": "中国",
+      "aliases": [
+        "贵州轮胎",
+        "Guizhou",
+        "Advance",
+        "Samson"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "triangle",
+      "rank": 25,
+      "name": "三角轮胎",
+      "name_en": "Triangle Group",
+      "headquarters_country": "中国",
+      "aliases": [
+        "三角轮胎",
+        "Triangle"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "nokian",
+      "rank": 26,
+      "name": "诺记轮胎",
+      "name_en": "Nokian Tyres",
+      "headquarters_country": "芬兰",
+      "aliases": [
+        "Nokian",
+        "诺记"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "suntire",
+      "rank": 27,
+      "name": "太阳轮胎及车轮",
+      "name_en": "Sun-Tire & Wheel Systems",
+      "headquarters_country": "印度",
+      "aliases": [
+        "Sun-Tire",
+        "Sun Tyre",
+        "TVS SUNDARAM",
+        "太阳轮胎"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "sentury",
+      "rank": 28,
+      "name": "森麒麟",
+      "name_en": "Qingdao Sentury Tire",
+      "headquarters_country": "中国",
+      "aliases": [
+        "森麒麟",
+        "Sentury",
+        "Sentaida"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "jinyu",
+      "rank": 29,
+      "name": "金宇轮胎",
+      "name_en": "Shandong Jinyu Tire",
+      "headquarters_country": "中国",
+      "aliases": [
+        "金宇",
+        "Jinyu"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "bkt",
+      "rank": 30,
+      "name": "BKT",
+      "name_en": "Balkrishna Industries",
+      "headquarters_country": "印度",
+      "aliases": [
+        "BKT",
+        "Balkrishna"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "kenda",
+      "rank": 31,
+      "name": "建大橡胶",
+      "name_en": "Kenda Rubber Industrial",
+      "headquarters_country": "中国台湾",
+      "aliases": [
+        "Kenda",
+        "建大"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "brisa",
+      "rank": 32,
+      "name": "普利司通萨班哲",
+      "name_en": "BRISA / Bridgestone-Sabanci",
+      "headquarters_country": "土耳其",
+      "aliases": [
+        "Brisa",
+        "BRISA",
+        "萨班哲"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "titan",
+      "rank": 33,
+      "name": "帝坦国际",
+      "name_en": "Titan International",
+      "headquarters_country": "美国",
+      "aliases": [
+        "Titan",
+        "帝坦"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "huasheng",
+      "rank": 34,
+      "name": "华盛橡胶",
+      "name_en": "Shandong Huasheng Rubber",
+      "headquarters_country": "中国",
+      "aliases": [
+        "华盛",
+        "Huasheng"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "haohua",
+      "rank": 35,
+      "name": "昊华轮胎",
+      "name_en": "Shandong Haohua Tyre Group",
+      "headquarters_country": "中国",
+      "aliases": [
+        "昊华",
+        "Haohua"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "tongyong",
+      "rank": 36,
+      "name": "通用股份",
+      "name_en": "Jiangsu General Science Technology",
+      "headquarters_country": "中国",
+      "aliases": [
+        "通用股份",
+        "通用科技",
+        "General Science",
+        "Tongyong"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "aeolus",
+      "rank": 37,
+      "name": "风神轮胎",
+      "name_en": "Aeolus Tyre",
+      "headquarters_country": "中国",
+      "aliases": [
+        "Aeolus",
+        "风神"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "yongsheng",
+      "rank": 38,
+      "name": "永盛橡胶",
+      "name_en": "Shandong Yongsheng Rubber Group",
+      "headquarters_country": "中国",
+      "aliases": [
+        "永盛",
+        "Yongsheng"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "fangxing",
+      "rank": 39,
+      "name": "方兴橡胶",
+      "name_en": "Dongying Fangxing Rubber",
+      "headquarters_country": "中国",
+      "aliases": [
+        "方兴",
+        "Fangxing"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "原榜并列第 39；厂区完整性待核。"
+    },
+    {
+      "id": "wandabaotong",
+      "rank": 39,
+      "name": "万达宝通",
+      "name_en": "Shandong Wanda Tyre",
+      "headquarters_country": "中国",
+      "aliases": [
+        "山东万达",
+        "万达宝通",
+        "Wanda Boto"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "原榜并列第 39；厂区完整性待核。"
+    },
+    {
+      "id": "wanli",
+      "rank": 41,
+      "name": "万力轮胎",
+      "name_en": "Wanli Tire Group",
+      "headquarters_country": "中国",
+      "aliases": [
+        "万力",
+        "Wanli"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "zodo",
+      "rank": 42,
+      "name": "正道轮胎",
+      "name_en": "Zodo Tyre",
+      "headquarters_country": "中国",
+      "aliases": [
+        "正道",
+        "Zodo"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "cordiant",
+      "rank": 43,
+      "name": "科迪昂轮胎",
+      "name_en": "Cordiant",
+      "headquarters_country": "俄罗斯",
+      "aliases": [
+        "Cordiant",
+        "科迪昂"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "changfeng",
+      "rank": 44,
+      "name": "昌丰轮胎",
+      "name_en": "Shandong Changfeng Tire",
+      "headquarters_country": "中国",
+      "aliases": [
+        "昌丰",
+        "Changfeng"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "zhongyi",
+      "rank": 45,
+      "name": "中一橡胶",
+      "name_en": "Shandong Zhongyi Rubber",
+      "headquarters_country": "中国",
+      "aliases": [
+        "中一",
+        "Zhongyi"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "petlas",
+      "rank": 46,
+      "name": "Petlas",
+      "name_en": "Petlas Tyre Industry & Trade",
+      "headquarters_country": "土耳其",
+      "aliases": [
+        "Petlas"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "haida",
+      "rank": 47,
+      "name": "海大轮胎",
+      "name_en": "Sichuan Haida Tyre Group",
+      "headquarters_country": "中国",
+      "aliases": [
+        "海大",
+        "Haida"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "tercelo",
+      "rank": 48,
+      "name": "雄鹰轮胎",
+      "name_en": "Tercelo Tire Group",
+      "headquarters_country": "中国",
+      "aliases": [
+        "雄鹰",
+        "Tercelo"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "doublestar",
+      "rank": 49,
+      "name": "双星轮胎",
+      "name_en": "Qingdao Doublestar Industrial",
+      "headquarters_country": "中国",
+      "aliases": [
+        "双星",
+        "Doublestar"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "firemax",
+      "rank": 50,
+      "name": "福麦斯",
+      "name_en": "Shouguang Firemax Tyre",
+      "headquarters_country": "中国",
+      "aliases": [
+        "福麦斯",
+        "Firemax"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "longmarch",
+      "rank": 51,
+      "name": "朝阳浪马",
+      "name_en": "Chaoyang Long March Tyre",
+      "headquarters_country": "中国",
+      "aliases": [
+        "朝阳浪马",
+        "浪马",
+        "Long March"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "yongfeng",
+      "rank": 52,
+      "name": "永丰轮胎",
+      "name_en": "Shandong Yongfeng Tire",
+      "headquarters_country": "中国",
+      "aliases": [
+        "永丰",
+        "Yongfeng"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "barez",
+      "rank": 53,
+      "name": "Barez",
+      "name_en": "Barez Tire Group",
+      "headquarters_country": "伊朗",
+      "aliases": [
+        "Barez"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "tvssrichakra",
+      "rank": 54,
+      "name": "TVS Srichakra",
+      "name_en": "TVS Srichakra",
+      "headquarters_country": "印度",
+      "aliases": [
+        "TVS Srichakra",
+        "TVS Eurogrip"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "xuzhouarmour",
+      "rank": 55,
+      "name": "徐州甲字橡胶",
+      "name_en": "Xuzhou Armour Rubber",
+      "headquarters_country": "中国",
+      "aliases": [
+        "徐州甲字",
+        "徐工轮胎",
+        "Xuzhou Armour"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "fate",
+      "rank": 56,
+      "name": "FATE",
+      "name_en": "FATE",
+      "headquarters_country": "阿根廷",
+      "aliases": [
+        "FATE"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "tianjinwanda",
+      "rank": 57,
+      "name": "天津万达",
+      "name_en": "Tianjin Wanda Tire Group",
+      "headquarters_country": "中国",
+      "aliases": [
+        "天津万达",
+        "Tianjin Wanda"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "yuelong",
+      "rank": 58,
+      "name": "跃龙橡胶",
+      "name_en": "Shandong Weifang Yuelong Rubber Group",
+      "headquarters_country": "中国",
+      "aliases": [
+        "跃龙",
+        "Yuelong"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "xinghongyuan",
+      "rank": 59,
+      "name": "兴鸿源轮胎",
+      "name_en": "Shandong Xinghongyuan Tyre",
+      "headquarters_country": "中国",
+      "aliases": [
+        "兴鸿源",
+        "Xinghongyuan"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "sanli",
+      "rank": 60,
+      "name": "三利轮胎",
+      "name_en": "Shandong Sanli Tyre Manufacture",
+      "headquarters_country": "中国",
+      "aliases": [
+        "三利",
+        "Sanli"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "yanchang",
+      "rank": 61,
+      "name": "延长石油橡胶",
+      "name_en": "Yanchang Petroleum Group Rubber",
+      "headquarters_country": "中国",
+      "aliases": [
+        "延长",
+        "Yanchang"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "nankang",
+      "rank": 62,
+      "name": "南港轮胎",
+      "name_en": "Nankang Rubber Tire",
+      "headquarters_country": "中国台湾",
+      "aliases": [
+        "南港",
+        "Nankang"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "mileqi",
+      "rank": 63,
+      "name": "米乐奇轮胎",
+      "name_en": "Shandong Mileqi Tire / Mirage Tyres",
+      "headquarters_country": "中国",
+      "aliases": [
+        "米乐奇",
+        "Mileqi",
+        "Mirage"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "fengyuan",
+      "rank": 64,
+      "name": "丰源轮胎",
+      "name_en": "Shandong Fengyuan Tyre",
+      "headquarters_country": "中国",
+      "aliases": [
+        "丰源",
+        "Fengyuan"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "bayi",
+      "rank": 65,
+      "name": "八亿轮胎",
+      "name_en": "Shandong Bayi Tyre Manufacture",
+      "headquarters_country": "中国",
+      "aliases": [
+        "八亿",
+        "Bayi"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "emerald",
+      "rank": 66,
+      "name": "Emerald",
+      "name_en": "Emerald Tyres",
+      "headquarters_country": "印度",
+      "aliases": [
+        "Emerald"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "casumina",
+      "rank": 67,
+      "name": "越南南方橡胶",
+      "name_en": "Casumina / Southern Rubber Industry",
+      "headquarters_country": "越南",
+      "aliases": [
+        "Casumina",
+        "南方橡胶"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "ozka",
+      "rank": 68,
+      "name": "ÖZKA",
+      "name_en": "ÖZKA Lastik ve Kauçuk",
+      "headquarters_country": "土耳其",
+      "aliases": [
+        "ÖZKA",
+        "OZKA"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "danang",
+      "rank": 69,
+      "name": "岘港橡胶",
+      "name_en": "DaNang Rubber",
+      "headquarters_country": "越南",
+      "aliases": [
+        "岘港橡胶",
+        "DRC",
+        "DaNang"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "nizhnekamskshina",
+      "rank": 70,
+      "name": "下卡姆斯克轮胎",
+      "name_en": "Nizhnekamskshina",
+      "headquarters_country": "俄罗斯",
+      "aliases": [
+        "Nizhnekamskshina",
+        "Kama",
+        "下卡姆斯克"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "service",
+      "rank": 71,
+      "name": "Service轮胎",
+      "name_en": "Service Tyres",
+      "headquarters_country": "巴基斯坦",
+      "aliases": [
+        "Service",
+        "Servis"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "sta",
+      "rank": 72,
+      "name": "美国特种轮胎",
+      "name_en": "Specialty Tires of America",
+      "headquarters_country": "美国",
+      "aliases": [
+        "Specialty Tires",
+        "STA"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "hwafong",
+      "rank": 73,
+      "name": "华丰橡胶",
+      "name_en": "Hwa Fong Rubber Industry",
+      "headquarters_country": "中国台湾",
+      "aliases": [
+        "Hwa Fong",
+        "华丰",
+        "Duro"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "ralson",
+      "rank": 74,
+      "name": "Ralson",
+      "name_en": "Ralson Tyres",
+      "headquarters_country": "印度",
+      "aliases": [
+        "Ralson"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    },
+    {
+      "id": "panther",
+      "rank": 75,
+      "name": "黑豹轮胎",
+      "name_en": "Panther Tyres",
+      "headquarters_country": "巴基斯坦",
+      "aliases": [
+        "Panther",
+        "Mian",
+        "黑豹"
+      ],
+      "source_ids": [
+        "TB_ERJ_GTR_2025"
+      ],
+      "coverage_status": "PENDING",
+      "note": "厂区全量、逐址、分胎种产能及有效产能尚待逐项核验。"
+    }
+  ]
+}

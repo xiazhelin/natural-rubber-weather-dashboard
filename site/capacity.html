@@ -26,7 +26,7 @@
 
   <main class="capacity-main">
     <section class="capacity-intro" aria-label="使用说明">
-      <p><strong>研究样本，不是全球普查。</strong>仅纳入能追溯到原始披露的厂区与产区；设计、已形成、全年有效产能及实际产量分别呈现。未核实不填零，规划产能不计作当前供给。</p>
+      <p><strong>全球前 75 大轮胎企业普查。</strong>从企业集团展开到生产厂区，逐项记录地址、分胎型能力及耗胶依据。下方公开展示已收录与待核验范围；未核实不填零，规划产能不计作当前供给。</p>
       <span id="atlasUpdated">正在读取数据…</span>
     </section>
 
@@ -37,20 +37,29 @@
           <h2 id="tyreTitle">全球轮胎厂产能地图</h2>
           <p>按半钢、全钢及其他胎种查看设计规模、已形成能力、扩产进度与天然胶耗用证据。</p>
         </div>
-        <span class="capacity-scope">样本覆盖 · 非行业总量</span>
+        <span class="capacity-scope">企业榜单 → 厂区普查</span>
       </div>
+      <details class="census-panel">
+        <summary>前 75 大企业名单与普查进度</summary>
+        <p id="censusStatus">正在核对企业名录…</p>
+        <div id="censusTable" class="census-table"></div>
+        <div id="censusSources"></div>
+      </details>
       <div id="tyreStats" class="capacity-stats" aria-live="polite"></div>
       <div class="capacity-controls">
+        <label>记录层<select id="tyreEvidence"><option value="factory">已收录厂区</option><option value="registry">登记待核线索</option></select></label>
+        <label>企业／集团<select id="tyreManufacturer"><option value="all">全部企业</option></select></label>
         <label>国家／地区<select id="tyreCountry"><option value="all">全部</option></select></label>
         <label>胎种<select id="tyreType"><option value="all">全部胎种</option><option value="PCR/LTR">半钢 PCR/LTR</option><option value="TBR">全钢 TBR</option><option value="OTR">工程胎 OTR</option><option value="OTHER">其他／未拆</option></select></label>
-        <label>进度<select id="tyreStatus"><option value="all">全部进度</option><option value="OPERATING">运营</option><option value="RAMPING">爬坡</option><option value="BUILDING">在建</option><option value="PLANNED">规划</option></select></label>
-        <label class="capacity-search">查找工厂<input id="tyreSearch" type="search" placeholder="企业、厂区、省份"></label>
+        <label>进度<select id="tyreStatus"><option value="all">全部进度</option><option value="OPERATING">运营</option><option value="RAMPING">爬坡</option><option value="BUILDING">在建</option><option value="PLANNED">规划</option><option value="CLOSED">已关闭</option><option value="UNKNOWN">状态待核</option></select></label>
+        <label class="capacity-search">查找工厂<input id="tyreSearch" type="search" placeholder="企业、厂区、省份、街道地址"></label>
       </div>
       <div class="capacity-workspace">
         <div class="capacity-map-card">
-          <div class="capacity-map-top"><strong>工厂定位</strong><span>圆点为厂区所在地的城市／地区定位，不代表厂界</span></div>
+          <div class="capacity-map-top"><strong>工厂定位</strong><span>选择国家可放大；具体地址与坐标精度见厂区卡片</span></div>
           <div id="tyreSvg" class="capacity-map" aria-live="polite"></div>
-          <div class="capacity-legend"><span><i class="capacity-key operating"></i>运营</span><span><i class="capacity-key ramping"></i>爬坡</span><span><i class="capacity-key building"></i>在建</span><span><i class="capacity-key planned"></i>规划</span></div>
+          <p id="tyreMapCoverage" class="capacity-footnote"></p>
+          <div class="capacity-legend"><span><i class="capacity-key operating"></i>运营</span><span><i class="capacity-key ramping"></i>爬坡</span><span><i class="capacity-key building"></i>在建</span><span><i class="capacity-key planned"></i>规划／状态待核</span></div>
         </div>
         <aside id="tyreDetail" class="capacity-detail" aria-live="polite"><p>点击地图或下方名单查看厂区明细。</p></aside>
       </div>
@@ -73,6 +82,7 @@
         <span class="capacity-scope">年产量 ≠ 生产潜能</span>
       </div>
       <div id="rubberStats" class="capacity-stats" aria-live="polite"></div>
+      <p id="rubberCoverage" class="capacity-footnote"></p>
       <div class="capacity-controls rubber-controls">
         <label>国家／地区<select id="rubberCountry"><option value="all">全部</option></select></label>
         <label>地图范围<select id="rubberView"><option value="asia">亚洲</option><option value="africa">非洲</option><option value="world">全球</option></select></label>
@@ -95,7 +105,7 @@
       <div>
         <p><strong>轮胎：</strong>设计产能是项目名义规模；已形成是披露时点的年化能力；全年有效产能需要按投产、检修及技术可用时间加权；实际产量或耗胶不能用设计值冒充。</p>
         <p><strong>耗胶模型：</strong>半钢 2.1327 kg／条 = 11 kg 胎重 × 19% 天然胶占比 ÷ 98% 收率；全钢 22.5510 kg／条 = 65 kg × 34% ÷ 98%。19%／34% 取自 <a href="https://www.bls.gov/opub/btn/volume-9/why-the-prices-of-natural-and-synthetic-rubber-do-not-always-bounce-together.htm" target="_blank" rel="noopener noreferrer">BLS 引用 USTMA</a>的代表性胎材结构，胎重和收率是本项目假设，并非 2025 年实测。跨国应用仅作情景估算，需以企业投料和产品结构校准；工程胎不套用。</p>
-        <p><strong>更新：</strong>维护者修改仓库中的 <code>site/data/capacity/tyre-factories.json</code> 或 <code>site/data/capacity/rubber-regions.json</code>，附上来源链接、数据期及质量状态；GitHub Actions 校验后自动重新发布。静态网页本身不提供匿名写入。</p>
+        <p><strong>更新：</strong>企业名录、厂区及省级产量分别维护，可持续补充地址、扩产阶段与披露数据。每条记录保留来源、数据期及核验状态；修订通过校验后随网站发布。</p>
       </div>
     </section>
   </main>

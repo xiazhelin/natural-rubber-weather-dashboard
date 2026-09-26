@@ -1,0 +1,2356 @@
+{
+  "sources": {
+    "SRI_JP_LOC": {
+      "title": "住友橡胶日本生产基地官方地址名录",
+      "url": "https://www.srigroup.co.jp/english/corporate/group/japan.html",
+      "published": null,
+      "accessed": "2026-09-26"
+    },
+    "TOYO_JP_LOC": {
+      "title": "Toyo 日本集团工厂官方地址",
+      "url": "https://www.toyotires-global.com/corporate/network/",
+      "published": null,
+      "accessed": "2026-09-26"
+    },
+    "TOYO_WORLD_LOC": {
+      "title": "Toyo 海外生产法人官方地址（不含销售公司）",
+      "url": "https://www.toyotires-global.com/corporate/oversea_network/",
+      "published": null,
+      "accessed": "2026-09-26"
+    },
+    "TOYO_RS_DESIGN": {
+      "title": "Toyo 塞尔维亚厂设计500万条乘用车等效能力",
+      "url": "https://www.toyotires-global.com/press/2020/201216_e.html",
+      "published": "2020-12-16",
+      "accessed": "2026-09-26"
+    },
+    "TOYO_RS_2026": {
+      "title": "Toyo 塞尔维亚现有工厂新增研发中心公告",
+      "url": "https://www.toyotires-global.com/press/2026/20260324_e.html",
+      "published": "2026-03-23",
+      "accessed": "2026-09-26"
+    },
+    "YOKOHAMA_JP_LOC": {
+      "title": "横滨橡胶日本轮胎生产基地官方名录",
+      "url": "https://www.y-yokohama.com/profile/location/lab/",
+      "published": null,
+      "accessed": "2026-09-26"
+    },
+    "YOKOHAMA_SUB_LOC": {
+      "title": "横滨橡胶日本关联轮胎制造企业地址",
+      "url": "https://www.y-yokohama.com/profile/location/factory/",
+      "published": null,
+      "accessed": "2026-09-26"
+    },
+    "CEAT_AR_2025": {
+      "title": "CEAT FY2024–25 年报 pp.118–119：生产单位地址",
+      "url": "https://www.ceat.com/content/dam/ceat/pdf/8884d970-ec59-4291-85ec-e2dd66e74d4a.pdf",
+      "published": "2025",
+      "accessed": "2026-09-26"
+    },
+    "CEAT_PLANTS": {
+      "title": "CEAT 官方制造基地与胎种介绍",
+      "url": "https://www.ceat.com/corporate/manufacturing.html",
+      "published": null,
+      "accessed": "2026-09-26"
+    },
+    "APOLLO_AR_2025": {
+      "title": "Apollo FY2024–25 年报 p.156：生产单位地址",
+      "url": "https://corporate.apollotyres.com/content/dam/orbit/apollo-corporate/investors/announcements/2025-26/Submission%20of%20AGM%20Notice%20and%20Annual%20Report%20FY25%20-%20July%208%2C%202025.pdf",
+      "published": "2025-07-08",
+      "accessed": "2026-09-26"
+    },
+    "BKT_AR_2025": {
+      "title": "Balkrishna Industries FY2024–25年报：轮胎生产工厂地址",
+      "url": "https://www.bkt-tires.com/wp-content/uploads/2026/01/Annual_reports-BKT-2024-25.pdf",
+      "published": "2025",
+      "accessed": "2026-09-26"
+    },
+    "TVS_LOC": {
+      "title": "TVS Srichakra 官方工厂联系地址",
+      "url": "https://old.tvseurogrip.com/contact-us/",
+      "published": null,
+      "accessed": "2026-09-26"
+    },
+    "BS_AMERICA_LOC": {
+      "title": "Bridgestone Americas 官方新胎制造工厂地址及产品（排除材料/翻新/设备）",
+      "url": "https://www.bridgestoneamericas.com/content/bscorpcomm-sites/americas/en/contact-us/locations/manufacturing-facilities.html",
+      "published": null,
+      "accessed": "2026-09-26"
+    }
+  },
+  "factories": [
+    {
+      "id": "jp_sri_shirakawa",
+      "manufacturer_id": "sumitomo",
+      "company": "住友橡胶",
+      "site": "白河 Shirakawa",
+      "country": "日本",
+      "province": "福岛",
+      "place": "Shirakawa",
+      "address": "1 Kurabeishi-Hirokubo, Shirakawa, Fukushima 961-0017, Japan",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "SRI_JP_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 37.13,
+      "longitude": 140.21,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "SRI_JP_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "SRI_JP_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "jp_sri_nagoya",
+      "manufacturer_id": "sumitomo",
+      "company": "住友橡胶",
+      "site": "名古屋／丰田 Nagoya",
+      "country": "日本",
+      "province": "爱知",
+      "place": "Toyota",
+      "address": "4-1 Shinsei-cho, Toyota, Aichi 471-0837, Japan",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "SRI_JP_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 35.08,
+      "longitude": 137.16,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "SRI_JP_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "SRI_JP_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "jp_sri_izumiotsu",
+      "manufacturer_id": "sumitomo",
+      "company": "住友橡胶",
+      "site": "泉大津 Izumiotsu",
+      "country": "日本",
+      "province": "大阪",
+      "place": "Izumiotsu",
+      "address": "9-1 Kawahara-cho, Izumiotsu, Osaka 595-0044, Japan",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "SRI_JP_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 34.5,
+      "longitude": 135.4,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "SRI_JP_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "SRI_JP_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "jp_sri_miyazaki",
+      "manufacturer_id": "sumitomo",
+      "company": "住友橡胶",
+      "site": "宫崎／都城 Miyazaki",
+      "country": "日本",
+      "province": "宫崎",
+      "place": "Miyakonojo",
+      "address": "3 Tohoku-cho, Miyakonojo, Miyazaki 885-0004, Japan",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "SRI_JP_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 31.72,
+      "longitude": 131.06,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "SRI_JP_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "SRI_JP_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "jp_toyo_sendai",
+      "manufacturer_id": "toyo",
+      "company": "通伊欧",
+      "site": "仙台／岩沼 Sendai",
+      "country": "日本",
+      "province": "宫城",
+      "place": "Iwanuma",
+      "address": "3-5-1 Fukiage, Iwanuma, Miyagi 989-2484, Japan",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "TOYO_JP_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 38.1,
+      "longitude": 140.87,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "TOYO_JP_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "TOYO_JP_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "jp_toyo_kuwana",
+      "manufacturer_id": "toyo",
+      "company": "通伊欧",
+      "site": "桑名／东员 Kuwana",
+      "country": "日本",
+      "province": "三重",
+      "place": "Toin",
+      "address": "2400 Oaza Nakagami, Toin-cho, Inabe-gun, Mie 511-0294, Japan",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "TOYO_JP_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 35.07,
+      "longitude": 136.59,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "TOYO_JP_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "TOYO_JP_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "us_toyo_white",
+      "manufacturer_id": "toyo",
+      "company": "通伊欧",
+      "site": "美国 White",
+      "country": "美国",
+      "province": "Georgia",
+      "place": "White",
+      "address": "3660 Highway 411 NE, White, GA 30184, USA",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "TOYO_WORLD_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 34.28,
+      "longitude": -84.75,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "TOYO_WORLD_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "TOYO_WORLD_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "cn_toyo_zhucheng",
+      "manufacturer_id": "toyo",
+      "company": "通伊欧",
+      "site": "中国诸城",
+      "country": "中国",
+      "province": "山东",
+      "place": "Zhucheng",
+      "address": "Luhe Industry Area, Zhucheng, Shandong, China",
+      "address_quality": "WARNING",
+      "address_scope": "INDUSTRIAL_PARK",
+      "physical_address_verified": false,
+      "address_source_ids": [
+        "TOYO_WORLD_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 36,
+      "longitude": 119.4,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "TOYO_WORLD_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "TOYO_WORLD_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "my_toyo_kamunting",
+      "manufacturer_id": "toyo",
+      "company": "通伊欧",
+      "site": "马来西亚 Kamunting",
+      "country": "马来西亚",
+      "province": "霹雳",
+      "place": "Kamunting",
+      "address": "PT 23101, Jalan Tembaga Kuning, Kawasan Perindustrian Kamunting Raya, 34600 Kamunting, Taiping, Perak, Malaysia",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "TOYO_WORLD_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 4.89,
+      "longitude": 100.73,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "TOYO_WORLD_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "TOYO_WORLD_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "rs_toyo_indjija",
+      "manufacturer_id": "toyo",
+      "company": "通伊欧",
+      "site": "塞尔维亚 Indjija",
+      "country": "塞尔维亚",
+      "province": "伏伊伏丁那",
+      "place": "Indjija",
+      "address": "Industrijska 3 no. 5, 22320 Indjija, Serbia",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "TOYO_WORLD_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 45.05,
+      "longitude": 20.08,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "OPERATING",
+      "quality": "WARNING",
+      "source_ids": [
+        "TOYO_WORLD_LOC",
+        "TOYO_RS_DESIGN",
+        "TOYO_RS_2026"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": 500,
+          "design_as_of": "2020-12-16",
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "TOYO_RS_DESIGN"
+          ],
+          "note": "2020设计口径为乘用车等效条数，目标2023夏形成；不是2026最新有效能力。2026公司公告确认现有工厂，未给更新产能。",
+          "phases": [
+            {
+              "period": "2022-04",
+              "label": "原计划开始制造",
+              "status": "历史计划"
+            },
+            {
+              "period": "2023夏",
+              "label": "原计划达到500万乘用车等效条/年",
+              "status": "目标，非当前达产证明"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jp_yokohama_mie",
+      "manufacturer_id": "yokohama",
+      "company": "优科豪马",
+      "site": "三重工厂",
+      "country": "日本",
+      "province": "三重",
+      "place": "Ise",
+      "address": "日本三重県伊勢市御薗町高向1038，516-8530",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "YOKOHAMA_JP_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 34.49,
+      "longitude": 136.71,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "YOKOHAMA_JP_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "YOKOHAMA_JP_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        },
+        {
+          "type": "TBR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "YOKOHAMA_JP_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "jp_yokohama_mishima",
+      "manufacturer_id": "yokohama",
+      "company": "优科豪马",
+      "site": "三岛工厂",
+      "country": "日本",
+      "province": "静冈",
+      "place": "Mishima",
+      "address": "日本静岡県三島市南二日町8-1，411-0832",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "YOKOHAMA_JP_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 35.12,
+      "longitude": 138.92,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "YOKOHAMA_JP_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "YOKOHAMA_JP_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "jp_yokohama_onomichi",
+      "manufacturer_id": "yokohama",
+      "company": "优科豪马",
+      "site": "尾道工厂",
+      "country": "日本",
+      "province": "广岛",
+      "place": "Onomichi",
+      "address": "日本広島県尾道市東尾道20，722-0051",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "YOKOHAMA_JP_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 34.41,
+      "longitude": 133.21,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "YOKOHAMA_JP_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "YOKOHAMA_JP_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "jp_yokohama_shinshiro",
+      "manufacturer_id": "yokohama",
+      "company": "优科豪马",
+      "site": "新城工厂",
+      "country": "日本",
+      "province": "爱知",
+      "place": "Shinshiro",
+      "address": "日本愛知県新城市野田字古屋敷1，441-1343",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "YOKOHAMA_JP_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 34.9,
+      "longitude": 137.49,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "YOKOHAMA_JP_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "YOKOHAMA_JP_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "jp_yokohama_shinshiro_minami",
+      "manufacturer_id": "yokohama",
+      "company": "优科豪马",
+      "site": "新城南工厂",
+      "country": "日本",
+      "province": "爱知",
+      "place": "Shinshiro",
+      "address": "日本愛知県新城市一鍬田字大入10-24，441-1338",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "YOKOHAMA_JP_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 34.89,
+      "longitude": 137.49,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "YOKOHAMA_JP_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "YOKOHAMA_JP_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "jp_yokohama_aichi_komaki",
+      "manufacturer_id": "yokohama",
+      "company": "优科豪马",
+      "site": "爱知轮胎小牧",
+      "country": "日本",
+      "province": "爱知",
+      "place": "Komaki",
+      "address": "日本愛知県小牧市大字大草字年上坂5827-1，485-0802",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "YOKOHAMA_SUB_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 35.29,
+      "longitude": 136.91,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "YOKOHAMA_SUB_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "YOKOHAMA_SUB_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "jp_yokohama_aichi_kasugai",
+      "manufacturer_id": "yokohama",
+      "company": "优科豪马",
+      "site": "爱知轮胎春日井",
+      "country": "日本",
+      "province": "爱知",
+      "place": "Kasugai",
+      "address": "日本愛知県春日井市田楽町字大坪1108，486-0808",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "YOKOHAMA_SUB_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 35.25,
+      "longitude": 136.98,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "YOKOHAMA_SUB_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "YOKOHAMA_SUB_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "jp_yokohama_ngt",
+      "manufacturer_id": "yokohama",
+      "company": "优科豪马",
+      "site": "Nippon Giant Tire 龙野",
+      "country": "日本",
+      "province": "兵库",
+      "place": "Tatsuno",
+      "address": "日本兵庫県たつの市龍野町中井338，679-4124",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "YOKOHAMA_SUB_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 34.86,
+      "longitude": 134.55,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "YOKOHAMA_SUB_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "YOKOHAMA_SUB_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_ceat_mumbai",
+      "manufacturer_id": "ceat",
+      "company": "CEAT",
+      "site": "Bhandup／Mumbai",
+      "country": "印度",
+      "province": "Maharashtra",
+      "place": "Mumbai",
+      "address": "Village Road, Bhandup (West), Opp. Nahur Station, Mumbai, Maharashtra 400078, India",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "CEAT_AR_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 19.15,
+      "longitude": 72.94,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "CEAT_AR_2025",
+        "CEAT_PLANTS"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "CEAT_AR_2025"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_ceat_nashik",
+      "manufacturer_id": "ceat",
+      "company": "CEAT",
+      "site": "Nashik",
+      "country": "印度",
+      "province": "Maharashtra",
+      "place": "Nashik",
+      "address": "82 MIDC Satpur, Nashik, Maharashtra 422007, India",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "CEAT_AR_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 20,
+      "longitude": 73.79,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "CEAT_AR_2025",
+        "CEAT_PLANTS"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "CEAT_AR_2025"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_ceat_halol",
+      "manufacturer_id": "ceat",
+      "company": "CEAT",
+      "site": "Halol",
+      "country": "印度",
+      "province": "Gujarat",
+      "place": "Halol",
+      "address": "Lilor Paldi Khakharia Road, Village Getmuvala, Post Chandrapura, Taluka Halol, Gujarat 389350, India",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "CEAT_AR_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 22.5,
+      "longitude": 73.47,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "CEAT_AR_2025",
+        "CEAT_PLANTS"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "CEAT_AR_2025"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        },
+        {
+          "type": "TBR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "CEAT_AR_2025"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_ceat_nagpur",
+      "manufacturer_id": "ceat",
+      "company": "CEAT",
+      "site": "Nagpur",
+      "country": "印度",
+      "province": "Maharashtra",
+      "place": "Nagpur",
+      "address": "Plot SZ-39, MIDC Butibori, Nagpur, Maharashtra 441108, India",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "CEAT_AR_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 20.94,
+      "longitude": 78.96,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "CEAT_AR_2025",
+        "CEAT_PLANTS"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "CEAT_AR_2025"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_ceat_chennai",
+      "manufacturer_id": "ceat",
+      "company": "CEAT",
+      "site": "Chennai",
+      "country": "印度",
+      "province": "Tamil Nadu",
+      "place": "Sriperumbudur",
+      "address": "Kannanthangal Village, Maduramangalam Post, Sriperumbudur TK, Kancheepuram, Tamil Nadu 602108, India",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "CEAT_AR_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 12.96,
+      "longitude": 79.94,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "CEAT_AR_2025",
+        "CEAT_PLANTS"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "CEAT_AR_2025"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        },
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "CEAT_AR_2025"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_ceat_ambernath",
+      "manufacturer_id": "ceat",
+      "company": "CEAT",
+      "site": "Ambernath Specialty",
+      "country": "印度",
+      "province": "Maharashtra",
+      "place": "Ambernath",
+      "address": "Plot G-2, Village Bohonoli, Additional Ambernath MIDC, Ambernath East, Thane, Maharashtra 421506, India",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "CEAT_AR_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 19.2,
+      "longitude": 73.19,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "CEAT_AR_2025",
+        "CEAT_PLANTS"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "CEAT_AR_2025"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_apollo_perambra",
+      "manufacturer_id": "apollo",
+      "company": "阿波罗",
+      "site": "Perambra",
+      "country": "印度",
+      "province": "Kerala",
+      "place": "Chalakudy",
+      "address": "Perambra, P.O. Chalakudy, Trichur 680689, Kerala, India",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "APOLLO_AR_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 10.31,
+      "longitude": 76.33,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "APOLLO_AR_2025"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "APOLLO_AR_2025"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_apollo_limda",
+      "manufacturer_id": "apollo",
+      "company": "阿波罗",
+      "site": "Limda",
+      "country": "印度",
+      "province": "Gujarat",
+      "place": "Waghodia",
+      "address": "Limda, Taluka Waghodia, Vadodara 391760, Gujarat, India",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "APOLLO_AR_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 22.3,
+      "longitude": 73.38,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "APOLLO_AR_2025"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "APOLLO_AR_2025"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_apollo_oragadam",
+      "manufacturer_id": "apollo",
+      "company": "阿波罗",
+      "site": "Oragadam／Chennai",
+      "country": "印度",
+      "province": "Tamil Nadu",
+      "place": "Oragadam",
+      "address": "SIPCOT Industrial Growth Centre, Oragadam, Chennai, Tamil Nadu, India",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "APOLLO_AR_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 12.84,
+      "longitude": 79.95,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "APOLLO_AR_2025"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "APOLLO_AR_2025"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_apollo_kalamassery",
+      "manufacturer_id": "apollo",
+      "company": "阿波罗",
+      "site": "Kalamassery",
+      "country": "印度",
+      "province": "Kerala",
+      "place": "Kalamassery",
+      "address": "Kalamassery, Alwaye, Kerala 683104, India",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "APOLLO_AR_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 10.05,
+      "longitude": 76.32,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "APOLLO_AR_2025"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "APOLLO_AR_2025"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_apollo_chittoor",
+      "manufacturer_id": "apollo",
+      "company": "阿波罗",
+      "site": "Chittoor／Sri City",
+      "country": "印度",
+      "province": "Andhra Pradesh",
+      "place": "Varadaiahpalem",
+      "address": "Chinnapandur Village, Varadaiahpalem Mandal, Near Sricity, Chitoor 517541, Andhra Pradesh, India",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "APOLLO_AR_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 13.6,
+      "longitude": 79.97,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "APOLLO_AR_2025"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "APOLLO_AR_2025"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "nl_apollo_enschede",
+      "manufacturer_id": "apollo",
+      "company": "阿波罗",
+      "site": "Vredestein Enschede",
+      "country": "荷兰",
+      "province": "Overijssel",
+      "place": "Enschede",
+      "address": "Ir. Schiffstraat 370, 7547 RD Enschede, Netherlands",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "APOLLO_AR_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 52.22,
+      "longitude": 6.9,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "APOLLO_AR_2025"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "APOLLO_AR_2025"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "hu_apollo_gyongyoshalasz",
+      "manufacturer_id": "apollo",
+      "company": "阿波罗",
+      "site": "Gyöngyöshalász",
+      "country": "匈牙利",
+      "province": "Heves",
+      "place": "Gyongyoshalasz",
+      "address": "H-3212 Gyöngyöshalász, Road 3210, Plot 0106, Hungary",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "APOLLO_AR_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 47.74,
+      "longitude": 19.93,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "APOLLO_AR_2025"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "APOLLO_AR_2025"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_bkt_waluj_old",
+      "manufacturer_id": "bkt",
+      "company": "BKT",
+      "site": "Waluj B-66",
+      "country": "印度",
+      "province": "Maharashtra",
+      "place": "Waluj",
+      "address": "B-66, MIDC Waluj Industrial Area, Chhatrapati Sambhaji Nagar 431136, Maharashtra, India",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "BKT_AR_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 19.84,
+      "longitude": 75.24,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "BKT_AR_2025"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "BKT_AR_2025"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_bkt_waluj_new",
+      "manufacturer_id": "bkt",
+      "company": "BKT",
+      "site": "Waluj F19/20",
+      "country": "印度",
+      "province": "Maharashtra",
+      "place": "Waluj",
+      "address": "F19/20, Gut 62, 65, 66, MIDC Village Wadgaon Kolhati, Waluj, Chhatrapati Sambhaji Nagar 431136, Maharashtra, India",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "BKT_AR_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 19.84,
+      "longitude": 75.24,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "BKT_AR_2025"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "BKT_AR_2025"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_bkt_bhiwadi",
+      "manufacturer_id": "bkt",
+      "company": "BKT",
+      "site": "Bhiwadi",
+      "country": "印度",
+      "province": "Rajasthan",
+      "place": "Bhiwadi",
+      "address": "SP-923, RIICO Industrial Area Phase III, Bhiwadi 301019, Khairthal Tijara, Rajasthan, India",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "BKT_AR_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 28.21,
+      "longitude": 76.86,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "BKT_AR_2025"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "BKT_AR_2025"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_bkt_chopanki",
+      "manufacturer_id": "bkt",
+      "company": "BKT",
+      "site": "Chopanki",
+      "country": "印度",
+      "province": "Rajasthan",
+      "place": "Chopanki",
+      "address": "A-300-305 & E306-313, RIICO Industrial Area, Chopanki, P.O. Bhiwadi 301707, Khairthal Tijara, Rajasthan, India",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "BKT_AR_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 28.1,
+      "longitude": 76.9,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "BKT_AR_2025"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "BKT_AR_2025"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_bkt_bhuj",
+      "manufacturer_id": "bkt",
+      "company": "BKT",
+      "site": "Bhuj",
+      "country": "印度",
+      "province": "Gujarat",
+      "place": "Bhuj",
+      "address": "Bhuj-Bhachau Road SH42, Village Padhdhar, Taluka Bhuj 370105, Kutch, Gujarat, India",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "BKT_AR_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 23.25,
+      "longitude": 69.67,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "BKT_AR_2025"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "BKT_AR_2025"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_tvs_madurai",
+      "manufacturer_id": "tvs",
+      "company": "TVS Srichakra",
+      "site": "Madurai",
+      "country": "印度",
+      "province": "Tamil Nadu",
+      "place": "Madurai",
+      "address": "Vellaripatti, Melur Taluk, Madurai 625122, Tamil Nadu, India",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "TVS_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 9.93,
+      "longitude": 78.12,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "TVS_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "TVS_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "in_tvs_pantnagar",
+      "manufacturer_id": "tvs",
+      "company": "TVS Srichakra",
+      "site": "Pantnagar",
+      "country": "印度",
+      "province": "Uttarakhand",
+      "place": "Pantnagar",
+      "address": "Plot 7, Sector 1, Integrated Industrial Estate SIDCUL, Pantnagar, Rudrapur Tehsil, Kichha 263153, Uttarakhand, India",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "TVS_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 29.01,
+      "longitude": 79.48,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "TVS_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "TVS_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "us_bs_aiken_otr",
+      "manufacturer_id": "bridgestone",
+      "company": "普利司通",
+      "site": "Aiken OTR",
+      "country": "美国",
+      "province": "South Carolina",
+      "place": "Trenton",
+      "address": "7777 Giant Tire Parkway, Trenton, SC 29847, USA",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 33.74,
+      "longitude": -81.84,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "BS_AMERICA_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "us_bs_aiken_pcr",
+      "manufacturer_id": "bridgestone",
+      "company": "普利司通",
+      "site": "Aiken PCR/LTR",
+      "country": "美国",
+      "province": "South Carolina",
+      "place": "Graniteville",
+      "address": "1 Bridgestone Parkway, Graniteville, SC 29829, USA",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 33.56,
+      "longitude": -81.81,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "BS_AMERICA_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "us_bs_akron_racing",
+      "manufacturer_id": "bridgestone",
+      "company": "普利司通",
+      "site": "Akron Racing",
+      "country": "美国",
+      "province": "Ohio",
+      "place": "Akron",
+      "address": "1200 Firestone Parkway, Akron, OH 44317, USA",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 41.08,
+      "longitude": -81.52,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "BS_AMERICA_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "us_bs_bloomington",
+      "manufacturer_id": "bridgestone",
+      "company": "普利司通",
+      "site": "Bloomington–Normal OTR",
+      "country": "美国",
+      "province": "Illinois",
+      "place": "Normal",
+      "address": "1600 Ft. Jesse Road, Normal, IL 61761, USA",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 40.51,
+      "longitude": -88.99,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "BS_AMERICA_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "br_bs_bahia",
+      "manufacturer_id": "bridgestone",
+      "company": "普利司通",
+      "site": "Bahia／Camaçari",
+      "country": "巴西",
+      "province": "Bahia",
+      "place": "Camacari",
+      "address": "Rodovia BA535 Km 11.5, Camaçari, Bahia CEP 42810-200, Brazil",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": -12.7,
+      "longitude": -38.32,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "BS_AMERICA_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "mx_bs_cuernavaca",
+      "manufacturer_id": "bridgestone",
+      "company": "普利司通",
+      "site": "Cuernavaca",
+      "country": "墨西哥",
+      "province": "Morelos",
+      "place": "Cuernavaca",
+      "address": "KM 87.5 Autopista Mexico-Acapulco, Cuernavaca, Morelos 62370, Mexico",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 18.92,
+      "longitude": -99.23,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "BS_AMERICA_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "us_bs_desmoines",
+      "manufacturer_id": "bridgestone",
+      "company": "普利司通",
+      "site": "Des Moines 农业胎",
+      "country": "美国",
+      "province": "Iowa",
+      "place": "Des Moines",
+      "address": "4600 NW 2nd Street, Des Moines, IA 50313-2202, USA",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 41.6,
+      "longitude": -93.61,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "OTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "BS_AMERICA_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "ca_bs_joliette",
+      "manufacturer_id": "bridgestone",
+      "company": "普利司通",
+      "site": "Joliette",
+      "country": "加拿大",
+      "province": "Quebec",
+      "place": "Joliette",
+      "address": "1200 Firestone Boulevard, Joliette, Quebec J6E 2W5, Canada",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 46.02,
+      "longitude": -73.44,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "BS_AMERICA_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "mx_bs_monterrey",
+      "manufacturer_id": "bridgestone",
+      "company": "普利司通",
+      "site": "Monterrey",
+      "country": "墨西哥",
+      "province": "Nuevo Leon",
+      "place": "Cienega de Flores",
+      "address": "Av. Del Parque 1000, Industrial Monterrey Technology Park, Cienega de Flores, Nuevo Leon 65550, Mexico",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 25.96,
+      "longitude": -100.17,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "BS_AMERICA_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "br_bs_saopaulo",
+      "manufacturer_id": "bridgestone",
+      "company": "普利司通",
+      "site": "São Paulo／Santo André",
+      "country": "巴西",
+      "province": "São Paulo",
+      "place": "Santo Andre",
+      "address": "Av. Queiros dos Santos 1717, Santo André, São Paulo 09015-901, Brazil",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": -23.66,
+      "longitude": -46.54,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "BS_AMERICA_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        },
+        {
+          "type": "TBR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "BS_AMERICA_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "us_bs_warren",
+      "manufacturer_id": "bridgestone",
+      "company": "普利司通",
+      "site": "Warren County",
+      "country": "美国",
+      "province": "Tennessee",
+      "place": "Morrison",
+      "address": "725 Bridgestone Drive, Morrison, TN 37357, USA",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 35.6,
+      "longitude": -85.92,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "TBR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "BS_AMERICA_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    },
+    {
+      "id": "us_bs_wilson",
+      "manufacturer_id": "bridgestone",
+      "company": "普利司通",
+      "site": "Wilson",
+      "country": "美国",
+      "province": "North Carolina",
+      "place": "Wilson",
+      "address": "3001 Firestone Parkway, Wilson, NC 27893, USA",
+      "address_quality": "PASS",
+      "address_scope": "PHYSICAL_FACTORY",
+      "physical_address_verified": true,
+      "address_source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 35.72,
+      "longitude": -77.91,
+      "coord_precision": "本项目城市／地区近似定位（ESTIMATE），不是厂门坐标",
+      "coordinate_quality": "WARNING",
+      "status": "UNKNOWN",
+      "quality": "WARNING",
+      "source_ids": [
+        "BS_AMERICA_LOC"
+      ],
+      "as_of": "2026-09-26",
+      "census_record_type": "COMPANY_FACTORY",
+      "note": "厂区与地址按企业官网／年报核验；地图点仅为城市／地区近似定位，不代表厂门。目录列示不等于当前满负荷在产；未核厂级有效产能、实际产量与耗胶，保持 MISSING。具体能力数据日期见产线。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "source_ids": [
+            "BS_AMERICA_LOC"
+          ],
+          "note": "厂级分胎种能力未核实；集团产能不向厂区分摊。"
+        }
+      ]
+    }
+  ]
+}

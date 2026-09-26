@@ -1,0 +1,2061 @@
+{
+  "source": "GTR_PLANTS_2025",
+  "extraction_scope": "PDF12–23页，先按DOT代码、集团名称、城市三条件交叉；原始行保留复核。未经交叉的不进入厂区事实层。",
+  "matched_records": [
+    {
+      "registry_id": "nhtsa_1pc",
+      "source_page": 12,
+      "company_context": "Goodyear Canada Inc. (Goodyear Tire & Rubber Co.)",
+      "place": "Medicine Hat, Alberta",
+      "opened": "1960",
+      "dot_codes": [
+        "PC",
+        "1PC"
+      ],
+      "product_types": "1 (r,b)",
+      "reported_capacity_text": "13,000 u/d",
+      "raw_row": "Medicine Hat, Alberta 1960 PC,1PC 300u 1 (r,b) 13,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_14b",
+      "source_page": 12,
+      "company_context": "Goodyear Canada Inc. (Goodyear Tire & Rubber Co.)",
+      "place": "Napanee, Ontario",
+      "opened": "1990",
+      "dot_codes": [
+        "4B",
+        "14B"
+      ],
+      "product_types": "1 (r)",
+      "reported_capacity_text": "20,000 u/d",
+      "raw_row": "Napanee, Ontario 1990 4B,14B 800 1 (r) 20,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1b3",
+      "source_page": 12,
+      "company_context": "Michelin North America (Canada) Inc. (Group Michelin)",
+      "place": "Bridgewater,",
+      "opened": "1973",
+      "dot_codes": [
+        "B3",
+        "1BD"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "60,000 t/y",
+      "raw_row": "Bridgewater, 1973 B3,1BD 1,309 1,2 (r) 60,000 t/y"
+    },
+    {
+      "registry_id": "nhtsa_1m5",
+      "source_page": 12,
+      "company_context": "Michelin North America (Canada) Inc. (Group Michelin)",
+      "place": "Waterville, Nova Scotia",
+      "opened": "1982",
+      "dot_codes": [
+        "M5",
+        "1M5"
+      ],
+      "product_types": "3,6 (r)",
+      "reported_capacity_text": "137,500 t/y",
+      "raw_row": "Waterville, Nova Scotia 1982 M5,1M5 1,639 3,6 (r) 137,500 t/y"
+    },
+    {
+      "registry_id": "nhtsa_1v6",
+      "source_page": 12,
+      "company_context": "Bridgestone de Mexico S.A. de C.V. (Bridgestone Corp.)",
+      "place": "Cuernavaca, Morelos",
+      "opened": "1980",
+      "dot_codes": [
+        "V6",
+        "1V6"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "25,000 u/d",
+      "raw_row": "Cuernavaca, Morelos 1980 V6,1V6 1,189u 1,2 (r) 25,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1pl",
+      "source_page": 12,
+      "company_context": "Goodyear SLP s.r.l. de C.V. (Goodyear Tire & Rubber Co.)",
+      "place": "San Luis Potosi",
+      "opened": "2017",
+      "dot_codes": [
+        "1PL"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "6.0 mil u/y",
+      "raw_row": "San Luis Potosi 2017 1PL 1,000 1,2 (r) 6.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_03l",
+      "source_page": 12,
+      "company_context": "Industrias Michelin S.A. de C.V. (Group Michelin)",
+      "place": "Leon",
+      "opened": "2018",
+      "dot_codes": [
+        "03L"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "5 mil u/y",
+      "raw_row": "Leon 2018 03L 462 1,2 (r) 5 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_14f",
+      "source_page": 12,
+      "company_context": "JK Tornel S.A. de C.V. (JK Tyre & Industries Ltd.)",
+      "place": "Tultitlán",
+      "opened": "1984",
+      "dot_codes": [
+        "4F",
+        "14F"
+      ],
+      "product_types": "1,2,4,7 (r,b)",
+      "reported_capacity_text": "4.7 mil u/y",
+      "raw_row": "Tultitlán 1984 4F,14F 670u 1,2,4,7 (r,b) 4.7 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1un",
+      "source_page": 12,
+      "company_context": "Pirelli Neumaticos S.A. de C.V. (Pirelli & C. S.p.A.)",
+      "place": "Silao",
+      "opened": "2012",
+      "dot_codes": [
+        "UN",
+        "1UN"
+      ],
+      "product_types": "1 (r)",
+      "reported_capacity_text": "8.5 mil u/y",
+      "raw_row": "Silao 2012 UN,1UN 3,250 1 (r) 8.5 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_17x_18x_19x",
+      "source_page": 12,
+      "company_context": "Bridgestone Americas Tire Operations L.L.C. (Bridgestone Corp.)",
+      "place": "Graniteville, South Carolina",
+      "opened": "1998",
+      "dot_codes": [
+        "7X",
+        "17X",
+        "8X",
+        "18X",
+        "9X",
+        "19X"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "36,500 u/d",
+      "raw_row": "Graniteville, 1998 7X,17X,8X, 1,700 1,2 (r) 36,500 u/d"
+    },
+    {
+      "registry_id": "nhtsa_10b_1w2_1y2",
+      "source_page": 12,
+      "company_context": "Bridgestone Americas Tire Operations L.L.C. (Bridgestone Corp.)",
+      "place": "Wilson, North Carolina",
+      "opened": "1974",
+      "dot_codes": [
+        "W2",
+        "1W2",
+        "Y3",
+        "1Y3",
+        "0B",
+        "10B"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "33,025 u/d",
+      "raw_row": "Wilson, North Carolina 1974 W2,1W2,Y3, 1,900 1,2 (r) 33,025 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1c4",
+      "source_page": 12,
+      "company_context": "Carlstar Group L.L.C. (Titan International Inc.)",
+      "place": "Clinton, Tennessee",
+      "opened": "2000",
+      "dot_codes": [
+        "C4",
+        "1C4"
+      ],
+      "product_types": "4,7",
+      "reported_capacity_text": "10,200 u/d",
+      "raw_row": "Clinton, Tennessee 2000 C4,1C4 500 4,7 10,200 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1p4",
+      "source_page": 12,
+      "company_context": "Carlstar Group L.L.C. (Titan International Inc.)",
+      "place": "Jackson, Tennessee",
+      "opened": "2011",
+      "dot_codes": [
+        "P4",
+        "1P4"
+      ],
+      "product_types": "4,7 (r,b)",
+      "reported_capacity_text": "11,700 u/d",
+      "raw_row": "Jackson, Tennessee 2011 P4,1P4 400 4,7 (r,b) 11,700 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1up",
+      "source_page": 12,
+      "company_context": "Cooper Tire & Rubber Co. (Goodyear Tire & Rubber Co.)",
+      "place": "Findlay, Ohio",
+      "opened": "1914",
+      "dot_codes": [
+        "UP",
+        "1UP"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "18,000 u/d",
+      "raw_row": "Findlay, Ohio 1914 UP,1UP 1,009u 1,2 (r) 18,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1ut",
+      "source_page": 12,
+      "company_context": "Cooper Tire & Rubber Co. (Goodyear Tire & Rubber Co.)",
+      "place": "Texarkana, Arkansas",
+      "opened": "1964",
+      "dot_codes": [
+        "UT",
+        "1UT"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "26,000 u/d",
+      "raw_row": "Texarkana, Arkansas 1964 UT,1UT 1,734u 1,2 (r) 26,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1u9",
+      "source_page": 12,
+      "company_context": "Cooper Tire & Rubber Co. (Goodyear Tire & Rubber Co.)",
+      "place": "Tupelo, Mississippi",
+      "opened": "1984",
+      "dot_codes": [
+        "U9",
+        "1U9"
+      ],
+      "product_types": "1 (r)",
+      "reported_capacity_text": "37,000 u/d",
+      "raw_row": "Tupelo, Mississippi 1984 U9,1U9 1,401 1 (r) 37,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_01b",
+      "source_page": 12,
+      "company_context": "Giti Tire (USA) Ltd. (Giti Tire Pte. Ltd.)",
+      "place": "Richburg, South Carolina",
+      "opened": "2017",
+      "dot_codes": [
+        "01B"
+      ],
+      "product_types": "1 (r)",
+      "reported_capacity_text": "5.0 mil u/y",
+      "raw_row": "Richburg, South Carolina 2017 01B 600 1 (r) 5.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1mb",
+      "source_page": 12,
+      "company_context": "Goodyear Tire & Rubber Co.",
+      "place": "Akron, Ohio",
+      "opened": "1983",
+      "dot_codes": [
+        "MB",
+        "1MB"
+      ],
+      "product_types": "9 (r)",
+      "reported_capacity_text": "2,000 u/d",
+      "raw_row": "Akron, Ohio 1983 MB,1MB 375u 9 (r) 2,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1mc",
+      "source_page": 12,
+      "company_context": "Goodyear Tire & Rubber Co.",
+      "place": "Danville, Virginia",
+      "opened": "1966",
+      "dot_codes": [
+        "MC",
+        "1MC"
+      ],
+      "product_types": "8 (r,b)",
+      "reported_capacity_text": "10,000 u/d",
+      "raw_row": "Danville, Virginia 1966 MC,1MC 2,300u 8 (r,b) 10,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1pj",
+      "source_page": 12,
+      "company_context": "Goodyear Tire & Rubber Co.",
+      "place": "Fayetteville,",
+      "opened": "1969",
+      "dot_codes": [
+        "PJ",
+        "1PJ"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "40,000 u/d",
+      "raw_row": "Fayetteville, 1969 PJ,1PJ 2,900u 1,2 (r) 40,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1m6",
+      "source_page": 12,
+      "company_context": "Goodyear Tire & Rubber Co.",
+      "place": "Lawton, Oklahoma",
+      "opened": "1978",
+      "dot_codes": [
+        "M6",
+        "1M6"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "88,000 u/d",
+      "raw_row": "Lawton, Oklahoma 1978 M6,1M6 2,900 1,2 (r) 88,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1mj",
+      "source_page": 12,
+      "company_context": "Goodyear Tire & Rubber Co.",
+      "place": "Topeka, Kansas",
+      "opened": "1944",
+      "dot_codes": [
+        "MJ",
+        "1MJ"
+      ],
+      "product_types": "2,3,6 (r,b)",
+      "reported_capacity_text": "7,000 u/d",
+      "raw_row": "Topeka, Kansas 1944 MJ,1MJ 1,600u 2,3,6 (r,b) 7,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_00t",
+      "source_page": 12,
+      "company_context": "Hankook Tire America Corp. (Hankook Tire & Technology Co. Ltd.)",
+      "place": "Clarksville, Tennessee",
+      "opened": "2016",
+      "dot_codes": [
+        "00T"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "5 mil u/y",
+      "raw_row": "Clarksville, Tennessee 2016 00T 1,000 1,2 (r) 5 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_000",
+      "source_page": 12,
+      "company_context": "Kumho Tire Georgia Inc. (Kumho Tire Co. Inc.)",
+      "place": "Macon, Georgia",
+      "opened": "2016",
+      "dot_codes": [
+        "000"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "3.5 mil u/y",
+      "raw_row": "Macon, Georgia 2016 000 325u 1,2 (r) 3.5 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1ap",
+      "source_page": 12,
+      "company_context": "Michelin North America Inc. (Group Michelin)",
+      "place": "Ardmore, Oklahoma",
+      "opened": "1969",
+      "dot_codes": [
+        "AP",
+        "1AP"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "23,000 u/d",
+      "raw_row": "Ardmore, Oklahoma 1969 AP,1AP 1,358 1,2 (r) 23,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1b7",
+      "source_page": 12,
+      "company_context": "Michelin North America Inc. (Group Michelin)",
+      "place": "Dothan, Alabama",
+      "opened": "1979",
+      "dot_codes": [
+        "B7",
+        "1B7"
+      ],
+      "product_types": "2 (r)",
+      "reported_capacity_text": "6,800 u/d",
+      "raw_row": "Dothan, Alabama 1979 B7,1B7 554 2 (r) 6,800 u/d"
+    },
+    {
+      "registry_id": "nhtsa_14m_1m3",
+      "source_page": 12,
+      "company_context": "Michelin North America Inc. (Group Michelin)",
+      "place": "Greenville, South Carolina",
+      "opened": "1975",
+      "dot_codes": [
+        "M3",
+        "13M",
+        "4M",
+        "14M"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "27,000 u/d",
+      "raw_row": "Greenville, 1975 M3,13M, 1,007 1,2 (r) 27,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1b9",
+      "source_page": 12,
+      "company_context": "Michelin North America Inc. (Group Michelin)",
+      "place": "Lexington,",
+      "opened": "1981",
+      "dot_codes": [
+        "B9",
+        "1B9"
+      ],
+      "product_types": "1,2,6 (r)",
+      "reported_capacity_text": "288,200 t/y",
+      "raw_row": "Lexington, 1981 B9,1B9 2,810 1,2,6 (r) 288,200 t/y"
+    },
+    {
+      "registry_id": "nhtsa_1b6",
+      "source_page": 12,
+      "company_context": "Michelin North America Inc. (Group Michelin)",
+      "place": "Spartanburg,",
+      "opened": "1978",
+      "dot_codes": [
+        "B6",
+        "1B6"
+      ],
+      "product_types": "3 (r",
+      "reported_capacity_text": "7,000 u/d",
+      "raw_row": "Spartanburg, 1978 B6,1B6 1,396 3 (r 7,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1be",
+      "source_page": 12,
+      "company_context": "Michelin North America Inc. (Group Michelin)",
+      "place": "Tuscaloosa, Alabama",
+      "opened": "1945",
+      "dot_codes": [
+        "BE",
+        "1BE"
+      ],
+      "product_types": "1,2,9 (r)",
+      "reported_capacity_text": "15,000 u/d",
+      "raw_row": "Tuscaloosa, Alabama 1945 BE,1BE 1,393u 1,2,9 (r) 15,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_03b",
+      "source_page": 13,
+      "company_context": "Nokian Tyres Inc. (Nokian Tyres P.L.C.)",
+      "place": "Dayton, Tennessee",
+      "opened": "2019",
+      "dot_codes": [
+        "03B"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "4.0 mil u/y",
+      "raw_row": "Dayton, Tennessee 2019 03B 500 1,2 (r) 4.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1jr",
+      "source_page": 13,
+      "company_context": "Pirelli Tire L.L.C. (Pirelli & C. S.p.A.)",
+      "place": "Rome, Georgia",
+      "opened": "2002",
+      "dot_codes": [
+        "JR",
+        "1JR"
+      ],
+      "product_types": "1 (r)",
+      "reported_capacity_text": "400,000 u/y",
+      "raw_row": "Rome, Georgia 2002 JR,1JR 300 1 (r) 400,000 u/y"
+    },
+    {
+      "registry_id": "nhtsa_1cy",
+      "source_page": 13,
+      "company_context": "Specialty Tires of America Inc.",
+      "place": "Indiana, Pennsylvania",
+      "opened": "1915",
+      "dot_codes": [
+        "CY",
+        "1CY"
+      ],
+      "product_types": "2,4,6,7, 8,9 (b)",
+      "reported_capacity_text": "3,300 u/d",
+      "raw_row": "Indiana, Pennsylvania 1915 CY,1CY 300 2,4,6,7, 3,300 u/d"
+    },
+    {
+      "registry_id": "nhtsa_13u",
+      "source_page": 13,
+      "company_context": "Specialty Tires of America Inc.",
+      "place": "Unicoi, Tennessee",
+      "opened": "1997",
+      "dot_codes": [
+        "3U",
+        "13U"
+      ],
+      "product_types": "2,4,6,7 (b)",
+      "reported_capacity_text": "400,000 u/y",
+      "raw_row": "Unicoi, Tennessee 1997 3U,13U 200 2,4,6,7 (b) 400,000 u/y"
+    },
+    {
+      "registry_id": "nhtsa_1cf",
+      "source_page": 13,
+      "company_context": "Titan Tire Corp.",
+      "place": "Des Moines, Iowa",
+      "opened": "1943",
+      "dot_codes": [
+        "CF",
+        "1CF"
+      ],
+      "product_types": "2,4,6,7 (r,b)",
+      "reported_capacity_text": "13,000 u/d",
+      "raw_row": "Des Moines, Iowa 1943 CF,1CF 600u 2,4,6,7 (r,b) 13,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1pk",
+      "source_page": 13,
+      "company_context": "Titan Tire Corp.",
+      "place": "Freeport, Illinois",
+      "opened": "1964",
+      "dot_codes": [
+        "PK",
+        "1PK"
+      ],
+      "product_types": "4,6,7 (r,b)",
+      "reported_capacity_text": "10,000 u/d",
+      "raw_row": "Freeport, Illinois 1964 PK,1PK 600u 4,6,7 (r,b) 10,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_173",
+      "source_page": 13,
+      "company_context": "Toyo Tire North America Manufacturing Inc. (Toyo Tire Corp.)",
+      "place": "White, Georgia",
+      "opened": "2005",
+      "dot_codes": [
+        "73",
+        "173"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "14 mil u/y",
+      "raw_row": "White, Georgia 2005 73,173 1,720 1,2 (r) 14 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1cc",
+      "source_page": 13,
+      "company_context": "Yokohama Tire Corp. (Yokohama Rubber Co. Ltd.)",
+      "place": "Salem, Virginia",
+      "opened": "1968",
+      "dot_codes": [
+        "CC",
+        "1CC"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "6.2 mil u/y",
+      "raw_row": "Salem, Virginia 1968 CC,1CC 620u 1,2 (r) 6.2 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1w5",
+      "source_page": 13,
+      "company_context": "Bridgestone Argentina S.A.I.C. (Bridgestone Corp.)",
+      "place": "Buenos Aires",
+      "opened": "1931",
+      "dot_codes": [
+        "W5",
+        "1W5"
+      ],
+      "product_types": "1,2,3,4, 6 (r,b)",
+      "reported_capacity_text": "13,733 u/d",
+      "raw_row": "Buenos Aires 1931 W5,1W5 1,319u 1,2,3,4, 13,733 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1xm",
+      "source_page": 13,
+      "company_context": "Pirelli Neumaticos S.A.I.C. (Pirelli & C. S.p.A.)",
+      "place": "Merlo",
+      "opened": "2014",
+      "dot_codes": [
+        "XM",
+        "1XM"
+      ],
+      "product_types": "1,2,5 (r,b)",
+      "reported_capacity_text": "4.0 mil u/y",
+      "raw_row": "Merlo 2014 XM,1XM 1,400u 1,2,5 (r,b) 4.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_165",
+      "source_page": 13,
+      "company_context": "Continental do Brasil Produtos Automotivos Ltda. (Continental A.G.)",
+      "place": "Camacari/Bahia",
+      "opened": "2006",
+      "dot_codes": [
+        "65",
+        "165"
+      ],
+      "product_types": "1,2,3 (r)",
+      "reported_capacity_text": "9.8 mil u/y",
+      "raw_row": "Camacari/Bahia 2006 65,165 2,200 1,2,3 (r) 9.8 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1n9",
+      "source_page": 13,
+      "company_context": "Pirelli Pneus Ltda. (Pirelli & C. S.p.A.)",
+      "place": "Feira de Santana",
+      "opened": "1986",
+      "dot_codes": [
+        "N9",
+        "1N9"
+      ],
+      "product_types": "1 (r,b)",
+      "reported_capacity_text": "5.0 mil u/y",
+      "raw_row": "Feira de Santana 1986 N9,1N9 1,200 1 (r,b) 5.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1b8",
+      "source_page": 13,
+      "company_context": "Rodaco Brasil (Group Michelin) (Group Michelin)",
+      "place": "Campo-Grande",
+      "opened": "1981",
+      "dot_codes": [
+        "B8",
+        "1B8"
+      ],
+      "product_types": "3,6 (r)",
+      "reported_capacity_text": "146,500 t/y",
+      "raw_row": "Campo-Grande 1981 B8,1B8 2,828 3,6 (r) 146,500 t/y"
+    },
+    {
+      "registry_id": "nhtsa_13r",
+      "source_page": 14,
+      "company_context": "Rodaco Brasil (Group Michelin) (Group Michelin)",
+      "place": "Itatiaia-Resende",
+      "opened": "1999",
+      "dot_codes": [
+        "3R",
+        "13R"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "4,000 u/d",
+      "raw_row": "Itatiaia-Resende 1999 3R,13R 1,237 1,2 (r) 4,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1m7",
+      "source_page": 14,
+      "company_context": "Goodyear de Chile S.A.I.C. (Goodyear Tire & Rubber Co.)",
+      "place": "Santiago",
+      "opened": "1978",
+      "dot_codes": [
+        "M7",
+        "1M7"
+      ],
+      "product_types": "1,2,3 (r,b)",
+      "reported_capacity_text": "16,000 u/d",
+      "raw_row": "Santiago 1978 M7,1M7 850u 1,2,3 (r,b) 16,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1wb",
+      "source_page": 14,
+      "company_context": "Bridgestone Costa Rica S.A. (Bridgestone Corp.)",
+      "place": "San Jose",
+      "opened": "1967",
+      "dot_codes": [
+        "WB",
+        "1WB"
+      ],
+      "product_types": "1,2,3,4 (r,b)",
+      "reported_capacity_text": "5.0 mil u/y",
+      "raw_row": "San Jose 1967 WB,1WB 940 1,2,3,4 (r,b) 5.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_11h",
+      "source_page": 14,
+      "company_context": "Continental Tire Andina S.A. (Continental A.G.)",
+      "place": "Cuenca",
+      "opened": "1955",
+      "dot_codes": [
+        "1H",
+        "11H"
+      ],
+      "product_types": "1,2,3 (r,b)",
+      "reported_capacity_text": "2.2 mil u/y",
+      "raw_row": "Cuenca 1955 1H,11H 800u 1,2,3 (r,b) 2.2 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1nt",
+      "source_page": 14,
+      "company_context": "Compania Goodyear del Peru S.A. (Goodyear Tire & Rubber Co.)",
+      "place": "Lima",
+      "opened": "1945",
+      "dot_codes": [
+        "NT",
+        "1NT"
+      ],
+      "product_types": "1,2,3,4, 7(r,b)",
+      "reported_capacity_text": "5,000 u/d",
+      "raw_row": "Lima 1945 NT,1NT 300u 1,2,3,4, 5,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1hw",
+      "source_page": 14,
+      "company_context": "Continental Barum s.r.o. (Continental A.G.)",
+      "place": "Otrokovice",
+      "opened": "1972",
+      "dot_codes": [
+        "HW",
+        "1HW"
+      ],
+      "product_types": "1,2,3,7 (r,b)",
+      "reported_capacity_text": "21.5 mil u/y",
+      "raw_row": "Otrokovice 1972 HW,1HW 4,700u 1,2,3,7 (r,b) 21.5 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1cn",
+      "source_page": 14,
+      "company_context": "Continental France S.N.C. (Continental A.G.)",
+      "place": "Sarreguemines",
+      "opened": "1964",
+      "dot_codes": [
+        "CN",
+        "1CN"
+      ],
+      "product_types": "1 (r)",
+      "reported_capacity_text": "10 mil u/y",
+      "raw_row": "Sarreguemines 1964 CN,1CN 1,300u 1 (r) 10 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1dk",
+      "source_page": 14,
+      "company_context": "Goodyear-Dunlop Tyres France S.A. (Goodyear Tire & Rubber Co.)",
+      "place": "Montlucon",
+      "opened": "1920",
+      "dot_codes": [
+        "DK",
+        "1DK"
+      ],
+      "product_types": "5 (r)",
+      "reported_capacity_text": "6,000 u/d",
+      "raw_row": "Montlucon 1920 DK,1DK 700u 5 (r) 6,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1cp",
+      "source_page": 14,
+      "company_context": "Continental A.G.",
+      "place": "Korbach",
+      "opened": "1908",
+      "dot_codes": [
+        "CP",
+        "1CP"
+      ],
+      "product_types": "1,2,5, 7 (r,b)",
+      "reported_capacity_text": "9.0 mil u/y",
+      "raw_row": "Korbach 1908 CP,1CP 2,300u 1,2,5, 9.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1ft",
+      "source_page": 14,
+      "company_context": "Michelin Reifenwerke K.G.a.A. (Group Michelin)",
+      "place": "Bad-Kreuznach",
+      "opened": "1966",
+      "dot_codes": [
+        "FT",
+        "1FT"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "26,000 u/d",
+      "raw_row": "Bad-Kreuznach 1966 FT,1FT 1,400u 1,2 (r) 26,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1fv",
+      "source_page": 14,
+      "company_context": "Michelin Reifenwerke K.G.a.A. (Group Michelin)",
+      "place": "Homburg",
+      "opened": "1971",
+      "dot_codes": [
+        "FV",
+        "1V"
+      ],
+      "product_types": "3 (r)",
+      "reported_capacity_text": "4,000 u/d",
+      "raw_row": "Homburg 1971 FV,1V 1,280u 3 (r) 4,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1fw",
+      "source_page": 14,
+      "company_context": "Michelin Reifenwerke K.G.a.A. (Group Michelin)",
+      "place": "Karlsruhe *(closing 2025) Pirelli Deutschland G.m.b.H.",
+      "opened": "1931",
+      "dot_codes": [
+        "FW",
+        "1FW"
+      ],
+      "product_types": "3 (r)",
+      "reported_capacity_text": "5,000 u/d",
+      "raw_row": "Karlsruhe *(closing 2025) 1931 FW,1FW 593u 3 (r) 5,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1eb_1ec",
+      "source_page": 14,
+      "company_context": "Pirelli Deutschland G.m.b.H. (Pirelli & C. S.p.A.)",
+      "place": "Breuberg",
+      "opened": "1903",
+      "dot_codes": [
+        "EB",
+        "EC"
+      ],
+      "product_types": "1 (r)",
+      "reported_capacity_text": "6.0 mil u/y",
+      "raw_row": "Breuberg 1903 EB,EC 2,500u 1 (r) 6.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1vr",
+      "source_page": 14,
+      "company_context": "Bridgestone Tatabanya Termelo Kft. (Bridgestone Corp.)",
+      "place": "Tatabanya",
+      "opened": "2008",
+      "dot_codes": [
+        "VR",
+        "1VR"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "18,248 u/d",
+      "raw_row": "Tatabanya 2008 VR,1VR 1,150 1,2 (r) 18,248 u/d"
+    },
+    {
+      "registry_id": "nhtsa_12x",
+      "source_page": 14,
+      "company_context": "Hankook Tire Hungary Ltd. (Hankook Tire Europe Holdings B.V.)",
+      "place": "Racalmas",
+      "opened": "2007",
+      "dot_codes": [
+        "2X",
+        "12X"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "17 mil u/y",
+      "raw_row": "Racalmas 2007 2X,12X 2,660u 1,2 (r) 17 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_261",
+      "source_page": 14,
+      "company_context": "Michelin Hungaria Tyre Manufacture Ltd. (Group Michelin)",
+      "place": "Nyiregyhaza",
+      "opened": "1979",
+      "dot_codes": [
+        "6I",
+        "16L"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "3,000 u/d",
+      "raw_row": "Nyiregyhaza 1979 6I,16L 1,046u 1,2 (r) 3,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1xa",
+      "source_page": 14,
+      "company_context": "Pirelli Tyre S.p.A. (China National Chemical Corp.)",
+      "place": "Bollate",
+      "opened": "1988",
+      "dot_codes": [
+        "XA",
+        "1XA"
+      ],
+      "product_types": "1 (r)",
+      "reported_capacity_text": "400,000 u/y",
+      "raw_row": "Bollate 1988 XA,1XA 250u 1 (r) 400,000 u/y"
+    },
+    {
+      "registry_id": "nhtsa_1hd",
+      "source_page": 14,
+      "company_context": "S.A. Michelin Italiana (Group Michelin)",
+      "place": "Cuneo",
+      "opened": "1963",
+      "dot_codes": [
+        "HD",
+        "1HD"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "35,000 u/d",
+      "raw_row": "Cuneo 1963 HD,1HD 2,500u 1,2 (r) 35,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1l1",
+      "source_page": 14,
+      "company_context": "Goodyear S.A. (Goodyear Tire & Rubber Co.)",
+      "place": "Dudelange",
+      "opened": "2021",
+      "dot_codes": [
+        "L1",
+        "1L1"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "500,000 u/y",
+      "raw_row": "Dudelange 2021 L1,1L1 70u 1,2 (r) 500,000 u/y"
+    },
+    {
+      "registry_id": "nhtsa_1dv",
+      "source_page": 14,
+      "company_context": "Apollo Vredestein B.V. (Apollo Tyres Ltd.)",
+      "place": "Enschede",
+      "opened": "1947",
+      "dot_codes": [
+        "DV",
+        "1DV"
+      ],
+      "product_types": "1,4 (r)",
+      "reported_capacity_text": "670,000 u/y",
+      "raw_row": "Enschede 1947 DV,1DV 588u 1,4 (r) 670,000 u/y"
+    },
+    {
+      "registry_id": "nhtsa_1jy",
+      "source_page": 15,
+      "company_context": "Bridgestone Stargard Sp. Zo.o. (Bridgestone Corp.)",
+      "place": "Stargard",
+      "opened": "2009",
+      "dot_codes": [
+        "JY",
+        "1JY"
+      ],
+      "product_types": "3 (r)",
+      "reported_capacity_text": "4,328 u/d",
+      "raw_row": "Stargard 2009 JY,1JY 926 3 (r) 4,328 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1a5",
+      "source_page": 15,
+      "company_context": "TC Debica S.A. (Goodyear Tire & Rubber Co.)",
+      "place": "Debica",
+      "opened": "1939",
+      "dot_codes": [
+        "A5",
+        "1A5",
+        "T3",
+        "1T3"
+      ],
+      "product_types": "1,2,3,4, 7 (r,b)",
+      "reported_capacity_text": "48,000 u/d",
+      "raw_row": "Debica 1939 A5,1A5, 2,500u 1,2,3,4, 48,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1af",
+      "source_page": 15,
+      "company_context": "Continental Mabor Rubber s.r.o (Continental A.G.)",
+      "place": "Lousado",
+      "opened": "1946",
+      "dot_codes": [
+        "AF",
+        "1AF"
+      ],
+      "product_types": "1,4,6 (r)",
+      "reported_capacity_text": "18.0 mil u/y",
+      "raw_row": "Lousado 1946 AF,1AF 2,800u 1,4,6 (r) 18.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_266",
+      "source_page": 15,
+      "company_context": "Continental Automotive Products S.R.L. (Continental A.G.)",
+      "place": "Timisoara",
+      "opened": "1998",
+      "dot_codes": [
+        "6G",
+        "266"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "17.0 mil u/y",
+      "raw_row": "Timisoara 1998 6G,266 2,500 1,2 (r) 17.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1l7",
+      "source_page": 15,
+      "company_context": "Michelin Romania S.A. (Group Michelin)",
+      "place": "Zalau",
+      "opened": "1981",
+      "dot_codes": [
+        "L7",
+        "1L7"
+      ],
+      "product_types": "3,7 (r)",
+      "reported_capacity_text": "2,000 u/d",
+      "raw_row": "Zalau 1981 L7,1L7 1,395u 3,7 (r) 2,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_193",
+      "source_page": 15,
+      "company_context": "S.C. Pirelli Tyres Romania S.r.l. (Pirelli & C. S.p.A.)",
+      "place": "Slatina",
+      "opened": "2006",
+      "dot_codes": [
+        "93",
+        "193"
+      ],
+      "product_types": "1 (r)",
+      "reported_capacity_text": "13.5 mil u/y",
+      "raw_row": "Slatina 2006 93,193 3,450 1 (r) 13.5 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1xh",
+      "source_page": 15,
+      "company_context": "Pirelli Tyre Russia L.L.C. (Pirelli & C. S.p.A.)",
+      "place": "Kirov",
+      "opened": "1943",
+      "dot_codes": [
+        "6P",
+        "16P",
+        "XH",
+        "1XH"
+      ],
+      "product_types": "1,2 (r,b)",
+      "reported_capacity_text": "6.0 mil u/y",
+      "raw_row": "Kirov 1943 6P,16P,XH, 1,600 1,2 (r,b) 6.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1yb",
+      "source_page": 15,
+      "company_context": "Pirelli Tyre Russia L.L.C. (Pirelli & C. S.p.A.)",
+      "place": "Voronezh",
+      "opened": "1950",
+      "dot_codes": [
+        "JW",
+        "V7",
+        "YB"
+      ],
+      "product_types": "1,2 (r,b)",
+      "reported_capacity_text": "2.3 mil u/y",
+      "raw_row": "Voronezh 1950 JW,V7,YB 900 1,2 (r,b) 2.3 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1t5",
+      "source_page": 16,
+      "company_context": "Tigar Tyres d.o.o. (Group Michelin)",
+      "place": "Pirot",
+      "opened": "1935",
+      "dot_codes": [
+        "T5",
+        "1T5"
+      ],
+      "product_types": "1,2,5 (r,b)",
+      "reported_capacity_text": "12.0 mil u/y",
+      "raw_row": "Pirot 1935 T5,1T5 3,408 1,2,5 (r,b) 12.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_05c",
+      "source_page": 16,
+      "company_context": "Toyo Tire Serbia d.o.o. (Toyo Tire Corp.)",
+      "place": "Indjija City",
+      "opened": "2022",
+      "dot_codes": [
+        "05C"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "5.0 mil u/y",
+      "raw_row": "Indjija City 2022 05C 523 1,2 (r) 5.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_16y",
+      "source_page": 16,
+      "company_context": "Continental Matador Rubber S.r.o. (Continental A.G.)",
+      "place": "Puchov",
+      "opened": "1947",
+      "dot_codes": [
+        "J3",
+        "1J3",
+        "6Y",
+        "16Y"
+      ],
+      "product_types": "1,2,3 (r,b)",
+      "reported_capacity_text": "18.0 mil u/y",
+      "raw_row": "Puchov 1947 J3,1J3, 4,700 1,2,3 (r,b) 18.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_15c_1vt",
+      "source_page": 16,
+      "company_context": "Bridgestone Hispania S.A. (Bridgestone Corp.)",
+      "place": "Bilbao *(big layoffs)",
+      "opened": "1931",
+      "dot_codes": [
+        "VT",
+        "1VT",
+        "5C",
+        "15C"
+      ],
+      "product_types": "3 (r)",
+      "reported_capacity_text": "5,296 u/d",
+      "raw_row": "Bilbao *(big layoffs) 1931 VT,1VT, 893u 3 (r) 5,296 u/d"
+    },
+    {
+      "registry_id": "nhtsa_16c_1wf",
+      "source_page": 16,
+      "company_context": "Bridgestone Hispania S.A. (Bridgestone Corp.)",
+      "place": "Burgos",
+      "opened": "1976",
+      "dot_codes": [
+        "WF",
+        "1WF",
+        "6C",
+        "16C"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "26,874 u/d",
+      "raw_row": "Burgos 1976 WF,1WF, 1,318u 1,2 (r) 26,874 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1ha",
+      "source_page": 16,
+      "company_context": "Michelin Espana Portugal S.A. (Group Michelin)",
+      "place": "Aranda de Duero",
+      "opened": "1970",
+      "dot_codes": [
+        "HA",
+        "1HA"
+      ],
+      "product_types": "3 (r)",
+      "reported_capacity_text": "6,500 u/d",
+      "raw_row": "Aranda de Duero 1970 HA,1HA 1,258u 3 (r) 6,500 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1hb",
+      "source_page": 16,
+      "company_context": "Michelin Espana Portugal S.A. (Group Michelin)",
+      "place": "Lasarte",
+      "opened": "1934",
+      "dot_codes": [
+        "HB",
+        "1HB"
+      ],
+      "product_types": "5 (r,b)",
+      "reported_capacity_text": "12,000 t/y",
+      "raw_row": "Lasarte 1934 HB,1HB 488u 5 (r,b) 12,000 t/y"
+    },
+    {
+      "registry_id": "nhtsa_1h1",
+      "source_page": 16,
+      "company_context": "Michelin Espana Portugal S.A. (Group Michelin)",
+      "place": "Valladolid",
+      "opened": "1974",
+      "dot_codes": [
+        "H1"
+      ],
+      "product_types": "1,2,4 (r)",
+      "reported_capacity_text": "102,000 t/y",
+      "raw_row": "Valladolid 1974 H1,1Hi 1,624u 1,2,4 (r) 102,000 t/y"
+    },
+    {
+      "registry_id": "nhtsa_1hc",
+      "source_page": 16,
+      "company_context": "Michelin Espana Portugal S.A. (Group Michelin)",
+      "place": "Vitoria",
+      "opened": "1966",
+      "dot_codes": [
+        "HC",
+        "1HC"
+      ],
+      "product_types": "1,2,6 (r)",
+      "reported_capacity_text": "210,400 t/y",
+      "raw_row": "Vitoria 1966 HC,1HC 3,221u 1,2,6 (r) 210,400 t/y"
+    },
+    {
+      "registry_id": "nhtsa_1xp",
+      "source_page": 16,
+      "company_context": "Pirelli Ltd. (Pirelli & C. S.p.A.)",
+      "place": "Burton-on-Trent,",
+      "opened": "1969",
+      "dot_codes": [
+        "XP",
+        "1XP"
+      ],
+      "product_types": "1 (r)",
+      "reported_capacity_text": "200,000 u/y",
+      "raw_row": "Burton-on-Trent, 1969 XP,1XP 400 1 (r) 200,000 u/y"
+    },
+    {
+      "registry_id": "nhtsa_1xn",
+      "source_page": 16,
+      "company_context": "Pirelli Ltd. (Pirelli & C. S.p.A.)",
+      "place": "Carlisle, England",
+      "opened": "1969",
+      "dot_codes": [
+        "XN",
+        "1XN"
+      ],
+      "product_types": "1 (r)",
+      "reported_capacity_text": "3.0 mil u/y",
+      "raw_row": "Carlisle, England 1969 XN,1XN 900u 1 (r) 3.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_076",
+      "source_page": 16,
+      "company_context": "General Rubber (Cambodia) Co. Ltd. (Jiangsu General Science Technology Co. Ltd.)",
+      "place": "Sihanouk",
+      "opened": "2023",
+      "dot_codes": [
+        "076"
+      ],
+      "product_types": "1,2,3 (r )",
+      "reported_capacity_text": "5.9 mil u/y",
+      "raw_row": "Sihanouk 2023 076 1,600 1,2,3 (r ) 5.9 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1lf",
+      "source_page": 16,
+      "company_context": "Continental Tires (Hefei) Co. Ltd. (Continental A.G.)",
+      "place": "Hefei",
+      "opened": "2009",
+      "dot_codes": [
+        "LF",
+        "1LF"
+      ],
+      "product_types": "1,2,9 (r)",
+      "reported_capacity_text": "14.0 mil u/y",
+      "raw_row": "Hefei 2009 LF,1LF 2,400u 1,2,9 (r) 14.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_176",
+      "source_page": 17,
+      "company_context": "Double Coin Holdings Ltd. (Huyai Group)",
+      "place": "Rugao, Jiangsu",
+      "opened": "2005",
+      "dot_codes": [
+        "76",
+        "176"
+      ],
+      "product_types": "3,4,6,7 (r)",
+      "reported_capacity_text": "3.3 mil u/y",
+      "raw_row": "Rugao, Jiangsu 2005 76,176 2,000 3,4,6,7 (r) 3.3 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_12j",
+      "source_page": 17,
+      "company_context": "Double Coin Holdings Ltd. (Huyai Group)",
+      "place": "Shanghai, Shanghai",
+      "opened": "1989",
+      "dot_codes": [
+        "2J",
+        "12J"
+      ],
+      "product_types": "3,6,7 (r)",
+      "reported_capacity_text": "88,000 u/y",
+      "raw_row": "Shanghai, Shanghai 1989 2J,12J 2,000u 3,6,7 (r) 88,000 u/y"
+    },
+    {
+      "registry_id": "nhtsa_1db",
+      "source_page": 17,
+      "company_context": "Double Coin Holdings Ltd. (Huyai Group)",
+      "place": "Urumqi City, Xinjiang",
+      "opened": "1994",
+      "dot_codes": [
+        "DB",
+        "1DB"
+      ],
+      "product_types": "2,3 (b)",
+      "reported_capacity_text": "2.7 mil u/y",
+      "raw_row": "Urumqi City, Xinjiang 1994 DB,1DB 3,000 2,3 (b) 2.7 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_19u",
+      "source_page": 17,
+      "company_context": "Giti Tire (China) Investment Co. Ltd. (Giti Tire Pte. Ltd.)",
+      "place": "Hefei, Anhui",
+      "opened": "1993",
+      "dot_codes": [
+        "9U",
+        "19U"
+      ],
+      "product_types": "1,2,3,9 (r)",
+      "reported_capacity_text": "22.1 mil u/y",
+      "raw_row": "Hefei, Anhui 1993 9U,19U 4,400 1,2,3,9 (r) 22.1 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_13a",
+      "source_page": 17,
+      "company_context": "Giti Tire (China) Investment Co. Ltd. (Giti Tire Pte. Ltd.)",
+      "place": "Mudanjiang,",
+      "opened": "1988",
+      "dot_codes": [
+        "3A",
+        "13A"
+      ],
+      "product_types": "1,2,3,9 (r)",
+      "reported_capacity_text": "6.75 mil u/y",
+      "raw_row": "Mudanjiang, 1988 3A,13A 1,800 1,2,3,9 (r) 6.75 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_15w",
+      "source_page": 17,
+      "company_context": "Giti Tire (China) Investment Co. Ltd. (Giti Tire Pte. Ltd.)",
+      "place": "Putian, Fujian",
+      "opened": "2000",
+      "dot_codes": [
+        "5W",
+        "15W"
+      ],
+      "product_types": "1,2,3 (r)",
+      "reported_capacity_text": "18.3 mil u/y",
+      "raw_row": "Putian, Fujian 2000 5W,15W 3,200 1,2,3 (r) 18.3 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_115",
+      "source_page": 17,
+      "company_context": "Jinyu Tyre Co. Ltd.",
+      "place": "Dongying City,",
+      "opened": "1995",
+      "dot_codes": [
+        "15",
+        "115"
+      ],
+      "product_types": "(r)",
+      "reported_capacity_text": "3.6 mil u/y",
+      "raw_row": "Dongying City, 1995 15,115 2,000 (r) 3.6 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_05v",
+      "source_page": 17,
+      "company_context": "Linglong Group Co. Ltd.",
+      "place": "Changchun",
+      "opened": "–",
+      "dot_codes": [
+        "05V"
+      ],
+      "product_types": "3 (r)",
+      "reported_capacity_text": "14.0 mil u/y",
+      "raw_row": "Changchun – 05V – 3 (r) 14.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1r1",
+      "source_page": 17,
+      "company_context": "Linglong Group Co. Ltd.",
+      "place": "Dezhou, Shandong",
+      "opened": "–",
+      "dot_codes": [
+        "R1",
+        "1R1"
+      ],
+      "product_types": "1,2,3 (r)",
+      "reported_capacity_text": "10 mil u/y",
+      "raw_row": "Dezhou, Shandong – R1,1R1 – 1,2,3 (r) 10 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_03w",
+      "source_page": 17,
+      "company_context": "Linglong Group Co. Ltd.",
+      "place": "Jingmen, Hubei",
+      "opened": "2019",
+      "dot_codes": [
+        "03W"
+      ],
+      "product_types": "1,2,3,6 (r)",
+      "reported_capacity_text": "15 mil u/y",
+      "raw_row": "Jingmen, Hubei 2019 03W – 1,2,3,6 (r) 15 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_14y",
+      "source_page": 17,
+      "company_context": "Prinx Chengshan (Shandong) Tire Co. Ltd. (Chengshan Group)",
+      "place": "Rongcheng City",
+      "opened": "1976",
+      "dot_codes": [
+        "4Y",
+        "14Y"
+      ],
+      "product_types": "1,2,3,4,6, 7 (r,b)",
+      "reported_capacity_text": "20.6 mil u/y",
+      "raw_row": "Rongcheng City 1976 4Y,14Y 2,860u 1,2,3,4,6, 20.6 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1p2",
+      "source_page": 17,
+      "company_context": "Qingdao Sentury Tire Co. Ltd. (Sentaida Group)",
+      "place": "Jimo, Qingdao,",
+      "opened": "2007",
+      "dot_codes": [
+        "P2",
+        "1P2"
+      ],
+      "product_types": "1,2,9 (r,b)",
+      "reported_capacity_text": "15.0 mil u/y",
+      "raw_row": "Jimo, Qingdao, 2007 P2,1P2 864 1,2,9 (r,b) 15.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1lb",
+      "source_page": 18,
+      "company_context": "Shandong Fengyuan Tire Mfg. Co. Ltd.",
+      "place": "Zaozhuang, Shandong",
+      "opened": "–",
+      "dot_codes": [
+        "LB",
+        "1LB"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "20.0 mil u/y",
+      "raw_row": "Zaozhuang, Shandong – LB,1LB – 1,2 (r) 20.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1ac",
+      "source_page": 18,
+      "company_context": "Shandong Huasheng Rubber Co. Ltd.",
+      "place": "Dongying City,",
+      "opened": "1995",
+      "dot_codes": [
+        "AC",
+        "1AC"
+      ],
+      "product_types": "1,2,3 (r)",
+      "reported_capacity_text": "18.5 mil u/y",
+      "raw_row": "Dongying City, 1995 AC,1AC 4,500 1,2,3 (r) 18.5 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_180",
+      "source_page": 18,
+      "company_context": "Shandong Wanda Boto Tyre Co. Ltd.",
+      "place": "Dongying City, Shandong",
+      "opened": "–",
+      "dot_codes": [
+        "80",
+        "180"
+      ],
+      "product_types": "1,2,3,6 (r)",
+      "reported_capacity_text": "18.0 mil u/y",
+      "raw_row": "Dongying City, Shandong – 80,180 – 1,2,3,6 (r) 18.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1ad",
+      "source_page": 18,
+      "company_context": "ShandongYongfeng Tire Co. Ltd. (Shandong Hengfeng Rubber & Plastic Co. Ltd.)",
+      "place": "Linyi City, Shandong",
+      "opened": "1995",
+      "dot_codes": [
+        "AD",
+        "1AD"
+      ],
+      "product_types": "1,3 (r)",
+      "reported_capacity_text": "20.6 mil u/y",
+      "raw_row": "Linyi City, Shandong 1995 AD, 1AD 4,500 1,3 (r) 20.6 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1je",
+      "source_page": 18,
+      "company_context": "Shandong Yongsheng Rubber Group Co. Ltd.",
+      "place": "Dongying City,",
+      "opened": "1986",
+      "dot_codes": [
+        "JE",
+        "JK"
+      ],
+      "product_types": "1,2,3 (r)",
+      "reported_capacity_text": "28.8 mil u/y",
+      "raw_row": "Dongying City, 1986 JE,JK – 1,2,3 (r) 28.8 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1bu",
+      "source_page": 18,
+      "company_context": "Shouguang Firemax Tyre Co. Ltd.",
+      "place": "Shouguang, Shandong",
+      "opened": "2011",
+      "dot_codes": [
+        "1BU"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "13.2 mil u/y",
+      "raw_row": "Shouguang, Shandong 2011 1BU 1,988 1,2 (r) 13.2 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_12v",
+      "source_page": 18,
+      "company_context": "Triangle Group Co. Ltd.",
+      "place": "Weihai, Shandong",
+      "opened": "2003",
+      "dot_codes": [
+        "2V",
+        "12V"
+      ],
+      "product_types": "1,2,6 (r,b)",
+      "reported_capacity_text": "12.3 mil u/y",
+      "raw_row": "Weihai, Shandong 2003 2V, 12V 2,333u 1,2,6 (r,b) 12.3 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_10h",
+      "source_page": 18,
+      "company_context": "Triangle Group Co. Ltd.",
+      "place": "Weihai, Shandong",
+      "opened": "2009",
+      "dot_codes": [
+        "0H",
+        "10H"
+      ],
+      "product_types": "1,2,3 (r)",
+      "reported_capacity_text": "6.0 mil u/y",
+      "raw_row": "Weihai, Shandong 2009 0H,10H 1,836u 1,2,3 (r) 6.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_17p",
+      "source_page": 18,
+      "company_context": "Weifang Yuelong Rubber Co. Ltd.",
+      "place": "Shouguang, Shandong",
+      "opened": "1986",
+      "dot_codes": [
+        "7P",
+        "17P"
+      ],
+      "product_types": "2,3 (r)",
+      "reported_capacity_text": "3.0 mil u/y",
+      "raw_row": "Shouguang, Shandong 1986 7P,17P 3,520 2,3 (r) 3.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_19n",
+      "source_page": 19,
+      "company_context": "Balkrishna Tyres Ltd. (BKT)",
+      "place": "Chopanki, Rajasthan",
+      "opened": "2005",
+      "dot_codes": [
+        "9N",
+        "1N"
+      ],
+      "product_types": "4,6,7 (r,b)",
+      "reported_capacity_text": "54,000 t/y",
+      "raw_row": "Chopanki, Rajasthan 2005 9N,1N 480u 4,6,7 (r,b) 54,000 t/y"
+    },
+    {
+      "registry_id": "nhtsa_03a",
+      "source_page": 19,
+      "company_context": "CEAT Ltd.",
+      "place": "Nagpur, Maharashtra",
+      "opened": "2016",
+      "dot_codes": [
+        "03A"
+      ],
+      "product_types": "5 (b)",
+      "reported_capacity_text": "114 t/d",
+      "raw_row": "Nagpur, Maharashtra 2016 03A 877 5 (b) 114 t/d"
+    },
+    {
+      "registry_id": "nhtsa_19f",
+      "source_page": 20,
+      "company_context": "JK Tyre & Industries Ltd.",
+      "place": "Banmore, Madhya",
+      "opened": "1991",
+      "dot_codes": [
+        "9F",
+        "19F"
+      ],
+      "product_types": "1,2,4,9 (r)",
+      "reported_capacity_text": "7.07 mil u/y",
+      "raw_row": "Banmore, Madhya 1991 9F,19F 2,321u 1,2,4,9 (r) 7.07 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1x5",
+      "source_page": 20,
+      "company_context": "JK Tyre & Industries Ltd.",
+      "place": "Kankroli, Rajasthan",
+      "opened": "1976",
+      "dot_codes": [
+        "X5",
+        "1X5"
+      ],
+      "product_types": "2,3,4,6 (b)",
+      "reported_capacity_text": "1.98 mil u/y",
+      "raw_row": "Kankroli, Rajasthan 1976 X5,1X5 1,864u 2,3,4,6 (b) 1.98 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1f8",
+      "source_page": 20,
+      "company_context": "JK Tyre & Industries Ltd.",
+      "place": "Mysore, Karnataka",
+      "opened": "1980",
+      "dot_codes": [
+        "F8",
+        "1F8"
+      ],
+      "product_types": "1,2,3,4, 6 (r,b)",
+      "reported_capacity_text": "2.81 mil u/y",
+      "raw_row": "Mysore, Karnataka 1980 F8,1F8 2,540u 1,2,3,4, 2.81 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_01j",
+      "source_page": 20,
+      "company_context": "Maxxis Rubber India Pvt. Ltd. (Cheng Shin Rubber Industry Co. Ltd.)",
+      "place": "Ahmedabad, Gujarat",
+      "opened": "2017",
+      "dot_codes": [
+        "01J"
+      ],
+      "product_types": "5 (r,b)",
+      "reported_capacity_text": "32,420 u/d",
+      "raw_row": "Ahmedabad, Gujarat 2017 01J 469 5 (r,b) 32,420 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1a8",
+      "source_page": 20,
+      "company_context": "P.T. Bridgestone Tire Indonesia (Bridgestone Corp.)",
+      "place": "Bekasi, West Java",
+      "opened": "1973",
+      "dot_codes": [
+        "A8",
+        "1A8"
+      ],
+      "product_types": "1,2,4,6,7(b)",
+      "reported_capacity_text": "4,317 u/d",
+      "raw_row": "Bekasi, West Java 1973 A8,1A8 1,678u 1,2,4,6,7(b) 4,317 u/d"
+    },
+    {
+      "registry_id": "nhtsa_12r",
+      "source_page": 20,
+      "company_context": "P.T. Bridgestone Tire Indonesia (Bridgestone Corp.)",
+      "place": "Karawang, West Java",
+      "opened": "1997",
+      "dot_codes": [
+        "2R",
+        "12R"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "25,126 u/d",
+      "raw_row": "Karawang, West Java 1997 2R,12R 1,713u 1,2 (r) 25,126 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1bc",
+      "source_page": 20,
+      "company_context": "P.T. Hankook Tire Indonesia (Hankook TIre Co. Ltd.)",
+      "place": "Lippo Cikarang, Bekasi",
+      "opened": "2013",
+      "dot_codes": [
+        "BC",
+        "1BC"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "10.0 mil u/y",
+      "raw_row": "Lippo Cikarang, Bekasi 2013 BC,1BC 1,360u 1,2 (r) 10.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_02r",
+      "source_page": 20,
+      "company_context": "P.T. Kenda Rubber Indonesia (Kenda Rubber Industrial Co. Ltd.)",
+      "place": "Serang, Banten",
+      "opened": "2017",
+      "dot_codes": [
+        "02R"
+      ],
+      "product_types": "5 (b)",
+      "reported_capacity_text": "1.9 mil u/y",
+      "raw_row": "Serang, Banten 2017 02R 1,043 5 (b) 1.9 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_017",
+      "source_page": 20,
+      "company_context": "P.T. Maxxis International Indonesia (Cheng Shin Rubber Industry Co. Ltd.)",
+      "place": "Bekasi, West Java",
+      "opened": "2017",
+      "dot_codes": [
+        "017"
+      ],
+      "product_types": "1,5 (r )",
+      "reported_capacity_text": "448 u/d",
+      "raw_row": "Bekasi, West Java 2017 017 1,382 1,5 (r ) 448 u/d"
+    },
+    {
+      "registry_id": "nhtsa_15k",
+      "source_page": 20,
+      "company_context": "P.T. Multistrada Arah Sarana TbK (Group Michelin)",
+      "place": "Bekasi, West Java",
+      "opened": "1994",
+      "dot_codes": [
+        "5K",
+        "15K"
+      ],
+      "product_types": "1,2,5 (r)",
+      "reported_capacity_text": "16.0 mil u/y",
+      "raw_row": "Bekasi, West Java 1994 5K,15K 3,000 1,2,5 (r) 16.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_17t",
+      "source_page": 20,
+      "company_context": "P.T. Sumi Rubber Indonesia (Sumitomo Rubber Industries Ltd.)",
+      "place": "Cikampek",
+      "opened": "1997",
+      "dot_codes": [
+        "7T",
+        "17T"
+      ],
+      "product_types": "1,2,3,5(r,b)",
+      "reported_capacity_text": "5,100 t/m",
+      "raw_row": "Cikampek 1997 7T,17T 3,389 1,2,3,5(r,b) 5,100 t/m"
+    },
+    {
+      "registry_id": "nhtsa_1ek",
+      "source_page": 20,
+      "company_context": "Bridgestone Corp.",
+      "place": "Amagi, Fukuoka",
+      "opened": "1973",
+      "dot_codes": [
+        "EK",
+        "1EK"
+      ],
+      "product_types": "2,3 (r)",
+      "reported_capacity_text": "11,050 u/d",
+      "raw_row": "Amagi, Fukuoka 1973 EK,1EK 891u 2,3 (r) 11,050 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1el",
+      "source_page": 20,
+      "company_context": "Bridgestone Corp.",
+      "place": "Hikone, Shiga",
+      "opened": "1968",
+      "dot_codes": [
+        "EL",
+        "1EL"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "55,600 u/d",
+      "raw_row": "Hikone, Shiga 1968 EL,1EL 1,421u 1,2 (r) 55,600 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1h4",
+      "source_page": 20,
+      "company_context": "Bridgestone Corp.",
+      "place": "Hofu, Yamaguchi",
+      "opened": "1976",
+      "dot_codes": [
+        "H4",
+        "1H4"
+      ],
+      "product_types": "1,2,6 (r,b)",
+      "reported_capacity_text": "5,300 t/m",
+      "raw_row": "Hofu, Yamaguchi 1976 H4,1H4 941u 1,2,6 (r,b) 5,300 t/m"
+    },
+    {
+      "registry_id": "nhtsa_1eh",
+      "source_page": 20,
+      "company_context": "Bridgestone Corp.",
+      "place": "Kurume, Fukuoka",
+      "opened": "1931",
+      "dot_codes": [
+        "EH",
+        "1EH"
+      ],
+      "product_types": "1,2,8,9(r,b)",
+      "reported_capacity_text": "10,400 u/d",
+      "raw_row": "Kurume, Fukuoka 1931 EH,1EH 984u 1,2,8,9(r,b) 10,400 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1en",
+      "source_page": 20,
+      "company_context": "Bridgestone Corp.",
+      "place": "Nasu, Tochigi",
+      "opened": "1962",
+      "dot_codes": [
+        "EN",
+        "1EN"
+      ],
+      "product_types": "1,2,4,5, 7 (r,b)",
+      "reported_capacity_text": "22,650 u/d",
+      "raw_row": "Nasu, Tochigi 1962 EN,1EN 734u 1,2,4,5, 22,650 u/d"
+    },
+    {
+      "registry_id": "nhtsa_11d",
+      "source_page": 20,
+      "company_context": "Bridgestone Corp.",
+      "place": "Shimonoseki,",
+      "opened": "1970",
+      "dot_codes": [
+        "1D",
+        "11D"
+      ],
+      "product_types": "6 (r,b)",
+      "reported_capacity_text": "250 t/d",
+      "raw_row": "Shimonoseki, 1970 1D,11D 748u 6 (r,b) 250 t/d"
+    },
+    {
+      "registry_id": "nhtsa_1em",
+      "source_page": 20,
+      "company_context": "Bridgestone Corp.",
+      "place": "Tokyo",
+      "opened": "1960",
+      "dot_codes": [
+        "EM",
+        "1EM"
+      ],
+      "product_types": "8 (r,b)",
+      "reported_capacity_text": "220 t/m",
+      "raw_row": "Tokyo 1960 EM,1EM 195u 8 (r,b) 220 t/m"
+    },
+    {
+      "registry_id": "nhtsa_1ej",
+      "source_page": 20,
+      "company_context": "Bridgestone Corp.",
+      "place": "Tosu, Saga",
+      "opened": "1970",
+      "dot_codes": [
+        "EJ",
+        "1EJ"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "18,800 u/d",
+      "raw_row": "Tosu, Saga 1970 EJ,1EJ 734u 1,2 (r) 18,800 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1vw",
+      "source_page": 21,
+      "company_context": "Sumitomo Rubber Industries Ltd.",
+      "place": "Izumiotsu, Osaka",
+      "opened": "1944",
+      "dot_codes": [
+        "VW",
+        "1VW"
+      ],
+      "product_types": "1,2,4,6, 7 (r,b)",
+      "reported_capacity_text": "750 t/m",
+      "raw_row": "Izumiotsu, Osaka 1944 VW,1VW 362u 1,2,4,6, 750 t/m"
+    },
+    {
+      "registry_id": "nhtsa_1v4",
+      "source_page": 21,
+      "company_context": "Sumitomo Rubber Industries Ltd.",
+      "place": "Miyakonojo, Miyazaki",
+      "opened": "1976",
+      "dot_codes": [
+        "V4",
+        "1V4"
+      ],
+      "product_types": "1,2,3,4(r,b)",
+      "reported_capacity_text": "9,350 t/m",
+      "raw_row": "Miyakonojo, Miyazaki 1976 V4,1V4 1,465u 1,2,3,4(r,b) 9,350 t/m"
+    },
+    {
+      "registry_id": "nhtsa_1u2",
+      "source_page": 21,
+      "company_context": "Sumitomo Rubber Industries Ltd.",
+      "place": "Shirakawa, Fukishima",
+      "opened": "1974",
+      "dot_codes": [
+        "U2",
+        "1U2"
+      ],
+      "product_types": "1,2,3,6 (r)",
+      "reported_capacity_text": "10,350 t/m",
+      "raw_row": "Shirakawa, Fukishima 1974 U2,1U2 1,576u 1,2,3,6 (r) 10,350 t/m"
+    },
+    {
+      "registry_id": "nhtsa_282",
+      "source_page": 21,
+      "company_context": "Yokohama Rubber Co. Ltd. (Aichi Tire Industry Co. Ltd.)",
+      "place": "Onomichi, Hiroshima",
+      "opened": "1974",
+      "dot_codes": [
+        "8Z",
+        "18Z"
+      ],
+      "product_types": "6,7 (r,b)",
+      "reported_capacity_text": "36 t/d",
+      "raw_row": "Onomichi, Hiroshima 1974 8Z,18Z 452u 6,7 (r,b) 36 t/d"
+    },
+    {
+      "registry_id": "nhtsa_1y6",
+      "source_page": 21,
+      "company_context": "Continental Tyre Malaysia Sdn. Bhd. (Continental A.G.)",
+      "place": "Alor Setar, Kedah",
+      "opened": "1979",
+      "dot_codes": [
+        "Y6",
+        "1Y6"
+      ],
+      "product_types": "1,2,5 (r,b)",
+      "reported_capacity_text": "3.0 mil u/y",
+      "raw_row": "Alor Setar, Kedah 1979 Y6,1Y6 1,000u 1,2,5 (r,b) 3.0 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1e8",
+      "source_page": 21,
+      "company_context": "Service Industries Ltd.",
+      "place": "Gujrat, Punjab",
+      "opened": "1971",
+      "dot_codes": [
+        "E8",
+        "1E8"
+      ],
+      "product_types": "1,5,7 (b)",
+      "reported_capacity_text": "18.5 mil u/y",
+      "raw_row": "Gujrat, Punjab 1971 E8,1E8 2,200u 1,5,7 (b) 18.5 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1y0",
+      "source_page": 21,
+      "company_context": "Kumho Tire Co. Inc. (Qingdao Doublestar Group)",
+      "place": "Gokseong",
+      "opened": "1989",
+      "dot_codes": [
+        "Y0",
+        "1Y0"
+      ],
+      "product_types": "1,3 (r)",
+      "reported_capacity_text": "14.4 mil u/y",
+      "raw_row": "Gokseong 1989 Y0,1Y0 1,761u 1,3 (r) 14.4 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_127",
+      "source_page": 21,
+      "company_context": "Kumho Tire Co. Inc. (Qingdao Doublestar Group)",
+      "place": "Pyeongtaek",
+      "opened": "2003",
+      "dot_codes": [
+        "27",
+        "127"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "2.2 mil u/y",
+      "raw_row": "Pyeongtaek 2003 27,127 136u 1,2 (r) 2.2 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1ua",
+      "source_page": 21,
+      "company_context": "Nexen Tire Corp. (Nexen Corp.)",
+      "place": "Changnyeong-gun",
+      "opened": "2012",
+      "dot_codes": [
+        "UA",
+        "1UA"
+      ],
+      "product_types": "1,9 (r)",
+      "reported_capacity_text": "10.9 mil u/y",
+      "raw_row": "Changnyeong-gun 2012 UA,1UA 343u 1,9 (r) 10.9 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1c8",
+      "source_page": 21,
+      "company_context": "Bridgestone Taiwan Co. Ltd. (Bridgestone Corp.)",
+      "place": "Hsin-Chu",
+      "opened": "1982",
+      "dot_codes": [
+        "C8",
+        "1C8"
+      ],
+      "product_types": "1,2 (r,b)",
+      "reported_capacity_text": "11,800 u/d",
+      "raw_row": "Hsin-Chu 1982 C8,1C8 573u 1,2 (r,b) 11,800 u/d"
+    },
+    {
+      "registry_id": "nhtsa_147",
+      "source_page": 22,
+      "company_context": "Yokohama Tire Manufacturing (Thailand) Co. Ltd. (Yokohama Rubber Co. Ltd.)",
+      "place": "Amata City, Rayong",
+      "opened": "2005",
+      "dot_codes": [
+        "47",
+        "147"
+      ],
+      "product_types": "1,2,3 (r)",
+      "reported_capacity_text": "4.35 mil u/y",
+      "raw_row": "Amata City, Rayong 2005 47,147 1,851 1,2,3 (r) 4.35 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_11t",
+      "source_page": 22,
+      "company_context": "Bridgestone Tire Manufacturing Vietnam L.L.C. (Bridgestone Corp.)",
+      "place": "Hai Phong City",
+      "opened": "2014",
+      "dot_codes": [
+        "1T",
+        "11T"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "11,436 u/d",
+      "raw_row": "Hai Phong City 2014 1T,11T 943 1,2 (r) 11,436 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1mf",
+      "source_page": 22,
+      "company_context": "Da Nang Rubber Co.",
+      "place": "DaNang",
+      "opened": "2006",
+      "dot_codes": [
+        "MF",
+        "1MF"
+      ],
+      "product_types": "1,2,3,5 (b)",
+      "reported_capacity_text": "850,000 u/y",
+      "raw_row": "DaNang 2006 MF,1MF – 1,2,3,5 (b) 850,000 u/y"
+    },
+    {
+      "registry_id": "nhtsa_1kt",
+      "source_page": 22,
+      "company_context": "Da Nang Rubber Co.",
+      "place": "DaNang",
+      "opened": "2013",
+      "dot_codes": [
+        "KT",
+        "1KT"
+      ],
+      "product_types": "3 (r)",
+      "reported_capacity_text": "600,000 u/y",
+      "raw_row": "DaNang 2013 KT, 1KT 1,000 3 (r) 600,000 u/y"
+    },
+    {
+      "registry_id": "nhtsa_19m",
+      "source_page": 22,
+      "company_context": "Alexandria Tire Co. S.A.E (Prometeon Tyre Group s.r.l.)",
+      "place": "Alexandria",
+      "opened": "1995",
+      "dot_codes": [
+        "9M",
+        "19M"
+      ],
+      "product_types": "3 (r)",
+      "reported_capacity_text": "1.1 mill u/y",
+      "raw_row": "Alexandria 1995 9M,19M 1,200 3 (r) 1.1 mill u/y"
+    },
+    {
+      "registry_id": "nhtsa_18t_1e9",
+      "source_page": 22,
+      "company_context": "Bridgestone South Africa Holdings (Pty.) Ltd. (Bridgestone Corp.)",
+      "place": "Brits",
+      "opened": "1971",
+      "dot_codes": [
+        "E9",
+        "1E9",
+        "8T",
+        "18T"
+      ],
+      "product_types": "1,2,3 (r)",
+      "reported_capacity_text": "6,533 u/d",
+      "raw_row": "Brits 1971 E9,1E9, 729u 1,2,3 (r) 6,533 u/d"
+    },
+    {
+      "registry_id": "nhtsa_1d7",
+      "source_page": 23,
+      "company_context": "Sumitomo Rubber South Africa (Pty) Ltd. (Sumitomo Rubber Industries Ltd.)",
+      "place": "Ladysmith",
+      "opened": "2013",
+      "dot_codes": [
+        "D7",
+        "1D7"
+      ],
+      "product_types": "1,2,3 (r)",
+      "reported_capacity_text": "1,700 t/m",
+      "raw_row": "Ladysmith 2013 D7,1D7 1,615u 1,2,3 (r) 1,700 t/m"
+    },
+    {
+      "registry_id": "nhtsa_027",
+      "source_page": 23,
+      "company_context": "Brisa Bridgestone Sabanci Lastik Sanayi ve Ticaret A.S. (Bridgestone Corp.)",
+      "place": "Aksaray",
+      "opened": "2018",
+      "dot_codes": [
+        "027"
+      ],
+      "product_types": "1,2 (r)",
+      "reported_capacity_text": "3.6 mil u/y",
+      "raw_row": "Aksaray 2018 027 700u 1,2 (r) 3.6 mil u/y"
+    },
+    {
+      "registry_id": "nhtsa_1pa",
+      "source_page": 23,
+      "company_context": "Goodyear Lastikleri Turk A.S. (Goodyear Tire & Rubber Co.)",
+      "place": "Izmit",
+      "opened": "1963",
+      "dot_codes": [
+        "PA",
+        "1PA"
+      ],
+      "product_types": "3,4 (r,b)",
+      "reported_capacity_text": "3,000 u/d",
+      "raw_row": "Izmit 1963 PA,1PA 700u 3,4 (r,b) 3,000 u/d"
+    },
+    {
+      "registry_id": "nhtsa_285",
+      "source_page": 23,
+      "company_context": "Petlas Tyre Industry & Trade Co.",
+      "place": "Kirsehir",
+      "opened": "1976",
+      "dot_codes": [
+        "8S",
+        "18S"
+      ],
+      "product_types": "1,2,3,4,6, 7,8,9 (r,b)",
+      "reported_capacity_text": "240,000 t/y",
+      "raw_row": "Kirsehir 1976 8S,18S 3,968u 1,2,3,4,6, 240,000 t/y"
+    }
+  ],
+  "counts": {
+    "merged": 22,
+    "added": 109,
+    "ambiguous": 13
+  }
+}

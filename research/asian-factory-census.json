@@ -1,0 +1,2978 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-26",
+  "scope": "Asian-group official-directory enrichment; capacities not disclosed remain null. Exact street address and map coordinate precision are separate.",
+  "sources": {
+    "AS_SAILUN_DIRECTORY": {
+      "title": "赛轮集团官方厂区目录",
+      "url": "https://id.sailungroup.com/about/contact.html",
+      "published": null,
+      "accessed_at": "2026-09-26",
+      "source_type": "COMPANY_OFFICIAL"
+    },
+    "AS_LINGLONG_LOGISTICS": {
+      "title": "玲珑轮胎 2024 年物流招标：招远、武城发货工厂",
+      "url": "https://www.linglong.cn/Upload/202404/20240415090155_0533.pdf",
+      "published": "2024-04-15",
+      "accessed_at": "2026-09-26",
+      "source_type": "COMPANY_OFFICIAL"
+    },
+    "AS_LINGLONG_GX_ADDR": {
+      "title": "贵州省市场监管局抽检生产企业地址：广西玲珑",
+      "url": "https://amr.guizhou.gov.cn/xwzx/tzgg/202512/P020260130551088098883.pdf",
+      "published": null,
+      "accessed_at": "2026-09-26",
+      "source_type": "GOVERNMENT"
+    },
+    "AS_LINGLONG_HB_ADDR": {
+      "title": "湖北玲珑轮胎物流招标",
+      "url": "https://www.linglong.cn/Upload/202205/20220525111354_2989.pdf",
+      "published": "2022-05-25",
+      "accessed_at": "2026-09-26",
+      "source_type": "COMPANY_OFFICIAL"
+    },
+    "AS_LINGLONG_JL_ADDR": {
+      "title": "吉林省生态环境厅：吉林玲珑非公路轮胎项目环评地址",
+      "url": "https://sthjt.jl.gov.cn/ywdt/gkgs/gszx/slgs/202209/t20220913_2177550.html",
+      "published": "2022-09-13",
+      "accessed_at": "2026-09-26",
+      "source_type": "GOVERNMENT"
+    },
+    "AS_LINGLONG_TH_ADDR": {
+      "title": "NHTSA LLIT 厂商登记",
+      "url": "https://vpic.nhtsa.dot.gov/mid/manufacturer/details/14731",
+      "published": "2026-09-18",
+      "accessed_at": "2026-09-26",
+      "source_type": "GOVERNMENT_REGISTER"
+    },
+    "AS_LINGLONG_RS_ADDR": {
+      "title": "Linglong International Europe 联系地址",
+      "url": "https://www.linglongtyre.eu/about/contact.html",
+      "published": null,
+      "accessed_at": "2026-09-26",
+      "source_type": "COMPANY_OFFICIAL"
+    },
+    "AS_PRINX_TH_ADDR": {
+      "title": "NHTSA 浦林成山泰国工厂登记",
+      "url": "https://vpic.nhtsa.dot.gov/mid/equipplant/details/20713",
+      "published": null,
+      "accessed_at": "2026-09-26",
+      "source_type": "GOVERNMENT_REGISTER"
+    },
+    "AS_TONGYONG_TH_ADDR": {
+      "title": "NHTSA General Rubber Thailand 工厂登记",
+      "url": "https://vpic.nhtsa.dot.gov/mid/equipplant/details/20645",
+      "published": null,
+      "accessed_at": "2026-09-26",
+      "source_type": "GOVERNMENT_REGISTER"
+    },
+    "AS_CONTI_PT_ADDR": {
+      "title": "NHTSA Continental Mabor 工厂登记",
+      "url": "https://vpic.nhtsa.dot.gov/mid/equipplant/details/18268",
+      "published": null,
+      "accessed_at": "2026-09-26",
+      "source_type": "GOVERNMENT_REGISTER"
+    },
+    "AS_CONTI_US_ADDR": {
+      "title": "OSHA Continental Mount Vernon 现场地址",
+      "url": "https://www.osha.gov/ords/imis/establishment.inspection_detail?id=1590012.015",
+      "published": "2022-04-15",
+      "accessed_at": "2026-09-26",
+      "source_type": "GOVERNMENT"
+    },
+    "AS_BS_PUNE_ADDR": {
+      "title": "Maharashtra Pollution Control Board 工厂名单：Bridgestone Pune",
+      "url": "https://mpcb.gov.in/sites/default/files/inventory-2021/Pune.pdf",
+      "published": "2021",
+      "accessed_at": "2026-09-26",
+      "source_type": "GOVERNMENT"
+    },
+    "AS_HANKOOK_NETWORK": {
+      "title": "Hankook official global network: eight explicitly labelled plants",
+      "url": "https://www.hankooktire.com/global/en/company/global-network.html",
+      "published": null,
+      "source_type": "COMPANY_OFFICIAL",
+      "accessed_at": "2026-09-26"
+    },
+    "AS_HANKOOK_HU_2026": {
+      "title": "Hankook Hungary plant Q&A, IAA2026",
+      "url": "https://www.hankooktire-mediacenter.com/press-kits/iaa-2026/press-release?cHash=68e2d9909f954129d00c97fb235d74c0&tx_news_pi1%5Baction%5D=detail&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Bnews%5D=13344",
+      "published": "2026-09-14",
+      "source_type": "COMPANY_OFFICIAL",
+      "accessed_at": "2026-09-26"
+    },
+    "AS_HANKOOK_US_PLAN": {
+      "title": "Hankook Tennessee expansion official announcement",
+      "url": "https://www.hankooktire.com/content/motorsports/mts/en/media/news-detail.627190.html",
+      "published": "2022-08-29",
+      "source_type": "COMPANY_OFFICIAL",
+      "accessed_at": "2026-09-26"
+    },
+    "AS_NEXEN_NETWORK": {
+      "title": "Nexen official domestic and overseas locations",
+      "url": "https://www.nexentire.com/me/company/information/local/abroad/index.php",
+      "published": null,
+      "source_type": "COMPANY_OFFICIAL",
+      "accessed_at": "2026-09-26"
+    },
+    "AS_NEXEN_PLANTS": {
+      "title": "Nexen official manufacturing competitiveness / Czech phase2",
+      "url": "https://www.nexentire.com/international/product/technology/plant/plant.php",
+      "published": null,
+      "source_type": "COMPANY_OFFICIAL",
+      "accessed_at": "2026-09-26"
+    },
+    "AS_KUMHO_AR2023": {
+      "title": "Kumho 2023 Annual Report — production-site directory",
+      "url": "https://www.kumhotire.com/fileViewer/pdf/1719964348760_2811983050257807492/attr/company/2023%20Annual%20Report%28EN%29.pdf",
+      "published": "2024",
+      "source_type": "COMPANY_OFFICIAL",
+      "accessed_at": "2026-09-26"
+    },
+    "AS_KUMHO_FIRE": {
+      "title": "Gwangju post-fire partial production recovery",
+      "url": "https://www.asiae.co.kr/en/print.htm?idxno=2026030413505459773",
+      "published": "2026-03-04",
+      "source_type": "NEWS_SECONDARY",
+      "accessed_at": "2026-09-26"
+    },
+    "AS_KENDA_DIRECTORY": {
+      "title": "Kenda official locations — factories",
+      "url": "https://www.kendatire.com/en-us/locations/",
+      "published": null,
+      "source_type": "COMPANY_OFFICIAL",
+      "accessed_at": "2026-09-26"
+    },
+    "AS_MAXXIS_TW": {
+      "title": "Cheng Shin / Maxxis Taiwan official factory locations",
+      "url": "https://www.maxxis.com.tw/about.php",
+      "published": null,
+      "source_type": "COMPANY_OFFICIAL",
+      "accessed_at": "2026-09-26"
+    },
+    "AS_MAXXIS_ESG2022": {
+      "title": "Cheng Shin 2022 Sustainability Report — production companies",
+      "url": "https://www.maxxis.com.tw/upload/edm/2309281043100000002.pdf",
+      "published": "2023",
+      "source_type": "COMPANY_OFFICIAL",
+      "accessed_at": "2026-09-26"
+    },
+    "AS_MAXXIS_AR2021": {
+      "title": "Cheng Shin 2021 Annual Report — subsidiary address directory",
+      "url": "https://www.maxxis.com.tw/upload/year_report/2205131425460000001.pdf",
+      "published": "2022",
+      "source_type": "COMPANY_OFFICIAL",
+      "accessed_at": "2026-09-26"
+    },
+    "AS_MAXXIS_AR2020": {
+      "title": "Cheng Shin 2020 Annual Report — subsidiary address directory",
+      "url": "https://www.maxxis.com.tw/upload/year_report/2105280836200000001.pdf",
+      "published": "2021",
+      "source_type": "COMPANY_OFFICIAL",
+      "accessed_at": "2026-09-26"
+    },
+    "AS_GITI_FACTORIES": {
+      "title": "Giti current official manufacturing-base directory",
+      "url": "https://cn.giti.com/about-giti/quality",
+      "published": null,
+      "source_type": "COMPANY_OFFICIAL",
+      "accessed_at": "2026-09-26"
+    },
+    "AS_GITI_US_ADDR": {
+      "title": "OSHA factory inspection — Giti Tire Manufacturing USA",
+      "url": "https://www.osha.gov/ords/imis/establishment.inspection_detail?id=1328934.015",
+      "published": null,
+      "source_type": "GOVERNMENT_REGISTER",
+      "accessed_at": "2026-09-26"
+    },
+    "AS_TRIANGLE_FACTORIES": {
+      "title": "Triangle official company profile — five manufacturing bases",
+      "url": "https://www.triangle.com.cn/cn/index/pageview/catid/20.html",
+      "published": null,
+      "source_type": "COMPANY_OFFICIAL",
+      "accessed_at": "2026-09-26"
+    },
+    "AS_GUIZHOU_PCR_2025": {
+      "title": "Guizhou Vietnam phase3 first PCR tire —600万条年设计",
+      "url": "https://www.gztyre.com/news/news-detail-10053.htm",
+      "published": "2025-07-11",
+      "source_type": "COMPANY_OFFICIAL",
+      "accessed_at": "2026-09-26"
+    },
+    "AS_GUIZHOU_EIA": {
+      "title": "Guizhou Zhazuo factory environmental disclosure",
+      "url": "https://jinghu.gztyre.com/upload/file/2020/04/30/7812d6999ac04911a653df0a44ceafb8.pdf",
+      "published": "2020-04-30",
+      "source_type": "COMPANY_OFFICIAL",
+      "accessed_at": "2026-09-26"
+    },
+    "AS_DC_RUGAO_EIA": {
+      "title": "Double Coin Jiangsu OTR modification environmental disclosure",
+      "url": "https://www.rugao.gov.cn/rgskfq/upload/fa654582-0f90-489b-bb56-47c8645fb4bf.pdf",
+      "published": null,
+      "source_type": "GOVERNMENT",
+      "accessed_at": "2026-09-26"
+    },
+    "AS_DC_CQ_EIA": {
+      "title": "Double Coin Chongqing250万条TBR technical modification environmental disclosure",
+      "url": "https://www.dazu.gov.cn/jkq/qsthjj/zwgk_53321/fdzdgknr_53323/zdxmhjyxpj/jsxmhpspqk/202212/W020221215422752213214.pdf",
+      "published": "2022-12-15",
+      "source_type": "GOVERNMENT",
+      "accessed_at": "2026-09-26"
+    },
+    "AS_AEOLUS_FACTORY": {
+      "title": "China Rubber Industry Association — Aeolus Jiaodong South Road plant",
+      "url": "https://www.cria.org.cn/a/1766260080440819713",
+      "published": null,
+      "source_type": "INDUSTRY_ASSOCIATION",
+      "accessed_at": "2026-09-26"
+    },
+    "AS_ZC_ORG": {
+      "title": "Zhongce official organization — Thai and Indonesian manufacturing addresses",
+      "url": "https://www.zc-rubber.com/index.php/about/organization",
+      "published": null,
+      "source_type": "COMPANY_OFFICIAL",
+      "accessed_at": "2026-09-26"
+    },
+    "AS_TIANLI_ADDR": {
+      "title": "Tianli official factory contact",
+      "url": "https://www.tianli-tyre.com/contact-us",
+      "published": null,
+      "source_type": "COMPANY_OFFICIAL",
+      "accessed_at": "2026-09-26"
+    }
+  },
+  "updates": [
+    {
+      "id": "cn_linglong_zhaoyuan",
+      "address": "山东省烟台市招远市金龙路777号玲珑轮胎工业园区",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_LINGLONG_LOGISTICS"
+      ],
+      "address_verified_at": "2026-09-26"
+    },
+    {
+      "id": "cn_linglong_dezhou",
+      "address": "山东省德州市武城县振华街东首，德州玲珑轮胎有限公司",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_LINGLONG_LOGISTICS"
+      ],
+      "address_verified_at": "2026-09-26",
+      "place": "武城县",
+      "latitude": 37.21,
+      "longitude": 116.08,
+      "coord_precision": "县级近似定位"
+    },
+    {
+      "id": "cn_linglong_guangxi",
+      "address": "广西壮族自治区柳州市鱼峰区曙光大道9号",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_LINGLONG_GX_ADDR"
+      ],
+      "address_verified_at": "2026-09-26",
+      "place": "柳州"
+    },
+    {
+      "id": "cn_linglong_hubei",
+      "address": "湖北省荆门市掇刀区阳光二路",
+      "address_quality": "WARNING",
+      "address_precision": "街道级；本次物流原件未确认门牌",
+      "address_source_ids": [
+        "AS_LINGLONG_HB_ADDR"
+      ],
+      "address_verified_at": "2026-09-26",
+      "place": "荆门"
+    },
+    {
+      "id": "cn_linglong_jilin",
+      "address": "吉林省长春市汽车经济技术开发区前程大街1333号",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_LINGLONG_JL_ADDR"
+      ],
+      "address_verified_at": "2026-09-26",
+      "place": "长春"
+    },
+    {
+      "id": "th_linglong_chonburi",
+      "address": "911/9 Moo 5, Eastern Seaboard Industrial Estates, Sriracha, Chonburi 20110, Thailand",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_LINGLONG_TH_ADDR"
+      ],
+      "address_verified_at": "2026-09-26",
+      "place": "Sriracha",
+      "latitude": 13.17,
+      "longitude": 100.93,
+      "coord_precision": "Si Racha城市级近似定位；非工厂门牌坐标"
+    },
+    {
+      "id": "rs_linglong_zrenjanin",
+      "address": "Avenija Linglong 1, Zrenjanin 23000, Serbia",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_LINGLONG_RS_ADDR"
+      ],
+      "address_verified_at": "2026-09-26"
+    },
+    {
+      "id": "kh_sailun_cart",
+      "address": "Qilu SEZ, National Road 1, Sangkat Svay Teu, Krong Svay Rieng, Svay Rieng Province, Cambodia",
+      "address_quality": "WARNING",
+      "address_precision": "公路及园区；未披露门牌",
+      "address_source_ids": [
+        "AS_SAILUN_DIRECTORY"
+      ],
+      "address_verified_at": "2026-09-26",
+      "place": "Svay Rieng（官方目录）",
+      "latitude": 11.08,
+      "longitude": 105.8,
+      "coord_precision": "城市级近似定位；纠正原106.80E落点，不代表厂界",
+      "address_note": "官网明确Krong Svay Rieng，原点106.80E与官方城市不符；使用城市级近似，不据此认定工厂地块坐标。"
+    },
+    {
+      "id": "vn_sailun_tayninh",
+      "address": "Lot 37-1, 41-20a, D11 Road, Phuoc Dong Industrial Park, Phuoc Dong Ward, Go Dau County, Tay Ninh, Vietnam",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_SAILUN_DIRECTORY"
+      ],
+      "address_verified_at": "2026-09-26"
+    },
+    {
+      "id": "vn_actr_tayninh",
+      "address": "Phuoc Dong Industrial Park, Phuoc Dong Ward, Go Dau County, Tay Ninh, Vietnam",
+      "address_quality": "WARNING",
+      "address_precision": "园区级；未披露地块或门牌",
+      "address_source_ids": [
+        "AS_SAILUN_DIRECTORY"
+      ],
+      "address_verified_at": "2026-09-26"
+    },
+    {
+      "id": "id_sailun_demak",
+      "address": "Kawasan Industri JIPS Blok D1, Desa/Kelurahan Wonokerto, Kec. Karangtengah, Kab. Demak, Jawa Tengah, Indonesia",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_SAILUN_DIRECTORY"
+      ],
+      "address_verified_at": "2026-09-26"
+    },
+    {
+      "id": "mx_sailun_guanajuato",
+      "address": "Plaza Marabis, Parque Industrial Marabis Castro del Rio, 36810 Guanajuato, Mexico",
+      "address_quality": "WARNING",
+      "address_precision": "官方厂区目录园区地址；未披露地块门牌",
+      "address_source_ids": [
+        "AS_SAILUN_DIRECTORY"
+      ],
+      "address_verified_at": "2026-09-26"
+    },
+    {
+      "id": "eg_sailun_suez",
+      "address": null,
+      "address_quality": "MISSING",
+      "address_precision": "未取得具体地址",
+      "address_source_ids": [],
+      "address_verified_at": "2026-09-26",
+      "address_note": "已核项目所在 Shams 工业区／苏伊士运河经济区；当前无法确认厂区具体地块地址。"
+    },
+    {
+      "id": "th_prinx_chonburi",
+      "address": "399 Moo 4, T. Nong Suea Chang, A. Nong Yai, Chonburi 20190, Thailand",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_PRINX_TH_ADDR"
+      ],
+      "address_verified_at": "2026-09-26",
+      "dot_codes": [
+        "04N"
+      ]
+    },
+    {
+      "id": "my_prinx_kedah",
+      "address": null,
+      "address_quality": "MISSING",
+      "address_precision": "未取得具体地址",
+      "address_source_ids": [],
+      "address_verified_at": "2026-09-26",
+      "address_note": "现有公告仅确认 Kedah Rubber City 项目；当前无法确认厂区具体地块地址。"
+    },
+    {
+      "id": "pt_continental_lousado",
+      "address": "Rua Adelino Leitão 330, Lousado, Portugal 4761-906",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_CONTI_PT_ADDR"
+      ],
+      "address_verified_at": "2026-09-26"
+    },
+    {
+      "id": "us_continental_mount_vernon",
+      "address": "11525 North IL Highway 142, Mount Vernon, Illinois 62864, USA",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_CONTI_US_ADDR"
+      ],
+      "address_verified_at": "2026-09-26",
+      "dot_codes": [
+        "A3",
+        "1A3"
+      ]
+    },
+    {
+      "id": "in_bridgestone_pune",
+      "address": "Plot No. A-43, MIDC Chakan Phase-II, Sawardari, Taluka Khed, Pune, Maharashtra 410501, India",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_BS_PUNE_ADDR"
+      ],
+      "address_verified_at": "2026-09-26"
+    },
+    {
+      "id": "th_tongyong_rayong",
+      "address": "7/538 Moo 6, T. Mabyangporn, A. Pluak Daeng, Rayong 21140, Thailand",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_TONGYONG_TH_ADDR"
+      ],
+      "address_verified_at": "2026-09-26",
+      "dot_codes": [
+        "045"
+      ]
+    },
+    {
+      "id": "kh_tongyong_sihanouk",
+      "address": null,
+      "address_quality": "MISSING",
+      "address_precision": "未取得具体地址",
+      "address_source_ids": [],
+      "address_verified_at": "2026-09-26",
+      "address_note": "西哈努克港经济特区已核；当前无法确认厂区的道路门牌或地块号。"
+    }
+  ],
+  "factories": [
+    {
+      "id": "cn_sailun_qingdao",
+      "company": "赛轮轮胎",
+      "site": "青岛黄岛",
+      "country": "中国",
+      "province": "山东",
+      "place": "青岛",
+      "address": "山东省青岛市黄岛区茂山路588号",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_SAILUN_DIRECTORY"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 35.96,
+      "longitude": 120.18,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官网生产基地目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_SAILUN_DIRECTORY"
+      ],
+      "note": "【事实】官方目录确认生产基地；具体地址与地图坐标精度独立。当前厂级产能与耗胶未确认，不从集团数字分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、全年有效产能及实际天然胶耗用本次未获可靠分项数据。"
+        }
+      ],
+      "manufacturer_id": "sailun"
+    },
+    {
+      "id": "cn_sailun_shenyang",
+      "company": "赛轮轮胎",
+      "site": "沈阳化工园",
+      "country": "中国",
+      "province": "辽宁",
+      "place": "沈阳",
+      "address": "辽宁省沈阳市沈阳化学工业园沈西三东路2号",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_SAILUN_DIRECTORY"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 41.8,
+      "longitude": 123.43,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官网生产基地目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_SAILUN_DIRECTORY"
+      ],
+      "note": "【事实】官方目录确认生产基地；具体地址与地图坐标精度独立。当前厂级产能与耗胶未确认，不从集团数字分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、全年有效产能及实际天然胶耗用本次未获可靠分项数据。"
+        }
+      ],
+      "manufacturer_id": "sailun"
+    },
+    {
+      "id": "cn_sailun_dongying",
+      "company": "赛轮轮胎",
+      "site": "东营广饶",
+      "country": "中国",
+      "province": "山东",
+      "place": "广饶",
+      "address": "山东省东营市广饶经济开发区广兴路9号",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_SAILUN_DIRECTORY"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 37.05,
+      "longitude": 118.4,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官网生产基地目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_SAILUN_DIRECTORY"
+      ],
+      "note": "【事实】官方目录确认生产基地；具体地址与地图坐标精度独立。当前厂级产能与耗胶未确认，不从集团数字分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、全年有效产能及实际天然胶耗用本次未获可靠分项数据。"
+        }
+      ],
+      "manufacturer_id": "sailun"
+    },
+    {
+      "id": "cn_sailun_weifang",
+      "company": "赛轮轮胎",
+      "site": "潍坊诸城",
+      "country": "中国",
+      "province": "山东",
+      "place": "诸城",
+      "address": "No. 263 Zhufeng Road, Zhucheng, Weifang, Shandong, China",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_SAILUN_DIRECTORY"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 36,
+      "longitude": 119.4,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官网生产基地目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_SAILUN_DIRECTORY"
+      ],
+      "note": "【事实】官方目录确认生产基地；具体地址与地图坐标精度独立。当前厂级产能与耗胶未确认，不从集团数字分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、全年有效产能及实际天然胶耗用本次未获可靠分项数据。"
+        }
+      ],
+      "manufacturer_id": "sailun"
+    },
+    {
+      "id": "cn_sailun_dongjiakou",
+      "company": "赛轮轮胎",
+      "site": "青岛董家口",
+      "country": "中国",
+      "province": "山东",
+      "place": "青岛董家口",
+      "address": "山东省青岛市董家口循环经济区",
+      "address_quality": "WARNING",
+      "address_precision": "园区级；具体地块未披露",
+      "address_source_ids": [
+        "AS_SAILUN_DIRECTORY"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 35.66,
+      "longitude": 119.79,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2026-09-26",
+      "status_basis": "目录确认项目基地，最新全面投产状态待核",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_SAILUN_DIRECTORY"
+      ],
+      "note": "与青岛茂山路厂区分列；仅核官方园区地址，不能将集团产能分配至此。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、全年有效产能及实际天然胶耗用本次未获可靠分项数据。"
+        }
+      ],
+      "manufacturer_id": "sailun"
+    },
+    {
+      "id": "kr_hankook_daejeon",
+      "company": "Hankook",
+      "site": "韩国大田",
+      "country": "韩国",
+      "province": "大田",
+      "place": "大田",
+      "address": "40 Daedukdae-ro 1447-gil, Daedeok-gu, Daejeon, Korea",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_HANKOOK_NETWORK"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 36.35,
+      "longitude": 127.39,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官网生产基地目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_HANKOOK_NETWORK"
+      ],
+      "note": "【事实】官方目录确认生产基地；具体地址与地图坐标精度独立。当前厂级产能与耗胶未确认，不从集团数字分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、全年有效产能及实际天然胶耗用本次未获可靠分项数据。"
+        }
+      ],
+      "manufacturer_id": "hankook"
+    },
+    {
+      "id": "kr_hankook_geumsan",
+      "company": "Hankook",
+      "site": "韩国锦山",
+      "country": "韩国",
+      "province": "忠清南道",
+      "place": "锦山",
+      "address": "1 Kumgang-ro, Jewon-myeon, Geumsan-gun, Chungcheongnam-do, Korea",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_HANKOOK_NETWORK"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 36.11,
+      "longitude": 127.49,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官网生产基地目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_HANKOOK_NETWORK"
+      ],
+      "note": "【事实】官方目录确认生产基地；具体地址与地图坐标精度独立。当前厂级产能与耗胶未确认，不从集团数字分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、全年有效产能及实际天然胶耗用本次未获可靠分项数据。"
+        }
+      ],
+      "manufacturer_id": "hankook"
+    },
+    {
+      "id": "hu_hankook_racalmas",
+      "company": "Hankook",
+      "site": "匈牙利 Rácalmás",
+      "country": "匈牙利",
+      "province": "费耶尔",
+      "place": "Rácalmás",
+      "address": "Hankook tér 1, 2459 Rácalmás, Hungary",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_HANKOOK_NETWORK"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 47.02,
+      "longitude": 18.94,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官网生产基地目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_HANKOOK_NETWORK",
+        "AS_HANKOOK_HU_2026"
+      ],
+      "note": "【事实】2026-09-14官方更新：现有乘用/SUV/轻卡最高1700万条/年；卡客车扩建投资5.4亿欧元、超过80万条/年，计划2026-10量产。不得把规划计作已形成或2025有效。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": 1700,
+          "design_as_of": "2026-09-14",
+          "formed_capacity": 1700,
+          "formed_as_of": "2026-09-14",
+          "effective_capacity_2025": null,
+          "quality": "WARNING",
+          "note": "公司当前披露乘用/SUV/轻卡胎年产能最高1700万条；不是全年实际产量。"
+        },
+        {
+          "type": "TBR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": "2026-09-14",
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "WARNING",
+          "note": "新增全钢线披露为超过80万条/年；80仅下限，不作精确情景耗胶基数。",
+          "capacity_lower_bound": 80,
+          "phases": [
+            {
+              "period": "2026-10",
+              "label": "计划启动全钢胎量产",
+              "status": "计划；截至2026-09-26仍未来"
+            }
+          ]
+        }
+      ],
+      "manufacturer_id": "hankook"
+    },
+    {
+      "id": "us_hankook_clarksville",
+      "company": "Hankook",
+      "site": "美国 Clarksville",
+      "country": "美国",
+      "province": "田纳西",
+      "place": "Clarksville",
+      "address": "2950 International Blvd, Clarksville, TN 37043, USA",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_HANKOOK_NETWORK"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 36.53,
+      "longitude": -87.36,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官网生产基地目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_HANKOOK_NETWORK",
+        "AS_HANKOOK_US_PLAN"
+      ],
+      "note": "2022原扩产设计有官方披露，但不能冒充截至2026-09-26最新已形成/有效产能；保留来源日期及待核状态。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": 1100,
+          "design_as_of": "2022-08-29",
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "WARNING",
+          "note": "2022公告扩建后目标；2026最新形成能力待核。",
+          "phases": [
+            {
+              "period": "2022–2026",
+              "label": "原规划扩建后1100万条/年",
+              "status": "历史计划，当前达产待核"
+            }
+          ]
+        },
+        {
+          "type": "TBR",
+          "capacity_unit": "万条/年",
+          "design_capacity": 100,
+          "design_as_of": "2022-08-29",
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "WARNING",
+          "note": "2022公告新增全钢设计100万条/年；不证明2026已形成。"
+        }
+      ],
+      "manufacturer_id": "hankook"
+    },
+    {
+      "id": "cn_hankook_chongqing",
+      "company": "Hankook",
+      "site": "中国重庆",
+      "country": "中国",
+      "province": "重庆",
+      "place": "重庆",
+      "address": "重庆市江北区鱼嘴镇长安大道108号",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_HANKOOK_NETWORK"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 29.62,
+      "longitude": 106.77,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官网生产基地目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_HANKOOK_NETWORK"
+      ],
+      "note": "【事实】官方目录确认生产基地；具体地址与地图坐标精度独立。当前厂级产能与耗胶未确认，不从集团数字分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、全年有效产能及实际天然胶耗用本次未获可靠分项数据。"
+        }
+      ],
+      "manufacturer_id": "hankook"
+    },
+    {
+      "id": "cn_hankook_huaian",
+      "company": "Hankook",
+      "site": "中国江苏淮安",
+      "country": "中国",
+      "province": "江苏",
+      "place": "淮安",
+      "address": "江苏省淮安经济开发区韩泰南路1号",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_HANKOOK_NETWORK"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 33.6,
+      "longitude": 119.04,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官网生产基地目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_HANKOOK_NETWORK"
+      ],
+      "note": "【事实】官方目录确认生产基地；具体地址与地图坐标精度独立。当前厂级产能与耗胶未确认，不从集团数字分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、全年有效产能及实际天然胶耗用本次未获可靠分项数据。"
+        }
+      ],
+      "manufacturer_id": "hankook"
+    },
+    {
+      "id": "cn_hankook_jiaxing",
+      "company": "Hankook",
+      "site": "中国浙江嘉兴",
+      "country": "中国",
+      "province": "浙江",
+      "place": "嘉兴",
+      "address": "浙江省嘉兴经济开发区东方路",
+      "address_quality": "WARNING",
+      "address_precision": "街道级；门牌未核",
+      "address_source_ids": [
+        "AS_HANKOOK_NETWORK"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 30.75,
+      "longitude": 120.75,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官网生产基地目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_HANKOOK_NETWORK"
+      ],
+      "note": "官网厂区条目只有东方路；同页东方路1677号属于China Technical Center研发中心，未将研发地址误作厂址。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、全年有效产能及实际天然胶耗用本次未获可靠分项数据。"
+        }
+      ],
+      "manufacturer_id": "hankook"
+    },
+    {
+      "id": "id_hankook_bekasi",
+      "company": "Hankook",
+      "site": "印尼勿加泗",
+      "country": "印度尼西亚",
+      "province": "西爪哇",
+      "place": "Cikarang Pusat",
+      "address": "Jl. Kenari Raya G3-01, Delta Silicon 5 Industrial Park, Desa Cicau, Cikarang Pusat, Bekasi 17550, Jawa Barat, Indonesia",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_HANKOOK_NETWORK"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": -6.35,
+      "longitude": 107.15,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官网生产基地目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_HANKOOK_NETWORK"
+      ],
+      "note": "【事实】官方目录确认生产基地；具体地址与地图坐标精度独立。当前厂级产能与耗胶未确认，不从集团数字分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、全年有效产能及实际天然胶耗用本次未获可靠分项数据。"
+        }
+      ],
+      "manufacturer_id": "hankook"
+    },
+    {
+      "id": "kr_nexen_yangsan",
+      "company": "Nexen",
+      "site": "韩国梁山",
+      "country": "韩国",
+      "province": "庆尚南道",
+      "place": "梁山",
+      "address": "355 Chungnyeol-ro, Yangsan-si, Gyeongsangnam-do, Korea",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_NEXEN_NETWORK"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 35.34,
+      "longitude": 129.04,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官网生产基地目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_NEXEN_NETWORK",
+        "AS_NEXEN_PLANTS"
+      ],
+      "note": "【事实】官方目录确认生产基地；具体地址与地图坐标精度独立。当前厂级产能与耗胶未确认，不从集团数字分摊。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、全年有效产能及实际天然胶耗用本次未获可靠分项数据。"
+        }
+      ],
+      "manufacturer_id": "nexen"
+    },
+    {
+      "id": "kr_nexen_changnyeong",
+      "company": "Nexen",
+      "site": "韩国昌宁",
+      "country": "韩国",
+      "province": "庆尚南道",
+      "place": "昌宁",
+      "address": "291 Daedongwolpo-ro, Daehap-myeon, Changnyeong-gun, Gyeongsangnam-do, Korea",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_NEXEN_NETWORK"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 35.55,
+      "longitude": 128.49,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官网生产基地目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_NEXEN_NETWORK",
+        "AS_NEXEN_PLANTS"
+      ],
+      "note": "【事实】官方目录确认生产基地；具体地址与地图坐标精度独立。当前厂级产能与耗胶未确认，不从集团数字分摊。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、全年有效产能及实际天然胶耗用本次未获可靠分项数据。"
+        }
+      ],
+      "manufacturer_id": "nexen"
+    },
+    {
+      "id": "cn_nexen_qingdao",
+      "company": "Nexen",
+      "site": "中国青岛莱西",
+      "country": "中国",
+      "province": "山东",
+      "place": "莱西姜山",
+      "address": "Jiangshanzhen, Laixishi, Qingdao, Shandong 266603, China",
+      "address_quality": "WARNING",
+      "address_precision": "乡镇级；未确认门牌",
+      "address_source_ids": [
+        "AS_NEXEN_NETWORK"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 36.72,
+      "longitude": 120.49,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官网生产基地目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_NEXEN_NETWORK",
+        "AS_NEXEN_PLANTS"
+      ],
+      "note": "【事实】官方目录确认生产基地；具体地址与地图坐标精度独立。当前厂级产能与耗胶未确认，不从集团数字分摊。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、全年有效产能及实际天然胶耗用本次未获可靠分项数据。"
+        }
+      ],
+      "manufacturer_id": "nexen"
+    },
+    {
+      "id": "cz_nexen_bitozeves",
+      "company": "Nexen",
+      "site": "捷克 Žatec/Triangle",
+      "country": "捷克",
+      "province": "乌斯季",
+      "place": "Bitozeves",
+      "address": "Průmyslová 1000, Bitozeves-Průmyslová zóna Triangle, 43801 Bitozeves, Czech Republic",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_NEXEN_NETWORK"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 50.37,
+      "longitude": 13.63,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官网生产基地目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_NEXEN_NETWORK",
+        "AS_NEXEN_PLANTS"
+      ],
+      "note": "官网最新可取得文字仍为2024-01二期目标；1100万条只作为设计目标，已形成、2025有效及2026实际产出MISSING。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": 1100,
+          "design_as_of": "2024-01",
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "WARNING",
+          "note": "官网称二期于2024-01完成并启动，产能目标从550提升至1100万条；本次未核2026达产实绩。",
+          "phases": [
+            {
+              "period": "2024-01",
+              "label": "二期完成并启动运营",
+              "status": "已披露；全面达产待核"
+            }
+          ]
+        }
+      ],
+      "manufacturer_id": "nexen"
+    },
+    {
+      "id": "kr_kumho_gwangju",
+      "company": "Kumho",
+      "site": "韩国光州",
+      "country": "韩国",
+      "province": "光州",
+      "place": "光州",
+      "address": "658 Eodeung-daero, Gwangsan-gu, Gwangju, Korea",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_KUMHO_AR2023"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 35.16,
+      "longitude": 126.85,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "RAMPING",
+      "status_as_of": "2026-03-04",
+      "status_basis": "新闻二级来源：火灾后部分恢复",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_KUMHO_AR2023",
+        "AS_KUMHO_FIRE"
+      ],
+      "note": "2025-05光州厂火灾后受损，2026-03-04报道部分恢复。不得把火灾前设计视为当前有效产能；报道日产量不年化。截至2026-09-26最新恢复比例仍待核。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "kumho"
+    },
+    {
+      "id": "kr_kumho_gokseong",
+      "company": "Kumho",
+      "site": "韩国谷城",
+      "country": "韩国",
+      "province": "全罗南道",
+      "place": "谷城",
+      "address": "85-63 Geumho-gil, Ip-myeon, Gokseong-gun, Jeollanam-do, Korea",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_KUMHO_AR2023"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 35.28,
+      "longitude": 127.29,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2023-12-31",
+      "status_basis": "2023年报生产网络；除特别更新外2026运营状态待核",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_KUMHO_AR2023"
+      ],
+      "note": "厂址来自2023年报，未冒充2026新披露；运营状态、厂级分胎种产能及2025有效产能待核。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "kumho"
+    },
+    {
+      "id": "kr_kumho_pyeongtaek",
+      "company": "Kumho",
+      "site": "韩国平泽",
+      "country": "韩国",
+      "province": "京畿道",
+      "place": "平泽",
+      "address": "87, 156 Pyeongtaekhang-ro, Poseung-eup, Pyeongtaek-si, Gyeonggi-do, Korea",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_KUMHO_AR2023"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 36.99,
+      "longitude": 126.84,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2023-12-31",
+      "status_basis": "2023年报生产网络；除特别更新外2026运营状态待核",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_KUMHO_AR2023"
+      ],
+      "note": "厂址来自2023年报，未冒充2026新披露；运营状态、厂级分胎种产能及2025有效产能待核。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "kumho"
+    },
+    {
+      "id": "cn_kumho_nanjing",
+      "company": "Kumho",
+      "site": "中国南京浦口",
+      "country": "中国",
+      "province": "江苏",
+      "place": "南京",
+      "address": "江苏省南京市浦口经济开发区春羽路8号",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_KUMHO_AR2023"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 32.06,
+      "longitude": 118.64,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2023-12-31",
+      "status_basis": "2023年报生产网络；除特别更新外2026运营状态待核",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_KUMHO_AR2023"
+      ],
+      "note": "厂址来自2023年报，未冒充2026新披露；运营状态、厂级分胎种产能及2025有效产能待核。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "kumho"
+    },
+    {
+      "id": "cn_kumho_tianjin",
+      "company": "Kumho",
+      "site": "中国天津",
+      "country": "中国",
+      "province": "天津",
+      "place": "天津",
+      "address": "No. 333 Zhongnan 2nd Street, TEDA, Tianjin, China",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_KUMHO_AR2023"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 39.08,
+      "longitude": 117.2,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2023-12-31",
+      "status_basis": "2023年报生产网络；除特别更新外2026运营状态待核",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_KUMHO_AR2023"
+      ],
+      "note": "厂址来自2023年报，未冒充2026新披露；运营状态、厂级分胎种产能及2025有效产能待核。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "kumho"
+    },
+    {
+      "id": "cn_kumho_changchun",
+      "company": "Kumho",
+      "site": "中国长春",
+      "country": "中国",
+      "province": "吉林",
+      "place": "长春",
+      "address": "吉林省长春市金湖大路677号",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_KUMHO_AR2023"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 43.82,
+      "longitude": 125.32,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2023-12-31",
+      "status_basis": "2023年报生产网络；除特别更新外2026运营状态待核",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_KUMHO_AR2023"
+      ],
+      "note": "厂址来自2023年报，未冒充2026新披露；运营状态、厂级分胎种产能及2025有效产能待核。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "kumho"
+    },
+    {
+      "id": "vn_kumho_bencat",
+      "company": "Kumho",
+      "site": "越南美福",
+      "country": "越南",
+      "province": "平阳（原行政区）",
+      "place": "Ben Cat",
+      "address": "GCN, My Phuoc 3 Industrial Park, Ben Cat District, Binh Duong, Vietnam",
+      "address_quality": "WARNING",
+      "address_precision": "园区级；门牌未核",
+      "address_source_ids": [
+        "AS_KUMHO_AR2023"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 11.1,
+      "longitude": 106.62,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2023-12-31",
+      "status_basis": "2023年报生产网络；除特别更新外2026运营状态待核",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_KUMHO_AR2023"
+      ],
+      "note": "厂址来自2023年报，未冒充2026新披露；运营状态、厂级分胎种产能及2025有效产能待核。 越南行政区近年调整，保留原报告地址，未擅自翻译为新省份。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "kumho"
+    },
+    {
+      "id": "us_kumho_macon",
+      "company": "Kumho",
+      "site": "美国佐治亚 Macon",
+      "country": "美国",
+      "province": "佐治亚",
+      "place": "Macon",
+      "address": "3051 Kumho Parkway, Macon, GA 31216, USA",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_KUMHO_AR2023"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 32.84,
+      "longitude": -83.63,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2023-12-31",
+      "status_basis": "2023年报生产网络；除特别更新外2026运营状态待核",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_KUMHO_AR2023"
+      ],
+      "note": "厂址来自2023年报，未冒充2026新披露；运营状态、厂级分胎种产能及2025有效产能待核。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "kumho"
+    },
+    {
+      "id": "tw_kenda_yunlin",
+      "company": "Kenda",
+      "site": "台湾云林",
+      "country": "中国台湾",
+      "province": "云林",
+      "place": "莿桐",
+      "address": "Dah Jiang Industrial Park, No. 50 Yan Pyng Road, Tzu Tung Village, Tzu Tung Hsiang, Yunlin 64741, Taiwan",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_KENDA_DIRECTORY"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 23.76,
+      "longitude": 120.5,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方工厂目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_KENDA_DIRECTORY"
+      ],
+      "note": "【事实】官方来源列明生产基地；产能与实际耗胶未核实，保持缺失，不按集团数字分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "kenda"
+    },
+    {
+      "id": "vn_kenda_honai",
+      "company": "Kenda",
+      "site": "越南胡奈一期",
+      "country": "越南",
+      "province": "同奈",
+      "place": "Ho Nai",
+      "address": "Ho Nai Industrial Zone, Thanh Hoa Hamlet, Ho Nai Ward, Dong Nai 76114, Vietnam",
+      "address_quality": "WARNING",
+      "address_precision": "园区/街道级；官网地址未披露门牌或保留旧行政区名称",
+      "address_source_ids": [
+        "AS_KENDA_DIRECTORY"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 10.99,
+      "longitude": 106.95,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方工厂目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_KENDA_DIRECTORY"
+      ],
+      "note": "【事实】官方来源列明生产基地；产能与实际耗胶未核实，保持缺失，不按集团数字分摊。 本次未把官网旧行政区名称擅自改写成精确现址。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "kenda"
+    },
+    {
+      "id": "cn_kenda_kunshan",
+      "company": "Kenda",
+      "site": "江苏昆山",
+      "country": "中国",
+      "province": "江苏",
+      "place": "昆山",
+      "address": "江苏省昆山市经济技术开发区昆嘉路2号",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_KENDA_DIRECTORY"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 31.38,
+      "longitude": 120.98,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方工厂目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_KENDA_DIRECTORY"
+      ],
+      "note": "【事实】官方来源列明生产基地；产能与实际耗胶未核实，保持缺失，不按集团数字分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "kenda"
+    },
+    {
+      "id": "cn_kenda_shenzhen",
+      "company": "Kenda",
+      "site": "广东深圳",
+      "country": "中国",
+      "province": "广东",
+      "place": "深圳",
+      "address": "West of Industrial Road, Dalang Street, Baoan County, Shenzhen, Guangdong 518109, China",
+      "address_quality": "WARNING",
+      "address_precision": "园区/街道级；官网地址未披露门牌或保留旧行政区名称",
+      "address_source_ids": [
+        "AS_KENDA_DIRECTORY"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 22.54,
+      "longitude": 114.06,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方工厂目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_KENDA_DIRECTORY"
+      ],
+      "note": "【事实】官方来源列明生产基地；产能与实际耗胶未核实，保持缺失，不按集团数字分摊。 本次未把官网旧行政区名称擅自改写成精确现址。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "kenda"
+    },
+    {
+      "id": "cn_kenda_tianjin",
+      "company": "Kenda",
+      "site": "天津静海",
+      "country": "中国",
+      "province": "天津",
+      "place": "静海",
+      "address": "No. 6 Taian Road, Tianyu Science and Technology Park, Jinghai County, Tianjin 301609, China",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_KENDA_DIRECTORY"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 38.95,
+      "longitude": 116.97,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方工厂目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_KENDA_DIRECTORY"
+      ],
+      "note": "【事实】官方来源列明生产基地；产能与实际耗胶未核实，保持缺失，不按集团数字分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "kenda"
+    },
+    {
+      "id": "id_kenda_serang",
+      "company": "Kenda",
+      "site": "印尼 Serang",
+      "country": "印度尼西亚",
+      "province": "万丹",
+      "place": "Jawilan",
+      "address": "Jl. Raya Cikande Rangkasbitung Km. 5, Desa Kareo, Kecamatan Jawilan, Serang, Banten 42177, Indonesia",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_KENDA_DIRECTORY"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": -6.24,
+      "longitude": 106.31,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方工厂目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_KENDA_DIRECTORY"
+      ],
+      "note": "【事实】官方来源列明生产基地；产能与实际耗胶未核实，保持缺失，不按集团数字分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "kenda"
+    },
+    {
+      "id": "vn_kenda_giangdien",
+      "company": "Kenda",
+      "site": "越南江田二期",
+      "country": "越南",
+      "province": "同奈",
+      "place": "Giang Dien",
+      "address": "Street No. 08, Giang Dien Industrial Zone, An Vien Commune, Dong Nai 76320, Vietnam",
+      "address_quality": "WARNING",
+      "address_precision": "园区/街道级；官网地址未披露门牌或保留旧行政区名称",
+      "address_source_ids": [
+        "AS_KENDA_DIRECTORY"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 10.9,
+      "longitude": 107,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方工厂目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_KENDA_DIRECTORY"
+      ],
+      "note": "【事实】官方来源列明生产基地；产能与实际耗胶未核实，保持缺失，不按集团数字分摊。 本次未把官网旧行政区名称擅自改写成精确现址。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "kenda"
+    },
+    {
+      "id": "tw_maxxis_dacun",
+      "company": "Cheng Shin / Maxxis",
+      "site": "台湾大村总厂",
+      "country": "中国台湾",
+      "province": "彰化",
+      "place": "大村",
+      "address": "彰化縣大村鄉美港路215號",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_MAXXIS_TW"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 23.99,
+      "longitude": 120.57,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方工厂目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_MAXXIS_TW"
+      ],
+      "note": "【事实】官方来源列明生产基地；产能与实际耗胶未核实，保持缺失，不按集团数字分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "chengshin"
+    },
+    {
+      "id": "tw_maxxis_dacun3",
+      "company": "Cheng Shin / Maxxis",
+      "site": "台湾大村第三分厂",
+      "country": "中国台湾",
+      "province": "彰化",
+      "place": "大村",
+      "address": "彰化縣大村鄉村上村中山路二段146號",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_MAXXIS_TW"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 23.99,
+      "longitude": 120.57,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方工厂目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_MAXXIS_TW"
+      ],
+      "note": "【事实】官方来源列明生产基地；产能与实际耗胶未核实，保持缺失，不按集团数字分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "chengshin"
+    },
+    {
+      "id": "tw_maxxis_zhongzhuang",
+      "company": "Cheng Shin / Maxxis",
+      "site": "台湾中庄厂",
+      "country": "中国台湾",
+      "province": "彰化",
+      "place": "花坛",
+      "address": "彰化縣花壇鄉中庄村中山路一段38號",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_MAXXIS_TW"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 24.03,
+      "longitude": 120.54,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方工厂目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_MAXXIS_TW"
+      ],
+      "note": "【事实】官方来源列明生产基地；产能与实际耗胶未核实，保持缺失，不按集团数字分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "chengshin"
+    },
+    {
+      "id": "tw_maxxis_xizhou",
+      "company": "Cheng Shin / Maxxis",
+      "site": "台湾溪州厂",
+      "country": "中国台湾",
+      "province": "彰化",
+      "place": "溪州",
+      "address": "彰化縣溪州鄉溪州村中山路二段602號",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_MAXXIS_TW"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 23.85,
+      "longitude": 120.5,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方工厂目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_MAXXIS_TW"
+      ],
+      "note": "【事实】官方来源列明生产基地；产能与实际耗胶未核实，保持缺失，不按集团数字分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "chengshin"
+    },
+    {
+      "id": "tw_maxxis_douliu",
+      "company": "Cheng Shin / Maxxis",
+      "site": "台湾斗六厂",
+      "country": "中国台湾",
+      "province": "云林",
+      "place": "斗六",
+      "address": "雲林縣斗六市科加二路1號",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_MAXXIS_TW"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 23.71,
+      "longitude": 120.54,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方工厂目录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_MAXXIS_TW"
+      ],
+      "note": "【事实】官方来源列明生产基地；产能与实际耗胶未核实，保持缺失，不按集团数字分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "chengshin"
+    },
+    {
+      "id": "th_maxxis_rayong",
+      "company": "Cheng Shin / Maxxis",
+      "site": "泰国罗勇",
+      "country": "泰国",
+      "province": "罗勇",
+      "place": "Pluak Daeng",
+      "address": "300/1 Moo 1, Tambol Tashit, Amphur Pluakdaeng, Rayong 21140, Thailand",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_MAXXIS_AR2020"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 12.99,
+      "longitude": 101.18,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2022-12-31",
+      "status_basis": "2020年报地址、2022ESG生产公司名单；2026状态待核",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_MAXXIS_AR2020",
+        "AS_MAXXIS_ESG2022"
+      ],
+      "note": "历史官方年报及ESG确认生产公司和地址，2026厂级能力、持续运营及地址变更未核，不能当最新产能。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "chengshin"
+    },
+    {
+      "id": "cn_maxxis_haicang",
+      "company": "Cheng Shin / Maxxis",
+      "site": "厦门正新海沧",
+      "country": "中国",
+      "province": "福建",
+      "place": "厦门海沧",
+      "address": "福建省厦门市海沧区新顺路15号",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_MAXXIS_AR2020"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 24.49,
+      "longitude": 118.03,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2022-12-31",
+      "status_basis": "2020年报地址、2022ESG生产公司名单；2026状态待核",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_MAXXIS_AR2020",
+        "AS_MAXXIS_ESG2022"
+      ],
+      "note": "历史官方年报及ESG确认生产公司和地址，2026厂级能力、持续运营及地址变更未核，不能当最新产能。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "chengshin"
+    },
+    {
+      "id": "cn_maxxis_zhangzhou",
+      "company": "Cheng Shin / Maxxis",
+      "site": "正新漳州",
+      "country": "中国",
+      "province": "福建",
+      "place": "漳州龙海港尾",
+      "address": "福建省漳州市龙海市港尾镇青水路15号",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_MAXXIS_AR2020"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 24.28,
+      "longitude": 118.08,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2022-12-31",
+      "status_basis": "2020年报地址、2022ESG生产公司名单；2026状态待核",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_MAXXIS_AR2020",
+        "AS_MAXXIS_ESG2022"
+      ],
+      "note": "历史官方年报及ESG确认生产公司和地址，2026厂级能力、持续运营及地址变更未核，不能当最新产能。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "chengshin"
+    },
+    {
+      "id": "vn_maxxis_nhontrach",
+      "company": "Cheng Shin / Maxxis",
+      "site": "越南仁泽",
+      "country": "越南",
+      "province": "同奈",
+      "place": "Nhon Trach",
+      "address": "Nhon Trach 3 Industrial Zone, Nhon Trach, Dong Nai, Vietnam",
+      "address_quality": "WARNING",
+      "address_precision": "工业园级；门牌未核",
+      "address_source_ids": [
+        "AS_MAXXIS_AR2020"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 10.75,
+      "longitude": 106.95,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2022-12-31",
+      "status_basis": "2020年报地址、2022ESG生产公司名单；2026状态待核",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_MAXXIS_AR2020",
+        "AS_MAXXIS_ESG2022"
+      ],
+      "note": "历史官方年报及ESG确认生产公司和地址，2026厂级能力、持续运营及地址变更未核，不能当最新产能。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "chengshin"
+    },
+    {
+      "id": "id_maxxis_cikarang",
+      "company": "Cheng Shin / Maxxis",
+      "site": "印尼芝卡朗",
+      "country": "印度尼西亚",
+      "province": "西爪哇",
+      "place": "Cikarang Pusat",
+      "address": "Greenland International Industrial Center (GIIC), Blok CG No. 01, Kota Deltamas, Desa Pasir Ranji, Cikarang Pusat, Bekasi, Jawa Barat 17530, Indonesia",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_MAXXIS_AR2021"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": -6.37,
+      "longitude": 107.21,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2022-12-31",
+      "status_basis": "历史官方年报地址及2022ESG生产公司名录；当前状态待核",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_MAXXIS_AR2021",
+        "AS_MAXXIS_ESG2022"
+      ],
+      "note": "【事实】官方来源列明生产基地；产能与实际耗胶未核实，保持缺失，不按集团数字分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级产能、分品类生产量、全年有效产能及实际天然胶耗用本次未核实。"
+        }
+      ],
+      "manufacturer_id": "chengshin"
+    },
+    {
+      "id": "cn_giti_hefei",
+      "company": "Giti",
+      "site": "中国安徽合肥",
+      "country": "中国",
+      "province": "安徽",
+      "place": "合肥",
+      "address": null,
+      "address_quality": "MISSING",
+      "address_precision": "未确认",
+      "address_source_ids": [],
+      "address_verified_at": "2026-09-26",
+      "latitude": 31.82,
+      "longitude": 117.23,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方生产基地名录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_GITI_FACTORIES"
+      ],
+      "note": "当前官方质量页面列合肥、福建、桦林三家中国工厂；未将上海临虹路办公地址误作厂址。合肥具体工业园/厂级细分及是否与新安徽基地重合仍待核。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、2025全年有效产能与实际天然胶耗用未核实。"
+        }
+      ],
+      "manufacturer_id": "giti"
+    },
+    {
+      "id": "cn_giti_putian",
+      "company": "Giti",
+      "site": "中国福建莆田",
+      "country": "中国",
+      "province": "福建",
+      "place": "莆田秀屿",
+      "address": "福建省莆田市秀屿区笏石镇西田村西洙1000号",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_LINGLONG_GX_ADDR"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 25.28,
+      "longitude": 119.01,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方生产基地名录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_GITI_FACTORIES",
+        "AS_LINGLONG_GX_ADDR"
+      ],
+      "note": "官方生产基地名录与政府产品抽查制造单位地址交叉核对；不采用上海销售办公室地址。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、2025全年有效产能与实际天然胶耗用未核实。"
+        }
+      ],
+      "manufacturer_id": "giti"
+    },
+    {
+      "id": "cn_giti_hualin",
+      "company": "Giti",
+      "site": "中国黑龙江桦林",
+      "country": "中国",
+      "province": "黑龙江",
+      "place": "牡丹江桦林",
+      "address": null,
+      "address_quality": "MISSING",
+      "address_precision": "未确认",
+      "address_source_ids": [],
+      "address_verified_at": "2026-09-26",
+      "latitude": 44.6,
+      "longitude": 129.64,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方生产基地名录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_GITI_FACTORIES"
+      ],
+      "note": "官方名单确认桦林生产基地，具体厂区街道地址本次未核实；不能把集团中国三厂合计日产能分配给单厂。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、2025全年有效产能与实际天然胶耗用未核实。"
+        }
+      ],
+      "manufacturer_id": "giti"
+    },
+    {
+      "id": "us_giti_richburg",
+      "company": "Giti",
+      "site": "美国南卡罗来纳 Richburg",
+      "country": "美国",
+      "province": "南卡罗来纳",
+      "place": "Richburg",
+      "address": "1000 Giti Drive, Richburg, SC 29729, USA",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_GITI_US_ADDR"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 34.72,
+      "longitude": -81.02,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方生产基地名录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_GITI_FACTORIES",
+        "AS_GITI_US_ADDR"
+      ],
+      "note": "官方工厂名录与政府现场检查地址交叉核对。美国工厂不能使用Charlotte销售办公室地址。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、2025全年有效产能与实际天然胶耗用未核实。"
+        }
+      ],
+      "manufacturer_id": "giti"
+    },
+    {
+      "id": "cn_triangle_huasheng",
+      "company": "三角轮胎",
+      "site": "华盛（威海经开区）",
+      "country": "中国",
+      "province": "山东",
+      "place": "威海经济技术开发区",
+      "address": "山东省威海经济技术开发区",
+      "address_quality": "WARNING",
+      "address_precision": "开发区级；厂区门牌未核",
+      "address_source_ids": [
+        "AS_TRIANGLE_FACTORIES"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 37.15,
+      "longitude": 122,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方生产基地名录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_TRIANGLE_FACTORIES"
+      ],
+      "note": "官方名单确认厂区及产品类别；不是门牌精确厂址。三角集团2700多万条产能不得在四厂间摊配。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、2025全年有效产能与实际天然胶耗用未核实。"
+        },
+        {
+          "type": "OTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、2025全年有效产能与实际天然胶耗用未核实。"
+        }
+      ],
+      "manufacturer_id": "triangle"
+    },
+    {
+      "id": "cn_triangle_huamao",
+      "company": "三角轮胎",
+      "site": "华茂（威海临港）",
+      "country": "中国",
+      "province": "山东",
+      "place": "威海临港经济技术开发区",
+      "address": "山东省威海临港经济技术开发区",
+      "address_quality": "WARNING",
+      "address_precision": "开发区级；厂区门牌未核",
+      "address_source_ids": [
+        "AS_TRIANGLE_FACTORIES"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 37.15,
+      "longitude": 122,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方生产基地名录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_TRIANGLE_FACTORIES"
+      ],
+      "note": "官方名单确认厂区及产品类别；不是门牌精确厂址。三角集团2700多万条产能不得在四厂间摊配。",
+      "lines": [
+        {
+          "type": "TBR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、2025全年有效产能与实际天然胶耗用未核实。"
+        }
+      ],
+      "manufacturer_id": "triangle"
+    },
+    {
+      "id": "cn_triangle_huayang",
+      "company": "三角轮胎",
+      "site": "华阳（威海南海）",
+      "country": "中国",
+      "province": "山东",
+      "place": "威海南海新区",
+      "address": "山东省威海南海新区",
+      "address_quality": "WARNING",
+      "address_precision": "开发区级；厂区门牌未核",
+      "address_source_ids": [
+        "AS_TRIANGLE_FACTORIES"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 37.15,
+      "longitude": 122,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方生产基地名录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_TRIANGLE_FACTORIES"
+      ],
+      "note": "官方名单确认厂区及产品类别；不是门牌精确厂址。三角集团2700多万条产能不得在四厂间摊配。",
+      "lines": [
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、2025全年有效产能与实际天然胶耗用未核实。"
+        }
+      ],
+      "manufacturer_id": "triangle"
+    },
+    {
+      "id": "cn_triangle_huaxin",
+      "company": "三角轮胎",
+      "site": "华新（威海南海）",
+      "country": "中国",
+      "province": "山东",
+      "place": "威海南海新区",
+      "address": "山东省威海南海新区",
+      "address_quality": "WARNING",
+      "address_precision": "开发区级；厂区门牌未核",
+      "address_source_ids": [
+        "AS_TRIANGLE_FACTORIES"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 37.15,
+      "longitude": 122,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方生产基地名录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_TRIANGLE_FACTORIES"
+      ],
+      "note": "官方名单确认厂区及产品类别；不是门牌精确厂址。三角集团2700多万条产能不得在四厂间摊配。",
+      "lines": [
+        {
+          "type": "OTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、2025全年有效产能与实际天然胶耗用未核实。"
+        }
+      ],
+      "manufacturer_id": "triangle"
+    },
+    {
+      "id": "cn_triangle_huada",
+      "company": "三角轮胎",
+      "site": "华达翻新胎厂（非新胎）",
+      "country": "中国",
+      "province": "山东",
+      "place": "威海南海新区",
+      "address": "山东省威海南海新区",
+      "address_quality": "WARNING",
+      "address_precision": "开发区级；厂区门牌未核",
+      "address_source_ids": [
+        "AS_TRIANGLE_FACTORIES"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 37.15,
+      "longitude": 122,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方生产基地名录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_TRIANGLE_FACTORIES"
+      ],
+      "note": "官方第五制造基地为翻新胎，不与新轮胎产能直接合计。地址与翻新能力尚未取得厂级明细。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "翻新轮胎，不套新胎天然胶单耗系数。",
+          "product_scope": "RETREAD"
+        }
+      ],
+      "factory_scope": "RETREAD_ONLY",
+      "manufacturer_id": "triangle"
+    },
+    {
+      "id": "cn_guizhou_zhazuo",
+      "company": "贵州轮胎",
+      "site": "贵州扎佐",
+      "country": "中国",
+      "province": "贵州",
+      "place": "修文扎佐",
+      "address": "贵州省贵阳市修文县扎佐工业园黔轮大道",
+      "address_quality": "WARNING",
+      "address_precision": "工业园街道级；门牌未核",
+      "address_source_ids": [
+        "AS_GUIZHOU_PCR_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 26.85,
+      "longitude": 106.74,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方生产基地名录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_GUIZHOU_PCR_2025",
+        "AS_GUIZHOU_EIA"
+      ],
+      "note": "【事实】来源确认生产基地，缺失厂级数据不按集团分配。",
+      "lines": [
+        {
+          "type": "TBR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、2025全年有效产能与实际天然胶耗用未核实。"
+        },
+        {
+          "type": "OTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、2025全年有效产能与实际天然胶耗用未核实。"
+        },
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "农业及其他工业胎未确认可比厂级容量。"
+        }
+      ],
+      "manufacturer_id": "guizhou"
+    },
+    {
+      "id": "vn_guizhou_longjiang",
+      "company": "贵州轮胎",
+      "site": "越南龙江",
+      "country": "越南",
+      "province": "同塔（2025公告口径）",
+      "place": "龙江工业园",
+      "address": "Long Jiang Industrial Park, Dong Thap Province, Vietnam",
+      "address_quality": "WARNING",
+      "address_precision": "工业园级；具体地块未核",
+      "address_source_ids": [
+        "AS_GUIZHOU_PCR_2025"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 10.48,
+      "longitude": 106.28,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "RAMPING",
+      "status_as_of": "2025-07-11",
+      "status_basis": "官方生产基地名录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_GUIZHOU_PCR_2025"
+      ],
+      "note": "2025-07-10三期首条PCR下线，计划2026Q1销售；当前600万条全面达产尚未核。NHTSA manufacturer20262混入贵阳办公楼，不作为越南厂址。",
+      "lines": [
+        {
+          "type": "TBR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、2025全年有效产能与实际天然胶耗用未核实。"
+        },
+        {
+          "type": "PCR/LTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": 600,
+          "design_as_of": "2025-07-11",
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "WARNING",
+          "note": "三期600万条/年为设计；首胎不等于达产。",
+          "phases": [
+            {
+              "period": "2025-07-10",
+              "label": "三期首条半钢胎下线",
+              "status": "已披露"
+            },
+            {
+              "period": "2026-Q1",
+              "label": "原目标实现销售",
+              "status": "目标到期；最新实施结果待核"
+            }
+          ]
+        }
+      ],
+      "manufacturer_id": "guizhou"
+    },
+    {
+      "id": "cn_doublecoin_rugao",
+      "company": "双钱",
+      "site": "江苏如皋",
+      "country": "中国",
+      "province": "江苏",
+      "place": "如皋",
+      "address": "江苏省如皋市益寿北路888号",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_DC_RUGAO_EIA"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 32.37,
+      "longitude": 120.57,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "UNKNOWN",
+      "status_as_of": null,
+      "status_basis": "政府环评文件确认生产厂区，最新运营状态待核",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_DC_RUGAO_EIA"
+      ],
+      "note": "【事实】来源确认生产基地，缺失厂级数据不按集团分配。",
+      "lines": [
+        {
+          "type": "TBR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、2025全年有效产能与实际天然胶耗用未核实。"
+        },
+        {
+          "type": "OTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、2025全年有效产能与实际天然胶耗用未核实。"
+        }
+      ],
+      "manufacturer_id": "doublecoin"
+    },
+    {
+      "id": "cn_doublecoin_chongqing",
+      "company": "双钱",
+      "site": "重庆双桥",
+      "country": "中国",
+      "province": "重庆",
+      "place": "重庆双桥",
+      "address": "重庆市双桥经开区双钱路1号",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_DC_CQ_EIA"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 29.5,
+      "longitude": 105.78,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "UNKNOWN",
+      "status_as_of": "2022-12-15",
+      "status_basis": "2022政府环评确认工厂技改，2026运营状态待核",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_DC_CQ_EIA"
+      ],
+      "note": "2022年环评250万条全钢技改不自动认定最新总产能，需核扩建前后边界与验收情况。",
+      "lines": [
+        {
+          "type": "TBR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、2025全年有效产能与实际天然胶耗用未核实。"
+        }
+      ],
+      "manufacturer_id": "doublecoin"
+    },
+    {
+      "id": "cn_aeolus_jiaozuo",
+      "company": "风神轮胎",
+      "site": "焦作焦东南路",
+      "country": "中国",
+      "province": "河南",
+      "place": "焦作",
+      "address": "河南省焦作市焦东南路厂区（门牌待核）",
+      "address_quality": "WARNING",
+      "address_precision": "厂区街道级；具体门牌未交叉核实",
+      "address_source_ids": [
+        "AS_AEOLUS_FACTORY"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 35.22,
+      "longitude": 113.24,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "UNKNOWN",
+      "status_as_of": null,
+      "status_basis": "行业协会工厂报道；最新运营及物理厂区划分待核",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_AEOLUS_FACTORY"
+      ],
+      "note": "行业协会文章明确焦东南路生产厂区；公司注册地址48号尚未确认与整个制造厂区完全同址，不据注册地址强行精确化。",
+      "lines": [
+        {
+          "type": "TBR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、2025全年有效产能与实际天然胶耗用未核实。"
+        },
+        {
+          "type": "OTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、2025全年有效产能与实际天然胶耗用未核实。"
+        }
+      ],
+      "manufacturer_id": "aeolus"
+    },
+    {
+      "id": "th_zhongce_rayong",
+      "company": "中策橡胶",
+      "site": "泰国罗勇",
+      "country": "泰国",
+      "province": "罗勇",
+      "place": "Pluak Daeng",
+      "address": "7/666 Moo 6, Tambon Mabyangporn, Amphoe Pluak Daeng, Rayong 21140, Thailand",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_ZC_ORG"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 12.99,
+      "longitude": 101.18,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方生产基地名录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_ZC_ORG"
+      ],
+      "note": "【事实】来源确认生产基地，缺失厂级数据不按集团分配。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、2025全年有效产能与实际天然胶耗用未核实。"
+        }
+      ],
+      "manufacturer_id": "zhongce"
+    },
+    {
+      "id": "id_zhongce_kendal",
+      "company": "中策橡胶",
+      "site": "印尼 Kendal/Matahari",
+      "country": "印度尼西亚",
+      "province": "中爪哇",
+      "place": "Kaliwungu",
+      "address": "Jalan Pareanom No. 17, Desa/Kelurahan Wonorejo, Kecamatan Kaliwungu, Kabupaten Kendal, Jawa Tengah, Indonesia",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_ZC_ORG"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": -6.94,
+      "longitude": 110.22,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方生产基地名录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_ZC_ORG"
+      ],
+      "note": "PT Matahari Tire Indonesia为官方生产实体；中策2025集团半钢/全钢总量不能按国家分摊。",
+      "lines": [
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、2025全年有效产能与实际天然胶耗用未核实。"
+        }
+      ],
+      "manufacturer_id": "zhongce"
+    },
+    {
+      "id": "cn_zhongce_tianli",
+      "company": "中策橡胶",
+      "site": "天津天力",
+      "country": "中国",
+      "province": "天津",
+      "place": "天津滨海",
+      "address": "No. 347 Hanjiang Road, Lingang Economic Zone, Binhai New District, Tianjin, China",
+      "address_quality": "PASS",
+      "address_precision": "厂区街道地址",
+      "address_source_ids": [
+        "AS_TIANLI_ADDR"
+      ],
+      "address_verified_at": "2026-09-26",
+      "latitude": 38.97,
+      "longitude": 117.72,
+      "coord_precision": "城市/城镇级近似定位；不是厂界或门牌坐标",
+      "status": "OPERATING",
+      "status_as_of": "2026-09-26",
+      "status_basis": "官方生产基地名录；非现场核验",
+      "quality": "WARNING",
+      "source_ids": [
+        "AS_TIANLI_ADDR"
+      ],
+      "note": "【事实】来源确认生产基地，缺失厂级数据不按集团分配。",
+      "lines": [
+        {
+          "type": "OTR",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "厂级设计、已形成、2025全年有效产能与实际天然胶耗用未核实。"
+        },
+        {
+          "type": "OTHER",
+          "capacity_unit": "万条/年",
+          "design_capacity": null,
+          "design_as_of": null,
+          "formed_capacity": null,
+          "formed_as_of": null,
+          "effective_capacity_2025": null,
+          "quality": "MISSING",
+          "note": "农业/工业轮胎需保留独立单耗，不能套用TBR系数。"
+        }
+      ],
+      "manufacturer_id": "zhongce"
+    }
+  ]
+}

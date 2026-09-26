@@ -17,7 +17,7 @@
 .capacity-stat { padding: 13px 15px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-soft); }
 .capacity-stat span, .capacity-stat small { display: block; color: var(--muted); font-size: .72rem; }
 .capacity-stat strong { display: block; margin: 5px 0 2px; color: var(--brand-dark); font-size: 1.3rem; line-height: 1.15; }
-.capacity-controls { display: grid; grid-template-columns: repeat(3, minmax(140px, 1fr)) minmax(220px, 1.5fr); gap: 10px; margin-bottom: 16px; }
+.capacity-controls { display: grid; grid-template-columns: repeat(5, minmax(100px, 1fr)) minmax(150px, 1.5fr); gap: 10px; margin-bottom: 16px; }
 .capacity-controls.rubber-controls { grid-template-columns: repeat(2, minmax(140px, 1fr)) minmax(220px, 1.5fr); }
 .capacity-controls label { color: var(--muted); font-size: .75rem; font-weight: 800; }
 .capacity-controls input, .capacity-controls select { display: block; width: 100%; margin-top: 4px; }
@@ -45,7 +45,26 @@
 .capacity-key.planned { background: #8f8d9b; }
 .capacity-key.province { background: #0b675c; }
 .capacity-key.national { background: #d58313; }
-.capacity-detail { max-height: 510px; overflow: auto; }
+.capacity-detail { max-height: 660px; overflow: auto; }
+.factory-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 10px 0; }
+.factory-summary > div { padding: 10px; background: #eaf5ef; border: 1px solid #c8ded4; border-radius: 8px; }
+.factory-summary span, .factory-summary strong, .factory-summary small { display: block; }
+.factory-summary span { font-size: .7rem; color: var(--muted); }
+.factory-summary strong { margin: 5px 0; color: var(--brand-dark); font-size: .93rem; }
+.factory-summary small, .summary-dates, .factory-address small { color: var(--muted); font-size: .68rem; }
+.factory-address { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: .78rem; overflow-wrap: anywhere; }
+.factory-address p { margin: 5px 0; }
+.factory-address a { color: var(--brand); white-space: nowrap; }
+.census-panel { margin-top: 15px; padding: 12px 15px; border: 1px solid var(--line); border-radius: 10px; background: #f7fbf9; }
+.census-panel summary { cursor: pointer; font-weight: 800; color: var(--brand-dark); }
+.census-panel p { font-size: .8rem; }
+.census-table { max-height: 420px; overflow: auto; }
+.census-table table { width: 100%; border-collapse: collapse; font-size: .77rem; }
+.census-table th, .census-table td { padding: 8px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+.census-table th { position: sticky; top: 0; background: #e7f2ec; }
+.census-table small { display: block; color: var(--muted); }
+.census-table button { color: var(--brand); border: 0; padding: 0; background: none; cursor: pointer; text-decoration: underline; }
+.census-table button:focus-visible { outline: 3px solid var(--lime); }
 .capacity-detail h3 { margin: 0; font-size: 1.15rem; }
 .capacity-detail .detail-sub { margin: 3px 0 12px; color: var(--muted); font-size: .78rem; }
 .capacity-detail .detail-note { margin: 10px 0; padding: 9px 10px; border-left: 3px solid #d0b36b; background: #fffaec; font-size: .76rem; }
@@ -61,7 +80,7 @@
 .capacity-sources { padding-left: 18px; font-size: .72rem; overflow-wrap: anywhere; }
 .capacity-sources li { margin-bottom: 5px; }
 .capacity-sources a { color: var(--brand); }
-.capacity-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+.capacity-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 14px; max-height: 410px; overflow: auto; }
 .capacity-list button { width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 9px; background: #fff; text-align: left; cursor: pointer; }
 .capacity-list button:hover, .capacity-list button.active { border-color: #69a89a; background: #f1f9f6; }
 .capacity-list button:focus-visible { outline: 3px solid var(--lime); }
