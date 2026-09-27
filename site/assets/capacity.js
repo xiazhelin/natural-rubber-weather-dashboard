@@ -11,7 +11,7 @@ const BOUNDS = {
   africa: {west: -20, east: 49, south: -13, north: 24}
 };
 const $ = (selector) => document.querySelector(selector);
-const state = {tyre: null, rubber: null, manufacturers: null, land: null, activeTyre: null, activeRubber: null};
+const state = {tyre: null, rubber: null, manufacturers: null, tb: null, land: null, activeTyre: null, activeRubber: null};
 const mapViews = {tyre: {zoom: 1, x: 0, y: 0}, rubber: {zoom: 1, x: 0, y: 0}};
 
 function escapeHtml(value) {
@@ -82,11 +82,12 @@ function totalText(summary, divisor = 1, unit = "万条／年") {
 
 function factorySummaryHtml(item) {
   const summary = factorySummary(item, state.tyre.model);
+  const tb = (state.tb?.facilities || []).filter((row) => row.matched_factory_id === item.id);
   return `<div class="factory-summary" aria-label="厂区产能与耗胶汇总">${["PCR/LTR", "TBR"].map((type) => {
     const value = summary.types[type];
     const historical = (item.survey_observations || []).filter((o) => o.comparable_type === type);
     return `<div><span>${TYPE[type]} · 设计</span><strong>${totalText(value.design)}</strong><small>已形成：${totalText(value.formed)}</small><small>2025 全年有效：${totalText(value.effective)}</small>${value.otherUnits.map((l) => `<small>另披露 ${number(l.design_capacity)} ${escapeHtml(l.capacity_unit)}，不擅自年化</small>`).join("")}${historical.map((o) => `<small>2025 行业估计：${escapeHtml(o.reported_capacity_text)}，不等于当前设计</small>`).join("")}</div>`;
-  }).join("")}<div><span>全厂已形成满负荷耗胶</span><strong>${rangeText(summary.formedNr)}</strong><small>ESTIMATE · 能力 × 用户单耗区间</small></div><div><span>2025 年度耗胶</span><strong>${rangeText(summary.actualNr, "万吨")}</strong><small>${summary.actualNr.low == null ? "缺少厂级投料／实际产量依据" : summary.actualEstimated ? "ESTIMATE · 含实际产量 × 单耗" : "FACT · 厂级投料披露"}</small></div></div><p class="summary-dates">汇总全厂全部已收录产线；设计满产耗胶：${rangeText(summary.designNr)}（ESTIMATE）。半钢2.6–3.0、全钢22–23吨/千条。各线日期见下方；不是当前实际消费。</p>`;
+  }).join("")}<div><span>全厂已形成满负荷耗胶</span><strong>${rangeText(summary.formedNr)}</strong><small>ESTIMATE · 能力 × 用户单耗区间</small></div><div><span>2025 年度耗胶</span><strong>${rangeText(summary.actualNr, "万吨")}</strong><small>${summary.actualNr.low == null ? "缺少厂级投料／实际产量依据" : summary.actualEstimated ? "ESTIMATE · 含实际产量 × 单耗" : "FACT · 厂级投料披露"}</small></div>${tb.length ? `<div><span>Tire Business 2025 调查估计</span><strong>${tb.map((row) => escapeHtml(row.reported_capacity_text)).join(" / ")}</strong><small>原表整厂胎型混合时不拆半钢／全钢；不并入当前形成能力或耗胶。</small></div>` : ""}</div><p class="summary-dates">汇总全厂全部已收录产线；设计满产耗胶：${rangeText(summary.designNr)}（ESTIMATE）。半钢2.6–3.0、全钢22–23吨/千条。各线日期见下方；不是当前实际消费。</p>`;
 }
 
 function hasCoordinates(item) {
@@ -258,9 +259,21 @@ function tyreDetail(item, type) {
   const ids = [...(item.source_ids || []), ...(item.address_source_ids || []), ...(item.coordinate_source_ids || []), ...visible.flatMap((line) => line.source_ids || [])];
   const address = item.address ? `${escapeHtml(item.address)} <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.company} ${item.address}`)}" target="_blank" rel="noopener noreferrer">地图查址 ↗</a>` : "具体厂址 MISSING · 当前无法确认";
   const historical = (item.survey_observations || []).map((o) => `<div class="capacity-line"><strong>2025 行业调查 · ${escapeHtml(TYPE[o.comparable_type])}</strong><p>${escapeHtml(o.reported_capacity_text)} · ESTIMATE / WARNING</p><small>原表胎种代码：${escapeHtml(o.product_types)}；PDF 第 ${number(o.source_page)} 页；DOT ${escapeHtml(o.dot_codes.join(" / "))}。</small><small>${escapeHtml(o.note)} u/d＝条/日，u/y＝条/年，t/y＝轮胎吨/年，t/m＝轮胎吨/月，t/d＝轮胎吨/日；不能当作天然胶吨数。与较新企业披露不合并求和。</small></div>`).join("");
+  const tb = (state.tb?.facilities || []).filter((row) => row.matched_factory_id === item.id).map((row) => `<div class="capacity-line"><strong>Tire Business 2025 · 整厂估计</strong><p>${escapeHtml(row.reported_capacity_text)} · ESTIMATE / WARNING</p><small>胎型代码：${escapeHtml(row.product_types || "未能解析")}；刊物第 ${number(row.source_page)} 页；${escapeHtml(row.source_company)}。</small><small>原单位保留；与企业产线披露及其他行业调查不合并。<a href="${escapeHtml(state.tb.source.url)}" target="_blank" rel="noopener noreferrer">来源 ↗</a></small></div>`).join("");
   const claims = (item.capacity_claims || []).map((c) => `<p class="detail-note">待核线索：${escapeHtml(TYPE[c.type])} ${number(c.reported_design_capacity)} ${escapeHtml(c.capacity_unit)} · ${escapeHtml(c.claim_as_of)}。${escapeHtml(c.claim_source)}；未进入产能及耗胶合计。</p>`).join("");
   const reported = item.reported_nr_scenario ? `<p class="detail-note">企业可研耗胶情景：${number(item.reported_nr_scenario.value)} ${escapeHtml(item.reported_nr_scenario.unit)} · ${escapeHtml(item.reported_nr_scenario.as_of)}。${escapeHtml(item.reported_nr_scenario.basis)}</p>` : "";
-  return `<h3>${escapeHtml(item.company)} · ${escapeHtml(item.site)}</h3><p class="detail-sub">${escapeHtml(item.country)} · ${escapeHtml(item.province || item.place)} · ${escapeHtml(STATUS[item.status] || item.status)} · ${escapeHtml(item.quality)}${item.census_record_type === "HISTORICAL_SURVEY_FACTORY" ? " · 2025行业普查厂区" : ""}</p>${factorySummaryHtml(item)}<div class="factory-address"><strong>${item.address_scope === "REGISTRY_ADDRESS" ? "登记地址 · 物理厂址待核" : "厂区地址"}</strong><p>${address}</p><small>地址核验：${escapeHtml(item.address_quality || "MISSING")} · ${escapeHtml(item.coord_precision || "坐标待核")}</small></div><p class="detail-note">${escapeHtml(item.note || "厂区地址与地图坐标精度分别核验；产能以逐项披露日期为准。")}</p>${claims}${reported}${historical}${lines}${sourceList(ids, state.tyre.sources)}`;
+  return `<h3>${escapeHtml(item.company)} · ${escapeHtml(item.site)}</h3><p class="detail-sub">${escapeHtml(item.country)} · ${escapeHtml(item.province || item.place)} · ${escapeHtml(STATUS[item.status] || item.status)} · ${escapeHtml(item.quality)}${item.census_record_type === "HISTORICAL_SURVEY_FACTORY" ? " · 2025行业普查厂区" : ""}</p>${factorySummaryHtml(item)}<div class="factory-address"><strong>${item.address_scope === "REGISTRY_ADDRESS" ? "登记地址 · 物理厂址待核" : "厂区地址"}</strong><p>${address}</p><small>地址核验：${escapeHtml(item.address_quality || "MISSING")} · ${escapeHtml(item.coord_precision || "坐标待核")}</small></div><p class="detail-note">${escapeHtml(item.note || "厂区地址与地图坐标精度分别核验；产能以逐项披露日期为准。")}</p>${claims}${reported}${tb}${historical}${lines}${sourceList(ids, state.tyre.sources)}`;
+}
+
+function renderTbSurvey() {
+  if (!state.tb) { $("#tbSurveyStatus").textContent = "行业调查数据未能读取；现有厂区数据不受影响。"; return; }
+  const country = $("#tbCountry").value, maker = $("#tbManufacturer").value, query = $("#tbSearch").value.trim().toLowerCase();
+  const rows = state.tb.facilities.filter((row) => (country === "all" || row.country === country)
+    && (maker === "all" || row.manufacturer_id === maker)
+    && (!query || `${row.country} ${row.source_company} ${row.site}`.toLowerCase().includes(query)));
+  const linked = rows.filter((row) => row.matched_factory_id).length;
+  $("#tbSurveyStatus").innerHTML = `已提取 ${state.tb.row_count} 条有数值的逐厂调查记录，覆盖 ${Object.keys(state.tb.by_country).length} 个国家／地区；当前筛选 ${rows.length} 条，其中 ${linked} 条可唯一关联到现有厂区。其余保持独立调查记录，不凭名称猜测合并。<a href="${escapeHtml(state.tb.source.url)}" target="_blank" rel="noopener noreferrer">Tire Business 原刊入口 ↗</a>`;
+  $("#tbSurveyTable").innerHTML = `<table><thead><tr><th>国家／地区</th><th>企业／集团（原表）</th><th>厂区／地点（原表）</th><th>胎型代码</th><th>2025 调查估计产能</th><th>页码</th><th>与现有厂区</th></tr></thead><tbody>${rows.map((row) => `<tr><td>${escapeHtml(row.country)}</td><td>${escapeHtml(row.source_company)}</td><td>${escapeHtml(row.site)}</td><td>${escapeHtml(row.product_types || "未能解析")}</td><td>${escapeHtml(row.reported_capacity_text)}</td><td>${number(row.source_page)}</td><td>${row.matched_factory_id ? `<button type="button" data-nr-factory="${escapeHtml(row.matched_factory_id)}">查看已核厂区</button>` : "待匹配／未收录"}</td></tr>`).join("")}</tbody></table>`;
 }
 
 function rubberDetail(item) {
@@ -457,11 +470,15 @@ async function start() {
     if (!response.ok) throw new Error(`${response.status} ${url}`);
     return response.json();
   });
-  const [tyre, rubber, land, manufacturers] = await Promise.allSettled([
-    getJson(`${DATA_ROOT}tyre-factories.json`), getJson(`${DATA_ROOT}rubber-regions.json`), getJson(LAND_URL), getJson(`${DATA_ROOT}tyre-manufacturers.json`)
+  const [tyre, rubber, land, manufacturers, tb] = await Promise.allSettled([
+    getJson(`${DATA_ROOT}tyre-factories.json`), getJson(`${DATA_ROOT}rubber-regions.json`), getJson(LAND_URL), getJson(`${DATA_ROOT}tyre-manufacturers.json`), getJson(`${DATA_ROOT}tb2025-facilities.json`)
   ]);
   state.land = land.status === "fulfilled" ? land.value : null;
   state.manufacturers = manufacturers.status === "fulfilled" ? manufacturers.value : null;
+  state.tb = tb.status === "fulfilled" ? tb.value : null;
+  if (state.tb) fillCountrySelect("#tbCountry", state.tb.facilities);
+  if (state.manufacturers) $("#tbManufacturer").insertAdjacentHTML("beforeend", state.manufacturers.manufacturers.map((maker) => `<option value="${escapeHtml(maker.id)}">${maker.rank}. ${escapeHtml(maker.name)}</option>`).join(""));
+  renderTbSurvey();
   if (tyre.status === "fulfilled") {
     state.tyre = tyre.value;
     fillCountrySelect("#tyreCountry", [...state.tyre.factories, ...(state.tyre.registry_candidates || [])]);
@@ -476,6 +493,7 @@ async function start() {
   } else $("#rubberSvg").textContent = `产区数据读取失败：${rubber.reason.message}`;
   $("#atlasUpdated").textContent = `文件修订：轮胎 ${state.tyre?.updated_at || "MISSING"} · 产区 ${state.rubber?.updated_at || "MISSING"}${state.land ? "" : " · 底图暂不可用"}`;
   ["#tyreCountry", "#tyreManufacturer", "#tyreType", "#tyreStatus", "#tyreSearch"].forEach((id) => $(id).addEventListener("input", () => state.tyre && renderTyres()));
+  ["#tbManufacturer", "#tbCountry", "#tbSearch"].forEach((id) => $(id).addEventListener("input", renderTbSurvey));
   $("#tyreEvidence").addEventListener("change", () => {
     ["#tyreType", "#tyreStatus"].forEach((id) => $(id).value = "all");
     if (state.tyre) renderTyres();
@@ -488,7 +506,7 @@ async function start() {
   ["#rubberView", "#rubberSearch"].forEach((id) => $(id).addEventListener("input", () => state.rubber && renderRubber()));
   document.addEventListener("click", (event) => {
     const nrFactory = event.target.closest("[data-nr-factory]");
-    if (nrFactory) {
+    if (nrFactory && state.tyre) {
       $("#tyreEvidence").value = "factory";
       ["#tyreManufacturer", "#tyreCountry", "#tyreType", "#tyreStatus"].forEach((id) => $(id).value = "all");
       $("#tyreSearch").value = "";

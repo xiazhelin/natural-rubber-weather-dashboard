@@ -83,6 +83,17 @@
       </div>
       <div id="tyreList" class="capacity-list" aria-label="轮胎厂名单"></div>
       <p class="capacity-footnote">设计与已形成能力对应的“满负荷耗胶”都只是<strong>情景测算</strong>，并非当期需求；仅在有厂级实际投料或实际产量时才计算年度耗胶。年末达产能力 × 全年利用率不自动等于全年产量。不同胎种的“万条”不能直接相加，OTR吨数不能当作天然胶吨数。</p>
+      <details class="census-panel" id="tbSurveyPanel">
+        <summary>Tire Business 2025 全球逐厂产能调查 · 原始单位</summary>
+        <p id="tbSurveyStatus">正在读取行业调查…</p>
+        <div class="capacity-controls tb-controls">
+          <label>75强企业<select id="tbManufacturer"><option value="all">全部（含榜外）</option></select></label>
+          <label>国家／地区<select id="tbCountry"><option value="all">全部</option></select></label>
+          <label class="capacity-search">查找企业或厂区<input id="tbSearch" type="search" placeholder="例如：Michelin、Bekasi、泰国"></label>
+        </div>
+        <div id="tbSurveyTable" class="census-table"></div>
+        <p class="capacity-footnote">该调查为2025年刊载的厂级估计，既非当前形成产能，也非2025年有效产能或实际产量。u/d＝条/日、u/y＝条/年；t/d、t/m、t/y＝轮胎重量吨数，不是天然胶吨数。不同胎型与单位不加总；无法逐厂确定者不并入上方 A+B 耗胶测算。原表未给出具体厂址，不能仅凭城市点补到地图。</p>
+      </details>
       <div class="capacity-group">
         <h3>集团披露的真实耗胶量</h3>
         <p>用于校准模型，不能未经依据分摊到厂区。</p>

@@ -9,6 +9,34 @@ DATA = Path(__file__).resolve().parents[1] / "site" / "data" / "capacity"
 
 
 class CapacityDataTest(unittest.TestCase):
+    def test_tire_business_2025_survey(self):
+        survey = json.loads((DATA / "tb2025-facilities.json").read_text(encoding="utf-8"))
+        tyre = json.loads((DATA / "tyre-factories.json").read_text(encoding="utf-8"))
+        rows = survey["facilities"]
+        factories = {item["id"]: item for item in tyre["factories"]}
+        self.assertEqual(survey["row_count"], len(rows))
+        self.assertEqual(len(rows), len({item["id"] for item in rows}))
+        self.assertGreater(len(rows), 500)
+        self.assertEqual(survey["by_country"]["柬埔寨"], 3)
+        self.assertEqual(sum(survey["by_country"].values()), len(rows))
+        for item in rows:
+            self.assertIn(item["unit"], {"u/d", "u/y", "t/d", "t/m", "t/y"})
+            self.assertGreater(item["value"], 0)
+            self.assertIn(item["source_page"], range(38, 46))
+            self.assertEqual(item["data_type"], "ESTIMATE")
+            self.assertEqual(item["quality"], "WARNING")
+            self.assertNotIn("raw_row", item)
+            if item["matched_factory_id"]:
+                self.assertIn(item["matched_factory_id"], factories)
+                factory = factories[item["matched_factory_id"]]
+                self.assertEqual(item["country"], factory["country"])
+                if item["manufacturer_id"]:
+                    self.assertEqual(item["manufacturer_id"], factory["manufacturer_id"])
+        bekasi = next(item for item in rows if item["country"] == "印度尼西亚" and "Multistrada" in item["source_company"])
+        self.assertEqual((bekasi["site"], bekasi["value"], bekasi["unit"]), ("Bekasi, West Java", 16000000, "u/y"))
+        rayong = next(item for item in rows if item["country"] == "泰国" and item["site"] == "Amata City, Rayong")
+        self.assertEqual((rayong["value"], rayong["unit"], rayong["source_company"]), (35, "t/d", "BRIDGESTONE CORP."))
+
     def test_references_and_units(self):
         tyre = json.loads((DATA / "tyre-factories.json").read_text(encoding="utf-8"))
         rubber = json.loads((DATA / "rubber-regions.json").read_text(encoding="utf-8"))
