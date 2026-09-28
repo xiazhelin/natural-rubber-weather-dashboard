@@ -22,6 +22,22 @@ function number(value, digits = 0) {
   return value == null || !Number.isFinite(Number(value)) ? "MISSING" : Number(value).toLocaleString("zh-CN", {maximumFractionDigits: digits});
 }
 
+function surveyTireTypeText(raw) {
+  if (!raw) return "胎型未披露";
+  const match = String(raw).trim().match(/^([1-9](?:\s*,\s*[1-9])*)\s*(?:\(\s*([rb](?:\s*,\s*[rb])?)\s*\)?)?$/i);
+  if (!match) return "胎型待核";
+  const types = {1: "乘用车胎", 2: "轻卡／厢式车胎", 3: "中型卡客车胎", 4: "农业胎", 5: "摩托车胎", 6: "工程机械胎", 7: "工业胎", 8: "航空胎", 9: "赛车胎"};
+  const structure = {r: "子午线", b: "斜交"};
+  const names = [...new Set(match[1].split(/\s*,\s*/))].map((code) => types[code]).join("、");
+  return names + (match[2] ? `（${[...new Set(match[2].toLowerCase().split(/\s*,\s*/))].map((code) => structure[code]).join("／")}）` : "");
+}
+
+function surveyCapacityText(raw) {
+  const units = {"u/d": "条／天", "u/y": "条／年", "mil u/y": "百万条／年", "t/d": "轮胎重量吨／天", "t/m": "轮胎重量吨／月", "t/y": "轮胎重量吨／年"};
+  const match = String(raw || "").trim().match(/^(.+?)\s+(mil u\/y|[ut]\/[dmy])$/i);
+  return match && units[match[2].toLowerCase()] ? `${match[1]} ${units[match[2].toLowerCase()]}` : "产能单位待核";
+}
+
 function nrRange(type, wan, model) {
   const kg = model.kg_per_tire_range[type];
   return kg && Number.isFinite(wan) && wan >= 0 ? {low: wan * 10 * kg[0], high: wan * 10 * kg[1]} : null;
@@ -86,8 +102,8 @@ function factorySummaryHtml(item) {
   return `<div class="factory-summary" aria-label="厂区产能与耗胶汇总">${["PCR/LTR", "TBR"].map((type) => {
     const value = summary.types[type];
     const historical = (item.survey_observations || []).filter((o) => o.comparable_type === type);
-    return `<div><span>${TYPE[type]} · 设计</span><strong>${totalText(value.design)}</strong><small>已形成：${totalText(value.formed)}</small><small>2025 全年有效：${totalText(value.effective)}</small>${value.otherUnits.map((l) => `<small>另披露 ${number(l.design_capacity)} ${escapeHtml(l.capacity_unit)}，不擅自年化</small>`).join("")}${historical.map((o) => `<small>2025 行业估计：${escapeHtml(o.reported_capacity_text)}，不等于当前设计</small>`).join("")}</div>`;
-  }).join("")}<div><span>全厂已形成满负荷耗胶</span><strong>${rangeText(summary.formedNr)}</strong><small>ESTIMATE · 能力 × 用户单耗区间</small></div><div><span>2025 年度耗胶</span><strong>${rangeText(summary.actualNr, "万吨")}</strong><small>${summary.actualNr.low == null ? "缺少厂级投料／实际产量依据" : summary.actualEstimated ? "ESTIMATE · 含实际产量 × 单耗" : "FACT · 厂级投料披露"}</small></div>${tb.length ? `<div><span>Tire Business 2025 调查估计</span><strong>${tb.map((row) => escapeHtml(row.reported_capacity_text)).join(" / ")}</strong><small>原表整厂胎型混合时不拆半钢／全钢；不并入当前形成能力或耗胶。</small></div>` : ""}</div><p class="summary-dates">汇总全厂全部已收录产线；设计满产耗胶：${rangeText(summary.designNr)}（ESTIMATE）。半钢2.6–3.0、全钢22–23吨/千条。各线日期见下方；不是当前实际消费。</p>`;
+    return `<div><span>${TYPE[type]} · 设计</span><strong>${totalText(value.design)}</strong><small>已形成：${totalText(value.formed)}</small><small>2025 全年有效：${totalText(value.effective)}</small>${value.otherUnits.map((l) => `<small>另披露 ${number(l.design_capacity)} ${escapeHtml(l.capacity_unit)}，不擅自年化</small>`).join("")}${historical.map((o) => `<small>2025 行业估计：${escapeHtml(surveyCapacityText(o.reported_capacity_text))}，不等于当前设计</small>`).join("")}</div>`;
+  }).join("")}<div><span>全厂已形成满负荷耗胶</span><strong>${rangeText(summary.formedNr)}</strong><small>ESTIMATE · 能力 × 用户单耗区间</small></div><div><span>2025 年度耗胶</span><strong>${rangeText(summary.actualNr, "万吨")}</strong><small>${summary.actualNr.low == null ? "缺少厂级投料／实际产量依据" : summary.actualEstimated ? "ESTIMATE · 含实际产量 × 单耗" : "FACT · 厂级投料披露"}</small></div>${tb.length ? `<div><span>Tire Business 2025 调查估计</span><strong>${tb.map((row) => escapeHtml(surveyCapacityText(row.reported_capacity_text))).join(" / ")}</strong><small>原表整厂胎型混合时不拆半钢／全钢；不并入当前形成能力或耗胶。</small></div>` : ""}</div><p class="summary-dates">汇总全厂全部已收录产线；设计满产耗胶：${rangeText(summary.designNr)}（ESTIMATE）。半钢2.6–3.0、全钢22–23吨/千条。各线日期见下方；不是当前实际消费。</p>`;
 }
 
 function hasCoordinates(item) {
@@ -258,8 +274,8 @@ function tyreDetail(item, type) {
   }).join("");
   const ids = [...(item.source_ids || []), ...(item.address_source_ids || []), ...(item.coordinate_source_ids || []), ...visible.flatMap((line) => line.source_ids || [])];
   const address = item.address ? `${escapeHtml(item.address)} <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.company} ${item.address}`)}" target="_blank" rel="noopener noreferrer">地图查址 ↗</a>` : "具体厂址 MISSING · 当前无法确认";
-  const historical = (item.survey_observations || []).map((o) => `<div class="capacity-line"><strong>2025 行业调查 · ${escapeHtml(TYPE[o.comparable_type])}</strong><p>${escapeHtml(o.reported_capacity_text)} · ESTIMATE / WARNING</p><small>原表胎种代码：${escapeHtml(o.product_types)}；PDF 第 ${number(o.source_page)} 页；DOT ${escapeHtml(o.dot_codes.join(" / "))}。</small><small>${escapeHtml(o.note)} u/d＝条/日，u/y＝条/年，t/y＝轮胎吨/年，t/m＝轮胎吨/月，t/d＝轮胎吨/日；不能当作天然胶吨数。与较新企业披露不合并求和。</small></div>`).join("");
-  const tb = (state.tb?.facilities || []).filter((row) => row.matched_factory_id === item.id).map((row) => `<div class="capacity-line"><strong>Tire Business 2025 · 整厂估计</strong><p>${escapeHtml(row.reported_capacity_text)} · ESTIMATE / WARNING</p><small>胎型代码：${escapeHtml(row.product_types || "未能解析")}；刊物第 ${number(row.source_page)} 页；${escapeHtml(row.source_company)}。</small><small>原单位保留；与企业产线披露及其他行业调查不合并。<a href="${escapeHtml(state.tb.source.url)}" target="_blank" rel="noopener noreferrer">来源 ↗</a></small></div>`).join("");
+  const historical = (item.survey_observations || []).map((o) => `<div class="capacity-line"><strong>2025 行业调查 · ${escapeHtml(TYPE[o.comparable_type])}</strong><p>${escapeHtml(surveyCapacityText(o.reported_capacity_text))} · ESTIMATE / WARNING</p><small>胎型：${escapeHtml(surveyTireTypeText(o.product_types))}；PDF 第 ${number(o.source_page)} 页；DOT ${escapeHtml(o.dot_codes.join(" / "))}。</small><small>${escapeHtml(o.note)} 轮胎重量吨数不能当作天然胶吨数；与较新企业披露不合并求和。</small></div>`).join("");
+  const tb = (state.tb?.facilities || []).filter((row) => row.matched_factory_id === item.id).map((row) => `<div class="capacity-line"><strong>Tire Business 2025 · 整厂估计</strong><p>${escapeHtml(surveyCapacityText(row.reported_capacity_text))} · ESTIMATE / WARNING</p><small>胎型：${escapeHtml(surveyTireTypeText(row.product_types))}；刊物第 ${number(row.source_page)} 页；${escapeHtml(row.source_company)}。</small><small>保留原刊数值与单位口径；与企业产线披露及其他行业调查不合并。<a href="${escapeHtml(state.tb.source.url)}" target="_blank" rel="noopener noreferrer">来源 ↗</a></small></div>`).join("");
   const claims = (item.capacity_claims || []).map((c) => `<p class="detail-note">待核线索：${escapeHtml(TYPE[c.type])} ${number(c.reported_design_capacity)} ${escapeHtml(c.capacity_unit)} · ${escapeHtml(c.claim_as_of)}。${escapeHtml(c.claim_source)}；未进入产能及耗胶合计。</p>`).join("");
   const reported = item.reported_nr_scenario ? `<p class="detail-note">企业可研耗胶情景：${number(item.reported_nr_scenario.value)} ${escapeHtml(item.reported_nr_scenario.unit)} · ${escapeHtml(item.reported_nr_scenario.as_of)}。${escapeHtml(item.reported_nr_scenario.basis)}</p>` : "";
   return `<h3>${escapeHtml(item.company)} · ${escapeHtml(item.site)}</h3><p class="detail-sub">${escapeHtml(item.country)} · ${escapeHtml(item.province || item.place)} · ${escapeHtml(STATUS[item.status] || item.status)} · ${escapeHtml(item.quality)}${item.census_record_type === "HISTORICAL_SURVEY_FACTORY" ? " · 2025行业普查厂区" : ""}</p>${factorySummaryHtml(item)}<div class="factory-address"><strong>${item.address_scope === "REGISTRY_ADDRESS" ? "登记地址 · 物理厂址待核" : "厂区地址"}</strong><p>${address}</p><small>地址核验：${escapeHtml(item.address_quality || "MISSING")} · ${escapeHtml(item.coord_precision || "坐标待核")}</small></div><p class="detail-note">${escapeHtml(item.note || "厂区地址与地图坐标精度分别核验；产能以逐项披露日期为准。")}</p>${claims}${reported}${tb}${historical}${lines}${sourceList(ids, state.tyre.sources)}`;
@@ -273,7 +289,7 @@ function renderTbSurvey() {
     && (!query || `${row.country} ${row.source_company} ${row.site}`.toLowerCase().includes(query)));
   const linked = rows.filter((row) => row.matched_factory_id).length;
   $("#tbSurveyStatus").innerHTML = `已提取 ${state.tb.row_count} 条有数值的逐厂调查记录，覆盖 ${Object.keys(state.tb.by_country).length} 个国家／地区；当前筛选 ${rows.length} 条，其中 ${linked} 条可唯一关联到现有厂区。其余保持独立调查记录，不凭名称猜测合并。<a href="${escapeHtml(state.tb.source.url)}" target="_blank" rel="noopener noreferrer">Tire Business 原刊入口 ↗</a>`;
-  $("#tbSurveyTable").innerHTML = `<table><thead><tr><th>国家／地区</th><th>企业／集团（原表）</th><th>厂区／地点（原表）</th><th>胎型代码</th><th>2025 调查估计产能</th><th>页码</th><th>与现有厂区</th></tr></thead><tbody>${rows.map((row) => `<tr><td>${escapeHtml(row.country)}</td><td>${escapeHtml(row.source_company)}</td><td>${escapeHtml(row.site)}</td><td>${escapeHtml(row.product_types || "未能解析")}</td><td>${escapeHtml(row.reported_capacity_text)}</td><td>${number(row.source_page)}</td><td>${row.matched_factory_id ? `<button type="button" data-nr-factory="${escapeHtml(row.matched_factory_id)}">查看已核厂区</button>` : "待匹配／未收录"}</td></tr>`).join("")}</tbody></table>`;
+  $("#tbSurveyTable").innerHTML = `<table><thead><tr><th>国家／地区</th><th>企业／集团（原表）</th><th>厂区／地点（原表）</th><th>胎型／结构</th><th>2025 调查估计产能</th><th>页码</th><th>与现有厂区</th></tr></thead><tbody>${rows.map((row) => `<tr><td>${escapeHtml(row.country)}</td><td>${escapeHtml(row.source_company)}</td><td>${escapeHtml(row.site)}</td><td class="survey-type">${escapeHtml(surveyTireTypeText(row.product_types))}</td><td>${escapeHtml(surveyCapacityText(row.reported_capacity_text))}</td><td>${number(row.source_page)}</td><td>${row.matched_factory_id ? `<button type="button" data-nr-factory="${escapeHtml(row.matched_factory_id)}">查看已核厂区</button>` : "待匹配／未收录"}</td></tr>`).join("")}</tbody></table>`;
 }
 
 function rubberDetail(item) {
@@ -539,4 +555,4 @@ function matchesTyreType(item, type) {
 }
 
 if (typeof document !== "undefined") start();
-if (typeof module !== "undefined") module.exports = {nrRange, sumRanges, aggregateNr, estimateNr, designNr, formedNr, sumKnown, factorySummary, fitBounds, matchesTyreType, coords, mapViewBox, adjustMapView};
+if (typeof module !== "undefined") module.exports = {nrRange, sumRanges, aggregateNr, estimateNr, designNr, formedNr, sumKnown, factorySummary, fitBounds, matchesTyreType, coords, mapViewBox, adjustMapView, surveyTireTypeText, surveyCapacityText};

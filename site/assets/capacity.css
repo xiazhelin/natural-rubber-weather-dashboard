@@ -70,6 +70,7 @@
 .census-table { max-height: 420px; overflow: auto; }
 .census-table table { width: 100%; border-collapse: collapse; font-size: .77rem; }
 .census-table th, .census-table td { padding: 8px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+.census-table .survey-type { min-width: 210px; max-width: 360px; white-space: normal; }
 .census-table th { position: sticky; top: 0; background: #e7f2ec; }
 .census-table small { display: block; color: var(--muted); }
 .census-table button { color: var(--brand); border: 0; padding: 0; background: none; cursor: pointer; text-decoration: underline; }
