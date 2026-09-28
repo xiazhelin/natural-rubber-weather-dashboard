@@ -91,8 +91,9 @@
           <label>国家／地区<select id="tbCountry"><option value="all">全部</option></select></label>
           <label class="capacity-search">查找企业或厂区<input id="tbSearch" type="search" placeholder="例如：Michelin、Bekasi、泰国"></label>
         </div>
+        <div class="nr-controls"><label>日能力折算年生产天数（情景）<input id="tbAnnualDays" type="number" min="1" max="366" step="1" value="330" required></label></div>
         <div id="tbSurveyTable" class="census-table"></div>
-        <p class="capacity-footnote">该调查为2025年刊载的厂级估计，既非当前形成产能，也非2025年有效产能或实际产量。页面将原刊胎型和单位译为中文，原始记录仍保留。轮胎重量吨数不是天然胶吨数；不同胎型与单位不加总，无法逐厂确定者不并入上方 A+B 耗胶测算。原表未给出具体厂址，不能仅凭城市点补到地图。</p>
+        <p class="capacity-footnote">折算年产能：条／天 × 上方假设天数 ÷ 10,000；原表已按条／年披露的除以 10,000。此天数仅用于本表，不改变上方耗胶情景。按轮胎重量吨披露的记录留空，不推测条数。该折算只是名义能力情景，并非2025年有效产能或实际产量；原刊数据仍保留。不同胎型与单位不加总，无法逐厂确定者不并入上方 A+B 耗胶测算。原表未给出具体厂址，不能仅凭城市点补到地图。</p>
       </details>
       <div class="capacity-group">
         <h3>集团披露的真实耗胶量</h3>

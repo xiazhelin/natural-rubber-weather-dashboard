@@ -38,6 +38,12 @@ function surveyCapacityText(raw) {
   return match && units[match[2].toLowerCase()] ? `${match[1]} ${units[match[2].toLowerCase()]}` : "产能单位待核";
 }
 
+function surveyAnnualCapacityWan(row, days) {
+  if (!Number.isFinite(row.value) || row.value < 0) return null;
+  if (row.unit === "u/y") return row.value / 10000;
+  return row.unit === "u/d" && Number.isInteger(days) && days >= 1 && days <= 366 ? row.value * days / 10000 : null;
+}
+
 function nrRange(type, wan, model) {
   const kg = model.kg_per_tire_range[type];
   return kg && Number.isFinite(wan) && wan >= 0 ? {low: wan * 10 * kg[0], high: wan * 10 * kg[1]} : null;
@@ -284,12 +290,13 @@ function tyreDetail(item, type) {
 function renderTbSurvey() {
   if (!state.tb) { $("#tbSurveyStatus").textContent = "行业调查数据未能读取；现有厂区数据不受影响。"; return; }
   const country = $("#tbCountry").value, maker = $("#tbManufacturer").value, query = $("#tbSearch").value.trim().toLowerCase();
+  const daysInput = $("#tbAnnualDays"), days = daysInput.checkValidity() ? Number(daysInput.value) : null;
   const rows = state.tb.facilities.filter((row) => (country === "all" || row.country === country)
     && (maker === "all" || row.manufacturer_id === maker)
     && (!query || `${row.country} ${row.source_company} ${row.site}`.toLowerCase().includes(query)));
   const linked = rows.filter((row) => row.matched_factory_id).length;
   $("#tbSurveyStatus").innerHTML = `已提取 ${state.tb.row_count} 条有数值的逐厂调查记录，覆盖 ${Object.keys(state.tb.by_country).length} 个国家／地区；当前筛选 ${rows.length} 条，其中 ${linked} 条可唯一关联到现有厂区。其余保持独立调查记录，不凭名称猜测合并。<a href="${escapeHtml(state.tb.source.url)}" target="_blank" rel="noopener noreferrer">Tire Business 原刊入口 ↗</a>`;
-  $("#tbSurveyTable").innerHTML = `<table><thead><tr><th>国家／地区</th><th>企业／集团（原表）</th><th>厂区／地点（原表）</th><th>胎型／结构</th><th>2025 调查估计产能</th><th>页码</th><th>与现有厂区</th></tr></thead><tbody>${rows.map((row) => `<tr><td>${escapeHtml(row.country)}</td><td>${escapeHtml(row.source_company)}</td><td>${escapeHtml(row.site)}</td><td class="survey-type">${escapeHtml(surveyTireTypeText(row.product_types))}</td><td>${escapeHtml(surveyCapacityText(row.reported_capacity_text))}</td><td>${number(row.source_page)}</td><td>${row.matched_factory_id ? `<button type="button" data-nr-factory="${escapeHtml(row.matched_factory_id)}">查看已核厂区</button>` : "待匹配／未收录"}</td></tr>`).join("")}</tbody></table>`;
+  $("#tbSurveyTable").innerHTML = `<table><thead><tr><th>国家／地区</th><th>企业／集团（原表）</th><th>厂区／地点（原表）</th><th>胎型／结构</th><th>2025 调查估计产能</th><th>折算年产能（万条／年）</th><th>页码</th><th>与现有厂区</th></tr></thead><tbody>${rows.map((row) => { const annual = surveyAnnualCapacityWan(row, days); return `<tr><td>${escapeHtml(row.country)}</td><td>${escapeHtml(row.source_company)}</td><td>${escapeHtml(row.site)}</td><td class="survey-type">${escapeHtml(surveyTireTypeText(row.product_types))}</td><td>${escapeHtml(surveyCapacityText(row.reported_capacity_text))}</td><td>${annual == null ? "" : number(annual, 2)}</td><td>${number(row.source_page)}</td><td>${row.matched_factory_id ? `<button type="button" data-nr-factory="${escapeHtml(row.matched_factory_id)}">查看已核厂区</button>` : "待匹配／未收录"}</td></tr>`; }).join("")}</tbody></table>`;
 }
 
 function rubberDetail(item) {
@@ -509,7 +516,7 @@ async function start() {
   } else $("#rubberSvg").textContent = `产区数据读取失败：${rubber.reason.message}`;
   $("#atlasUpdated").textContent = `文件修订：轮胎 ${state.tyre?.updated_at || "MISSING"} · 产区 ${state.rubber?.updated_at || "MISSING"}${state.land ? "" : " · 底图暂不可用"}`;
   ["#tyreCountry", "#tyreManufacturer", "#tyreType", "#tyreStatus", "#tyreSearch"].forEach((id) => $(id).addEventListener("input", () => state.tyre && renderTyres()));
-  ["#tbManufacturer", "#tbCountry", "#tbSearch"].forEach((id) => $(id).addEventListener("input", renderTbSurvey));
+  ["#tbManufacturer", "#tbCountry", "#tbSearch", "#tbAnnualDays"].forEach((id) => $(id).addEventListener("input", renderTbSurvey));
   $("#tyreEvidence").addEventListener("change", () => {
     ["#tyreType", "#tyreStatus"].forEach((id) => $(id).value = "all");
     if (state.tyre) renderTyres();
@@ -555,4 +562,4 @@ function matchesTyreType(item, type) {
 }
 
 if (typeof document !== "undefined") start();
-if (typeof module !== "undefined") module.exports = {nrRange, sumRanges, aggregateNr, estimateNr, designNr, formedNr, sumKnown, factorySummary, fitBounds, matchesTyreType, coords, mapViewBox, adjustMapView, surveyTireTypeText, surveyCapacityText};
+if (typeof module !== "undefined") module.exports = {nrRange, sumRanges, aggregateNr, estimateNr, designNr, formedNr, sumKnown, factorySummary, fitBounds, matchesTyreType, coords, mapViewBox, adjustMapView, surveyTireTypeText, surveyCapacityText, surveyAnnualCapacityWan};

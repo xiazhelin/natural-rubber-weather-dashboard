@@ -1,7 +1,7 @@
 "use strict";
 
 const assert = require("node:assert/strict");
-const {estimateNr, designNr, formedNr, sumKnown, factorySummary, fitBounds, matchesTyreType, aggregateNr, sumRanges, surveyTireTypeText, surveyCapacityText} = require("../site/assets/capacity.js");
+const {estimateNr, designNr, formedNr, sumKnown, factorySummary, fitBounds, matchesTyreType, aggregateNr, sumRanges, surveyTireTypeText, surveyCapacityText, surveyAnnualCapacityWan} = require("../site/assets/capacity.js");
 const model = {kg_per_tire_range: {"PCR/LTR": [2.6, 3.0], TBR: [22, 23]}};
 
 assert.equal(surveyTireTypeText("1,2 (r)"), "乘用车胎、轻卡／厢式车胎（子午线）");
@@ -10,6 +10,10 @@ assert.equal(surveyTireTypeText(null), "胎型未披露");
 assert.equal(surveyCapacityText("20,000 u/d"), "20,000 条／天");
 assert.equal(surveyCapacityText("6.0 mil u/y"), "6.0 百万条／年");
 assert.equal(surveyCapacityText("137,500 t/y"), "137,500 轮胎重量吨／年");
+assert.equal(surveyAnnualCapacityWan({value: 20000, unit: "u/d"}, 330), 660);
+assert.equal(surveyAnnualCapacityWan({value: 6000000, unit: "u/y"}, 330), 600);
+assert.equal(surveyAnnualCapacityWan({value: 137500, unit: "t/y"}, 330), null);
+assert.equal(surveyAnnualCapacityWan({value: 20000, unit: "u/d"}, 0), null);
 
 assert.deepEqual(estimateNr({type: "PCR/LTR", output_2025_wan: 100}, model), {low: 2600, high: 3000, kind: "ESTIMATE · 产量×单耗区间"});
 assert.equal(estimateNr({type: "TBR", formed_capacity_2025: 100, utilization_2025_pct: 80, capacity_unit: "万条/年"}, model), null);
