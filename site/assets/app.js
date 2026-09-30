@@ -1,6 +1,6 @@
 "use strict";
 
-const state = { data: null, history: [], thailandRain: null, productionWeights: null, climateOutlooks: null, mapData: null, filtered: [], activeId: null };
+const state = { data: null, history: [], thailandRain: null, productionWeights: null, climateOutlooks: null, mapData: null, thaiBorders: null, mapViews: {}, filtered: [], activeId: null };
 const $ = (selector) => document.querySelector(selector);
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (char) => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"})[char]);
 const hasNumber = (value) => value !== null && value !== undefined && value !== "" && Number.isFinite(Number(value));
@@ -64,10 +64,10 @@ function productionMeta(station) {
 }
 
 function productionContext(stations, country = $("#countryFilter")?.value || "all") {
-  const shareKey = country === "all" ? "share_of_world_pct" : "share_of_country_pct";
-  const denominator = country === "all" ? "全球参考产量（2025分母）" : `${country}产量`;
+  const shareKey = "share_of_country_pct";
+  const denominator = country === "all" ? "（请筛选单一国家看同口径权重）" : `${country}产量`;
   const entries = stations.map((station) => ({station, weight: productionWeight(station)}))
-    .filter((item) => hasNumber(item.weight?.[shareKey]) && hasNumber(item.weight?.estimated_production_t));
+    .filter((item) => country !== "all" && hasNumber(item.weight?.[shareKey]) && hasNumber(item.weight?.estimated_production_t));
   return {shareKey, denominator, entries, coveragePct: sum(entries.map((item) => item.weight[shareKey]))};
 }
 
@@ -118,7 +118,7 @@ function renderFreshness() {
       title: "产量权重",
       status: weights.overall_quality_status || "MISSING",
       date: weightYears.length ? `基准 ${weightYears.join("/")}年` : "年份待确认",
-      note: `${weightCount}/${weather.stations?.length ?? 0}个地点已接入；泰国估算、印尼BPS统一口径`,
+      note: `${weightCount}/${weather.stations?.length ?? 0}个地点已接入；泰国2025f生胶片、印尼2024干胶，不跨国加总`,
     },
   ];
   $("#freshnessGrid").innerHTML = cards.map((card) => `<article class="freshness-card">
@@ -136,11 +136,13 @@ function populateProductionWeightMethod() {
   $("#weightIndonesiaTotal").textContent = formatTons(d.indonesia_2024_production_t);
   $("#weightWorldTotal").textContent = formatTons(d.world_2025_production_t);
   $("#weightCoverage").textContent = hasNumber(d.tracked_share_of_thailand_pct)
-    ? `泰国 ${number(d.tracked_share_of_thailand_pct, 2)}% / 印尼 ${number(d.tracked_share_of_indonesia_pct, 2)}% / 全球参考 ${number(d.tracked_share_of_world_pct, 2)}%`
+    ? `泰国 ${number(d.tracked_share_of_thailand_pct, 2)}% / 印尼 ${number(d.tracked_share_of_indonesia_pct, 2)}%；两国产量单位不同，不计算跨国占比`
     : "当前无法确认最新数据";
   $("#weightMethod").textContent = weights.methodology || "统一省级产量权重尚未接入，缺失时不以代表点数量替代。";
   const bps = weights.sources?.find((source) => source.source_name?.includes("BPS"));
   if (bps?.url) $("#weightDocs").href = bps.url;
+  const oae = weights.sources?.find((source) => source.source_name?.includes("OAE"));
+  if (oae?.url) $("#weightThaiDocs").href = oae.url;
 }
 
 function temperatureMissingFigure() {
@@ -334,7 +336,7 @@ function renderMetrics() {
     ? sum(weightedRainEntries.map((item) => Number(item.station.summary.precipitation_7d_mm) * Number(item.weight.estimated_production_t))) / productionTotal
     : null;
   $("#weightedRain").textContent = weightedRain == null
-    ? "产量权重 MISSING；上方为地点等权"
+    ? "跨国产量口径不可加总；请筛选单一国家。上方为地点等权"
     : `产量加权 ${number(weightedRain)} mm；覆盖${number(context.coveragePct, 2)}%${context.denominator}`;
   for (const code of ["HEAVY_RAIN", "DRY", "HEAT"]) {
     const count = stations.filter((item) => item.summary?.weather_states?.includes(code)).length;
@@ -343,7 +345,7 @@ function renderMetrics() {
     const exposureId = code === "HEAVY_RAIN" ? "heavyExposure" : `${code.toLowerCase()}Exposure`;
     $(`#${exposureId}`).textContent = context.entries.length
       ? `已纳入权重产量暴露 ${number(exposure.coveragePct, 2)}%${context.denominator}（${exposure.entries.length}/${count}点）`
-      : "产量权重 MISSING";
+      : "请筛选单一国家查看同口径产量暴露";
   }
   $("#resultCount").textContent = `${state.filtered.length}个地点`;
   document.querySelectorAll("[data-weather-filter]").forEach((card) => {
@@ -371,9 +373,9 @@ function renderWeeklySummary() {
   const dry = stations.filter((station) => station.summary?.weather_states?.includes("DRY"));
   const heat = stations.filter((station) => station.summary?.weather_states?.includes("HEAT"));
   const tappingRain = stations.filter((station) => Number(station.summary?.tapping_window_rain_days_7d || 0) > 0);
-  const weightContext = productionContext(stations, "all");
-  const heavyExposure = productionExposure(stations, "HEAVY_RAIN", "all");
-  const dryExposure = productionExposure(stations, "DRY", "all");
+  const thaiContext = productionContext(stations.filter((station) => station.country === "泰国"), "泰国");
+  const heavyExposure = productionExposure(stations.filter((station) => station.country === "泰国"), "HEAVY_RAIN", "泰国");
+  const dryExposure = productionExposure(stations.filter((station) => station.country === "泰国"), "DRY", "泰国");
   const stationName = (station) => `${station.country}·${station.region}·${station.place}`;
   const previous = previousSnapshot();
   const previousById = new Map((previous?.stations || []).map((station) => [station.station_id, station]));
@@ -441,10 +443,10 @@ function renderWeeklySummary() {
 
   $("#weeklySummary").innerHTML = `
     <article class="weekly-summary-block">
-      <h3>【事实】0–7天 · 作业扰动</h3>
+      <h3>【预报 / 估算】0–7天 · 作业扰动</h3>
       <p>${tappingRain.length}/${stations.length}个代表点的晨间割胶作业窗至少1天有雨；强降雨关注${heavy.length}个、少雨关注${dry.length}个、高温关注${heat.length}个。</p>
-      <p>已纳入权重的强降雨暴露${number(heavyExposure.coveragePct, 2)}%全球参考产量，少雨暴露${number(dryExposure.coveragePct, 2)}%全球参考产量。</p>
-      <small>阈值：7日降雨 ≥ ${thresholds.heavy_rain_total_7d_mm ?? "—"} mm / &lt; ${thresholds.dry_total_7d_mm ?? "—"} mm，日最高温 ≥ ${thresholds.hot_day_max_c ?? "—"}℃。产量权重覆盖${number(weightContext.coveragePct, 2)}%全球参考产量（2025分母；印尼省级值为2024年）。</small>
+      <p>泰国同口径2025f生胶片产量中，强降雨关注府占${number(heavyExposure.coveragePct, 2)}%，少雨关注府占${number(dryExposure.coveragePct, 2)}%。</p>
+      <small>阈值：7日降雨 ≥ ${thresholds.heavy_rain_total_7d_mm ?? "—"} mm / &lt; ${thresholds.dry_total_7d_mm ?? "—"} mm，日最高温 ≥ ${thresholds.hot_day_max_c ?? "—"}℃。泰国权重覆盖${number(thaiContext.coveragePct, 2)}%同版全国产量；生胶片与其他国家干胶不可加总。</small>
     </article>
     <article class="weekly-summary-block">
       <h3>【事实】2–8周 · 水分背景</h3>
@@ -516,7 +518,18 @@ function landMarkup(bounds, width, height) {
   return paths ? `<g class="map-land" aria-hidden="true">${paths}</g>` : "";
 }
 
-function mapMarkup(title, stations, bounds, width = 680, height = 340) {
+function provinceMarkup(bounds, width, height) {
+  const stationsByCode = new Map(state.filtered.filter((station) => station.province_code).map((station) => [station.province_code, station]));
+  return (state.thaiBorders?.features || []).filter((feature) => intersectsMap(feature.geometry, bounds)).map((feature) => {
+    const station = stationsByCode.get(feature.properties.shapeISO);
+    const name = station?.place || feature.properties.shapeName;
+    return `<path d="${geometryPath(feature.geometry, bounds, width, height)}" ${station ? `data-id="${escapeHtml(station.station_id)}" tabindex="0" role="button"` : ""} aria-label="泰国${escapeHtml(name)}府界"><title>${escapeHtml(name)}</title></path>`;
+  }).join("");
+}
+
+function mapMarkup(key, title, stations, bounds, width = 680, height = 340) {
+  const view = state.mapViews[key] || {x: 0, y: 0, w: width, h: height, baseW: width, baseH: height};
+  state.mapViews[key] = view;
   const verticals = [0.25, 0.5, 0.75].map((part) => `<line class="grid-line" x1="${width * part}" y1="28" x2="${width * part}" y2="${height - 20}"/>`).join("");
   const horizontals = [0.25, 0.5, 0.75].map((part) => `<line class="grid-line" x1="22" y1="${height * part}" x2="${width - 20}" y2="${height * part}"/>`).join("");
   const points = stations.map((station) => {
@@ -532,14 +545,87 @@ function mapMarkup(title, stations, bounds, width = 680, height = 340) {
       <text x="10" y="4">${escapeHtml(station.place)}</text>
     </g>`;
   }).join("");
-  return `<div class="map-box"><h3>${escapeHtml(title)}</h3><svg viewBox="0 0 ${width} ${height}" aria-label="${escapeHtml(title)}产区地图">${landMarkup(bounds, width, height)}${verticals}${horizontals}${points}</svg></div>`;
+  return `<div class="map-box${view.w < width / 2 ? " zoomed" : ""}"><h3>${escapeHtml(title)}</h3>
+    <div class="map-controls" aria-label="地图缩放"><button type="button" data-zoom="in" title="放大" aria-label="放大地图">+</button><button type="button" data-zoom="out" title="缩小" aria-label="缩小地图">−</button><button type="button" data-zoom="reset" title="复位" aria-label="重置地图">⌂</button></div>
+    <svg data-map="${key}" style="--map-inverse-zoom:${view.w / width}" viewBox="${view.x} ${view.y} ${view.w} ${view.h}" aria-label="${escapeHtml(title)}产区地图；鼠标滚轮或按钮缩放，拖动平移">${landMarkup(bounds, width, height)}<g class="map-provinces">${provinceMarkup(bounds, width, height)}</g>${verticals}${horizontals}${points}</svg></div>`;
 }
 
 function renderMaps() {
+  const thaiOnly = $("#countryFilter").value === "泰国";
   const asia = state.filtered.filter((item) => item.longitude > 50);
   const africa = state.filtered.filter((item) => item.longitude <= 50);
-  $("#maps").innerHTML = mapMarkup("亚洲产区", asia, {west: 96, east: 113, south: -7, north: 24})
-    + mapMarkup("西非产区", africa, {west: -8, east: -1, south: 4, north: 8}, 300, 340);
+  $("#maps").classList.toggle("single-map", thaiOnly);
+  $("#maps").innerHTML = thaiOnly
+    ? mapMarkup("thailand", "泰国府级产区", asia, {west: 96.5, east: 106.5, south: 5, north: 21}, 680, 520)
+    : mapMarkup("asia", "亚洲产区", asia, {west: 96, east: 113, south: -7, north: 24})
+      + mapMarkup("africa", "西非产区", africa, {west: -8, east: -1, south: 4, north: 8}, 300, 340);
+  document.querySelectorAll(".map-box").forEach((box) => {
+    const svg = box.querySelector("svg");
+    const view = state.mapViews[svg.dataset.map];
+    const update = () => {
+      view.x = Math.max(0, Math.min(view.baseW - view.w, view.x));
+      view.y = Math.max(0, Math.min(view.baseH - view.h, view.y));
+      svg.setAttribute("viewBox", `${view.x} ${view.y} ${view.w} ${view.h}`);
+      svg.style.setProperty("--map-inverse-zoom", view.w / view.baseW);
+      box.classList.toggle("zoomed", view.w < view.baseW / 2);
+    };
+    const zoom = (factor, clientX, clientY) => {
+      const rect = svg.getBoundingClientRect();
+      const fx = (clientX - rect.left) / rect.width;
+      const fy = (clientY - rect.top) / rect.height;
+      const w = Math.max(view.baseW / 16, Math.min(view.baseW, view.w * factor));
+      const h = w * view.baseH / view.baseW;
+      view.x += fx * (view.w - w);
+      view.y += fy * (view.h - h);
+      view.w = w;
+      view.h = h;
+      update();
+    };
+    svg.addEventListener("wheel", (event) => { event.preventDefault(); zoom(event.deltaY < 0 ? 0.8 : 1.25, event.clientX, event.clientY); }, {passive: false});
+    const pointers = new Map();
+    let drag = null;
+    let pinchDistance = null;
+    svg.addEventListener("pointerdown", (event) => {
+      if (event.target.closest(".map-point, .map-provinces path[data-id]")) return;
+      pointers.set(event.pointerId, {x: event.clientX, y: event.clientY});
+      svg.setPointerCapture(event.pointerId);
+      if (pointers.size === 1) drag = {x: event.clientX, y: event.clientY, startX: view.x, startY: view.y};
+      if (pointers.size === 2) { const [a, b] = [...pointers.values()]; pinchDistance = Math.hypot(a.x - b.x, a.y - b.y); drag = null; }
+    });
+    svg.addEventListener("pointermove", (event) => {
+      if (!pointers.has(event.pointerId)) return;
+      pointers.set(event.pointerId, {x: event.clientX, y: event.clientY});
+      if (pointers.size === 2) {
+        const [a, b] = [...pointers.values()];
+        const distance = Math.hypot(a.x - b.x, a.y - b.y);
+        if (pinchDistance) zoom(pinchDistance / distance, (a.x + b.x) / 2, (a.y + b.y) / 2);
+        pinchDistance = distance;
+        return;
+      }
+      if (!drag) return;
+      const rect = svg.getBoundingClientRect();
+      view.x = drag.startX - (event.clientX - drag.x) * view.w / rect.width;
+      view.y = drag.startY - (event.clientY - drag.y) * view.h / rect.height;
+      update();
+    });
+    const endPointer = (event) => {
+      pointers.delete(event.pointerId);
+      pinchDistance = null;
+      const remaining = [...pointers.values()][0];
+      drag = remaining ? {x: remaining.x, y: remaining.y, startX: view.x, startY: view.y} : null;
+    };
+    svg.addEventListener("pointerup", endPointer);
+    svg.addEventListener("pointercancel", endPointer);
+    box.querySelectorAll("[data-zoom]").forEach((button) => button.addEventListener("click", () => {
+      if (button.dataset.zoom === "reset") { Object.assign(view, {x: 0, y: 0, w: view.baseW, h: view.baseH}); update(); return; }
+      const rect = svg.getBoundingClientRect();
+      zoom(button.dataset.zoom === "in" ? 0.6 : 1 / 0.6, rect.left + rect.width / 2, rect.top + rect.height / 2);
+    }));
+  });
+  document.querySelectorAll(".map-provinces path[data-id]").forEach((path) => {
+    path.addEventListener("click", () => selectStation(path.dataset.id));
+    path.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selectStation(path.dataset.id); } });
+  });
   document.querySelectorAll(".map-point").forEach((point) => {
     const activate = () => selectStation(point.dataset.id);
     point.addEventListener("click", activate);
@@ -569,7 +655,7 @@ function renderRows() {
     return `<tr tabindex="0" data-id="${escapeHtml(station.station_id)}" class="${station.station_id === state.activeId ? "active" : ""}">
       <td><strong>${escapeHtml(station.country)}</strong><br>${escapeHtml(station.region)}</td>
       <td>${escapeHtml(station.place)}</td>
-      <td class="production-weight-cell"><strong>${weight ? formatTons(weight.estimated_production_t) : "MISSING"}</strong><small>${weight ? `${meta.reference_year}年 · ${station.country} ${number(weight.share_of_country_pct, 2)}% · 全球(${meta.global_share_denominator_year}分母) ${number(weight.share_of_world_pct, 2)}%` : "统一口径待核验"}</small></td>
+      <td class="production-weight-cell"><strong>${weight ? formatTons(weight.estimated_production_t) : "MISSING"}</strong><small>${weight ? `${meta.reference_year}年 · ${escapeHtml(weight.production_unit || "干胶吨")} · ${station.country} ${number(weight.share_of_country_pct, 2)}%${hasNumber(weight.share_of_world_pct) ? ` · 全球(${meta.global_share_denominator_year}分母) ${number(weight.share_of_world_pct, 2)}%` : " · 全球口径不可比"}` : "统一口径待核验"}</small></td>
       <td><strong>${number(s.precipitation_7d_mm)} mm</strong></td>
       <td>${number(s.tapping_window_precipitation_7d_mm)} mm / ${s.tapping_window_rain_hours_7d ?? "—"}小时</td>
       <td>${delta}</td>
@@ -736,7 +822,7 @@ function renderDetail() {
     <div class="detail-metrics">
       <div class="production-metric"><span>${weight ? `${meta.reference_year}年产量权重` : "产量权重"}</span><strong>${weight ? formatTons(weight.estimated_production_t) : "MISSING"}</strong><small>${weight ? `${meta.data_type} / ${weight.quality_status}` : "统一口径待核验"}</small></div>
       <div class="production-metric"><span>占${escapeHtml(station.country)}产量</span><strong>${weight ? percent(weight.share_of_country_pct) : "MISSING"}</strong></div>
-      <div class="production-metric"><span>占全球产量（${weight ? `${meta.global_share_denominator_year}分母` : "年份待确认"}）</span><strong>${weight ? percent(weight.share_of_world_pct) : "MISSING"}</strong></div>
+      <div class="production-metric"><span>${hasNumber(weight?.share_of_world_pct) ? `占全球产量（${meta.global_share_denominator_year}分母）` : "全球占比"}</span><strong>${hasNumber(weight?.share_of_world_pct) ? percent(weight.share_of_world_pct) : "口径不可比"}</strong></div>
       <div><span>7日降雨</span><strong>${number(s.precipitation_7d_mm)} mm</strong></div>
       <div><span>晨间割胶作业窗7日降雨</span><strong>${number(s.tapping_window_precipitation_7d_mm)} mm</strong></div>
       <div><span>晨间割胶作业窗雨日 / 雨小时</span><strong>${s.tapping_window_rain_days_7d ?? "—"} 天 / ${s.tapping_window_rain_hours_7d ?? "—"} 小时</strong></div>
@@ -779,6 +865,10 @@ async function loadData() {
       .then((response) => response.ok ? response.json() : null)
       .then((mapData) => { state.mapData = mapData; if (state.data) renderMaps(); })
       .catch((error) => console.warn("Natural Earth map unavailable", error));
+    fetch("data/thailand-provinces.geojson", {cache:"force-cache"})
+      .then((response) => response.ok ? response.json() : null)
+      .then((borders) => { state.thaiBorders = borders; if (state.data) renderMaps(); })
+      .catch((error) => console.warn("Thai province borders unavailable", error));
     const [weatherResponse, historyResponse, thailandRainResponse, productionWeightsResponse] = await Promise.all([
       fetch(`data/weather.json?v=${Date.now()}`, {cache:"no-store"}),
       fetch(`data/history.json?v=${Date.now()}`, {cache:"no-store"}),

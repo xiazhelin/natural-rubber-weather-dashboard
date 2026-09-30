@@ -1,19 +1,23 @@
 {
   "schema_version": 1,
-  "reference_years": [2024, 2025],
+  "reference_years": [
+    2024,
+    2025
+  ],
   "data_type": "MIXED",
   "overall_quality_status": "WARNING",
-  "prepared_at": "2026-09-14",
-  "unit": "metric_ton_dry_rubber",
-  "methodology": "泰国采用OAE 2024年统一省级产量结构 × OAE 2025年泰国产量总量；印尼采用BPS 2024年全国统一省级产量表。全球参考占比统一使用ANRPC于2026年5月报告中修订的2025年全球产量，印尼属于跨年参考值并在页面标明分母年份。",
+  "prepared_at": "2026-10-01",
+  "unit": "mixed_country_specific_units",
+  "methodology": "泰国采用OAE 2025f省级生胶片产量/同版全国产量（68个正产量府）；印尼采用BPS 2024年省级干胶产量。泰国生胶片与全球干胶口径不等价，不计算泰国或跨国合计的全球占比。各府天气仅为单个模式网格样本。",
   "countries": {
     "泰国": {
       "reference_year": 2025,
       "data_type": "ESTIMATE",
       "quality_status": "WARNING",
-      "production_t": 4892544,
-      "global_share_denominator_year": 2025,
-      "methodology": "OAE 2024年统一省级产量结构按OAE 2025年泰国产量总量缩放；2025年统一省级正式表发布后应整体替换。"
+      "production_t": 4837050,
+      "production_unit": "吨生胶片",
+      "global_share_denominator_year": null,
+      "methodology": "OAE《Agricultural Statistics of Thailand 2025》表5.9省级2025f生胶片产量；68个正产量府之和与同版全国合计一致。未列出府不补0；天气代表点不是府平均。"
     },
     "印度尼西亚": {
       "reference_year": 2024,
@@ -25,33 +29,28 @@
     }
   },
   "denominators": {
-    "thailand_2025_production_t": 4892544,
+    "thailand_2025_production_t": 4837050,
     "indonesia_2024_production_t": 2132000,
     "world_2025_production_t": 14971000,
-    "thailand_share_of_world_pct": 32.6801,
-    "tracked_thailand_production_t": 2349131,
-    "tracked_share_of_thailand_pct": 48.0145,
-    "tracked_thailand_share_of_world_pct": 15.6912,
+    "thailand_share_of_world_pct": null,
+    "tracked_thailand_production_t": 4837050,
+    "tracked_share_of_thailand_pct": 100,
+    "tracked_thailand_share_of_world_pct": null,
     "tracked_indonesia_production_t": 1517600,
     "tracked_share_of_indonesia_pct": 71.182,
     "tracked_indonesia_share_of_world_pct": 10.1369,
-    "tracked_share_of_world_pct": 25.8281
+    "tracked_share_of_world_pct": null
   },
   "sources": [
     {
-      "source_name": "Thailand Office of Agricultural Economics (OAE) provincial rubber production dataset",
-      "url": "https://catalog.oae.go.th/en/dataset/dataoae1404",
-      "period": "2024",
-      "data_type": "FACT",
-      "use": "统一省级产量结构",
-      "source_data_date": "2026-07-07"
-    },
-    {
-      "source_name": "Thailand OAE Agricultural Commodity Calendar 2025/26",
-      "url": "https://catalog.oae.go.th/th/dataset/8f9fc13d-03ea-4929-a644-26672c9d617b/resource/6f1c0eac-a065-44d2-95e1-4e8784fb8073/download/calendar69.pdf",
-      "period": "2025",
+      "source_name": "Thailand OAE Agricultural Statistics of Thailand 2025, table 5.9",
+      "url": "https://nabc.go.th/downloads/22",
+      "period": "2025f",
       "data_type": "ESTIMATE",
-      "use": "泰国产量总量"
+      "unit": "吨生胶片",
+      "use": "泰国68个正产量府及全国合计",
+      "quality_status": "WARNING",
+      "note": "NABC发布页已核；49MB官方PDF本次下载中断，省表按同版年鉴在线阅览检索文本录入，并以官方经济信息PDF全国总量及原9省记录交叉核对。"
     },
     {
       "source_name": "ANRPC Monthly Natural Rubber Market Report, May 2026",
@@ -71,69 +70,6 @@
     }
   ],
   "stations": {
-    "th_south_surat_thani": {
-      "province_name_th": "สุราษฎร์ธานี",
-      "estimated_production_t": 451196,
-      "share_of_country_pct": 9.2221,
-      "share_of_world_pct": 3.0138,
-      "quality_status": "WARNING"
-    },
-    "th_south_nakhon_si_thammarat": {
-      "province_name_th": "นครศรีธรรมราช",
-      "estimated_production_t": 387603,
-      "share_of_country_pct": 7.9223,
-      "share_of_world_pct": 2.589,
-      "quality_status": "WARNING"
-    },
-    "th_south_songkhla": {
-      "province_name_th": "สงขลา",
-      "estimated_production_t": 415038,
-      "share_of_country_pct": 8.4831,
-      "share_of_world_pct": 2.7723,
-      "quality_status": "WARNING"
-    },
-    "th_south_trang": {
-      "province_name_th": "ตรัง",
-      "estimated_production_t": 270349,
-      "share_of_country_pct": 5.5257,
-      "share_of_world_pct": 1.8058,
-      "quality_status": "WARNING"
-    },
-    "th_south_yala": {
-      "province_name_th": "ยะลา",
-      "estimated_production_t": 242169,
-      "share_of_country_pct": 4.9498,
-      "share_of_world_pct": 1.6176,
-      "quality_status": "WARNING"
-    },
-    "th_northeast_udon_thani": {
-      "province_name_th": "อุดรธานี",
-      "estimated_production_t": 136262,
-      "share_of_country_pct": 2.7851,
-      "share_of_world_pct": 0.9102,
-      "quality_status": "WARNING"
-    },
-    "th_northeast_bueng_kan": {
-      "province_name_th": "บึงกาฬ",
-      "estimated_production_t": 217889,
-      "share_of_country_pct": 4.4535,
-      "share_of_world_pct": 1.4554,
-      "quality_status": "WARNING"
-    },
-    "th_northeast_ubon": {
-      "province_name_th": "อุบลราชธานี",
-      "estimated_production_t": 139303,
-      "share_of_country_pct": 2.8473,
-      "share_of_world_pct": 0.9305,
-      "quality_status": "WARNING"
-    },
-    "th_east_rayong": {
-      "province_name_th": "ระยอง",
-      "estimated_production_t": 89322,
-      "share_of_country_pct": 1.8257,
-      "share_of_world_pct": 0.5966,
-      "quality_status": "WARNING"
-    },
     "id_sumatra_medan": {
       "province_name_id": "Sumatera Utara",
       "estimated_production_t": 251500,
@@ -175,6 +111,686 @@
       "share_of_country_pct": 7.4296,
       "share_of_world_pct": 1.058,
       "quality_status": "PASS"
+    },
+    "th_chiang_rai": {
+      "province_code": "TH-57",
+      "province_name_en": "Chiang Rai Province",
+      "estimated_production_t": 86669,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 1.7918,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_phayao": {
+      "province_code": "TH-56",
+      "province_name_en": "Phayao Province",
+      "estimated_production_t": 36780,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.7604,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_lampang": {
+      "province_code": "TH-52",
+      "province_name_en": "Lampang Province",
+      "estimated_production_t": 5604,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.1159,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_lamphun": {
+      "province_code": "TH-51",
+      "province_name_en": "Lamphun Province",
+      "estimated_production_t": 1389,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.0287,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_chiang_mai": {
+      "province_code": "TH-50",
+      "province_name_en": "Chiang Mai Province",
+      "estimated_production_t": 5325,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.1101,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_mae_hong_son": {
+      "province_code": "TH-58",
+      "province_name_en": "Mae Hong Son Province",
+      "estimated_production_t": 152,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.0031,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_tak": {
+      "province_code": "TH-63",
+      "province_name_en": "Tak Province",
+      "estimated_production_t": 2228,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.0461,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_kamphaeng_phet": {
+      "province_code": "TH-62",
+      "province_name_en": "Kamphaeng Phet Province",
+      "estimated_production_t": 5391,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.1115,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_sukhothai": {
+      "province_code": "TH-64",
+      "province_name_en": "Sukhothai Province",
+      "estimated_production_t": 10735,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.2219,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_phrae": {
+      "province_code": "TH-54",
+      "province_name_en": "Phrae Province",
+      "estimated_production_t": 4331,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.0895,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_nan": {
+      "province_code": "TH-55",
+      "province_name_en": "Nan Province",
+      "estimated_production_t": 53645,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 1.109,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_uttaradit": {
+      "province_code": "TH-53",
+      "province_name_en": "Uttaradit Province",
+      "estimated_production_t": 3878,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.0802,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_phitsanulok": {
+      "province_code": "TH-65",
+      "province_name_en": "Phitsanulok Province",
+      "estimated_production_t": 63442,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 1.3116,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_phichit": {
+      "province_code": "TH-66",
+      "province_name_en": "Phichit Province",
+      "estimated_production_t": 319,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.0066,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_nakhon_sawan": {
+      "province_code": "TH-60",
+      "province_name_en": "Nakhon Sawan Province",
+      "estimated_production_t": 737,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.0152,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_uthai_thani": {
+      "province_code": "TH-61",
+      "province_name_en": "Uthai Thani Province",
+      "estimated_production_t": 7145,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.1477,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_phetchabun": {
+      "province_code": "TH-67",
+      "province_name_en": "Phetchabun Province",
+      "estimated_production_t": 15313,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.3166,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_loei": {
+      "province_code": "TH-42",
+      "province_name_en": "Loei Province",
+      "estimated_production_t": 214234,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 4.429,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_nong_bua_lam_phu": {
+      "province_code": "TH-39",
+      "province_name_en": "Nong Bua Lam Phu Province",
+      "estimated_production_t": 25268,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.5224,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_northeast_udon_thani": {
+      "province_code": "TH-41",
+      "province_name_en": "Udon Thani Province",
+      "estimated_production_t": 134952,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 2.79,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_nong_khai": {
+      "province_code": "TH-43",
+      "province_name_en": "Nong Khai Province",
+      "estimated_production_t": 78818,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 1.6295,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_northeast_bueng_kan": {
+      "province_code": "TH-38",
+      "province_name_en": "Bueng Kan Province",
+      "estimated_production_t": 217519,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 4.4969,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_sakon_nakhon": {
+      "province_code": "TH-47",
+      "province_name_en": "Sakon Nakhon Province",
+      "estimated_production_t": 95522,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 1.9748,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_nakhon_phanom": {
+      "province_code": "TH-48",
+      "province_name_en": "Nakhon Phanom Province",
+      "estimated_production_t": 85476,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 1.7671,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_mukdahan": {
+      "province_code": "TH-49",
+      "province_name_en": "Mukdahan Province",
+      "estimated_production_t": 59568,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 1.2315,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_yasothon": {
+      "province_code": "TH-35",
+      "province_name_en": "Yasothon Province",
+      "estimated_production_t": 25761,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.5326,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_amnat_charoen": {
+      "province_code": "TH-37",
+      "province_name_en": "Amnat Charoen Province",
+      "estimated_production_t": 21383,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.4421,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_northeast_ubon": {
+      "province_code": "TH-34",
+      "province_name_en": "Ubon Ratchathani Province",
+      "estimated_production_t": 139489,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 2.8838,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_si_sa_ket": {
+      "province_code": "TH-33",
+      "province_name_en": "Si Sa Ket Province",
+      "estimated_production_t": 83793,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 1.7323,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_surin": {
+      "province_code": "TH-32",
+      "province_name_en": "Surin Province",
+      "estimated_production_t": 49760,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 1.0287,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_buri_ram": {
+      "province_code": "TH-31",
+      "province_name_en": "Buri Ram Province",
+      "estimated_production_t": 68112,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 1.4081,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_maha_sarakham": {
+      "province_code": "TH-44",
+      "province_name_en": "Maha Sarakham Province",
+      "estimated_production_t": 1674,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.0346,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_roi_et": {
+      "province_code": "TH-45",
+      "province_name_en": "Roi Et Province",
+      "estimated_production_t": 21961,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.454,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_kalasin": {
+      "province_code": "TH-46",
+      "province_name_en": "Kalasin",
+      "estimated_production_t": 41549,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.859,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_khon_kaen": {
+      "province_code": "TH-40",
+      "province_name_en": "Khon Kaen Province",
+      "estimated_production_t": 15675,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.3241,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_chaiyaphum": {
+      "province_code": "TH-36",
+      "province_name_en": "Chaiyaphum Province",
+      "estimated_production_t": 24672,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.5101,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_nakhon_ratchasima": {
+      "province_code": "TH-30",
+      "province_name_en": "Nakhon Ratchasima Province",
+      "estimated_production_t": 14678,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.3034,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_saraburi": {
+      "province_code": "TH-19",
+      "province_name_en": "Saraburi Province",
+      "estimated_production_t": 326,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.0067,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_lopburi": {
+      "province_code": "TH-16",
+      "province_name_en": "Lopburi Province",
+      "estimated_production_t": 111,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.0023,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_chai_nat": {
+      "province_code": "TH-18",
+      "province_name_en": "Chai Nat Province",
+      "estimated_production_t": 24,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.0005,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_suphan_buri": {
+      "province_code": "TH-72",
+      "province_name_en": "Suphan Buri Province",
+      "estimated_production_t": 770,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.0159,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_nakhon_nayok": {
+      "province_code": "TH-26",
+      "province_name_en": "Nakhon Nayok Province",
+      "estimated_production_t": 89,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.0018,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_prachin_buri": {
+      "province_code": "TH-25",
+      "province_name_en": "Prachin Buri Province",
+      "estimated_production_t": 7293,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.1508,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_chachoengsao": {
+      "province_code": "TH-24",
+      "province_name_en": "Chachoengsao Province",
+      "estimated_production_t": 40655,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.8405,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_sa_kaeo": {
+      "province_code": "TH-27",
+      "province_name_en": "Sa Kaeo Province",
+      "estimated_production_t": 12729,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.2632,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_chanthaburi": {
+      "province_code": "TH-22",
+      "province_name_en": "Chanthaburi Province",
+      "estimated_production_t": 82919,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 1.7142,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_trat": {
+      "province_code": "TH-23",
+      "province_name_en": "Trat Province",
+      "estimated_production_t": 49865,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 1.0309,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_east_rayong": {
+      "province_code": "TH-21",
+      "province_name_en": "Rayong Province",
+      "estimated_production_t": 85201,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 1.7614,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_chon_buri": {
+      "province_code": "TH-20",
+      "province_name_en": "Chon Buri Province",
+      "estimated_production_t": 42639,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.8815,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_nakhon_pathom": {
+      "province_code": "TH-73",
+      "province_name_en": "Nakhon Pathom Province",
+      "estimated_production_t": 2,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.0,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_kanchanaburi": {
+      "province_code": "TH-71",
+      "province_name_en": "Kanchanaburi Province",
+      "estimated_production_t": 26741,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.5528,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_ratchaburi": {
+      "province_code": "TH-70",
+      "province_name_en": "Ratchaburi Province",
+      "estimated_production_t": 7064,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.146,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_phetchaburi": {
+      "province_code": "TH-76",
+      "province_name_en": "Phetchaburi Province",
+      "estimated_production_t": 2658,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.055,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_prachuap_khiri_khan": {
+      "province_code": "TH-77",
+      "province_name_en": "Prachuap Khiri Khan Province",
+      "estimated_production_t": 44090,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.9115,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_chumphon": {
+      "province_code": "TH-86",
+      "province_name_en": "Chumphon Province",
+      "estimated_production_t": 120514,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 2.4915,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_ranong": {
+      "province_code": "TH-85",
+      "province_name_en": "Ranong Province",
+      "estimated_production_t": 66943,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 1.384,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_south_surat_thani": {
+      "province_code": "TH-84",
+      "province_name_en": "Surat Thani Province",
+      "estimated_production_t": 449348,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 9.2897,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_phangnga": {
+      "province_code": "TH-82",
+      "province_name_en": "Phangnga Province",
+      "estimated_production_t": 106884,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 2.2097,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_phuket": {
+      "province_code": "TH-83",
+      "province_name_en": "Phuket Province",
+      "estimated_production_t": 11531,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 0.2384,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_krabi": {
+      "province_code": "TH-81",
+      "province_name_en": "Krabi Province",
+      "estimated_production_t": 116628,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 2.4111,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_south_trang": {
+      "province_code": "TH-92",
+      "province_name_en": "Trang Province",
+      "estimated_production_t": 266398,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 5.5074,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_south_nakhon_si_thammarat": {
+      "province_code": "TH-80",
+      "province_name_en": "Nakhon Si Thammarat Province",
+      "estimated_production_t": 374945,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 7.7515,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_phatthalung": {
+      "province_code": "TH-93",
+      "province_name_en": "Phatthalung Province",
+      "estimated_production_t": 186925,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 3.8644,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_south_songkhla": {
+      "province_code": "TH-90",
+      "province_name_en": "Songkhla Province",
+      "estimated_production_t": 414307,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 8.5653,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_satun": {
+      "province_code": "TH-91",
+      "province_name_en": "Satun Province",
+      "estimated_production_t": 98681,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 2.0401,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_pattani": {
+      "province_code": "TH-94",
+      "province_name_en": "Pattani Province",
+      "estimated_production_t": 81965,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 1.6945,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_south_yala": {
+      "province_code": "TH-95",
+      "province_name_en": "Yala Province",
+      "estimated_production_t": 234273,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 4.8433,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
+    },
+    "th_narathiwat": {
+      "province_code": "TH-96",
+      "province_name_en": "Narathiwat Province",
+      "estimated_production_t": 181585,
+      "production_unit": "吨生胶片",
+      "share_of_country_pct": 3.754,
+      "share_of_world_pct": null,
+      "quality_status": "WARNING",
+      "source_as_of": "2026-03"
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "description": "天然橡胶重点产区代表性网格点。坐标为WGS84研究定位点，不代表气象站或种植园边界。",
+  "description": "天然橡胶产区省级代表网格；泰国覆盖OAE 2025f表中全部68个正产量府。单点模式预报不代表全府平均或地面站实测。",
   "thresholds": {
     "heavy_rain_total_7d_mm": 150,
     "dry_total_7d_mm": 20,
@@ -19,56 +19,876 @@
     "availability_lag_days": 5,
     "description": "泰国重点区域代表性ERA5网格等权合成，不代表行政区面积加权降雨或地面雨量站实测。",
     "points": [
-      {"point_id":"th_hist_south_east_nakhon","place":"那空是贪玛叻","latitude":8.43,"longitude":99.96},
-      {"point_id":"th_hist_south_east_songkhla","place":"宋卡","latitude":7.20,"longitude":100.60},
-      {"point_id":"th_hist_south_west_ranong","place":"拉廊","latitude":9.97,"longitude":98.64},
-      {"point_id":"th_hist_south_west_trang","place":"董里","latitude":7.56,"longitude":99.61},
-      {"point_id":"th_hist_northeast_udon","place":"乌隆他尼","latitude":17.41,"longitude":102.79},
-      {"point_id":"th_hist_northeast_ubon","place":"乌汶","latitude":15.24,"longitude":104.85},
-      {"point_id":"th_hist_north_chiang_mai","place":"清迈","latitude":18.79,"longitude":98.99},
-      {"point_id":"th_hist_north_chiang_rai","place":"清莱","latitude":19.91,"longitude":99.84}
+      {
+        "point_id": "th_hist_south_east_nakhon",
+        "place": "那空是贪玛叻",
+        "latitude": 8.43,
+        "longitude": 99.96
+      },
+      {
+        "point_id": "th_hist_south_east_songkhla",
+        "place": "宋卡",
+        "latitude": 7.2,
+        "longitude": 100.6
+      },
+      {
+        "point_id": "th_hist_south_west_ranong",
+        "place": "拉廊",
+        "latitude": 9.97,
+        "longitude": 98.64
+      },
+      {
+        "point_id": "th_hist_south_west_trang",
+        "place": "董里",
+        "latitude": 7.56,
+        "longitude": 99.61
+      },
+      {
+        "point_id": "th_hist_northeast_udon",
+        "place": "乌隆他尼",
+        "latitude": 17.41,
+        "longitude": 102.79
+      },
+      {
+        "point_id": "th_hist_northeast_ubon",
+        "place": "乌汶",
+        "latitude": 15.24,
+        "longitude": 104.85
+      },
+      {
+        "point_id": "th_hist_north_chiang_mai",
+        "place": "清迈",
+        "latitude": 18.79,
+        "longitude": 98.99
+      },
+      {
+        "point_id": "th_hist_north_chiang_rai",
+        "place": "清莱",
+        "latitude": 19.91,
+        "longitude": 99.84
+      }
     ],
     "regions": [
-      {"region_id":"th_key_regions","name":"泰国重点区域综合","point_ids":["th_hist_south_east_nakhon","th_hist_south_east_songkhla","th_hist_south_west_ranong","th_hist_south_west_trang","th_hist_northeast_udon","th_hist_northeast_ubon","th_hist_north_chiang_mai","th_hist_north_chiang_rai"]},
-      {"region_id":"th_south_east_coast","name":"泰国南部东海岸","point_ids":["th_hist_south_east_nakhon","th_hist_south_east_songkhla"]},
-      {"region_id":"th_south_west_coast","name":"泰国南部西海岸","point_ids":["th_hist_south_west_ranong","th_hist_south_west_trang"]},
-      {"region_id":"th_northeast","name":"泰国东北部","point_ids":["th_hist_northeast_udon","th_hist_northeast_ubon"]},
-      {"region_id":"th_north","name":"泰国北部","point_ids":["th_hist_north_chiang_mai","th_hist_north_chiang_rai"]}
+      {
+        "region_id": "th_key_regions",
+        "name": "泰国重点区域综合",
+        "point_ids": [
+          "th_hist_south_east_nakhon",
+          "th_hist_south_east_songkhla",
+          "th_hist_south_west_ranong",
+          "th_hist_south_west_trang",
+          "th_hist_northeast_udon",
+          "th_hist_northeast_ubon",
+          "th_hist_north_chiang_mai",
+          "th_hist_north_chiang_rai"
+        ]
+      },
+      {
+        "region_id": "th_south_east_coast",
+        "name": "泰国南部东海岸",
+        "point_ids": [
+          "th_hist_south_east_nakhon",
+          "th_hist_south_east_songkhla"
+        ]
+      },
+      {
+        "region_id": "th_south_west_coast",
+        "name": "泰国南部西海岸",
+        "point_ids": [
+          "th_hist_south_west_ranong",
+          "th_hist_south_west_trang"
+        ]
+      },
+      {
+        "region_id": "th_northeast",
+        "name": "泰国东北部",
+        "point_ids": [
+          "th_hist_northeast_udon",
+          "th_hist_northeast_ubon"
+        ]
+      },
+      {
+        "region_id": "th_north",
+        "name": "泰国北部",
+        "point_ids": [
+          "th_hist_north_chiang_mai",
+          "th_hist_north_chiang_rai"
+        ]
+      }
     ]
   },
   "locations": [
-    {"station_id":"cn_hainan_danzhou","country":"中国","region":"海南","place":"儋州","latitude":19.52,"longitude":109.58},
-    {"station_id":"cn_hainan_qiongzhong","country":"中国","region":"海南","place":"琼中","latitude":19.04,"longitude":109.84},
-    {"station_id":"cn_hainan_wanning","country":"中国","region":"海南","place":"万宁","latitude":18.80,"longitude":110.39},
-    {"station_id":"cn_hainan_baisha","country":"中国","region":"海南","place":"白沙","latitude":19.23,"longitude":109.45},
-    {"station_id":"cn_yunnan_jinghong","country":"中国","region":"云南","place":"景洪","latitude":22.00,"longitude":100.80},
-    {"station_id":"cn_yunnan_mengla","country":"中国","region":"云南","place":"勐腊","latitude":21.47,"longitude":101.56},
-    {"station_id":"cn_yunnan_puer","country":"中国","region":"云南","place":"普洱","latitude":22.83,"longitude":100.97},
-
-    {"station_id":"th_south_surat_thani","country":"泰国","region":"南部","place":"素叻他尼","latitude":9.14,"longitude":99.33},
-    {"station_id":"th_south_nakhon_si_thammarat","country":"泰国","region":"南部","place":"那空是贪玛叻","latitude":8.43,"longitude":99.96},
-    {"station_id":"th_south_songkhla","country":"泰国","region":"南部","place":"宋卡","latitude":7.20,"longitude":100.60},
-    {"station_id":"th_south_trang","country":"泰国","region":"南部","place":"董里","latitude":7.56,"longitude":99.61},
-    {"station_id":"th_south_yala","country":"泰国","region":"南部","place":"也拉","latitude":6.54,"longitude":101.28},
-    {"station_id":"th_northeast_udon_thani","country":"泰国","region":"东北部","place":"乌隆他尼","latitude":17.41,"longitude":102.79},
-    {"station_id":"th_northeast_bueng_kan","country":"泰国","region":"东北部","place":"汶干府","latitude":18.36,"longitude":103.65},
-    {"station_id":"th_northeast_ubon","country":"泰国","region":"东北部","place":"乌汶","latitude":15.24,"longitude":104.85},
-    {"station_id":"th_east_rayong","country":"泰国","region":"东部","place":"罗勇","latitude":12.68,"longitude":101.28},
-
-    {"station_id":"id_sumatra_medan","country":"印度尼西亚","region":"北苏门答腊","place":"棉兰","latitude":3.59,"longitude":98.67},
-    {"station_id":"id_sumatra_pekanbaru","country":"印度尼西亚","region":"廖内","place":"北干巴鲁","latitude":0.51,"longitude":101.45},
-    {"station_id":"id_sumatra_jambi","country":"印度尼西亚","region":"占碑","place":"占碑","latitude":-1.61,"longitude":103.61},
-    {"station_id":"id_sumatra_palembang","country":"印度尼西亚","region":"南苏门答腊","place":"巨港","latitude":-2.99,"longitude":104.76},
-    {"station_id":"id_sumatra_lampung","country":"印度尼西亚","region":"楠榜","place":"班达楠榜","latitude":-5.43,"longitude":105.26},
-    {"station_id":"id_kalimantan_pontianak","country":"印度尼西亚","region":"西加里曼丹","place":"坤甸","latitude":-0.03,"longitude":109.34},
-
-    {"station_id":"vn_southeast_binh_phuoc","country":"越南","region":"东南部","place":"同帅（平福）","latitude":11.53,"longitude":106.89},
-    {"station_id":"vn_southeast_tay_ninh","country":"越南","region":"东南部","place":"西宁","latitude":11.31,"longitude":106.10},
-    {"station_id":"vn_central_highlands_pleiku","country":"越南","region":"中央高原","place":"波来古","latitude":13.98,"longitude":108.00},
-    {"station_id":"vn_central_highlands_buon_ma_thuot","country":"越南","region":"中央高原","place":"邦美蜀","latitude":12.68,"longitude":108.05},
-
-    {"station_id":"ci_nawa_soubre","country":"科特迪瓦","region":"纳瓦区","place":"苏布雷","latitude":5.78,"longitude":-6.60},
-    {"station_id":"ci_sud_comoe_aboisso","country":"科特迪瓦","region":"南科莫埃","place":"阿博瓦索","latitude":5.47,"longitude":-3.21},
-    {"station_id":"ci_indenié_abengourou","country":"科特迪瓦","region":"因代涅-朱阿布兰","place":"阿本古鲁","latitude":6.73,"longitude":-3.49}
+    {
+      "station_id": "cn_hainan_danzhou",
+      "country": "中国",
+      "region": "海南",
+      "place": "儋州",
+      "latitude": 19.52,
+      "longitude": 109.58
+    },
+    {
+      "station_id": "cn_hainan_qiongzhong",
+      "country": "中国",
+      "region": "海南",
+      "place": "琼中",
+      "latitude": 19.04,
+      "longitude": 109.84
+    },
+    {
+      "station_id": "cn_hainan_wanning",
+      "country": "中国",
+      "region": "海南",
+      "place": "万宁",
+      "latitude": 18.8,
+      "longitude": 110.39
+    },
+    {
+      "station_id": "cn_hainan_baisha",
+      "country": "中国",
+      "region": "海南",
+      "place": "白沙",
+      "latitude": 19.23,
+      "longitude": 109.45
+    },
+    {
+      "station_id": "cn_yunnan_jinghong",
+      "country": "中国",
+      "region": "云南",
+      "place": "景洪",
+      "latitude": 22.0,
+      "longitude": 100.8
+    },
+    {
+      "station_id": "cn_yunnan_mengla",
+      "country": "中国",
+      "region": "云南",
+      "place": "勐腊",
+      "latitude": 21.47,
+      "longitude": 101.56
+    },
+    {
+      "station_id": "cn_yunnan_puer",
+      "country": "中国",
+      "region": "云南",
+      "place": "普洱",
+      "latitude": 22.83,
+      "longitude": 100.97
+    },
+    {
+      "station_id": "id_sumatra_medan",
+      "country": "印度尼西亚",
+      "region": "北苏门答腊",
+      "place": "棉兰",
+      "latitude": 3.59,
+      "longitude": 98.67
+    },
+    {
+      "station_id": "id_sumatra_pekanbaru",
+      "country": "印度尼西亚",
+      "region": "廖内",
+      "place": "北干巴鲁",
+      "latitude": 0.51,
+      "longitude": 101.45
+    },
+    {
+      "station_id": "id_sumatra_jambi",
+      "country": "印度尼西亚",
+      "region": "占碑",
+      "place": "占碑",
+      "latitude": -1.61,
+      "longitude": 103.61
+    },
+    {
+      "station_id": "id_sumatra_palembang",
+      "country": "印度尼西亚",
+      "region": "南苏门答腊",
+      "place": "巨港",
+      "latitude": -2.99,
+      "longitude": 104.76
+    },
+    {
+      "station_id": "id_sumatra_lampung",
+      "country": "印度尼西亚",
+      "region": "楠榜",
+      "place": "班达楠榜",
+      "latitude": -5.43,
+      "longitude": 105.26
+    },
+    {
+      "station_id": "id_kalimantan_pontianak",
+      "country": "印度尼西亚",
+      "region": "西加里曼丹",
+      "place": "坤甸",
+      "latitude": -0.03,
+      "longitude": 109.34
+    },
+    {
+      "station_id": "vn_southeast_binh_phuoc",
+      "country": "越南",
+      "region": "东南部",
+      "place": "同帅（平福）",
+      "latitude": 11.53,
+      "longitude": 106.89
+    },
+    {
+      "station_id": "vn_southeast_tay_ninh",
+      "country": "越南",
+      "region": "东南部",
+      "place": "西宁",
+      "latitude": 11.31,
+      "longitude": 106.1
+    },
+    {
+      "station_id": "vn_central_highlands_pleiku",
+      "country": "越南",
+      "region": "中央高原",
+      "place": "波来古",
+      "latitude": 13.98,
+      "longitude": 108.0
+    },
+    {
+      "station_id": "vn_central_highlands_buon_ma_thuot",
+      "country": "越南",
+      "region": "中央高原",
+      "place": "邦美蜀",
+      "latitude": 12.68,
+      "longitude": 108.05
+    },
+    {
+      "station_id": "ci_nawa_soubre",
+      "country": "科特迪瓦",
+      "region": "纳瓦区",
+      "place": "苏布雷",
+      "latitude": 5.78,
+      "longitude": -6.6
+    },
+    {
+      "station_id": "ci_sud_comoe_aboisso",
+      "country": "科特迪瓦",
+      "region": "南科莫埃",
+      "place": "阿博瓦索",
+      "latitude": 5.47,
+      "longitude": -3.21
+    },
+    {
+      "station_id": "ci_indenié_abengourou",
+      "country": "科特迪瓦",
+      "region": "因代涅-朱阿布兰",
+      "place": "阿本古鲁",
+      "latitude": 6.73,
+      "longitude": -3.49
+    },
+    {
+      "station_id": "th_chiang_rai",
+      "country": "泰国",
+      "region": "北部",
+      "place": "清莱",
+      "province_code": "TH-57",
+      "latitude": 19.7324,
+      "longitude": 99.9191
+    },
+    {
+      "station_id": "th_phayao",
+      "country": "泰国",
+      "region": "北部",
+      "place": "帕尧",
+      "province_code": "TH-56",
+      "latitude": 19.2711,
+      "longitude": 100.1604
+    },
+    {
+      "station_id": "th_lampang",
+      "country": "泰国",
+      "region": "北部",
+      "place": "南邦",
+      "province_code": "TH-52",
+      "latitude": 18.3554,
+      "longitude": 99.5025
+    },
+    {
+      "station_id": "th_lamphun",
+      "country": "泰国",
+      "region": "北部",
+      "place": "南奔",
+      "province_code": "TH-51",
+      "latitude": 18.0655,
+      "longitude": 98.9914
+    },
+    {
+      "station_id": "th_chiang_mai",
+      "country": "泰国",
+      "region": "北部",
+      "place": "清迈",
+      "province_code": "TH-50",
+      "latitude": 18.6979,
+      "longitude": 98.8362
+    },
+    {
+      "station_id": "th_mae_hong_son",
+      "country": "泰国",
+      "region": "北部",
+      "place": "夜丰颂",
+      "province_code": "TH-58",
+      "latitude": 18.6905,
+      "longitude": 97.9995
+    },
+    {
+      "station_id": "th_tak",
+      "country": "泰国",
+      "region": "北部",
+      "place": "达",
+      "province_code": "TH-63",
+      "latitude": 16.4985,
+      "longitude": 98.628
+    },
+    {
+      "station_id": "th_kamphaeng_phet",
+      "country": "泰国",
+      "region": "北部",
+      "place": "甘烹碧",
+      "province_code": "TH-62",
+      "latitude": 16.3356,
+      "longitude": 99.5087
+    },
+    {
+      "station_id": "th_sukhothai",
+      "country": "泰国",
+      "region": "北部",
+      "place": "素可泰",
+      "province_code": "TH-64",
+      "latitude": 17.2526,
+      "longitude": 99.6996
+    },
+    {
+      "station_id": "th_phrae",
+      "country": "泰国",
+      "region": "北部",
+      "place": "帕",
+      "province_code": "TH-54",
+      "latitude": 18.2556,
+      "longitude": 99.9262
+    },
+    {
+      "station_id": "th_nan",
+      "country": "泰国",
+      "region": "北部",
+      "place": "难",
+      "province_code": "TH-55",
+      "latitude": 18.8233,
+      "longitude": 100.8465
+    },
+    {
+      "station_id": "th_uttaradit",
+      "country": "泰国",
+      "region": "北部",
+      "place": "程逸",
+      "province_code": "TH-53",
+      "latitude": 17.7715,
+      "longitude": 100.5445
+    },
+    {
+      "station_id": "th_phitsanulok",
+      "country": "泰国",
+      "region": "北部",
+      "place": "彭世洛",
+      "province_code": "TH-65",
+      "latitude": 17.0476,
+      "longitude": 100.4903
+    },
+    {
+      "station_id": "th_phichit",
+      "country": "泰国",
+      "region": "北部",
+      "place": "披集",
+      "province_code": "TH-66",
+      "latitude": 16.2538,
+      "longitude": 100.3748
+    },
+    {
+      "station_id": "th_nakhon_sawan",
+      "country": "泰国",
+      "region": "北部",
+      "place": "北榄坡",
+      "province_code": "TH-60",
+      "latitude": 15.699,
+      "longitude": 99.9615
+    },
+    {
+      "station_id": "th_uthai_thani",
+      "country": "泰国",
+      "region": "北部",
+      "place": "乌泰他尼",
+      "province_code": "TH-61",
+      "latitude": 15.3603,
+      "longitude": 99.5288
+    },
+    {
+      "station_id": "th_phetchabun",
+      "country": "泰国",
+      "region": "北部",
+      "place": "碧差汶",
+      "province_code": "TH-67",
+      "latitude": 16.2095,
+      "longitude": 101.2118
+    },
+    {
+      "station_id": "th_loei",
+      "country": "泰国",
+      "region": "东北部",
+      "place": "黎",
+      "province_code": "TH-42",
+      "latitude": 17.4873,
+      "longitude": 101.5178
+    },
+    {
+      "station_id": "th_nong_bua_lam_phu",
+      "country": "泰国",
+      "region": "东北部",
+      "place": "廊磨喃蒲",
+      "province_code": "TH-39",
+      "latitude": 17.2203,
+      "longitude": 102.3167
+    },
+    {
+      "station_id": "th_northeast_udon_thani",
+      "country": "泰国",
+      "region": "东北部",
+      "place": "乌隆他尼",
+      "latitude": 17.41,
+      "longitude": 102.79,
+      "province_code": "TH-41"
+    },
+    {
+      "station_id": "th_nong_khai",
+      "country": "泰国",
+      "region": "东北部",
+      "place": "廊开",
+      "province_code": "TH-43",
+      "latitude": 17.9296,
+      "longitude": 102.7845
+    },
+    {
+      "station_id": "th_northeast_bueng_kan",
+      "country": "泰国",
+      "region": "东北部",
+      "place": "汶干府",
+      "latitude": 18.36,
+      "longitude": 103.65,
+      "province_code": "TH-38"
+    },
+    {
+      "station_id": "th_sakon_nakhon",
+      "country": "泰国",
+      "region": "东北部",
+      "place": "色军",
+      "province_code": "TH-47",
+      "latitude": 17.4204,
+      "longitude": 103.8453
+    },
+    {
+      "station_id": "th_nakhon_phanom",
+      "country": "泰国",
+      "region": "东北部",
+      "place": "那空拍侬",
+      "province_code": "TH-48",
+      "latitude": 17.4304,
+      "longitude": 104.3965
+    },
+    {
+      "station_id": "th_mukdahan",
+      "country": "泰国",
+      "region": "东北部",
+      "place": "穆达汉",
+      "province_code": "TH-49",
+      "latitude": 16.5443,
+      "longitude": 104.5251
+    },
+    {
+      "station_id": "th_yasothon",
+      "country": "泰国",
+      "region": "东北部",
+      "place": "益梭通",
+      "province_code": "TH-35",
+      "latitude": 15.8147,
+      "longitude": 104.4053
+    },
+    {
+      "station_id": "th_amnat_charoen",
+      "country": "泰国",
+      "region": "东北部",
+      "place": "安纳乍能",
+      "province_code": "TH-37",
+      "latitude": 15.9147,
+      "longitude": 104.7421
+    },
+    {
+      "station_id": "th_northeast_ubon",
+      "country": "泰国",
+      "region": "东北部",
+      "place": "乌汶",
+      "latitude": 15.24,
+      "longitude": 104.85,
+      "province_code": "TH-34"
+    },
+    {
+      "station_id": "th_si_sa_ket",
+      "country": "泰国",
+      "region": "东北部",
+      "place": "四色菊",
+      "province_code": "TH-33",
+      "latitude": 14.9528,
+      "longitude": 104.4162
+    },
+    {
+      "station_id": "th_surin",
+      "country": "泰国",
+      "region": "东北部",
+      "place": "素林",
+      "province_code": "TH-32",
+      "latitude": 14.9065,
+      "longitude": 103.5848
+    },
+    {
+      "station_id": "th_buri_ram",
+      "country": "泰国",
+      "region": "东北部",
+      "place": "武里南",
+      "province_code": "TH-31",
+      "latitude": 14.9604,
+      "longitude": 102.9704
+    },
+    {
+      "station_id": "th_maha_sarakham",
+      "country": "泰国",
+      "region": "东北部",
+      "place": "玛哈沙拉堪",
+      "province_code": "TH-44",
+      "latitude": 16.0247,
+      "longitude": 103.1797
+    },
+    {
+      "station_id": "th_roi_et",
+      "country": "泰国",
+      "region": "东北部",
+      "place": "黎逸",
+      "province_code": "TH-45",
+      "latitude": 15.9381,
+      "longitude": 103.8256
+    },
+    {
+      "station_id": "th_kalasin",
+      "country": "泰国",
+      "region": "东北部",
+      "place": "加拉信",
+      "province_code": "TH-46",
+      "latitude": 16.6439,
+      "longitude": 103.6795
+    },
+    {
+      "station_id": "th_khon_kaen",
+      "country": "泰国",
+      "region": "东北部",
+      "place": "孔敬",
+      "province_code": "TH-40",
+      "latitude": 16.3485,
+      "longitude": 102.4723
+    },
+    {
+      "station_id": "th_chaiyaphum",
+      "country": "泰国",
+      "region": "东北部",
+      "place": "猜也蓬",
+      "province_code": "TH-36",
+      "latitude": 15.9592,
+      "longitude": 101.8808
+    },
+    {
+      "station_id": "th_nakhon_ratchasima",
+      "country": "泰国",
+      "region": "东北部",
+      "place": "呵叻",
+      "province_code": "TH-30",
+      "latitude": 14.9476,
+      "longitude": 102.1023
+    },
+    {
+      "station_id": "th_saraburi",
+      "country": "泰国",
+      "region": "中部",
+      "place": "北标",
+      "province_code": "TH-19",
+      "latitude": 14.6217,
+      "longitude": 101.0132
+    },
+    {
+      "station_id": "th_lopburi",
+      "country": "泰国",
+      "region": "中部",
+      "place": "华富里",
+      "province_code": "TH-16",
+      "latitude": 15.0767,
+      "longitude": 100.9213
+    },
+    {
+      "station_id": "th_chai_nat",
+      "country": "泰国",
+      "region": "中部",
+      "place": "猜纳",
+      "province_code": "TH-18",
+      "latitude": 15.1634,
+      "longitude": 100.0126
+    },
+    {
+      "station_id": "th_suphan_buri",
+      "country": "泰国",
+      "region": "中部",
+      "place": "素攀武里",
+      "province_code": "TH-72",
+      "latitude": 14.5174,
+      "longitude": 99.829
+    },
+    {
+      "station_id": "th_nakhon_nayok",
+      "country": "泰国",
+      "region": "中部",
+      "place": "那空那育",
+      "province_code": "TH-26",
+      "latitude": 14.2337,
+      "longitude": 101.2148
+    },
+    {
+      "station_id": "th_prachin_buri",
+      "country": "泰国",
+      "region": "中部",
+      "place": "巴真武里",
+      "province_code": "TH-25",
+      "latitude": 14.0215,
+      "longitude": 101.6262
+    },
+    {
+      "station_id": "th_chachoengsao",
+      "country": "泰国",
+      "region": "中部",
+      "place": "北柳",
+      "province_code": "TH-24",
+      "latitude": 13.5741,
+      "longitude": 101.4239
+    },
+    {
+      "station_id": "th_sa_kaeo",
+      "country": "泰国",
+      "region": "中部",
+      "place": "沙缴",
+      "province_code": "TH-27",
+      "latitude": 13.6729,
+      "longitude": 102.4424
+    },
+    {
+      "station_id": "th_chanthaburi",
+      "country": "泰国",
+      "region": "中部",
+      "place": "尖竹汶",
+      "province_code": "TH-22",
+      "latitude": 12.8166,
+      "longitude": 102.1104
+    },
+    {
+      "station_id": "th_trat",
+      "country": "泰国",
+      "region": "中部",
+      "place": "达叻",
+      "province_code": "TH-23",
+      "latitude": 12.1713,
+      "longitude": 102.5653
+    },
+    {
+      "station_id": "th_east_rayong",
+      "country": "泰国",
+      "region": "东部",
+      "place": "罗勇",
+      "latitude": 12.68,
+      "longitude": 101.28,
+      "province_code": "TH-21"
+    },
+    {
+      "station_id": "th_chon_buri",
+      "country": "泰国",
+      "region": "中部",
+      "place": "春武里",
+      "province_code": "TH-20",
+      "latitude": 13.0364,
+      "longitude": 101.164
+    },
+    {
+      "station_id": "th_nakhon_pathom",
+      "country": "泰国",
+      "region": "中部",
+      "place": "佛统",
+      "province_code": "TH-73",
+      "latitude": 13.9135,
+      "longitude": 100.0722
+    },
+    {
+      "station_id": "th_kanchanaburi",
+      "country": "泰国",
+      "region": "中部",
+      "place": "北碧",
+      "province_code": "TH-71",
+      "latitude": 14.6946,
+      "longitude": 99.037
+    },
+    {
+      "station_id": "th_ratchaburi",
+      "country": "泰国",
+      "region": "中部",
+      "place": "叻丕",
+      "province_code": "TH-70",
+      "latitude": 13.543,
+      "longitude": 99.621
+    },
+    {
+      "station_id": "th_phetchaburi",
+      "country": "泰国",
+      "region": "中部",
+      "place": "佛丕",
+      "province_code": "TH-76",
+      "latitude": 12.9378,
+      "longitude": 99.6028
+    },
+    {
+      "station_id": "th_prachuap_khiri_khan",
+      "country": "泰国",
+      "region": "中部",
+      "place": "巴蜀",
+      "province_code": "TH-77",
+      "latitude": 11.8362,
+      "longitude": 99.6255
+    },
+    {
+      "station_id": "th_chumphon",
+      "country": "泰国",
+      "region": "南部",
+      "place": "春蓬",
+      "province_code": "TH-86",
+      "latitude": 10.3162,
+      "longitude": 99.0744
+    },
+    {
+      "station_id": "th_ranong",
+      "country": "泰国",
+      "region": "南部",
+      "place": "拉廊",
+      "province_code": "TH-85",
+      "latitude": 10.0474,
+      "longitude": 98.6787
+    },
+    {
+      "station_id": "th_south_surat_thani",
+      "country": "泰国",
+      "region": "南部",
+      "place": "素叻他尼",
+      "latitude": 9.14,
+      "longitude": 99.33,
+      "province_code": "TH-84"
+    },
+    {
+      "station_id": "th_phangnga",
+      "country": "泰国",
+      "region": "南部",
+      "place": "攀牙",
+      "province_code": "TH-82",
+      "latitude": 8.6756,
+      "longitude": 98.2426
+    },
+    {
+      "station_id": "th_phuket",
+      "country": "泰国",
+      "region": "南部",
+      "place": "普吉",
+      "province_code": "TH-83",
+      "latitude": 7.8445,
+      "longitude": 98.3653
+    },
+    {
+      "station_id": "th_krabi",
+      "country": "泰国",
+      "region": "南部",
+      "place": "甲米",
+      "province_code": "TH-81",
+      "latitude": 8.0376,
+      "longitude": 98.986
+    },
+    {
+      "station_id": "th_south_trang",
+      "country": "泰国",
+      "region": "南部",
+      "place": "董里",
+      "latitude": 7.56,
+      "longitude": 99.61,
+      "province_code": "TH-92"
+    },
+    {
+      "station_id": "th_south_nakhon_si_thammarat",
+      "country": "泰国",
+      "region": "南部",
+      "place": "那空是贪玛叻",
+      "latitude": 8.43,
+      "longitude": 99.96,
+      "province_code": "TH-80"
+    },
+    {
+      "station_id": "th_phatthalung",
+      "country": "泰国",
+      "region": "南部",
+      "place": "博他仑",
+      "province_code": "TH-93",
+      "latitude": 7.4986,
+      "longitude": 100.0864
+    },
+    {
+      "station_id": "th_south_songkhla",
+      "country": "泰国",
+      "region": "南部",
+      "place": "宋卡",
+      "latitude": 7.2,
+      "longitude": 100.6,
+      "province_code": "TH-90"
+    },
+    {
+      "station_id": "th_satun",
+      "country": "泰国",
+      "region": "南部",
+      "place": "沙敦",
+      "province_code": "TH-91",
+      "latitude": 6.7302,
+      "longitude": 99.647
+    },
+    {
+      "station_id": "th_pattani",
+      "country": "泰国",
+      "region": "南部",
+      "place": "北大年",
+      "province_code": "TH-94",
+      "latitude": 6.7472,
+      "longitude": 101.3814
+    },
+    {
+      "station_id": "th_south_yala",
+      "country": "泰国",
+      "region": "南部",
+      "place": "也拉",
+      "latitude": 6.54,
+      "longitude": 101.28,
+      "province_code": "TH-95"
+    },
+    {
+      "station_id": "th_narathiwat",
+      "country": "泰国",
+      "region": "南部",
+      "place": "陶公",
+      "province_code": "TH-96",
+      "latitude": 6.1848,
+      "longitude": 101.7365
+    }
   ]
 }

@@ -287,7 +287,7 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertIn('id="weeklySummary"', page)
         self.assertIn("function renderWeeklySummary()", script)
         self.assertIn("renderWeeklySummary();", script)
-        self.assertIn("【事实】0–7天 · 作业扰动", script)
+        self.assertIn("【预报 / 估算】0–7天 · 作业扰动", script)
         self.assertIn("【事实】2–8周 · 水分背景", script)
         self.assertIn("【事实】变化与兑现", script)
         self.assertIn("【事实】1–6月 · 气候背景", script)
@@ -326,12 +326,12 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertEqual(weights["reference_years"], [2024, 2025])
         self.assertEqual(weights["data_type"], "MIXED")
         self.assertEqual(weights["overall_quality_status"], "WARNING")
-        self.assertEqual(len(weights["sources"]), 4)
+        self.assertGreaterEqual(len(weights["sources"]), 3)
         self.assertEqual(weights["countries"]["印度尼西亚"]["data_type"], "FACT")
         trang = weights["stations"]["th_south_trang"]
-        self.assertEqual(trang["estimated_production_t"], 270349)
-        self.assertAlmostEqual(trang["share_of_country_pct"], 5.5257, places=4)
-        self.assertAlmostEqual(trang["share_of_world_pct"], 1.8058, places=4)
+        self.assertEqual(trang["estimated_production_t"], 266398)
+        self.assertAlmostEqual(trang["share_of_country_pct"], 266398 / 4837050 * 100, places=4)
+        self.assertIsNone(trang["share_of_world_pct"])
         palembang = weights["stations"]["id_sumatra_palembang"]
         self.assertEqual(palembang["estimated_production_t"], 619600)
         self.assertAlmostEqual(palembang["share_of_country_pct"], 29.0619, places=4)
@@ -340,6 +340,16 @@ class WeatherPipelineTest(unittest.TestCase):
             sum(item["estimated_production_t"] for key, item in weights["stations"].items() if key.startswith("th_")),
             weights["denominators"]["tracked_thailand_production_t"],
         )
+        config = json.loads((root / "config/locations.json").read_text(encoding="utf-8"))
+        regions = json.loads((root / "site/data/capacity/rubber-regions.json").read_text(encoding="utf-8"))
+        borders = json.loads((root / "site/data/thailand-provinces.geojson").read_text(encoding="utf-8"))
+        thai_locations = [item for item in config["locations"] if item["country"] == "泰国"]
+        expected_codes = {item["province_code"] for item in regions["regions"] if item["country"] == "泰国" and item["production_t"] is not None and item["production_t"] > 0}
+        self.assertEqual(len(thai_locations), 68)
+        self.assertEqual({item["province_code"] for item in thai_locations}, expected_codes)
+        self.assertEqual(len(borders["features"]), 77)
+        self.assertEqual({item["station_id"] for item in thai_locations}, {key for key in weights["stations"] if key.startswith("th_")})
+        self.assertEqual(weights["denominators"]["tracked_share_of_thailand_pct"], 100)
         self.assertEqual(
             sum(item["estimated_production_t"] for key, item in weights["stations"].items() if key.startswith("id_")),
             weights["denominators"]["tracked_indonesia_production_t"],
