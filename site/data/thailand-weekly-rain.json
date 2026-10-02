@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
   "dataset_id": "THAILAND_WEEKLY_RAIN_ERA5_V1",
-  "generated_at_utc": "2026-10-01T18:43:51Z",
+  "generated_at_utc": "2026-10-02T18:15:17Z",
   "period": {
     "start_date": "2022-01-03",
-    "end_date": "2026-09-20",
+    "end_date": "2026-09-27",
     "week_definition": "Monday–Sunday, Asia/Bangkok local date",
     "unit": "mm"
   },
-  "overall_quality_status": "PASS",
+  "overall_quality_status": "WARNING",
   "source": {
     "source_id": "HIST_OPEN_METEO_ERA5_01",
     "source_name": "Open-Meteo Historical Weather API",
@@ -85,7 +85,7 @@
         "th_hist_north_chiang_rai"
       ],
       "point_count": 8,
-      "quality_status": "PASS",
+      "quality_status": "WARNING",
       "weekly": [
         {
           "week_start": "2022-01-03",
@@ -1808,6 +1808,13 @@
           "iso_year": 2026,
           "iso_week": 38,
           "precipitation_mm": 89.8
+        },
+        {
+          "week_start": "2026-09-21",
+          "week_end": "2026-09-27",
+          "iso_year": 2026,
+          "iso_week": 39,
+          "precipitation_mm": null
         }
       ]
     },
@@ -1819,7 +1826,7 @@
         "th_hist_south_east_songkhla"
       ],
       "point_count": 2,
-      "quality_status": "PASS",
+      "quality_status": "WARNING",
       "weekly": [
         {
           "week_start": "2022-01-03",
@@ -3542,6 +3549,13 @@
           "iso_year": 2026,
           "iso_week": 38,
           "precipitation_mm": 89.0
+        },
+        {
+          "week_start": "2026-09-21",
+          "week_end": "2026-09-27",
+          "iso_year": 2026,
+          "iso_week": 39,
+          "precipitation_mm": null
         }
       ]
     },
@@ -3553,7 +3567,7 @@
         "th_hist_south_west_trang"
       ],
       "point_count": 2,
-      "quality_status": "PASS",
+      "quality_status": "WARNING",
       "weekly": [
         {
           "week_start": "2022-01-03",
@@ -5276,6 +5290,13 @@
           "iso_year": 2026,
           "iso_week": 38,
           "precipitation_mm": 112.7
+        },
+        {
+          "week_start": "2026-09-21",
+          "week_end": "2026-09-27",
+          "iso_year": 2026,
+          "iso_week": 39,
+          "precipitation_mm": null
         }
       ]
     },
@@ -5287,7 +5308,7 @@
         "th_hist_northeast_ubon"
       ],
       "point_count": 2,
-      "quality_status": "PASS",
+      "quality_status": "WARNING",
       "weekly": [
         {
           "week_start": "2022-01-03",
@@ -7010,6 +7031,13 @@
           "iso_year": 2026,
           "iso_week": 38,
           "precipitation_mm": 109.1
+        },
+        {
+          "week_start": "2026-09-21",
+          "week_end": "2026-09-27",
+          "iso_year": 2026,
+          "iso_week": 39,
+          "precipitation_mm": null
         }
       ]
     },
@@ -7021,7 +7049,7 @@
         "th_hist_north_chiang_rai"
       ],
       "point_count": 2,
-      "quality_status": "PASS",
+      "quality_status": "WARNING",
       "weekly": [
         {
           "week_start": "2022-01-03",
@@ -8744,6 +8772,13 @@
           "iso_year": 2026,
           "iso_week": 38,
           "precipitation_mm": 48.4
+        },
+        {
+          "week_start": "2026-09-21",
+          "week_end": "2026-09-27",
+          "iso_year": 2026,
+          "iso_week": 39,
+          "precipitation_mm": null
         }
       ]
     }
