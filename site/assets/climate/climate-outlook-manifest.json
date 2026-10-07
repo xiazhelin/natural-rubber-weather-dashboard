@@ -18,8 +18,8 @@
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-10-06T18:49:23Z",
-      "last_attempt_at_utc": "2026-10-06T18:49:23Z"
+      "last_success_at_utc": "2026-10-07T19:14:27Z",
+      "last_attempt_at_utc": "2026-10-07T19:14:27Z"
     },
     "iri_precip": {
       "title": "IRI季节降水概率",
@@ -50,8 +50,8 @@
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-10-06T18:49:23Z",
-      "last_attempt_at_utc": "2026-10-06T18:49:23Z"
+      "last_success_at_utc": "2026-10-07T19:14:27Z",
+      "last_attempt_at_utc": "2026-10-07T19:14:27Z"
     },
     "nmme_precip": {
       "title": "NMME月度降水距平",
@@ -59,32 +59,32 @@
       "documentation": "https://www.cpc.ncep.noaa.gov/products/international/nmme/html_monthly/precip_anom_global_body.html",
       "data_type": "ESTIMATE",
       "unit": "mm/day",
-      "source_period": "2026-09",
+      "source_period": "2026-10",
       "images": [
         {
-          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_prec_anom_SepIC_Oct2026.png",
-          "label": "Oct2026",
+          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_prec_anom_OctIC_Nov2026.png",
+          "label": "Nov2026",
           "filename": "nmme-precip-1.png"
         },
         {
-          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_prec_anom_SepIC_Nov2026.png",
-          "label": "Nov2026",
+          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_prec_anom_OctIC_Dec2026.png",
+          "label": "Dec2026",
           "filename": "nmme-precip-2.png"
         },
         {
-          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_prec_anom_SepIC_Dec2026.png",
-          "label": "Dec2026",
+          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_prec_anom_OctIC_Jan2027.png",
+          "label": "Jan2027",
           "filename": "nmme-precip-3.png"
         },
         {
-          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_prec_anom_SepIC_Jan2027.png",
-          "label": "Jan2027",
+          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_prec_anom_OctIC_Feb2027.png",
+          "label": "Feb2027",
           "filename": "nmme-precip-4.png"
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-10-06T18:49:23Z",
-      "last_attempt_at_utc": "2026-10-06T18:49:23Z"
+      "last_success_at_utc": "2026-10-07T19:14:27Z",
+      "last_attempt_at_utc": "2026-10-07T19:14:27Z"
     },
     "nmme_temperature": {
       "title": "NMME月度2米气温距平",
@@ -92,33 +92,33 @@
       "documentation": "https://www.cpc.ncep.noaa.gov/products/international/nmme/html_monthly/tmp2m_anom_global_body.html",
       "data_type": "ESTIMATE",
       "unit": "°C",
-      "source_period": "2026-09",
+      "source_period": "2026-10",
       "images": [
         {
-          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_tmp2m_anom_SepIC_Oct2026.png",
-          "label": "Oct2026",
+          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_tmp2m_anom_OctIC_Nov2026.png",
+          "label": "Nov2026",
           "filename": "nmme-temperature-1.png"
         },
         {
-          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_tmp2m_anom_SepIC_Nov2026.png",
-          "label": "Nov2026",
+          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_tmp2m_anom_OctIC_Dec2026.png",
+          "label": "Dec2026",
           "filename": "nmme-temperature-2.png"
         },
         {
-          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_tmp2m_anom_SepIC_Dec2026.png",
-          "label": "Dec2026",
+          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_tmp2m_anom_OctIC_Jan2027.png",
+          "label": "Jan2027",
           "filename": "nmme-temperature-3.png"
         },
         {
-          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_tmp2m_anom_SepIC_Jan2027.png",
-          "label": "Jan2027",
+          "source_url": "https://www.cpc.ncep.noaa.gov/products/international/nmme/plots_monthly/global_nmme_tmp2m_anom_OctIC_Feb2027.png",
+          "label": "Feb2027",
           "filename": "nmme-temperature-4.png"
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-10-06T18:49:23Z",
-      "last_attempt_at_utc": "2026-10-06T18:49:23Z"
+      "last_success_at_utc": "2026-10-07T19:14:27Z",
+      "last_attempt_at_utc": "2026-10-07T19:14:27Z"
     }
   },
-  "updated_at_utc": "2026-10-06T18:49:23Z"
+  "updated_at_utc": "2026-10-07T19:14:27Z"
 }
