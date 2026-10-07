@@ -1,6 +1,13 @@
 # 天然橡胶产区天气面板交接记录
 
-更新日期：2026-09-27（Asia/Shanghai）
+更新日期：2026-10-07（Asia/Shanghai）
+
+## 当前交接：每日北京时间21:00更新计划
+
+- 【事实】原配置已经是每天21:00（`Asia/Shanghai`），并非主动改成凌晨。只读核验[2026-10-06定时运行](https://github.com/xiazhelin/natural-rubber-weather-dashboard/actions/runs/37514214503)：任务创建于18:49:09 UTC（次日北京时间02:49:09），获取天气步骤18:49:17—18:49:24 UTC，延迟主要出现在触发阶段而非天气获取。
+- 【变更】改用等效、无需时区字段的UTC 13:00定时，每日仅一个计划；推送仍只部署现有数据，维护者手动更新仍保留。页面新增固定计划提示，真实更新时间继续读取`generated_at_utc`，未改写任何历史时间或数据。
+- 【限制】[GitHub官方文档](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)允许定时任务延迟，不能承诺每天21:00准点完成。此次UTC写法是配置简化，不代表已消除平台调度延迟。
+- 【发布与验证】本次在本地`add-production-map`修改，未提交、推送或部署；需合入远端默认分支`main`。测试校验唯一日程、UTC到北京时间21:00转换及仅定时/手动获取天气；发布后用Actions创建时间与页面真实更新时间核对。如果仍显著迟到，再决定是否采用外部定时触发服务，不新增重复的Codex自动化。
 
 ## 当前交接：Tire Business 2025 逐厂产能调查
 

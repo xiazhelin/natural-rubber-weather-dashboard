@@ -1,9 +1,11 @@
 import importlib.util
 import json
+import re
 import tempfile
 import unittest
 from datetime import datetime, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "update_weather.py"
@@ -229,8 +231,19 @@ class WeatherPipelineTest(unittest.TestCase):
         script = (root / "site/assets/app.js").read_text(encoding="utf-8")
         outlooks = json.loads((root / "site/assets/climate/climate-outlook-manifest.json").read_text(encoding="utf-8"))
 
-        self.assertIn('cron: "0 21 * * *"', workflow)
-        self.assertIn('timezone: "Asia/Shanghai"', workflow)
+        schedules = re.findall(r'^\s+- cron: "([^"]+)"$', workflow, re.MULTILINE)
+        self.assertEqual(schedules, ["0 13 * * *"])
+        self.assertNotIn("timezone:", workflow)
+        minute, hour, *_ = schedules[0].split()
+        for month in (1, 7, 10):
+            scheduled = datetime(2026, month, 7, int(hour), int(minute), tzinfo=MODULE.timezone.utc)
+            beijing = scheduled.astimezone(ZoneInfo("Asia/Shanghai"))
+            self.assertEqual((beijing.day, beijing.hour, beijing.minute), (7, 21, 0))
+        weather_step = workflow.split("      - name: 获取最新天气\n", 1)[1].split("\n      - name:", 1)[0]
+        self.assertIn("if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'", weather_step)
+        self.assertIn("自动更新计划：每天北京时间 21:00", page)
+        self.assertIn("GitHub 调度可能延迟", page)
+        self.assertIn("formatUpdate(state.data.generated_at_utc)", script)
         self.assertIn("workflow_dispatch:", workflow)
         self.assertIn("NASA_PPS_EMAIL", workflow)
         self.assertIn("pip install -r requirements.txt", workflow)
@@ -278,8 +291,7 @@ class WeatherPipelineTest(unittest.TestCase):
         styles = (root / "site/assets/styles.css").read_text(encoding="utf-8")
         workflow = (root / ".github/workflows/update-weather.yml").read_text(encoding="utf-8")
 
-        self.assertIn('cron: "0 21 * * *"', workflow)
-        self.assertIn('timezone: "Asia/Shanghai"', workflow)
+        self.assertIn('cron: "0 13 * * *"', workflow)
         self.assertIn('id="freshnessGrid"', page)
         self.assertIn("function renderFreshness()", script)
         self.assertIn("function freshnessStatus(", script)

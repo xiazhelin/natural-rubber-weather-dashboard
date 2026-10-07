@@ -12,8 +12,9 @@ on:
       - "requirements.txt"
       - ".github/workflows/update-weather.yml"
   schedule:
-    - cron: "0 21 * * *"
-      timezone: "Asia/Shanghai"
+    # GitHub 默认使用 UTC：13:00 UTC = 每天北京时间 21:00。
+    # 这是计划触发时间；GitHub 调度可能延迟，不能保证准点完成。
+    - cron: "0 13 * * *"
 
 permissions:
   contents: write

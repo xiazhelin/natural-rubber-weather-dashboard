@@ -44,7 +44,7 @@
 
 ## 更新方式
 
-默认每天 21:00（`Asia/Shanghai`）自动更新并重新发布。同时保留维护者手动更新：
+自动更新计划固定为每天北京时间 21:00：工作流使用 UTC 13:00（`0 13 * * *`），每天仅一个定时触发。推送代码只校验并发布现有数据，不重新抓取天气；同时保留维护者手动更新：
 
 1. 在GitHub仓库进入 **Actions**。
 2. 打开“更新并发布天然橡胶产区天气”。
@@ -53,6 +53,8 @@
 工作流额外校验`github.actor == github.repository_owner`，因此个人仓库只有仓库所有者可以手动更新。若以后迁移到组织仓库，应改为组织的受控维护者名单。
 
 网页不显示手动更新按钮；所有手动更新都在GitHub后台的Actions页面执行。
+
+计划触发时间不等于实际完成时间。[GitHub 官方说明](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)指出定时任务可能因高负载延迟，且只在默认分支运行。页面分别显示固定计划和真实的 `generated_at_utc`（转为北京时间），不把迟到或手动生成的数据伪装成21:00更新。修改需提交、合并并推送到远端默认分支 `main` 后才生效；GitHub Actions 本身不提供准点保证，若必须准点触发，需另行批准外部定时服务。
 
 ### 配置NASA IMERG访问
 
