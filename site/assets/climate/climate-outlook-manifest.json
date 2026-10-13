@@ -6,9 +6,9 @@
       "source_name": "NOAA Climate Prediction Center",
       "documentation": "https://www.cpc.ncep.noaa.gov/products/precip/CWlink/ghaz/index.php",
       "data_type": "ESTIMATE",
-      "issued": "10/06/26",
+      "issued": "10/13/26",
       "valid_periods": [
-        "10/14/26–10/27/26"
+        "10/21/26–11/03/26"
       ],
       "images": [
         {
@@ -18,8 +18,8 @@
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-10-12T21:36:35Z",
-      "last_attempt_at_utc": "2026-10-12T21:36:35Z"
+      "last_success_at_utc": "2026-10-13T19:46:55Z",
+      "last_attempt_at_utc": "2026-10-13T19:46:55Z"
     },
     "iri_precip": {
       "title": "IRI季节降水概率",
@@ -50,8 +50,8 @@
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-10-12T21:36:35Z",
-      "last_attempt_at_utc": "2026-10-12T21:36:35Z"
+      "last_success_at_utc": "2026-10-13T19:46:55Z",
+      "last_attempt_at_utc": "2026-10-13T19:46:55Z"
     },
     "nmme_precip": {
       "title": "NMME月度降水距平",
@@ -83,8 +83,8 @@
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-10-12T21:36:35Z",
-      "last_attempt_at_utc": "2026-10-12T21:36:35Z"
+      "last_success_at_utc": "2026-10-13T19:46:55Z",
+      "last_attempt_at_utc": "2026-10-13T19:46:55Z"
     },
     "nmme_temperature": {
       "title": "NMME月度2米气温距平",
@@ -116,9 +116,9 @@
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-10-12T21:36:35Z",
-      "last_attempt_at_utc": "2026-10-12T21:36:35Z"
+      "last_success_at_utc": "2026-10-13T19:46:55Z",
+      "last_attempt_at_utc": "2026-10-13T19:46:55Z"
     }
   },
-  "updated_at_utc": "2026-10-12T21:36:35Z"
+  "updated_at_utc": "2026-10-13T19:46:55Z"
 }
