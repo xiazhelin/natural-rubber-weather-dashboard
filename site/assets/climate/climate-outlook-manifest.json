@@ -18,40 +18,40 @@
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-10-15T17:39:15Z",
-      "last_attempt_at_utc": "2026-10-15T17:39:15Z"
+      "last_success_at_utc": "2026-10-16T17:12:18Z",
+      "last_attempt_at_utc": "2026-10-16T17:12:18Z"
     },
     "iri_precip": {
       "title": "IRI季节降水概率",
       "source_name": "Columbia Climate School International Research Institute",
       "documentation": "https://iri.columbia.edu/our-expertise/climate/forecasts/seasonal-climate-forecasts/",
       "data_type": "ESTIMATE",
-      "source_period": "2026-09",
+      "source_period": "2026-10",
       "images": [
         {
-          "source_url": "https://iri.columbia.edu/climate/forecast/net_asmt_nmme/2026/sep2026/images/OND26_World_pcp.gif",
-          "label": "OND26",
+          "source_url": "https://iri.columbia.edu/climate/forecast/net_asmt_nmme/2026/oct2026/images/NDJ27_World_pcp.gif",
+          "label": "NDJ27",
           "filename": "iri-seasonal-precip-1.gif"
         },
         {
-          "source_url": "https://iri.columbia.edu/climate/forecast/net_asmt_nmme/2026/sep2026/images/NDJ27_World_pcp.gif",
-          "label": "NDJ27",
+          "source_url": "https://iri.columbia.edu/climate/forecast/net_asmt_nmme/2026/oct2026/images/DJF27_World_pcp.gif",
+          "label": "DJF27",
           "filename": "iri-seasonal-precip-2.gif"
         },
         {
-          "source_url": "https://iri.columbia.edu/climate/forecast/net_asmt_nmme/2026/sep2026/images/DJF27_World_pcp.gif",
-          "label": "DJF27",
+          "source_url": "https://iri.columbia.edu/climate/forecast/net_asmt_nmme/2026/oct2026/images/JFM27_World_pcp.gif",
+          "label": "JFM27",
           "filename": "iri-seasonal-precip-3.gif"
         },
         {
-          "source_url": "https://iri.columbia.edu/climate/forecast/net_asmt_nmme/2026/sep2026/images/JFM27_World_pcp.gif",
-          "label": "JFM27",
+          "source_url": "https://iri.columbia.edu/climate/forecast/net_asmt_nmme/2026/oct2026/images/FMA27_World_pcp.gif",
+          "label": "FMA27",
           "filename": "iri-seasonal-precip-4.gif"
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-10-15T17:39:15Z",
-      "last_attempt_at_utc": "2026-10-15T17:39:15Z"
+      "last_success_at_utc": "2026-10-16T17:12:18Z",
+      "last_attempt_at_utc": "2026-10-16T17:12:18Z"
     },
     "nmme_precip": {
       "title": "NMME月度降水距平",
@@ -83,8 +83,8 @@
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-10-15T17:39:15Z",
-      "last_attempt_at_utc": "2026-10-15T17:39:15Z"
+      "last_success_at_utc": "2026-10-16T17:12:18Z",
+      "last_attempt_at_utc": "2026-10-16T17:12:18Z"
     },
     "nmme_temperature": {
       "title": "NMME月度2米气温距平",
@@ -116,9 +116,9 @@
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-10-15T17:39:15Z",
-      "last_attempt_at_utc": "2026-10-15T17:39:15Z"
+      "last_success_at_utc": "2026-10-16T17:12:18Z",
+      "last_attempt_at_utc": "2026-10-16T17:12:18Z"
     }
   },
-  "updated_at_utc": "2026-10-15T17:39:15Z"
+  "updated_at_utc": "2026-10-16T17:12:18Z"
 }
