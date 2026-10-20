@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""天然橡胶产区天气简报：读取 site/data 下的静态 JSON，生成 PDF（2页）+ 首页 PNG + Markdown 要点。
+"""天然橡胶产区天气简报：读取 site/data 下的静态 JSON，生成 PDF（3页）+ 首页 PNG + Markdown 要点。
 
 用法：
     python3 scripts/build_weather_report.py                # 输出到 reports/<数据日期>/
     python3 scripts/build_weather_report.py --out some/dir
+    python3 scripts/build_weather_report.py --commentary 点评.txt   # 点评印在第1页顶部，并写入 summary.md
 
 口径说明（同样印在报告页脚）：
 - 未来7日 = Open-Meteo 最新一期 D0–D6 预报累计；模式网格，不是地面站。
@@ -22,6 +23,7 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 import matplotlib
+import matplotlib.patches
 import numpy as np
 
 matplotlib.use("Agg")
@@ -137,7 +139,7 @@ def past7_estimate(history: dict, station_ids, start: date) -> dict:
     return out
 
 
-def build(out_dir: Path) -> dict:
+def build(out_dir: Path, commentary: str | None = None) -> dict:
     wx = load("weather.json")
     hist = load("history.json")
     weights = load("production-weights.json")["stations"]
@@ -290,9 +292,27 @@ def build(out_dir: Path) -> dict:
     fig1.text(0.06, 0.965, title, fontsize=17, weight="bold", color=INK)
     fig1.text(0.06, 0.945, sub, fontsize=7.5, color=MUTED)
 
-    # 要点
     y = 0.918
-    fig1.text(0.06, y, "本期要点", fontsize=10.5, weight="bold", color=INK)
+    # 点评（可选）
+    if commentary:
+        c_lines = []
+        for para in [p.strip() for p in commentary.strip().splitlines() if p.strip()]:
+            bullet = para.startswith(("- ", "• ", "* "))
+            text = para[2:].strip() if bullet else para
+            for i, ln in enumerate(textwrap.wrap(text, 56)):
+                c_lines.append((("• " if i == 0 else "   ") if bullet else "") + ln)
+        box_h = 0.026 + 0.0168 * len(c_lines) + 0.008
+        fig1.patches.append(matplotlib.patches.FancyBboxPatch(
+            (0.05, y - box_h + 0.012), 0.90, box_h, boxstyle="round,pad=0.004,rounding_size=0.006",
+            transform=fig1.transFigure, facecolor="#eef3fa", edgecolor="#c9d7ea", lw=0.8, zorder=0))
+        fig1.text(0.065, y, "本期点评", fontsize=10.5, weight="bold", color=BLUE)
+        y -= 0.022
+        for ln in c_lines:
+            fig1.text(0.068, y, ln, fontsize=8.7, color=INK)
+            y -= 0.0168
+        y -= 0.022
+    # 要点
+    fig1.text(0.06, y, "本期要点（自动生成）" if commentary else "本期要点", fontsize=10.5, weight="bold", color=INK)
     y -= 0.022
     for b in bullets:
         lines = textwrap.wrap(b, 58)
@@ -304,9 +324,13 @@ def build(out_dir: Path) -> dict:
         fig1.text(0.065, y, f"季节背景（{month}月一般规律）：{phen}", fontsize=7.6, color=MUTED, style="italic")
         y -= 0.02
 
+    # 图表区按剩余高度等比缩放
+    need = 0.015 + 0.225 + 0.075 + 0.175
+    k_s = min(1.3, (y - 0.10) / need)
+    hA, hB = 0.215 * k_s, 0.165 * k_s
     # 图A：区域未来7日 vs 近7日
     axA_top = y - 0.015
-    axA = fig1.add_axes([0.25, axA_top - 0.225, 0.70, 0.215])
+    axA = fig1.add_axes([0.25, axA_top - hA - 0.01, 0.70, hA])
     gl = groups[::-1]
     ys = range(len(gl))
     axA.barh(list(ys), [g["rain7"] or 0 for g in gl], color=BLUE, height=0.55, label="未来7日预报", zorder=2)
@@ -327,8 +351,8 @@ def build(out_dir: Path) -> dict:
     fig1.text(0.06, axA_top + 0.008, "① 分区降雨：未来7日 vs 近7日（*为等权平均）", fontsize=10, weight="bold", color=INK)
 
     # 图B：割胶窗口受雨天数
-    yB = axA_top - 0.225 - 0.055
-    axB = fig1.add_axes([0.25, yB - 0.165, 0.70, 0.155])
+    yB = axA_top - hA - 0.01 - 0.065
+    axB = fig1.add_axes([0.25, yB - hB - 0.01, 0.70, hB])
     vals = [g["tap_days"] or 0 for g in gl]
     axB.barh(list(ys), vals, color=[ORANGE if v >= 3.5 else LIGHT for v in vals], height=0.55, zorder=2)
     for i, v in enumerate(vals):
@@ -340,12 +364,14 @@ def build(out_dir: Path) -> dict:
     axB.grid(axis="x", color=GRID, zorder=0)
     fig1.text(0.06, yB + 0.008, "② 未来7日割胶窗口（当地02–10时）受雨天数，橙色≥3.5天", fontsize=10, weight="bold", color=INK)
 
-    # 图C：泰国周度 vs 同周均值
-    yC = yB - 0.165 - 0.06
-    fig1.text(0.06, yC + 0.008, "③ 泰国分区周降雨（ERA5，近12周）vs 2022–25同周均值/区间", fontsize=10, weight="bold", color=INK)
+    # 图C（第3页上半）：泰国周度 vs 同周均值
+    fig3 = plt.figure(figsize=A4)
+    fig3.text(0.06, 0.965, "季节对比与中期展望", fontsize=14, weight="bold", color=INK)
+    yC = 0.925
+    fig3.text(0.06, yC + 0.008, "③ 泰国分区周降雨（ERA5，近12周）vs 2022–25同周均值/区间", fontsize=10, weight="bold", color=INK)
     pw = 0.205
     for k, p in enumerate(th_panels):
-        ax = fig1.add_axes([0.075 + k * (pw + 0.028), yC - 0.13, pw, 0.115])
+        ax = fig3.add_axes([0.08 + (k % 2) * 0.46, yC - 0.035 - 0.17 - (k // 2) * 0.215, 0.40, 0.17])
         x = range(len(p["vals"]))
         lo = [v if v is not None else 0 for v in p["lo"]]
         hi = [v if v is not None else 0 for v in p["hi"]]
@@ -427,19 +453,17 @@ def build(out_dir: Path) -> dict:
     fig2.text(0.06, 0.035, "\n".join(textwrap.wrap(foot, 92)), fontsize=6.3, color=MUTED, va="bottom")
 
 
-    # ---------- 第3页：中期气候 ----------
-    fig3 = plt.figure(figsize=A4)
-    fig3.text(0.06, 0.965, "中期展望（第2–3周）", fontsize=14, weight="bold", color=INK)
-    yG = 0.93
+    # ---------- 第3页下半：中期展望 ----------
+    yG = 0.47
     gth = CLIMATE / "gth-outlook.png"
     if gth.exists():
         man = json.loads((CLIMATE / "climate-outlook-manifest.json").read_text(encoding="utf-8"))["products"]["gth"]
-        fig3.text(0.06, yG, f"NOAA/CPC全球热带危险展望｜发布{man.get('issued')}｜有效期{'、'.join(man.get('valid_periods') or [])}",
+        fig3.text(0.06, yG, f"NOAA/CPC 第2–3周全球热带危险展望｜发布{man.get('issued')}｜有效期{'、'.join(man.get('valid_periods') or [])}",
                   fontsize=9.5, color=INK)
         img = plt.imread(gth)
         ratio = img.shape[0] / img.shape[1]
-        wfig = 0.88
-        hfig = wfig * ratio * A4[0] / A4[1]
+        hfig = min(0.88 * ratio * A4[0] / A4[1], yG - 0.11)
+        wfig = hfig / ratio * A4[1] / A4[0]
         axI = fig3.add_axes([0.06, yG - 0.012 - hfig, wfig, hfig])
         axI.imshow(img)
         axI.axis("off")
@@ -454,7 +478,10 @@ def build(out_dir: Path) -> dict:
     fig1.savefig(png_path, dpi=170)
     plt.close("all")
 
-    md = [f"# {title}（{first_day:%Y-%m-%d}）", "", sub, "", "## 要点", *[f"- {b}" for b in bullets]]
+    md = [f"# {title}（{first_day:%Y-%m-%d}）", "", sub, ""]
+    if commentary:
+        md += ["## 点评", commentary.strip(), ""]
+    md += ["## 要点（自动生成）" if commentary else "## 要点", *[f"- {b}" for b in bullets]]
     if phen:
         md += ["", f"季节背景（{month}月一般规律）：{phen}"]
     md += ["", "## 分区", "| 区域 | 未来7日mm | 近7日估算mm | 割胶窗受雨天 |", "|---|---|---|---|"]
@@ -468,11 +495,13 @@ def build(out_dir: Path) -> dict:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=None)
+    ap.add_argument("--commentary", default=None, help="点评文本文件（UTF-8），每行一句；以“- ”开头的行显示为分点")
     args = ap.parse_args()
+    commentary = Path(args.commentary).read_text(encoding="utf-8") if args.commentary else None
     wx = load("weather.json")
     d0 = wx["stations"][0]["daily"][0]["date"]
     out = Path(args.out) if args.out else ROOT / "reports" / d0
-    res = build(out)
+    res = build(out, commentary)
     print(res["pdf"])
     print(res["png"])
     for b in res["bullets"]:
