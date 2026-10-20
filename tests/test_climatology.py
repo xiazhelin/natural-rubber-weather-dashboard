@@ -14,6 +14,9 @@ def _load(name):
 
 
 CLIM = _load("build_climatology")
+import sys as _sys
+_sys.path.insert(0, str(ROOT / "scripts"))
+BIAS = _load("build_model_bias")
 WX = _load("update_weather")
 
 
@@ -107,6 +110,45 @@ class ClimateContextTest(unittest.TestCase):
         item = WX.classify_against_climatology(3.0, [0.5, 0, 0, 1, 2])
         self.assertIsNone(item["anomaly_pct"])
         self.assertEqual(item["category"], "ABOVE_P90")
+
+
+class ModelBiasTest(unittest.TestCase):
+    def test_monthly_ratio_uses_three_month_window_and_paired_days(self):
+        era5 = _daily(date(2022, 1, 1), date(2025, 12, 31), lambda d: 4.0 if d.month in (6, 7, 8) else 1.0)
+        model = {k: v * 1.5 for k, v in era5.items()}
+        model["2023-07-10"] = None  # 只用两边都有值的日期
+        ratios, details = BIAS.monthly_ratios(model, era5)
+        self.assertEqual(ratios[6], 1.5)
+        self.assertEqual(details[6]["days"], 4 * 92 - 1)
+        self.assertTrue(all(r == 1.5 for r in ratios))
+
+    def test_ratio_clipped_and_small_reference_empty(self):
+        era5 = _daily(date(2022, 1, 1), date(2022, 12, 31), lambda d: 0.0 if d.month in (1, 2, 3) else 2.0)
+        model = {k: (5.0 if k[5:7] in ("01", "02", "03") else 10.0) for k in era5}
+        ratios, details = BIAS.monthly_ratios(model, era5, min_reference_mm=30.0, clip=(0.5, 2.0))
+        self.assertIsNone(ratios[1])          # 1–3月 ERA5 合计为0，不可靠
+        self.assertEqual(ratios[6], 2.0)      # 原始5.0，截断到2.0
+        self.assertTrue(details[6]["clipped"])
+
+    def test_context_scales_baseline_by_mid_window_month(self):
+        d0 = date(2026, 10, 20)
+        dates = [(d0 + timedelta(days=i)).isoformat() for i in range(7)]
+        clim = {"windows": {"7": [[20.0, 5.0, 12.0, 25.0, 40.0]] * 365, "14": [[40.0, 10, 30, 50, 80]] * 365,
+                            "30": [[100.0, 30, 70, 120, 180]] * 365}}
+        bias = {"ratio_by_month": [1.0] * 8 + [0.5] + [2.0] + [1.0] * 2}  # 9月0.5，10月2.0
+        past = {(d0 - timedelta(days=i)).isoformat(): 2.0 for i in range(1, 31)}
+        ctx = WX.build_climate_context(dates, 45.0, past, clim, bias)
+        # 未来7日中点在10月：基准均值 20×2=40，p90=80 → 45 属正常偏上
+        self.assertEqual(ctx["forecast_7d"]["normal_mm"], 40.0)
+        self.assertEqual(ctx["forecast_7d"]["category"], "NEAR_NORMAL")
+        self.assertTrue(ctx["forecast_7d"]["bias_corrected"])
+        # 过去30日 9/20–10/19，中点10/5 → 10月比例2.0
+        self.assertEqual(ctx["past_30d"]["normal_mm"], 200.0)
+        self.assertEqual(ctx["past_30d"]["bias_ratio"], 2.0)
+        # 无校正文件时保持原基准
+        raw = WX.build_climate_context(dates, 45.0, past, clim, None)
+        self.assertEqual(raw["forecast_7d"]["normal_mm"], 20.0)
+        self.assertFalse(raw["forecast_7d"]["bias_corrected"])
 
 
 if __name__ == "__main__":

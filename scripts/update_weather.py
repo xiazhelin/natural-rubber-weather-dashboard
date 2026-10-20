@@ -92,8 +92,9 @@ CLIMATE_CONTEXT_DEFINITION = {
         "ABOVE_P90": "显著偏多（高于第90百分位）",
     },
     "anomaly_pct": "数值/基准均值×100−100；基准均值低于1 mm时不计算。",
-    "caveat": "当前值来自预报模式（含过去日的模式估算），基准来自ERA5再分析，二者存在系统偏差；"
-              "分类仅作季节筛选，不是实测距平，不代表割胶、产量或价格结论。",
+    "caveat": "当前值来自预报模式（含过去日的模式估算），基准来自ERA5再分析；已按2022–2025重叠期逐月“模式/ERA5”比例校正基准"
+              "（校正文件缺失或该月比例为空时不校正，见bias_corrected）。校正只消除平均偏差，分类仍仅作季节筛选，"
+              "不是实测距平，不代表割胶、产量或价格结论。",
 }
 BOM_INDEXES = (
     (
@@ -544,8 +545,20 @@ def past_daily_from_payload(payload):
     return dict(zip(daily.get("time") or [], daily.get("precipitation_sum") or []))
 
 
-def build_climate_context(forecast_dates, forecast_7d_mm, past_daily, clim_entry):
-    """计算未来7日与过去7/14/30日降雨相对季节基准的距平。缺数据保持为空，不补值。"""
+def bias_ratio_for(bias_entry, start, length):
+    """窗口中点所在月份的“模式/ERA5”比例；缺失返回 None（不校正）。"""
+    ratios = (bias_entry or {}).get("ratio_by_month") or []
+    if len(ratios) != 12:
+        return None
+    middle = start + timedelta(days=length // 2)
+    return ratios[middle.month - 1]
+
+
+def build_climate_context(forecast_dates, forecast_7d_mm, past_daily, clim_entry, bias_entry=None):
+    """计算未来7日与过去7/14/30日降雨相对季节基准的距平。缺数据保持为空，不补值。
+
+    bias_entry 存在时，先把 ERA5 基准（均值与分位数）乘以该月“模式/ERA5”比例，换算到模式口径再比较。
+    """
     context = {"quality_status": "MISSING"}
     if not forecast_dates:
         return context
@@ -562,6 +575,9 @@ def build_climate_context(forecast_dates, forecast_7d_mm, past_daily, clim_entry
         table = windows.get(str(length)) or []
         doy = _clim_day_of_year(start)
         stats = table[doy - 1] if len(table) >= doy else None
+        ratio = bias_ratio_for(bias_entry, start, length)
+        if stats and ratio is not None:
+            stats = [round(v * ratio, 1) for v in stats]
         item = classify_against_climatology(value, stats)
         if item is None:
             item = {"value_mm": value, "normal_mm": stats[0] if stats else None,
@@ -569,6 +585,8 @@ def build_climate_context(forecast_dates, forecast_7d_mm, past_daily, clim_entry
         else:
             filled += 1
         item["window_start"] = start.isoformat()
+        item["bias_ratio"] = ratio
+        item["bias_corrected"] = ratio is not None and stats is not None
         context[key] = item
     context["quality_status"] = "PASS" if filled == len(CLIMATE_WINDOWS) else ("WARNING" if filled else "MISSING")
     return context
@@ -712,6 +730,17 @@ def load_climatology(config):
     start = settings.get("start_year", 2001)
     end = settings.get("end_year", 2025)
     path = ROOT / "data" / "climatology" / f"precip-era5-{start}-{end}.json"
+    if not path.exists():
+        return None
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_model_bias(config):
+    """读取 data/climatology 下的模式偏差比例文件；不存在时返回 None（距平不校正）。"""
+    settings = config.get("model_bias") or {}
+    start = settings.get("start_year", 2022)
+    end = settings.get("end_year", 2025)
+    path = ROOT / "data" / "climatology" / f"model-bias-{start}-{end}.json"
     if not path.exists():
         return None
     return json.loads(path.read_text(encoding="utf-8"))
@@ -1257,6 +1286,8 @@ def collect(config_path):
     now = datetime.now(timezone.utc).replace(microsecond=0)
     climatology = load_climatology(config)
     clim_stations = (climatology or {}).get("stations") or {}
+    model_bias = load_model_bias(config)
+    bias_stations = (model_bias or {}).get("stations") or {}
     stations = []
     for start in range(0, len(locations), 15):
         batch = locations[start : start + 15]
@@ -1273,6 +1304,7 @@ def collect(config_path):
                 station["summary"]["precipitation_7d_mm"],
                 past_daily_from_payload(past),
                 clim_stations.get(location["station_id"]),
+                bias_stations.get(location["station_id"]),
             )
             stations.append(station)
     email = os.environ.get("NASA_PPS_EMAIL", "").strip()
@@ -1312,6 +1344,12 @@ def collect(config_path):
         "climate_context_definition": {
             **CLIMATE_CONTEXT_DEFINITION,
             "baseline": (climatology or {}).get("baseline"),
+            "bias_correction": {
+                "status": "PASS" if model_bias else "MISSING",
+                "overlap": (model_bias or {}).get("overlap"),
+                "method": (model_bias or {}).get("method"),
+                "note": None if model_bias else "模式偏差校正尚未构建：距平为未校正的“模式值 vs ERA5”比较。",
+            },
             "status": "PASS" if climatology else "MISSING",
             "note": None if climatology else "季节基准尚未构建：请在Actions运行“构建降雨季节基准”或执行scripts/build_climatology.py。",
         },

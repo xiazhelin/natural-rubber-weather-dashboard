@@ -149,7 +149,8 @@ def climatology_from_daily(daily: dict, start_year: int, end_year: int, half_wid
     return result
 
 
-def fetch_daily(locations, start: date, end: date, timeout=180, retries=4):
+def fetch_daily(locations, start: date, end: date, timeout=180, retries=4,
+                url=HISTORICAL_API_URL, model="era5"):
     params = {
         "latitude": ",".join(str(item["latitude"]) for item in locations),
         "longitude": ",".join(str(item["longitude"]) for item in locations),
@@ -157,11 +158,12 @@ def fetch_daily(locations, start: date, end: date, timeout=180, retries=4):
         "end_date": end.isoformat(),
         "daily": "precipitation_sum",
         "timezone": "auto",
-        "models": "era5",
         "cell_selection": "land",
     }
+    if model:
+        params["models"] = model
     request = urllib.request.Request(
-        HISTORICAL_API_URL + "?" + urllib.parse.urlencode(params),
+        url + "?" + urllib.parse.urlencode(params),
         headers={"User-Agent": "natural-rubber-weather-dashboard/1.0"},
     )
     for attempt in range(retries):
@@ -176,10 +178,12 @@ def fetch_daily(locations, start: date, end: date, timeout=180, retries=4):
                 daily = payload.get("daily") or {}
                 out.append(dict(zip(daily.get("time") or [], daily.get("precipitation_sum") or [])))
             return out
-        except Exception:
+        except Exception as exc:
             if attempt + 1 == retries:
                 raise
-            time.sleep(30 * (attempt + 1))
+            # 429（限流）等待更久
+            wait = 70 if "429" in str(exc) else 30 * (attempt + 1)
+            time.sleep(wait)
 
 
 def atomic_json(path: Path, payload, indent=None):
@@ -241,38 +245,46 @@ def main(argv=None):
     end = date(settings["end_year"] + 1, 2, 1)
     deadline = time.monotonic() + args.max_minutes * 60
     size = max(1, int(settings["batch_size"]))
-    for i in range(0, len(todo), size):
-        if time.monotonic() > deadline:
-            print("climatology: time budget reached; rerun to continue", file=sys.stderr)
+    pending = [todo[i:i + size] for i in range(0, len(todo), size)]
+    for round_no in range(1, 5):  # 失败批次最多再试3轮
+        failed = []
+        for k, batch in enumerate(pending):
+            if time.monotonic() > deadline:
+                print("climatology: time budget reached; rerun to continue", file=sys.stderr)
+                failed.extend(pending[k:])
+                break
+            try:
+                series = fetch_daily(batch, start, end)
+            except Exception as exc:  # 单批失败不影响已完成部分，稍后重试
+                print(f"climatology batch failed ({[b['station_id'] for b in batch]}): {exc}", file=sys.stderr)
+                failed.append(batch)
+                time.sleep(settings["pause_seconds"])
+                continue
+            built_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+            for loc, daily in zip(batch, series):
+                table = climatology_from_daily(daily, settings["start_year"], settings["end_year"],
+                                               settings["pool_half_width_days"])
+                filled = sum(v is not None for v in table["7"])
+                dataset["stations"][loc["station_id"]] = {
+                    "latitude": loc["latitude"],
+                    "longitude": loc["longitude"],
+                    "built_at_utc": built_at,
+                    "quality_status": "PASS" if filled == 365 else ("WARNING" if filled else "MISSING"),
+                    "windows": table,
+                }
+            dataset["generated_at_utc"] = built_at
+            atomic_json(output, dataset)
+            print(f"climatology: built {[b['station_id'] for b in batch]}", file=sys.stderr)
+            time.sleep(settings["pause_seconds"])
+        if not failed or time.monotonic() > deadline:
             break
-        batch = todo[i:i + size]
-        try:
-            series = fetch_daily(batch, start, end)
-        except Exception as exc:  # 单批失败不影响已完成部分
-            print(f"climatology batch failed ({[b['station_id'] for b in batch]}): {exc}", file=sys.stderr)
-            time.sleep(settings["pause_seconds"])
-            continue
-        built_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
-        for loc, daily in zip(batch, series):
-            table = climatology_from_daily(daily, settings["start_year"], settings["end_year"],
-                                           settings["pool_half_width_days"])
-            filled = sum(v is not None for v in table["7"])
-            dataset["stations"][loc["station_id"]] = {
-                "latitude": loc["latitude"],
-                "longitude": loc["longitude"],
-                "built_at_utc": built_at,
-                "quality_status": "PASS" if filled == 365 else ("WARNING" if filled else "MISSING"),
-                "windows": table,
-            }
-        dataset["generated_at_utc"] = built_at
-        atomic_json(output, dataset)
-        print(f"climatology: built {[b['station_id'] for b in batch]}", file=sys.stderr)
-        if i + size < len(todo):
-            time.sleep(settings["pause_seconds"])
+        print(f"climatology: retry round {round_no} for {len(failed)} batches after cooldown", file=sys.stderr)
+        time.sleep(90)
+        pending = failed
     missing = [loc["station_id"] for loc in config["locations"]
                if needs_build(dataset["stations"].get(loc["station_id"]), loc, settings)]
-    print(f"climatology: {len(missing)} stations still missing", file=sys.stderr)
-    return 0
+    print(f"climatology: {len(missing)} stations still missing {missing}", file=sys.stderr)
+    return 1 if missing else 0
 
 
 if __name__ == "__main__":

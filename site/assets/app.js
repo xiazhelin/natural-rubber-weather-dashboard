@@ -35,8 +35,8 @@ const ANOMALY_LABELS = {
 function anomalyBadge(item) {
   if (!item || !item.category) return '<span class="anom anom-missing" title="季节基准或数据缺失">MISSING</span>';
   const pct = hasNumber(item.anomaly_pct) ? `${item.anomaly_pct > 0 ? "+" : ""}${item.anomaly_pct}%` : "";
-  const title = `当前 ${number(item.value_mm)} mm；常年均值 ${number(item.normal_mm)} mm；常年三分位 ${number(item.p33_mm)}–${number(item.p67_mm)} mm`;
-  return `<span class="anom anom-${item.category.toLowerCase().replace(/_/g, "-")}" title="${escapeHtml(title)}">${ANOMALY_LABELS[item.category] || escapeHtml(item.category)}${pct ? ` ${pct}` : ""}</span>`;
+  const title = `当前 ${number(item.value_mm)} mm；常年均值 ${number(item.normal_mm)} mm${pct ? `（较均值 ${pct}）` : ""}；常年正常区间（第33–67百分位）${number(item.p33_mm)}–${number(item.p67_mm)} mm。降雨分布偏斜，档位按历年同期百分位判断，比均值百分比更可靠。`;
+  return `<span class="anom anom-${item.category.toLowerCase().replace(/_/g, "-")}" title="${escapeHtml(title)}">${ANOMALY_LABELS[item.category] || escapeHtml(item.category)}</span>`;
 }
 
 const RAIN_CHANGE_ALERT_MM = 25;
@@ -867,8 +867,11 @@ function renderDetail() {
 }
 
 function baselineLabel() {
-  const b = state.data?.climate_context_definition?.baseline;
-  return b ? `ERA5 ${b.start_year}–${b.end_year}` : "未构建";
+  const def = state.data?.climate_context_definition;
+  const b = def?.baseline;
+  if (!b) return "未构建";
+  const o = def?.bias_correction?.status === "PASS" ? def.bias_correction.overlap : null;
+  return `ERA5 ${b.start_year}–${b.end_year}${o ? `，已按${o.start_year}–${o.end_year}模式偏差校正` : "，未做模式偏差校正"}`;
 }
 
 function selectStation(id, reveal = false) {

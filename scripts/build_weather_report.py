@@ -134,7 +134,28 @@ def group_anomaly(rs, key):
     tw = sum(w for *_, w in pairs)
     v = sum(v * w for v, _, w in pairs) / tw
     n = sum(n * w for _, n, w in pairs) / tw
-    return {"value": v, "normal": n, "pct": (v / n * 100 - 100) if n >= 3 else None}
+    out = {"value": v, "normal": n, "pct": (v / n * 100 - 100) if n >= 3 else None}
+    # 按百分位档位判断（降雨分布偏斜，均值百分比易误导）：产量加权的偏多/偏少点位占比
+    cats = [((r["cc"].get(key) or {}).get("category"), r["w"]) for r in rs]
+    cats = [(c, w) for c, w in cats if c]
+    tw = sum(w for _, w in cats)
+    if tw:
+        above = sum(w for c, w in cats if c in ("ABOVE_NORMAL", "ABOVE_P90")) / tw
+        below = sum(w for c, w in cats if c in ("BELOW_NORMAL", "BELOW_P10")) / tw
+        extreme_above = sum(w for c, w in cats if c == "ABOVE_P90") / tw
+        extreme_below = sum(w for c, w in cats if c == "BELOW_P10") / tw
+        if above >= 0.5:
+            label = "显著偏多" if extreme_above >= 0.3 else "偏多"
+        elif below >= 0.5:
+            label = "显著偏少" if extreme_below >= 0.3 else "偏少"
+        elif above >= 0.3 and below >= 0.3:
+            label = "分化"
+        else:
+            label = "正常"
+        out.update({"label": label, "above_share": above, "below_share": below})
+    else:
+        out.update({"label": None, "above_share": None, "below_share": None})
+    return out
 
 
 def past7_estimate(history: dict, station_ids, start: date) -> dict:
@@ -170,6 +191,7 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
     fstart = date.fromisoformat(stations[0]["forecast_utc_daily"][0]["date_utc"])
     past7 = past7_estimate(hist, [s["station_id"] for s in stations], fstart)
 
+    bias_ok = ((wx.get("climate_context_definition") or {}).get("bias_correction") or {}).get("status") == "PASS"
     has_clim = any((s.get("climate_context") or {}).get("quality_status") in ("PASS", "WARNING") for s in stations)
     if has_clim:  # 有 past_days 数据时，用它替代“短时效预报拼接”
         for s in stations:
@@ -286,24 +308,25 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
     if has_clim:
         bullets[0] = first.replace("近7日估算", "近7日")
     if has_clim:
-        def fmt(g, k):
-            return f"{g['group']}{g[k + '_pct']:+.0f}%"
-        f_wet = [g for g in groups if g["forecast_7d_pct"] is not None and g["forecast_7d_pct"] >= 50 and g["forecast_7d_normal"] >= 10]
-        f_dry = [g for g in groups if g["forecast_7d_pct"] is not None and g["forecast_7d_pct"] <= -50 and g["forecast_7d_normal"] >= 10]
+        def lab(g, k):
+            share = g[k + "_above_share"] if "多" in g[k + "_label"] else g[k + "_below_share"]
+            return f"{g['group']}（{g[k + '_label']}，{share:.0%}产量权重）"
+        f_wet = [g for g in groups if (g.get("forecast_7d_label") or "").endswith("偏多")]
+        f_dry = [g for g in groups if (g.get("forecast_7d_label") or "").endswith("偏少")]
         parts = []
         if f_wet:
-            parts.append("偏多：" + "、".join(fmt(g, "forecast_7d") for g in f_wet))
+            parts.append("偏多：" + "、".join(lab(g, "forecast_7d") for g in f_wet))
         if f_dry:
-            parts.append("偏少：" + "、".join(fmt(g, "forecast_7d") for g in f_dry))
-        bullets.append("未来7日与常年同期相比（ERA5 2001–25），" + ("；".join(parts) if parts else "各区域均在常年±50%以内") + "。")
-        p_wet = [g for g in groups if g["past_30d_pct"] is not None and g["past_30d_pct"] >= 40 and g["past_30d_normal"] >= 30]
-        p_dry = [g for g in groups if g["past_30d_pct"] is not None and g["past_30d_pct"] <= -40 and g["past_30d_normal"] >= 30]
+            parts.append("偏少：" + "、".join(lab(g, "forecast_7d") for g in f_dry))
+        bullets.append("未来7日与常年同期相比（按历年同期百分位），" + ("；".join(parts) if parts else "各区域多数点位处于常年正常区间") + "。")
+        p_wet = [g for g in groups if (g.get("past_30d_label") or "").endswith("偏多")]
+        p_dry = [g for g in groups if (g.get("past_30d_label") or "").endswith("偏少")]
         if p_wet or p_dry:
             parts = []
             if p_wet:
-                parts.append("偏湿：" + "、".join(fmt(g, "past_30d") for g in p_wet))
+                parts.append("偏湿：" + "、".join(lab(g, "past_30d") for g in p_wet))
             if p_dry:
-                parts.append("偏干：" + "、".join(fmt(g, "past_30d") for g in p_dry))
+                parts.append("偏干：" + "、".join(lab(g, "past_30d") for g in p_dry))
             bullets.append("过去30日累计（模式估算）" + "；".join(parts) + "。")
     tap = [g for g in groups if (g["tap_days"] or 0) >= 3.5]
     if tap:
@@ -340,7 +363,8 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
     sub = (f"预报期 {first_day:%m/%d}–{last_day:%m/%d}（D0–D6）｜数据生成 {stamp:%Y-%m-%d %H:%M} 北京时间｜"
            f"{len(rows)}个代表网格点｜质量 {wx['overall_quality_status']}")
     foot = ("口径：Open-Meteo模式网格预报，非地面站；近7日" + ("=Open-Meteo past_days模式估算" if has_clim else "估算=每日最短时效预报拼接") + "，非实测；"
-            + ("常年同期=同点ERA5 2001–25同季节均值，模式与再分析存在系统偏差，距平仅作筛选；" if has_clim else "") + "泰国、印尼按省级产量占比加权，"
+            + (("常年同期=同点ERA5 2001–25同季节均值，已按2022–25重叠期逐月换算到模式口径，距平仅作筛选；" if bias_ok
+              else "常年同期=同点ERA5 2001–25同季节均值，未做模式偏差校正，距平仅作筛选；") if has_clim else "") + "泰国、印尼按省级产量占比加权，"
             "其余等权；泰国周度为ERA5代表点合成，季节参照仅2022–25四年。天气状态仅为筛选条件，不代表割胶、产量或价格结论。")
     pdf_path = out_dir / f"天然橡胶产区天气简报_{first_day:%Y%m%d}.pdf"
     png_path = out_dir / f"天然橡胶产区天气简报_{first_day:%Y%m%d}.png"
@@ -403,8 +427,8 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
                     label="常年同期", zorder=4)
     for i, g in enumerate(gl):
         lab = f"{g['rain7']:.0f}"
-        if has_clim and g.get("forecast_7d_pct") is not None:
-            lab += f"（{g['forecast_7d_pct']:+.0f}%）"
+        if has_clim and g.get("forecast_7d_label"):
+            lab += f"（{g['forecast_7d_label']}）"
         axA.text(max(g["rain7"] or 0, g.get("forecast_7d_normal") or 0, g["past7"] or 0) + 2, i, lab,
                  va="center", fontsize=7.5, color=INK)
     axA.set_yticks(list(ys))
@@ -417,7 +441,7 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
                         max((g["past7"] or 0) for g in gl) * 1.1,
                         max((g.get("forecast_7d_normal") or 0) for g in gl) * 1.25))
     axA.legend(loc="lower right", bbox_to_anchor=(1.0, 1.0), ncol=3, fontsize=7.5, frameon=False)
-    fig1.text(0.06, axA_top + 0.008, ("① 分区降雨：未来7日 vs 近7日 vs 常年同期（括号为较常年%，*为等权）" if has_clim else "① 分区降雨：未来7日 vs 近7日（*为等权平均）"), fontsize=10, weight="bold", color=INK)
+    fig1.text(0.06, axA_top + 0.008, ("① 分区降雨：未来7日/近7日/常年均值（括号=历年同期档位，*等权）" if has_clim else "① 分区降雨：未来7日 vs 近7日（*为等权平均）"), fontsize=10, weight="bold", color=INK)
 
     # 图B：割胶窗口受雨天数
     yB = axA_top - hA - 0.01 - 0.065
@@ -556,8 +580,8 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
         md += ["", f"季节背景（{month}月一般规律）：{phen}"]
     def _pct(v):
         return "" if v is None else f"{v:+.0f}%"
-    md += ["", "## 分区", "| 区域 | 未来7日mm | 较常年 | 近7日mm | 近30日较常年 | 割胶窗受雨天 |", "|---|---|---|---|---|---|"]
-    md += [f"| {g['group']} | {g['rain7']:.0f} | {_pct(g.get('forecast_7d_pct'))} | {'' if g['past7'] is None else format(g['past7'], '.0f')} | {_pct(g.get('past_30d_pct'))} | {g['tap_days']:.1f} |"
+    md += ["", "## 分区", "| 区域 | 未来7日mm | 较常年（档位/均值%） | 近7日mm | 近30日较常年 | 割胶窗受雨天 |", "|---|---|---|---|---|---|"]
+    md += [f"| {g['group']} | {g['rain7']:.0f} | {g.get('forecast_7d_label') or ''} {_pct(g.get('forecast_7d_pct'))} | {'' if g['past7'] is None else format(g['past7'], '.0f')} | {g.get('past_30d_label') or ''} {_pct(g.get('past_30d_pct'))} | {g['tap_days']:.1f} |"
            for g in groups]
     md += ["", foot]
     (out_dir / "summary.md").write_text("\n".join(md), encoding="utf-8")

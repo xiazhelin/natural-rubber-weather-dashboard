@@ -1,7 +1,9 @@
 name: 构建降雨季节基准
 
-# 一次性/低频任务：为 config/locations.json 中的每个点位构建 ERA5 2001–2025 降雨气候态。
-# 首次约需 30–60 分钟（受 Open-Meteo 免费接口限速）；可断点续跑，未完成的点位下次自动补齐。
+# 一次性/低频任务：为 config/locations.json 中的每个点位构建
+#   1) ERA5 2001–2025 降雨气候态（季节基准）；
+#   2) 2022–2025 “预报模式/ERA5” 逐月降雨比例（偏差校正）。
+# 首次约需 30–60 分钟（受 Open-Meteo 免费接口限速）；可断点续跑，失败批次会自动重试，未完成的点位下次自动补齐。
 # 新增或移动点位后，再手动运行一次即可；每月1日也会自动检查补齐。
 
 on:
@@ -25,16 +27,24 @@ jobs:
   build:
     if: github.event_name != 'workflow_dispatch' || github.actor == github.repository_owner
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
       - name: 构建/补齐季节基准
+        id: climatology
+        continue-on-error: true
         run: |
-          python scripts/build_climatology.py --max-minutes 75 ${{ inputs.rebuild && '--rebuild' || '' }}
-      - name: 保存
+          python scripts/build_climatology.py --max-minutes 60 ${{ inputs.rebuild && '--rebuild' || '' }}
+      - name: 构建/补齐模式偏差校正
+        id: bias
+        continue-on-error: true
+        run: |
+          python scripts/build_model_bias.py --max-minutes 40 ${{ inputs.rebuild && '--rebuild' || '' }}
+      - name: 保存（即使部分点位未完成也保存已完成部分）
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -42,3 +52,8 @@ jobs:
           git add data/climatology/
           git diff --cached --quiet || git commit -m "data: build rainfall climatology"
           git push
+      - name: 检查是否全部完成
+        if: steps.climatology.outcome == 'failure' || steps.bias.outcome == 'failure'
+        run: |
+          echo "仍有点位未完成（多为接口限流）。已完成部分已保存，请稍后再手动运行一次本工作流补齐。"
+          exit 1
