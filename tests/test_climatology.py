@@ -151,5 +151,104 @@ class ModelBiasTest(unittest.TestCase):
         self.assertFalse(raw["forecast_7d"]["bias_corrected"])
 
 
+class ImergArchiveTest(unittest.TestCase):
+    LOCS = [{"station_id": "a", "latitude": 7.2, "longitude": 100.6},
+            {"station_id": "b", "latitude": -3.0, "longitude": 104.7}]
+
+    def test_url_uses_utc_product_day_and_version(self):
+        url = WX.imerg_1day_url(date(2026, 10, 19), "V07B")
+        self.assertTrue(url.endswith("/2026/10/3B-HHR-L.MS.MRG.3IMERG.20261019-S233000-E235959.1410.V07B.1day.tif"))
+
+    def test_update_skips_existing_and_records_unavailable(self):
+        from datetime import datetime, timezone
+        calls = []
+
+        def fake(day, locs, email):
+            calls.append(day)
+            if day == date(2026, 10, 18):
+                raise FileNotFoundError
+            return "V07C", {"a": 1.5, "b": None}
+
+        archive = WX.empty_imerg_archive()
+        archive["stations"] = {"a": {"2026-10-19": 2.0}, "b": {"2026-10-19": 0.0}}
+        now = datetime(2026, 10, 20, 12, tzinfo=timezone.utc)
+        days = [date(2026, 10, 19), date(2026, 10, 18), date(2026, 10, 17)]
+        added, unavailable = WX.update_imerg_archive(archive, self.LOCS, "x@y", days, fetch=fake, now=now)
+        self.assertEqual((added, unavailable), (1, 1))
+        self.assertEqual(calls, [date(2026, 10, 18), date(2026, 10, 17)])  # 19日已存在，跳过
+        self.assertIsNone(archive["stations"]["b"]["2026-10-17"])         # 缺测保持为空
+        self.assertIn("2026-10-18", archive["unavailable"])
+        self.assertEqual(archive["coverage"]["days"], 2)
+        # 近10天内的不可用日期下次会重试；更早的不再重试
+        calls.clear()
+        WX.update_imerg_archive(archive, self.LOCS, "x@y", [date(2026, 10, 18)], fetch=fake, now=now)
+        self.assertEqual(calls, [date(2026, 10, 18)])
+        calls.clear()
+        later = datetime(2026, 11, 20, tzinfo=timezone.utc)
+        WX.update_imerg_archive(archive, self.LOCS, "x@y", [date(2026, 10, 18)], fetch=fake, now=later)
+        self.assertEqual(calls, [])
+
+    def test_fetch_day_falls_back_to_older_version(self):
+        import io
+        import urllib.error
+        from PIL import Image
+        img = Image.new("I", (360, 180), 0)
+        img.putpixel((280, 82), 123)  # 7.2N 100.6E → 12.3 mm（0.1mm存储）
+        buf = io.BytesIO()
+        img.save(buf, format="TIFF")
+        payload = buf.getvalue()
+        tried = []
+
+        class Resp(io.BytesIO):
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *a):
+                return False
+
+        def fake_request(url, email, timeout=60):
+            tried.append(url.split(".")[-3])
+            if ".V07C." in url:
+                raise urllib.error.HTTPError(url, 404, "nf", None, None)
+            return Resp(payload)
+
+        original = WX._authenticated_request
+        WX._authenticated_request = fake_request
+        try:
+            version, values = WX.fetch_imerg_day(date(2024, 3, 1), self.LOCS[:1], "x@y")
+        finally:
+            WX._authenticated_request = original
+        self.assertEqual(version, "V07B")
+        self.assertEqual(tried, ["V07C", "V07B"])
+        self.assertEqual(values["a"], 12.3)
+
+    def test_context_prefers_complete_satellite_window(self):
+        d0 = date(2026, 10, 20)
+        dates = [(d0 + timedelta(days=i)).isoformat() for i in range(7)]
+        clim = {"windows": {"7": [[20.0, 5.0, 12.0, 25.0, 40.0]] * 365, "14": [[40.0, 10, 30, 50, 80]] * 365,
+                            "30": [[100.0, 30, 70, 120, 180]] * 365}}
+        model = {(d0 - timedelta(days=i)).isoformat(): 1.0 for i in range(1, 31)}
+        obs = {(d0 - timedelta(days=i)).isoformat(): 5.0 for i in range(1, 15)}  # 只有近14天卫星
+        obs_bias = {"ratio_by_month": [1.25] * 12}
+        ctx = WX.build_climate_context(dates, 20.0, model, clim, None, obs, obs_bias)
+        self.assertEqual(ctx["forecast_7d"]["source"], "FORECAST")
+        self.assertEqual(ctx["past_7d"]["source"], "IMERG")
+        self.assertEqual(ctx["past_7d"]["value_mm"], 35.0)
+        self.assertEqual(ctx["past_7d"]["normal_mm"], 25.0)   # 20×1.25
+        self.assertEqual(ctx["past_14d"]["source"], "IMERG")
+        self.assertEqual(ctx["past_30d"]["source"], "MODEL")  # 卫星不完整，退回模式
+        self.assertEqual(ctx["past_30d"]["value_mm"], 30.0)
+        self.assertEqual(ctx["past_30d"]["normal_mm"], 100.0)  # 模式比例缺失 → 不校正
+        none = WX.build_climate_context(dates, 20.0, {}, clim, None, {}, None)
+        self.assertIsNone(none["past_7d"]["source"])
+
+    def test_imerg_ratio_requires_enough_paired_days(self):
+        era5 = _daily(date(2025, 1, 1), date(2025, 3, 31), lambda d: 2.0)
+        obs = {k: 3.0 for k in era5}
+        ratios, _ = BIAS.monthly_ratios(obs, era5, min_days=60)
+        self.assertEqual(ratios[1], 1.5)   # 2月窗口(1–3月)有90天
+        self.assertIsNone(ratios[6])       # 7月无数据
+
+
 if __name__ == "__main__":
     unittest.main()

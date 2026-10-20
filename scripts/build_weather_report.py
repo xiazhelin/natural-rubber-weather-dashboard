@@ -327,7 +327,11 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
                 parts.append("偏湿：" + "、".join(lab(g, "past_30d") for g in p_wet))
             if p_dry:
                 parts.append("偏干：" + "、".join(lab(g, "past_30d") for g in p_dry))
-            bullets.append("过去30日累计（模式估算）" + "；".join(parts) + "。")
+            srcs = [(r["cc"].get("past_30d") or {}).get("source") for r in rows]
+            n_sat = sum(x == "IMERG" for x in srcs)
+            src_label = ("卫星实况" if n_sat == len(srcs) else
+                         ("模式估算" if n_sat == 0 else f"{n_sat}/{len(srcs)}点为卫星实况，其余模式估算"))
+            bullets.append(f"过去30日累计（{src_label}）" + "；".join(parts) + "。")
     tap = [g for g in groups if (g["tap_days"] or 0) >= 3.5]
     if tap:
         bullets.append("割胶窗口（当地02–10时）受雨偏多：" + "、".join(
@@ -362,7 +366,7 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
     title = "天然橡胶产区天气简报"
     sub = (f"预报期 {first_day:%m/%d}–{last_day:%m/%d}（D0–D6）｜数据生成 {stamp:%Y-%m-%d %H:%M} 北京时间｜"
            f"{len(rows)}个代表网格点｜质量 {wx['overall_quality_status']}")
-    foot = ("口径：Open-Meteo模式网格预报，非地面站；近7日" + ("=Open-Meteo past_days模式估算" if has_clim else "估算=每日最短时效预报拼接") + "，非实测；"
+    foot = ("口径：Open-Meteo模式网格预报，非地面站；近7日" + ("=NASA IMERG卫星实况（不全时用Open-Meteo模式估算）" if has_clim else "估算=每日最短时效预报拼接") + "，非实测；"
             + (("常年同期=同点ERA5 2001–25同季节均值，已按2022–25重叠期逐月换算到模式口径，距平仅作筛选；" if bias_ok
               else "常年同期=同点ERA5 2001–25同季节均值，未做模式偏差校正，距平仅作筛选；") if has_clim else "") + "泰国、印尼按省级产量占比加权，"
             "其余等权；泰国周度为ERA5代表点合成，季节参照仅2022–25四年。天气状态仅为筛选条件，不代表割胶、产量或价格结论。")

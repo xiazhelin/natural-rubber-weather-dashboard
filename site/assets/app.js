@@ -36,7 +36,8 @@ function anomalyBadge(item) {
   if (!item || !item.category) return '<span class="anom anom-missing" title="季节基准或数据缺失">MISSING</span>';
   const pct = hasNumber(item.anomaly_pct) ? `${item.anomaly_pct > 0 ? "+" : ""}${item.anomaly_pct}%` : "";
   const title = `当前 ${number(item.value_mm)} mm；常年均值 ${number(item.normal_mm)} mm${pct ? `（较均值 ${pct}）` : ""}；常年正常区间（第33–67百分位）${number(item.p33_mm)}–${number(item.p67_mm)} mm。降雨分布偏斜，档位按历年同期百分位判断，比均值百分比更可靠。`;
-  return `<span class="anom anom-${item.category.toLowerCase().replace(/_/g, "-")}" title="${escapeHtml(title)}">${ANOMALY_LABELS[item.category] || escapeHtml(item.category)}</span>`;
+  const sourceNote = { IMERG: "数据：NASA IMERG卫星实况（UTC日）。", MODEL: "数据：Open-Meteo模式估算（卫星存档不完整时的替代）。", FORECAST: "数据：Open-Meteo预报。" }[item.source] || "";
+  return `<span class="anom anom-${item.category.toLowerCase().replace(/_/g, "-")}" title="${escapeHtml(sourceNote + title)}">${ANOMALY_LABELS[item.category] || escapeHtml(item.category)}</span>`;
 }
 
 const RAIN_CHANGE_ALERT_MM = 25;
@@ -857,7 +858,8 @@ function renderDetail() {
       <h3>与常年同期比（季节基准 ${escapeHtml(baselineLabel())}）</h3>
       <div class="detail-metrics">${[["forecast_7d", "未来7日"], ["past_7d", "过去7日"], ["past_14d", "过去14日"], ["past_30d", "过去30日"]].map(([key, label]) => {
         const item = station.climate_context?.[key];
-        return `<div><span>${label}</span><strong>${number(item?.value_mm)} mm</strong><small>常年 ${number(item?.normal_mm)} mm</small><div class="anom-row">${anomalyBadge(item)}</div></div>`;
+        const src = { IMERG: "（卫星）", MODEL: "（模式估算）", FORECAST: "（预报）" }[item?.source] || "";
+        return `<div><span>${label}${src}</span><strong>${number(item?.value_mm)} mm</strong><small>常年 ${number(item?.normal_mm)} mm</small><div class="anom-row">${anomalyBadge(item)}</div></div>`;
       }).join("")}</div>
     </div>
     <div class="forecast-strip" aria-label="${escapeHtml(station.place)}未来七天逐日预报">${days}</div>

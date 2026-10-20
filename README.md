@@ -19,7 +19,8 @@
 - 中期气候展望：NOAA Climate Prediction Center官方RONI outlook；`https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso/roni/outlook/`。两家机构的相对指数口径不可直接混用。
 - 中期与季节展望：NOAA/CPC Global Tropics Hazards Outlook、IRI季节降水概率、NOAA/CPC NMME月度降水和2米气温距平。图片与发布/起报时间由更新脚本保存到本地；单个产品失败时保留上次图片并标记`WARNING`，无历史图时标记`MISSING`。这些数据均为`ESTIMATE`，IRI与NMME不能当作两组独立证据。
 - 降雨季节距平：每个代表网格点用Open-Meteo Historical Weather API的ERA5日降雨构建2001–2025年季节基准（`scripts/build_climatology.py`，结果在`data/climatology/`，不发布到网页）。对窗口起始日前后±3天、25年的n日累计合成样本池，取均值和第10/33/67/90百分位。未来7日预报与过去7/14/30日累计按“显著偏少/偏少/正常/偏多/显著偏多”分类，并给出较常年均值的百分比；常年均值低于1 mm时不计算百分比。
-- 过去7/14/30日降雨：Open-Meteo `past_days=30` 的模式估算（与预报同源、近实时），单独请求，不影响预报数组；不是地面站或卫星实测。
+- 过去7/14/30日降雨：优先用NASA IMERG Late卫星日降水。每日更新把最近35个UTC日的IMERG 1日累计在各点取值，存入`data/observations/imerg-daily.json`；窗口内每天都有值时采用卫星值（source=IMERG），任一天缺失则退回Open-Meteo `past_days=30`模式估算（source=MODEL）。IMERG按UTC日，与当地日最多相差8小时；IMERG是卫星融合估算，不是地面雨量站实测。
+- 卫星距平的同源校正：`scripts/build_model_bias.py --source imerg`用卫星存档覆盖期与ERA5逐月配对，计算“IMERG/ERA5”比例（三个月窗口至少60天配对），写入`data/climatology/imerg-bias.json`；卫星窗口的ERA5基准乘以该比例后再比较。
 - 模式偏差校正：当前值来自预报模式、基准来自ERA5再分析，二者存在系统偏差（热带地区ERA5常见小雨日偏多、强降雨偏弱）。`scripts/build_model_bias.py`用2022–2025年重叠期，按点位、按月（前后各一个月的三个月滑动窗口）计算“Open-Meteo Historical Forecast API（Best Match预报存档，与past_days同源）/ ERA5”降雨比例，截断到0.5–2.0；ERA5三个月合计低于30 mm时不校正。计算距平时，窗口中点所在月份的ERA5基准均值与各分位数乘以该比例。只消除平均偏差，不校正分布形状；校正文件缺失时距平照常计算并标注“未校正”。
 - 档位优先于百分比：降雨分布偏斜（多数年份少、少数年份有台风或暴雨），较均值的百分比容易夸大偏少。网页徽标与简报的区域判断都按历年同期百分位档位；均值百分比只在悬停提示和表格中作参考。区域档位=产量加权后≥50%点位偏多（或偏少）；其中≥30%处于P90以上（P10以下）记“显著”。土壤湿度暂不做距平：ERA5与预报模式的土层深度不同，不能直接比较。
 - 坐标：`config/locations.json`中的WGS84研究定位点，不代表种植园或行政区种植面积边界。
@@ -80,6 +81,15 @@ IMERG GeoTIFF的NASA PPS HTTPS入口需凭据。不配置时，Open-Meteo预报�
 4. 基准未构建时，网页距平列显示MISSING，其余数据照常更新。
 
 本地也可直接运行：`python3 scripts/build_climatology.py`（需能访问archive-api.open-meteo.com）。
+
+### 回填卫星降雨存档
+
+每日更新只补最近35天。要让“过去30日（卫星）”和卫星同源校正尽快可用，需一次性回填历史：
+
+1. 在Actions打开“回填卫星降雨存档”，起始日期保持默认2024-01-01，点击 **Run workflow**。
+2. 每次最多约60分钟，可断点续跑；未完成时工作流标红但会保存已完成部分，再运行一次继续。日志末尾会汇总存档覆盖的日期范围、各版本号天数和不可用天数。
+3. 回填完成后会自动计算“IMERG/ERA5”逐月比例；之后每日更新自动使用。
+4. NASA存档的起始日期与历史版本号无法事先确认：早于存档起点或版本号不同的日期记为不可用并跳过，不补0。
 
 ## GitHub Pages首次发布
 

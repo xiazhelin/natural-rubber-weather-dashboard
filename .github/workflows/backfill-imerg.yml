@@ -1,0 +1,58 @@
+name: 回填卫星降雨存档
+
+# 一次性/低频任务：回填 NASA IMERG Late 卫星日降水点值存档（data/observations/imerg-daily.json），
+# 再计算“IMERG/ERA5”逐月比例（data/climatology/imerg-bias.json），供“过去7/14/30日”卫星距平使用。
+# 每次最多约60分钟，可断点续跑；未回填完时工作流标红，已完成部分照样保存，再运行一次继续。
+# 需要仓库密钥 NASA_PPS_EMAIL（与每日更新相同）。
+
+on:
+  workflow_dispatch:
+    inputs:
+      start:
+        description: "回填起始日期（YYYY-MM-DD）"
+        type: string
+        default: "2024-01-01"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: natural-rubber-weather-pages
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    if: github.actor == github.repository_owner
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: 安装依赖
+        run: python -m pip install -r requirements.txt
+      - name: 回填卫星日降水
+        id: backfill
+        continue-on-error: true
+        env:
+          NASA_PPS_EMAIL: ${{ secrets.NASA_PPS_EMAIL }}
+        run: python scripts/backfill_imerg.py --start "${{ inputs.start }}" --max-minutes 60
+      - name: 计算卫星/ERA5逐月比例
+        id: bias
+        continue-on-error: true
+        run: python scripts/build_model_bias.py --source imerg --max-minutes 25
+      - name: 保存（即使未全部完成也保存已完成部分）
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash
+          for d in data/observations data/climatology; do if [ -d "$d" ]; then git add "$d/"; fi; done
+          git diff --cached --quiet || git commit -m "data: backfill IMERG daily archive"
+          git push
+      - name: 检查是否全部完成
+        if: steps.backfill.outcome == 'failure' || steps.bias.outcome == 'failure'
+        run: |
+          echo "回填或比例计算未全部完成（多为时间预算或网络限流）。已完成部分已保存，请再手动运行一次本工作流继续。"
+          exit 1

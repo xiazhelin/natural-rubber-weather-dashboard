@@ -64,6 +64,11 @@ THAILAND_WEEKLY_SOURCE = {
 IMERG_BASE_URL = "https://jsimpsonhttps.pps.eosdis.nasa.gov/imerg/gis"
 IMERG_DATES_URL = "https://pmmpublisher.pps.eosdis.nasa.gov/img/imerg_v2/dates_3d.txt"
 IMERG_VERSION = "V07C"
+# 历史文件可能是更早的版本号；回填时依次尝试
+IMERG_ARCHIVE_VERSIONS = ("V07C", "V07B", "V07A")
+IMERG_ARCHIVE_PATH = ROOT / "data" / "observations" / "imerg-daily.json"
+IMERG_ARCHIVE_RECENT_DAYS = 35
+IMERG_RETRY_UNAVAILABLE_DAYS = 10
 IMERG_SOURCE = {
     "source_id": "OBS_NASA_IMERG_LATE_GIS",
     "source_name": "NASA GPM IMERG Late Run GIS",
@@ -379,6 +384,96 @@ def fetch_imerg(locations, email, today=None):
     }, values
 
 
+def imerg_1day_url(day, version=IMERG_VERSION):
+    """某UTC日（00:00–23:59:59）的IMERG Late 1日累计GeoTIFF地址。"""
+    stamp = day.strftime("%Y%m%d")
+    return (f"{IMERG_BASE_URL}/{stamp[:4]}/{stamp[4:6]}/"
+            f"3B-HHR-L.MS.MRG.3IMERG.{stamp}-S233000-E235959.1410.{version}.1day.tif")
+
+
+def fetch_imerg_day(day, locations, email, versions=IMERG_ARCHIVE_VERSIONS):
+    """下载一天的IMERG 1day产品并在各点取值。全部版本均404时抛 FileNotFoundError。"""
+    from PIL import Image
+
+    for version in versions:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "1day.tif"
+            try:
+                with _authenticated_request(imerg_1day_url(day, version), email, timeout=120) as response, \
+                        path.open("wb") as handle:
+                    while chunk := response.read(1024 * 1024):
+                        handle.write(chunk)
+            except urllib.error.HTTPError as exc:
+                if exc.code == 404:
+                    continue
+                raise
+            with Image.open(path) as image:
+                image.load()
+                return version, {
+                    item["station_id"]: sample_imerg_pixel(image, item["latitude"], item["longitude"])
+                    for item in locations
+                }
+    raise FileNotFoundError(f"IMERG 1day product not found for {day.isoformat()}")
+
+
+def empty_imerg_archive():
+    return {
+        "schema_version": 1,
+        "dataset_id": "NR_IMERG_LATE_DAILY_POINTS_V1",
+        "data_type": "ESTIMATE",
+        "source": {**IMERG_SOURCE, "periods": "逐UTC日（00:00–23:59:59 UTC）1日累计"},
+        "date_basis": "UTC日；与各地当地日最多相差8小时",
+        "unit": "mm",
+        "missing_value": "null 表示该点像元缺测；日期不存在表示未取得该日产品",
+        "versions": {},
+        "unavailable": {},
+        "stations": {},
+    }
+
+
+def load_imerg_archive(path=IMERG_ARCHIVE_PATH):
+    if path.exists():
+        return json.loads(path.read_text(encoding="utf-8"))
+    return empty_imerg_archive()
+
+
+def update_imerg_archive(archive, locations, email, days, deadline=None, fetch=None, now=None):
+    """把缺失日期的IMERG点值补进存档。返回 (新增天数, 不可用天数)。
+
+    - 已有全部点位的日期跳过；
+    - 产品不存在(404)的日期记入 unavailable；近10天内的会在后续运行中重试（Late Run 可能尚未发布）。
+    """
+    fetch = fetch or fetch_imerg_day
+    now = now or datetime.now(timezone.utc)
+    station_ids = [item["station_id"] for item in locations]
+    added = unavailable = 0
+    for day in days:
+        key = day.isoformat()
+        stations = archive.setdefault("stations", {})
+        if all(key in stations.get(sid, {}) for sid in station_ids):
+            continue
+        if key in archive.get("unavailable", {}) and (now.date() - day).days > IMERG_RETRY_UNAVAILABLE_DAYS:
+            continue
+        if deadline is not None and time.monotonic() > deadline:
+            break
+        try:
+            version, values = fetch(day, locations, email)
+        except FileNotFoundError:
+            archive.setdefault("unavailable", {})[key] = now.replace(microsecond=0).isoformat().replace("+00:00", "Z")
+            unavailable += 1
+            continue
+        for sid in station_ids:
+            stations.setdefault(sid, {})[key] = values.get(sid)
+        archive.setdefault("versions", {})[key] = version
+        archive.get("unavailable", {}).pop(key, None)
+        added += 1
+    archive["updated_at_utc"] = now.replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    dates = sorted({d for values in archive.get("stations", {}).values() for d in values})
+    archive["coverage"] = {"first_date": dates[0] if dates else None, "last_date": dates[-1] if dates else None,
+                           "days": len(dates)}
+    return added, unavailable
+
+
 def missing_imerg(locations, reason):
     return {
         **IMERG_SOURCE,
@@ -554,10 +649,18 @@ def bias_ratio_for(bias_entry, start, length):
     return ratios[middle.month - 1]
 
 
-def build_climate_context(forecast_dates, forecast_7d_mm, past_daily, clim_entry, bias_entry=None):
+def _window_sum(daily, start, length):
+    values = [(daily or {}).get((start + timedelta(days=i)).isoformat()) for i in range(length)]
+    return round(sum(values), 1) if len(_finite(values)) == length else None
+
+
+def build_climate_context(forecast_dates, forecast_7d_mm, past_daily, clim_entry, bias_entry=None,
+                          obs_daily=None, obs_bias_entry=None):
     """计算未来7日与过去7/14/30日降雨相对季节基准的距平。缺数据保持为空，不补值。
 
     bias_entry 存在时，先把 ERA5 基准（均值与分位数）乘以该月“模式/ERA5”比例，换算到模式口径再比较。
+    过去窗口优先用卫星实况 obs_daily（IMERG，UTC日）：窗口内每天都有值时采用，基准乘以“IMERG/ERA5”比例；
+    否则退回模式估算 past_daily。每个窗口记录 source（FORECAST / IMERG / MODEL）。
     """
     context = {"quality_status": "MISSING"}
     if not forecast_dates:
@@ -567,15 +670,20 @@ def build_climate_context(forecast_dates, forecast_7d_mm, past_daily, clim_entry
     filled = 0
     for key, length, offset in CLIMATE_WINDOWS:
         start = d0 + timedelta(days=offset)
+        source, ratio_entry = "FORECAST", bias_entry
         if key == "forecast_7d":
             value = forecast_7d_mm
         else:
-            values = [(past_daily or {}).get((start + timedelta(days=i)).isoformat()) for i in range(length)]
-            value = round(sum(values), 1) if len(_finite(values)) == length else None
+            value = _window_sum(obs_daily, start, length)
+            if value is not None:
+                source, ratio_entry = "IMERG", obs_bias_entry
+            else:
+                value = _window_sum(past_daily, start, length)
+                source = "MODEL" if value is not None else None
         table = windows.get(str(length)) or []
         doy = _clim_day_of_year(start)
         stats = table[doy - 1] if len(table) >= doy else None
-        ratio = bias_ratio_for(bias_entry, start, length)
+        ratio = bias_ratio_for(ratio_entry, start, length)
         if stats and ratio is not None:
             stats = [round(v * ratio, 1) for v in stats]
         item = classify_against_climatology(value, stats)
@@ -585,6 +693,7 @@ def build_climate_context(forecast_dates, forecast_7d_mm, past_daily, clim_entry
         else:
             filled += 1
         item["window_start"] = start.isoformat()
+        item["source"] = source
         item["bias_ratio"] = ratio
         item["bias_corrected"] = ratio is not None and stats is not None
         context[key] = item
@@ -1278,7 +1387,15 @@ def update_history(path, dataset, maximum=400):
     atomic_json(path, history)
 
 
-def collect(config_path):
+def load_imerg_bias():
+    """IMERG/ERA5 逐月比例（scripts/build_model_bias.py --source imerg 生成）；不存在返回 None。"""
+    path = ROOT / "data" / "climatology" / "imerg-bias.json"
+    if not path.exists():
+        return None
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def collect(config_path, imerg_archive=None):
     config = json.loads(config_path.read_text(encoding="utf-8"))
     locations = config["locations"]
     thresholds = config["thresholds"]
@@ -1288,7 +1405,10 @@ def collect(config_path):
     clim_stations = (climatology or {}).get("stations") or {}
     model_bias = load_model_bias(config)
     bias_stations = (model_bias or {}).get("stations") or {}
+    imerg_bias = load_imerg_bias()
+    imerg_bias_stations = (imerg_bias or {}).get("stations") or {}
     stations = []
+    past_by_station = {}
     for start in range(0, len(locations), 15):
         batch = locations[start : start + 15]
         payloads = fetch_batch(batch)
@@ -1299,13 +1419,7 @@ def collect(config_path):
             past_payloads = [None] * len(batch)
         for location, payload, past in zip(batch, payloads, past_payloads):
             station = build_station(location, payload, thresholds, tapping_window, now)
-            station["climate_context"] = build_climate_context(
-                [row["date"] for row in station["daily"]],
-                station["summary"]["precipitation_7d_mm"],
-                past_daily_from_payload(past),
-                clim_stations.get(location["station_id"]),
-                bias_stations.get(location["station_id"]),
-            )
+            past_by_station[location["station_id"]] = past_daily_from_payload(past)
             stations.append(station)
     email = os.environ.get("NASA_PPS_EMAIL", "").strip()
     try:
@@ -1319,6 +1433,27 @@ def collect(config_path):
         observation_source, imerg = missing_imerg(locations, reason)
     for station in stations:
         station["imerg"] = imerg[station["station_id"]]
+    # 卫星日降水存档：补齐最近35个UTC日（不含当天），失败不影响其他数据
+    if imerg_archive is not None and email:
+        recent = [now.date() - timedelta(days=i) for i in range(1, IMERG_ARCHIVE_RECENT_DAYS + 1)]
+        try:
+            added, unavailable = update_imerg_archive(
+                imerg_archive, locations, email, recent, deadline=time.monotonic() + 8 * 60)
+            print(f"IMERG archive: +{added} days, {unavailable} unavailable", file=sys.stderr)
+        except Exception as exc:
+            print(f"IMERG archive warning: {exc}", file=sys.stderr)
+    obs_stations = (imerg_archive or {}).get("stations") or {}
+    for station in stations:
+        sid = station["station_id"]
+        station["climate_context"] = build_climate_context(
+            [row["date"] for row in station["daily"]],
+            station["summary"]["precipitation_7d_mm"],
+            past_by_station.get(sid),
+            clim_stations.get(sid),
+            bias_stations.get(sid),
+            obs_stations.get(sid),
+            imerg_bias_stations.get(sid),
+        )
     quality_counts = {status: sum(item["quality_status"] == status for item in stations) for status in ("PASS", "WARNING", "MISSING")}
     overall = "PASS" if quality_counts["PASS"] == len(stations) else "WARNING"
     return {
@@ -1344,6 +1479,13 @@ def collect(config_path):
         "climate_context_definition": {
             **CLIMATE_CONTEXT_DEFINITION,
             "baseline": (climatology or {}).get("baseline"),
+            "observed_windows": {
+                "source": "NASA GPM IMERG Late Run 1日累计（UTC日）",
+                "status": "PASS" if obs_stations else "MISSING",
+                "bias_status": "PASS" if imerg_bias else "MISSING",
+                "note": "过去7/14/30日优先用卫星实况；窗口内任一天缺失则退回模式估算（source=MODEL）。"
+                        "卫星值按“IMERG/ERA5”逐月比例换算基准后比较；比例未建成时不校正。",
+            },
             "bias_correction": {
                 "status": "PASS" if model_bias else "MISSING",
                 "overlap": (model_bias or {}).get("overlap"),
@@ -1368,7 +1510,8 @@ def main(argv=None):
         default=ROOT / "site" / "data" / "thailand-weekly-rain.json",
     )
     args = parser.parse_args(argv)
-    dataset = collect(args.config)
+    imerg_archive = load_imerg_archive()
+    dataset = collect(args.config, imerg_archive)
     if not dataset["stations"]:
         raise RuntimeError("No station data returned; existing published data was not changed.")
     history = {"schema_version": 2, "snapshots": []}
@@ -1377,6 +1520,8 @@ def main(argv=None):
     attach_verification(dataset, history)
     atomic_json(args.output, dataset)
     update_history(args.history, dataset)
+    if imerg_archive.get("stations"):
+        _atomic_write(IMERG_ARCHIVE_PATH, json.dumps(imerg_archive, ensure_ascii=False, separators=(",", ":")) + "\n")
     try:
         config = json.loads(args.config.read_text(encoding="utf-8"))
         atomic_json(args.thailand_weekly_output, fetch_thailand_weekly_rain(config))

@@ -150,14 +150,14 @@ def climatology_from_daily(daily: dict, start_year: int, end_year: int, half_wid
 
 
 def fetch_daily(locations, start: date, end: date, timeout=180, retries=4,
-                url=HISTORICAL_API_URL, model="era5"):
+                url=HISTORICAL_API_URL, model="era5", tz="auto"):
     params = {
         "latitude": ",".join(str(item["latitude"]) for item in locations),
         "longitude": ",".join(str(item["longitude"]) for item in locations),
         "start_date": start.isoformat(),
         "end_date": end.isoformat(),
         "daily": "precipitation_sum",
-        "timezone": "auto",
+        "timezone": tz,
         "cell_selection": "land",
     }
     if model:
