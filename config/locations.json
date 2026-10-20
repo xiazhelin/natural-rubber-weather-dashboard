@@ -117,6 +117,14 @@
       }
     ]
   },
+  "climatology": {
+    "start_year": 2001,
+    "end_year": 2025,
+    "pool_half_width_days": 3,
+    "batch_size": 4,
+    "pause_seconds": 20,
+    "description": "各代表网格点ERA5日降雨2001–2025年季节基准；用于计算未来7日与过去7/14/30日降雨距平。由scripts/build_climatology.py生成到data/climatology/，不发布到网页。"
+  },
   "locations": [
     {
       "station_id": "cn_hainan_danzhou",

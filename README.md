@@ -18,6 +18,9 @@
 - 中期气候观测：澳大利亚气象局（BoM）Relative Niño3.4与Indian Ocean Dipole周度指数，基准期1991—2020年；官方图表入口：`https://www.bom.gov.au/climate/influences/graphs/`。
 - 中期气候展望：NOAA Climate Prediction Center官方RONI outlook；`https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso/roni/outlook/`。两家机构的相对指数口径不可直接混用。
 - 中期与季节展望：NOAA/CPC Global Tropics Hazards Outlook、IRI季节降水概率、NOAA/CPC NMME月度降水和2米气温距平。图片与发布/起报时间由更新脚本保存到本地；单个产品失败时保留上次图片并标记`WARNING`，无历史图时标记`MISSING`。这些数据均为`ESTIMATE`，IRI与NMME不能当作两组独立证据。
+- 降雨季节距平：每个代表网格点用Open-Meteo Historical Weather API的ERA5日降雨构建2001–2025年季节基准（`scripts/build_climatology.py`，结果在`data/climatology/`，不发布到网页）。对窗口起始日前后±3天、25年的n日累计合成样本池，取均值和第10/33/67/90百分位。未来7日预报与过去7/14/30日累计按“显著偏少/偏少/正常/偏多/显著偏多”分类，并给出较常年均值的百分比；常年均值低于1 mm时不计算百分比。
+- 过去7/14/30日降雨：Open-Meteo `past_days=30` 的模式估算（与预报同源、近实时），单独请求，不影响预报数组；不是地面站或卫星实测。
+- 距平口径限制：当前值来自预报模式，基准来自ERA5再分析，二者存在系统偏差（热带地区ERA5常见小雨日偏多），分类只作季节筛选。土壤湿度暂不做距平：ERA5与预报模式的土层深度不同，不能直接比较。
 - 坐标：`config/locations.json`中的WGS84研究定位点，不代表种植园或行政区种植面积边界。
 - 缺失值：保持为空；不会填0或沿用前值。
 
@@ -65,6 +68,17 @@ IMERG GeoTIFF的NASA PPS HTTPS入口需凭据。不配置时，Open-Meteo预报�
 3. 点击 **New repository secret**。
 4. Name填`NASA_PPS_EMAIL`，Secret填PPS注册邮箱；不要把邮箱写入代码或提交到仓库。
 5. 在Actions手动运行一次更新。首次只会写入实况；兑现率要等历史预报与后续实况严格对齐后才会出现。
+
+### 构建降雨季节基准
+
+距平需要先构建一次季节基准，之后日常更新会自动读取：
+
+1. 在GitHub仓库进入 **Actions**，打开“构建降雨季节基准”，点击 **Run workflow**。
+2. 首次约需30–60分钟（受Open-Meteo免费接口限速）。可断点续跑：若中途超时，再运行一次会只补齐缺失点位。
+3. 新增或移动点位后，再运行一次即可；每月1日也会自动检查补齐。
+4. 基准未构建时，网页距平列显示MISSING，其余数据照常更新。
+
+本地也可直接运行：`python3 scripts/build_climatology.py`（需能访问archive-api.open-meteo.com）。
 
 ## GitHub Pages首次发布
 

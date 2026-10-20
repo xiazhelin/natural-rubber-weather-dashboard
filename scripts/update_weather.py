@@ -74,6 +74,27 @@ IMERG_SOURCE = {
     "access": "NASA PPS HTTPS；GitHub Actions使用仓库密钥NASA_PPS_EMAIL",
 }
 CLIMATE_ASSET_DIR = ROOT / "site" / "assets" / "climate"
+PAST_DAYS = 30
+CLIMATE_WINDOWS = (("forecast_7d", 7, 0), ("past_7d", 7, -7), ("past_14d", 14, -14), ("past_30d", 30, -30))
+CLIMATE_CONTEXT_DEFINITION = {
+    "description": "降雨季节距平：与同一网格点ERA5再分析基准期同季节（窗口起始日±3天）的n日累计分布比较。",
+    "windows": {
+        "forecast_7d": "未来7日（D0–D6，当地日期）Open-Meteo预报累计",
+        "past_7d": "过去7日（D0前7天至前1天）Open-Meteo past_days模式估算累计",
+        "past_14d": "过去14日模式估算累计",
+        "past_30d": "过去30日模式估算累计",
+    },
+    "categories": {
+        "BELOW_P10": "显著偏少（低于基准期第10百分位）",
+        "BELOW_NORMAL": "偏少（低于第33百分位）",
+        "NEAR_NORMAL": "正常（第33–67百分位）",
+        "ABOVE_NORMAL": "偏多（高于第67百分位）",
+        "ABOVE_P90": "显著偏多（高于第90百分位）",
+    },
+    "anomaly_pct": "数值/基准均值×100−100；基准均值低于1 mm时不计算。",
+    "caveat": "当前值来自预报模式（含过去日的模式估算），基准来自ERA5再分析，二者存在系统偏差；"
+              "分类仅作季节筛选，不是实测距平，不代表割胶、产量或价格结论。",
+}
 BOM_INDEXES = (
     (
         "https://reg.bom.gov.au/clim_data/IDCK000072/rnino_3.4.txt",
@@ -483,6 +504,76 @@ def classify(summary, thresholds):
     return states or ["NORMAL"]
 
 
+def _clim_day_of_year(day):
+    """1–365；与 build_climatology.day_of_year 一致（2月29日并入2月28日）。"""
+    doy = day.timetuple().tm_yday
+    leap = day.year % 4 == 0 and (day.year % 100 != 0 or day.year % 400 == 0)
+    if leap and doy >= 60:
+        doy -= 1
+    return doy
+
+
+def classify_against_climatology(value, stats):
+    """stats = [mean, p10, p33, p67, p90]。"""
+    if value is None or not stats:
+        return None
+    mean, p10, p33, p67, p90 = stats
+    if value < p10:
+        category = "BELOW_P10"
+    elif value < p33:
+        category = "BELOW_NORMAL"
+    elif value > p90:
+        category = "ABOVE_P90"
+    elif value > p67:
+        category = "ABOVE_NORMAL"
+    else:
+        category = "NEAR_NORMAL"
+    return {
+        "value_mm": round(value, 1),
+        "normal_mm": mean,
+        "p33_mm": p33,
+        "p67_mm": p67,
+        "anomaly_pct": round(value / mean * 100 - 100) if mean is not None and mean >= 1 else None,
+        "category": category,
+    }
+
+
+def past_daily_from_payload(payload):
+    """Open-Meteo past_days 响应 → {当地日期: 日降雨mm}。"""
+    daily = (payload or {}).get("daily") or {}
+    return dict(zip(daily.get("time") or [], daily.get("precipitation_sum") or []))
+
+
+def build_climate_context(forecast_dates, forecast_7d_mm, past_daily, clim_entry):
+    """计算未来7日与过去7/14/30日降雨相对季节基准的距平。缺数据保持为空，不补值。"""
+    context = {"quality_status": "MISSING"}
+    if not forecast_dates:
+        return context
+    d0 = datetime.fromisoformat(forecast_dates[0]).date()
+    windows = (clim_entry or {}).get("windows") or {}
+    filled = 0
+    for key, length, offset in CLIMATE_WINDOWS:
+        start = d0 + timedelta(days=offset)
+        if key == "forecast_7d":
+            value = forecast_7d_mm
+        else:
+            values = [(past_daily or {}).get((start + timedelta(days=i)).isoformat()) for i in range(length)]
+            value = round(sum(values), 1) if len(_finite(values)) == length else None
+        table = windows.get(str(length)) or []
+        doy = _clim_day_of_year(start)
+        stats = table[doy - 1] if len(table) >= doy else None
+        item = classify_against_climatology(value, stats)
+        if item is None:
+            item = {"value_mm": value, "normal_mm": stats[0] if stats else None,
+                    "anomaly_pct": None, "category": None}
+        else:
+            filled += 1
+        item["window_start"] = start.isoformat()
+        context[key] = item
+    context["quality_status"] = "PASS" if filled == len(CLIMATE_WINDOWS) else ("WARNING" if filled else "MISSING")
+    return context
+
+
 def build_station(location, payload, thresholds, tapping_window, forecast_start_utc):
     daily = payload.get("daily") or {}
     hourly = payload.get("hourly") or {}
@@ -586,6 +677,44 @@ def fetch_batch(locations, timeout=45, retries=3):
             if attempt + 1 == retries:
                 raise
             time.sleep(2**attempt)
+
+
+def fetch_past_batch(locations, timeout=45, retries=3):
+    """过去30日的模式估算日降雨（Open-Meteo past_days），单独请求，不影响预报数组对齐。"""
+    params = {
+        "latitude": ",".join(str(item["latitude"]) for item in locations),
+        "longitude": ",".join(str(item["longitude"]) for item in locations),
+        "daily": "precipitation_sum",
+        "past_days": PAST_DAYS,
+        "forecast_days": 1,
+        "timezone": "auto",
+        "cell_selection": "land",
+    }
+    url = API_URL + "?" + urllib.parse.urlencode(params)
+    request = urllib.request.Request(url, headers={"User-Agent": "natural-rubber-weather-dashboard/1.0"})
+    for attempt in range(retries):
+        try:
+            with urllib.request.urlopen(request, timeout=timeout) as response:
+                data = json.load(response)
+            payloads = data if isinstance(data, list) else [data]
+            if len(payloads) != len(locations):
+                raise ValueError(f"past response count {len(payloads)} != request count {len(locations)}")
+            return payloads
+        except Exception:
+            if attempt + 1 == retries:
+                raise
+            time.sleep(2**attempt)
+
+
+def load_climatology(config):
+    """读取 data/climatology 下的气候态文件；不存在时返回 None。"""
+    settings = config.get("climatology") or {}
+    start = settings.get("start_year", 2001)
+    end = settings.get("end_year", 2025)
+    path = ROOT / "data" / "climatology" / f"precip-era5-{start}-{end}.json"
+    if not path.exists():
+        return None
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def weekly_region_value(point_days, point_ids, week_start):
@@ -1126,14 +1255,26 @@ def collect(config_path):
     thresholds = config["thresholds"]
     tapping_window = config["tapping_window"]
     now = datetime.now(timezone.utc).replace(microsecond=0)
+    climatology = load_climatology(config)
+    clim_stations = (climatology or {}).get("stations") or {}
     stations = []
     for start in range(0, len(locations), 15):
         batch = locations[start : start + 15]
         payloads = fetch_batch(batch)
-        stations.extend(
-            build_station(location, payload, thresholds, tapping_window, now)
-            for location, payload in zip(batch, payloads)
-        )
+        try:
+            past_payloads = fetch_past_batch(batch)
+        except Exception as exc:
+            print(f"past rainfall warning: {exc}", file=sys.stderr)
+            past_payloads = [None] * len(batch)
+        for location, payload, past in zip(batch, payloads, past_payloads):
+            station = build_station(location, payload, thresholds, tapping_window, now)
+            station["climate_context"] = build_climate_context(
+                [row["date"] for row in station["daily"]],
+                station["summary"]["precipitation_7d_mm"],
+                past_daily_from_payload(past),
+                clim_stations.get(location["station_id"]),
+            )
+            stations.append(station)
     email = os.environ.get("NASA_PPS_EMAIL", "").strip()
     try:
         observation_source, imerg = fetch_imerg(locations, email)
@@ -1168,6 +1309,12 @@ def collect(config_path):
         "source": SOURCE,
         "observation_source": observation_source,
         "scope_note": config["description"],
+        "climate_context_definition": {
+            **CLIMATE_CONTEXT_DEFINITION,
+            "baseline": (climatology or {}).get("baseline"),
+            "status": "PASS" if climatology else "MISSING",
+            "note": None if climatology else "季节基准尚未构建：请在Actions运行“构建降雨季节基准”或执行scripts/build_climatology.py。",
+        },
         "stations": stations,
     }
 

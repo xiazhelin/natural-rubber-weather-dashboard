@@ -120,6 +120,23 @@ def wavg(pairs):
     return sum(v * w for v, w in pairs) / tw if tw else None
 
 
+ANOM_SHORT = {"BELOW_P10": "显著偏少", "BELOW_NORMAL": "偏少", "NEAR_NORMAL": "正常",
+              "ABOVE_NORMAL": "偏多", "ABOVE_P90": "显著偏多"}
+
+
+def group_anomaly(rs, key):
+    """区域距平：加权当前值 / 加权常年均值 − 1（仅用两者都有的点位）。"""
+    pairs = [((r["cc"].get(key) or {}).get("value_mm"), (r["cc"].get(key) or {}).get("normal_mm"), r["w"])
+             for r in rs]
+    pairs = [(v, n, w) for v, n, w in pairs if v is not None and n is not None]
+    if not pairs:
+        return {"value": None, "normal": None, "pct": None}
+    tw = sum(w for *_, w in pairs)
+    v = sum(v * w for v, _, w in pairs) / tw
+    n = sum(n * w for _, n, w in pairs) / tw
+    return {"value": v, "normal": n, "pct": (v / n * 100 - 100) if n >= 3 else None}
+
+
 def past7_estimate(history: dict, station_ids, start: date) -> dict:
     """过去7个UTC日：每天取最近一期快照对该日的预报值（时效最短）。"""
     days = [(start - timedelta(days=i)).isoformat() for i in range(7, 0, -1)]
@@ -153,6 +170,13 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
     fstart = date.fromisoformat(stations[0]["forecast_utc_daily"][0]["date_utc"])
     past7 = past7_estimate(hist, [s["station_id"] for s in stations], fstart)
 
+    has_clim = any((s.get("climate_context") or {}).get("quality_status") in ("PASS", "WARNING") for s in stations)
+    if has_clim:  # 有 past_days 数据时，用它替代“短时效预报拼接”
+        for s in stations:
+            v = ((s.get("climate_context") or {}).get("past_7d") or {}).get("value_mm")
+            if v is not None:
+                past7[s["station_id"]] = v
+
     def w_of(s):
         return (weights.get(s["station_id"]) or {}).get("share_of_country_pct") or 1.0
 
@@ -168,6 +192,7 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
             "tap_days": sm.get("tapping_window_rain_days_7d"), "tmax": sm.get("temperature_max_7d_c"),
             "states": sm.get("weather_states") or [],
             "imerg72": (s.get("imerg") or {}).get("precipitation_72h_mm"),
+            "cc": s.get("climate_context") or {},
         })
 
     # ---- 区域聚合 ----
@@ -183,6 +208,8 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
             "tap_days": wavg([(r["tap_days"], r["w"]) for r in rs]),
             "heavy_days": wavg([(r["heavy_days"], r["w"]) for r in rs]),
             "weighted": rs[0]["country"] in ("泰国", "印度尼西亚"),
+            **{f"{k}_{f}": v for k in ("forecast_7d", "past_7d", "past_30d")
+               for f, v in group_anomaly(rs, k).items()},
         })
 
     # ---- 泰国周度 vs 同周均值 ----
@@ -222,6 +249,12 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
             why.append(f"割胶窗受雨{r['tap_days']}天")
         if "HEAT" in r["states"]:
             why.append(f"最高温{r['tmax']:.0f}℃")
+        f7 = r["cc"].get("forecast_7d") or {}
+        if f7.get("category") in ("ABOVE_P90", "BELOW_P10") and (f7.get("normal_mm") or 0) >= 10:
+            why.append(f"7日{ANOM_SHORT[f7['category']]}")
+        p30 = r["cc"].get("past_30d") or {}
+        if p30.get("category") in ("ABOVE_P90", "BELOW_P10") and (p30.get("normal_mm") or 0) >= 30:
+            why.append(f"近30日{ANOM_SHORT[p30['category']]}")
         if why:
             flagged.append({**r, "why": "；".join(why)})
     flagged.sort(key=lambda r: (-(r["share"] or 0), -(r["rain7"] or 0)))
@@ -238,7 +271,9 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
     shifts = [g for g in groups if g["rain7"] is not None and g["past7"] is not None]
     wetter = [g for g in shifts if g["rain7"] - g["past7"] >= 30 and g["rain7"] >= 1.5 * max(g["past7"], 1)]
     drier = [g for g in shifts if g["past7"] - g["rain7"] >= 30 and g["rain7"] <= 0.6 * g["past7"]]
-    if wetter or drier:
+    if has_clim:
+        pass  # 有季节基准时，“转湿/转干”由下面的距平要点覆盖
+    elif wetter or drier:
         parts = []
         if wetter:
             parts.append("转湿：" + "、".join(f"{g['group']}（{g['past7']:.0f}→{g['rain7']:.0f}mm）" for g in wetter))
@@ -247,6 +282,29 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
         bullets.append("与近7日相比，" + "；".join(parts) + "。")
     else:
         bullets.append("各区域未来7日与近7日相比无明显转湿/转干（差值<30mm或<50%）。")
+    first = bullets[0]
+    if has_clim:
+        bullets[0] = first.replace("近7日估算", "近7日")
+    if has_clim:
+        def fmt(g, k):
+            return f"{g['group']}{g[k + '_pct']:+.0f}%"
+        f_wet = [g for g in groups if g["forecast_7d_pct"] is not None and g["forecast_7d_pct"] >= 50 and g["forecast_7d_normal"] >= 10]
+        f_dry = [g for g in groups if g["forecast_7d_pct"] is not None and g["forecast_7d_pct"] <= -50 and g["forecast_7d_normal"] >= 10]
+        parts = []
+        if f_wet:
+            parts.append("偏多：" + "、".join(fmt(g, "forecast_7d") for g in f_wet))
+        if f_dry:
+            parts.append("偏少：" + "、".join(fmt(g, "forecast_7d") for g in f_dry))
+        bullets.append("未来7日与常年同期相比（ERA5 2001–25），" + ("；".join(parts) if parts else "各区域均在常年±50%以内") + "。")
+        p_wet = [g for g in groups if g["past_30d_pct"] is not None and g["past_30d_pct"] >= 40 and g["past_30d_normal"] >= 30]
+        p_dry = [g for g in groups if g["past_30d_pct"] is not None and g["past_30d_pct"] <= -40 and g["past_30d_normal"] >= 30]
+        if p_wet or p_dry:
+            parts = []
+            if p_wet:
+                parts.append("偏湿：" + "、".join(fmt(g, "past_30d") for g in p_wet))
+            if p_dry:
+                parts.append("偏干：" + "、".join(fmt(g, "past_30d") for g in p_dry))
+            bullets.append("过去30日累计（模式估算）" + "；".join(parts) + "。")
     tap = [g for g in groups if (g["tap_days"] or 0) >= 3.5]
     if tap:
         bullets.append("割胶窗口（当地02–10时）受雨偏多：" + "、".join(
@@ -268,9 +326,10 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
         heat = [f for f in flagged if "最高温" in f["why"]]
         if heat:
             bullets.append("高温点位：" + "、".join(f"{f['place']}（{f['tmax']:.0f}℃）" for f in heat[:5]) + "。")
-    bullets.append(f"DRY（7日<{th['dry_total_7d_mm']}mm）{dry_count}/{len(rows)}个点位"
-                   + (f"，其中占本国≥3%的有{len(dry_weighted)}个（" + "、".join(r["place"] for r in dry_weighted[:6]) + "）"
-                      if dry_weighted else "") + "。")
+    if not has_clim:
+        bullets.append(f"DRY（7日<{th['dry_total_7d_mm']}mm）{dry_count}/{len(rows)}个点位"
+                       + (f"，其中占本国≥3%的有{len(dry_weighted)}个（" + "、".join(r["place"] for r in dry_weighted[:6]) + "）"
+                          if dry_weighted else "") + "。")
     month = first_day.month
     phen = PHENOLOGY.get(month, "")
 
@@ -280,7 +339,8 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
     title = "天然橡胶产区天气简报"
     sub = (f"预报期 {first_day:%m/%d}–{last_day:%m/%d}（D0–D6）｜数据生成 {stamp:%Y-%m-%d %H:%M} 北京时间｜"
            f"{len(rows)}个代表网格点｜质量 {wx['overall_quality_status']}")
-    foot = ("口径：Open-Meteo模式网格预报，非地面站；近7日估算=每日最短时效预报拼接，非实测；泰国、印尼按省级产量占比加权，"
+    foot = ("口径：Open-Meteo模式网格预报，非地面站；近7日" + ("=Open-Meteo past_days模式估算" if has_clim else "估算=每日最短时效预报拼接") + "，非实测；"
+            + ("常年同期=同点ERA5 2001–25同季节均值，模式与再分析存在系统偏差，距平仅作筛选；" if has_clim else "") + "泰国、印尼按省级产量占比加权，"
             "其余等权；泰国周度为ERA5代表点合成，季节参照仅2022–25四年。天气状态仅为筛选条件，不代表割胶、产量或价格结论。")
     pdf_path = out_dir / f"天然橡胶产区天气简报_{first_day:%Y%m%d}.pdf"
     png_path = out_dir / f"天然橡胶产区天气简报_{first_day:%Y%m%d}.png"
@@ -299,7 +359,7 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
         for para in [p.strip() for p in commentary.strip().splitlines() if p.strip()]:
             bullet = para.startswith(("- ", "• ", "* "))
             text = para[2:].strip() if bullet else para
-            for i, ln in enumerate(textwrap.wrap(text, 56)):
+            for i, ln in enumerate(textwrap.wrap(text, 56, break_on_hyphens=False)):
                 c_lines.append((("• " if i == 0 else "   ") if bullet else "") + ln)
         box_h = 0.026 + 0.0168 * len(c_lines) + 0.008
         fig1.patches.append(matplotlib.patches.FancyBboxPatch(
@@ -315,7 +375,7 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
     fig1.text(0.06, y, "本期要点（自动生成）" if commentary else "本期要点", fontsize=10.5, weight="bold", color=INK)
     y -= 0.022
     for b in bullets:
-        lines = textwrap.wrap(b, 58)
+        lines = textwrap.wrap(b, 58, break_on_hyphens=False)
         for i, ln in enumerate(lines):
             fig1.text(0.065, y, ("• " if i == 0 else "   ") + ln, fontsize=8.6, color=INK)
             y -= 0.0165
@@ -326,7 +386,7 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
 
     # 图表区按剩余高度等比缩放
     need = 0.015 + 0.225 + 0.075 + 0.175
-    k_s = min(1.3, (y - 0.10) / need)
+    k_s = min(1.3, (y - 0.125) / need)
     hA, hB = 0.215 * k_s, 0.165 * k_s
     # 图A：区域未来7日 vs 近7日
     axA_top = y - 0.015
@@ -336,9 +396,17 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
     axA.barh(list(ys), [g["rain7"] or 0 for g in gl], color=BLUE, height=0.55, label="未来7日预报", zorder=2)
     axA.scatter([g["past7"] for g in gl if g["past7"] is not None],
                 [i for i, g in enumerate(gl) if g["past7"] is not None],
-                marker="|", s=260, linewidths=2.2, color=ORANGE, label="近7日估算", zorder=3)
+                marker="|", s=260, linewidths=2.2, color=ORANGE, label="近7日" if has_clim else "近7日估算", zorder=3)
+    if has_clim:
+        nx = [(g["forecast_7d_normal"], i) for i, g in enumerate(gl) if g["forecast_7d_normal"] is not None]
+        axA.scatter([x for x, _ in nx], [i for _, i in nx], marker="D", s=22, color="#5f6368",
+                    label="常年同期", zorder=4)
     for i, g in enumerate(gl):
-        axA.text((g["rain7"] or 0) + 2, i, f"{g['rain7']:.0f}", va="center", fontsize=7.5, color=INK)
+        lab = f"{g['rain7']:.0f}"
+        if has_clim and g.get("forecast_7d_pct") is not None:
+            lab += f"（{g['forecast_7d_pct']:+.0f}%）"
+        axA.text(max(g["rain7"] or 0, g.get("forecast_7d_normal") or 0, g["past7"] or 0) + 2, i, lab,
+                 va="center", fontsize=7.5, color=INK)
     axA.set_yticks(list(ys))
     axA.set_yticklabels([g["group"] + ("" if g["weighted"] else "*") for g in gl])
     axA.axvline(th["heavy_rain_total_7d_mm"], color=RED, lw=0.8, ls="--", zorder=1)
@@ -346,9 +414,10 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
     axA.grid(axis="x", color=GRID, zorder=0)
     axA.set_xlabel("mm")
     axA.set_xlim(0, max(th["heavy_rain_total_7d_mm"] + 20, max((g["rain7"] or 0) for g in gl) * 1.15,
-                        max((g["past7"] or 0) for g in gl) * 1.1))
-    axA.legend(loc="lower right", bbox_to_anchor=(1.0, 1.0), ncol=2, fontsize=7.5, frameon=False)
-    fig1.text(0.06, axA_top + 0.008, "① 分区降雨：未来7日 vs 近7日（*为等权平均）", fontsize=10, weight="bold", color=INK)
+                        max((g["past7"] or 0) for g in gl) * 1.1,
+                        max((g.get("forecast_7d_normal") or 0) for g in gl) * 1.25))
+    axA.legend(loc="lower right", bbox_to_anchor=(1.0, 1.0), ncol=3, fontsize=7.5, frameon=False)
+    fig1.text(0.06, axA_top + 0.008, ("① 分区降雨：未来7日 vs 近7日 vs 常年同期（括号为较常年%，*为等权）" if has_clim else "① 分区降雨：未来7日 vs 近7日（*为等权平均）"), fontsize=10, weight="bold", color=INK)
 
     # 图B：割胶窗口受雨天数
     yB = axA_top - hA - 0.01 - 0.065
@@ -391,10 +460,11 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
     # ---------- 第2页 ----------
     fig2 = plt.figure(figsize=A4)
     fig2.text(0.06, 0.965, "关注点位明细", fontsize=14, weight="bold", color=INK)
-    fig2.text(0.06, 0.947, "筛选：7日累计≥150mm、暴雨日（≥25mm）≥2天、割胶窗受雨≥5天、最高温≥35℃；按占本国产量排序。",
+    fig2.text(0.06, 0.947, ("筛选：7日累计≥150mm、暴雨日（≥25mm）≥2天、割胶窗受雨≥5天、最高温≥35℃"
+              + ("、未来7日或近30日低于常年P10/高于P90" if has_clim else "") + "；按占本国产量排序。"),
               fontsize=7.5, color=MUTED)
     MAXROWS = 16
-    cols = ["国家", "点位", "区域", "占本国%", "未来7日mm", "近7日估算mm", "IMERG 72h", "关注原因"]
+    cols = ["国家", "点位", "区域", "占本国%", "未来7日mm", "近7日mm" if has_clim else "近7日估算mm", "IMERG 72h", "关注原因"]
     table_rows = [[f["country"].replace("印度尼西亚", "印尼"), f["place"], f["region"],
                    f"{f['share']:.1f}" if f["share"] else "-",
                    f"{f['rain7']:.0f}" if f["rain7"] is not None else "-",
@@ -408,7 +478,7 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
     axT = fig2.add_axes([0.05, 0.93 - th_h, 0.90, th_h])
     axT.axis("off")
     tb = axT.table(cellText=table_rows, colLabels=cols, bbox=[0, 0, 1, 1], cellLoc="center",
-                   colWidths=[0.08, 0.11, 0.12, 0.08, 0.10, 0.11, 0.09, 0.31])
+                   colWidths=[0.06, 0.09, 0.10, 0.07, 0.08, 0.09, 0.08, 0.43])
     tb.auto_set_font_size(False)
     tb.set_fontsize(7.3)
     for (r, c), cell in tb.get_celld().items():
@@ -484,8 +554,10 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
     md += ["## 要点（自动生成）" if commentary else "## 要点", *[f"- {b}" for b in bullets]]
     if phen:
         md += ["", f"季节背景（{month}月一般规律）：{phen}"]
-    md += ["", "## 分区", "| 区域 | 未来7日mm | 近7日估算mm | 割胶窗受雨天 |", "|---|---|---|---|"]
-    md += [f"| {g['group']} | {g['rain7']:.0f} | {'' if g['past7'] is None else format(g['past7'], '.0f')} | {g['tap_days']:.1f} |"
+    def _pct(v):
+        return "" if v is None else f"{v:+.0f}%"
+    md += ["", "## 分区", "| 区域 | 未来7日mm | 较常年 | 近7日mm | 近30日较常年 | 割胶窗受雨天 |", "|---|---|---|---|---|---|"]
+    md += [f"| {g['group']} | {g['rain7']:.0f} | {_pct(g.get('forecast_7d_pct'))} | {'' if g['past7'] is None else format(g['past7'], '.0f')} | {_pct(g.get('past_30d_pct'))} | {g['tap_days']:.1f} |"
            for g in groups]
     md += ["", foot]
     (out_dir / "summary.md").write_text("\n".join(md), encoding="utf-8")

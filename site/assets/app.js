@@ -24,6 +24,21 @@ const COLORS = {
   NORMAL: "#0b675c",
 };
 
+const ANOMALY_LABELS = {
+  BELOW_P10: "显著偏少",
+  BELOW_NORMAL: "偏少",
+  NEAR_NORMAL: "正常",
+  ABOVE_NORMAL: "偏多",
+  ABOVE_P90: "显著偏多",
+};
+
+function anomalyBadge(item) {
+  if (!item || !item.category) return '<span class="anom anom-missing" title="季节基准或数据缺失">MISSING</span>';
+  const pct = hasNumber(item.anomaly_pct) ? `${item.anomaly_pct > 0 ? "+" : ""}${item.anomaly_pct}%` : "";
+  const title = `当前 ${number(item.value_mm)} mm；常年均值 ${number(item.normal_mm)} mm；常年三分位 ${number(item.p33_mm)}–${number(item.p67_mm)} mm`;
+  return `<span class="anom anom-${item.category.toLowerCase().replace(/_/g, "-")}" title="${escapeHtml(title)}">${ANOMALY_LABELS[item.category] || escapeHtml(item.category)}${pct ? ` ${pct}` : ""}</span>`;
+}
+
 const RAIN_CHANGE_ALERT_MM = 25;
 const VERIFICATION_ERROR_ALERT_MM = 25;
 
@@ -657,6 +672,8 @@ function renderRows() {
       <td>${escapeHtml(station.place)}</td>
       <td class="production-weight-cell"><strong>${weight ? formatTons(weight.estimated_production_t) : "MISSING"}</strong><small>${weight ? `${meta.reference_year}年 · ${escapeHtml(weight.production_unit || "干胶吨")} · ${station.country} ${number(weight.share_of_country_pct, 2)}%${hasNumber(weight.share_of_world_pct) ? ` · 全球(${meta.global_share_denominator_year}分母) ${number(weight.share_of_world_pct, 2)}%` : " · 全球口径不可比"}` : "统一口径待核验"}</small></td>
       <td><strong>${number(s.precipitation_7d_mm)} mm</strong></td>
+      <td>${anomalyBadge(station.climate_context?.forecast_7d)}</td>
+      <td><div class="status-stack">${anomalyBadge(station.climate_context?.past_7d)}${anomalyBadge(station.climate_context?.past_30d)}</div></td>
       <td>${number(s.tapping_window_precipitation_7d_mm)} mm / ${s.tapping_window_rain_hours_7d ?? "—"}小时</td>
       <td>${delta}</td>
       <td>${s.rain_days_7d ?? "—"} / 7</td>
@@ -836,9 +853,22 @@ function renderDetail() {
       <div><span>24h预报兑现率</span><strong>${percent(v24.realization_pct)}</strong><small>${escapeHtml(v24.status || "样本尚未形成")}</small></div>
       <div><span>72h预报兑现率</span><strong>${percent(v72.realization_pct)}</strong><small>${escapeHtml(v72.status || "样本尚未形成")}</small></div>
     </div>
+    <div class="climate-context">
+      <h3>与常年同期比（季节基准 ${escapeHtml(baselineLabel())}）</h3>
+      <div class="detail-metrics">${[["forecast_7d", "未来7日"], ["past_7d", "过去7日"], ["past_14d", "过去14日"], ["past_30d", "过去30日"]].map(([key, label]) => {
+        const item = station.climate_context?.[key];
+        return `<div><span>${label}</span><strong>${number(item?.value_mm)} mm</strong><small>常年 ${number(item?.normal_mm)} mm</small><div class="anom-row">${anomalyBadge(item)}</div></div>`;
+      }).join("")}</div>
+    </div>
     <div class="forecast-strip" aria-label="${escapeHtml(station.place)}未来七天逐日预报">${days}</div>
     <p class="detail-source">预报：${escapeHtml(state.data.source?.source_name)}；实况估算：${escapeHtml(state.data.observation_source?.source_name || "当前无法确认最新数据")}。兑现率=实况/验证期前预报，不是准确率。</p>
+    <p class="detail-source">距平：${escapeHtml(state.data.climate_context_definition?.caveat || "季节基准尚未构建，保持MISSING。")}</p>
     <p class="detail-source">产量权重：${weight ? escapeHtml(meta.methodology || state.productionWeights?.methodology || "当前无法确认最新数据") : "当前地点尚无同口径产量权重，保持MISSING。"}</p>`;
+}
+
+function baselineLabel() {
+  const b = state.data?.climate_context_definition?.baseline;
+  return b ? `ERA5 ${b.start_year}–${b.end_year}` : "未构建";
 }
 
 function selectStation(id, reveal = false) {
