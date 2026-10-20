@@ -1,0 +1,9352 @@
+{
+ "schema_version": 1,
+ "dataset_id": "NR_PRECIP_MODEL_BIAS_V1",
+ "data_type": "ESTIMATE",
+ "overlap": {
+  "start_year": 2022,
+  "end_year": 2025
+ },
+ "method": "比例=重叠期内(m-1,m,m+1)三个月 Best Match 预报存档日降雨之和 / ERA5 日降雨之和；ERA5合计<30.0mm时为空（不校正）；截断到[0.5, 2.0]。",
+ "use": "update_weather.py 计算距平时，用窗口中点所在月份的比例乘以ERA5基准（均值与分位数）。",
+ "sources": {
+  "model": {
+   "name": "Open-Meteo Historical Forecast API (Best Match)",
+   "endpoint": "https://historical-forecast-api.open-meteo.com/v1/forecast"
+  },
+  "reference": {
+   "name": "Open-Meteo Historical Weather API (ERA5)",
+   "endpoint": "https://archive-api.open-meteo.com/v1/archive"
+  }
+ },
+ "stations": {
+  "cn_hainan_danzhou": {
+   "latitude": 19.52,
+   "longitude": 109.58,
+   "built_at_utc": "2026-10-20T17:48:55Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.949,
+    1.47,
+    1.305,
+    1.073,
+    1.158,
+    1.16,
+    1.212,
+    1.186,
+    1.119,
+    1.169,
+    1.193,
+    1.908
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 430.6,
+     "era5_mm": 220.9,
+     "days": 361,
+     "raw_ratio": 1.949,
+     "clipped": false
+    },
+    {
+     "model_mm": 421.6,
+     "era5_mm": 286.8,
+     "days": 361,
+     "raw_ratio": 1.47,
+     "clipped": false
+    },
+    {
+     "model_mm": 582.5,
+     "era5_mm": 446.4,
+     "days": 357,
+     "raw_ratio": 1.305,
+     "clipped": false
+    },
+    {
+     "model_mm": 1379.4,
+     "era5_mm": 1285.6,
+     "days": 368,
+     "raw_ratio": 1.073,
+     "clipped": false
+    },
+    {
+     "model_mm": 1974.8,
+     "era5_mm": 1705.0,
+     "days": 364,
+     "raw_ratio": 1.158,
+     "clipped": false
+    },
+    {
+     "model_mm": 2808.6,
+     "era5_mm": 2421.9,
+     "days": 368,
+     "raw_ratio": 1.16,
+     "clipped": false
+    },
+    {
+     "model_mm": 2757.5,
+     "era5_mm": 2274.4,
+     "days": 368,
+     "raw_ratio": 1.212,
+     "clipped": false
+    },
+    {
+     "model_mm": 3320.3,
+     "era5_mm": 2798.6,
+     "days": 368,
+     "raw_ratio": 1.186,
+     "clipped": false
+    },
+    {
+     "model_mm": 3227.1,
+     "era5_mm": 2883.9,
+     "days": 368,
+     "raw_ratio": 1.119,
+     "clipped": false
+    },
+    {
+     "model_mm": 2705.5,
+     "era5_mm": 2314.4,
+     "days": 364,
+     "raw_ratio": 1.169,
+     "clipped": false
+    },
+    {
+     "model_mm": 1556.3,
+     "era5_mm": 1304.9,
+     "days": 368,
+     "raw_ratio": 1.193,
+     "clipped": false
+    },
+    {
+     "model_mm": 654.8,
+     "era5_mm": 343.1,
+     "days": 368,
+     "raw_ratio": 1.908,
+     "clipped": false
+    }
+   ]
+  },
+  "cn_hainan_qiongzhong": {
+   "latitude": 19.04,
+   "longitude": 109.84,
+   "built_at_utc": "2026-10-20T17:48:55Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.375,
+    1.167,
+    0.982,
+    0.904,
+    0.974,
+    0.978,
+    0.938,
+    0.941,
+    0.943,
+    0.996,
+    0.999,
+    1.179
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 615.5,
+     "era5_mm": 447.6,
+     "days": 361,
+     "raw_ratio": 1.375,
+     "clipped": false
+    },
+    {
+     "model_mm": 584.5,
+     "era5_mm": 500.8,
+     "days": 361,
+     "raw_ratio": 1.167,
+     "clipped": false
+    },
+    {
+     "model_mm": 635.0,
+     "era5_mm": 646.4,
+     "days": 357,
+     "raw_ratio": 0.982,
+     "clipped": false
+    },
+    {
+     "model_mm": 1412.0,
+     "era5_mm": 1561.4,
+     "days": 368,
+     "raw_ratio": 0.904,
+     "clipped": false
+    },
+    {
+     "model_mm": 1838.1,
+     "era5_mm": 1886.4,
+     "days": 364,
+     "raw_ratio": 0.974,
+     "clipped": false
+    },
+    {
+     "model_mm": 2411.1,
+     "era5_mm": 2466.1,
+     "days": 368,
+     "raw_ratio": 0.978,
+     "clipped": false
+    },
+    {
+     "model_mm": 2301.3,
+     "era5_mm": 2454.4,
+     "days": 368,
+     "raw_ratio": 0.938,
+     "clipped": false
+    },
+    {
+     "model_mm": 2938.0,
+     "era5_mm": 3121.1,
+     "days": 368,
+     "raw_ratio": 0.941,
+     "clipped": false
+    },
+    {
+     "model_mm": 3582.7,
+     "era5_mm": 3797.7,
+     "days": 368,
+     "raw_ratio": 0.943,
+     "clipped": false
+    },
+    {
+     "model_mm": 3174.2,
+     "era5_mm": 3188.5,
+     "days": 364,
+     "raw_ratio": 0.996,
+     "clipped": false
+    },
+    {
+     "model_mm": 2142.4,
+     "era5_mm": 2143.6,
+     "days": 368,
+     "raw_ratio": 0.999,
+     "clipped": false
+    },
+    {
+     "model_mm": 874.2,
+     "era5_mm": 741.7,
+     "days": 368,
+     "raw_ratio": 1.179,
+     "clipped": false
+    }
+   ]
+  },
+  "cn_hainan_wanning": {
+   "latitude": 18.8,
+   "longitude": 110.39,
+   "built_at_utc": "2026-10-20T17:48:55Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.576,
+    1.419,
+    1.234,
+    1.115,
+    1.19,
+    1.204,
+    1.188,
+    1.164,
+    1.123,
+    1.176,
+    1.176,
+    1.45
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 567.8,
+     "era5_mm": 360.3,
+     "days": 361,
+     "raw_ratio": 1.576,
+     "clipped": false
+    },
+    {
+     "model_mm": 600.5,
+     "era5_mm": 423.3,
+     "days": 361,
+     "raw_ratio": 1.419,
+     "clipped": false
+    },
+    {
+     "model_mm": 674.0,
+     "era5_mm": 546.1,
+     "days": 357,
+     "raw_ratio": 1.234,
+     "clipped": false
+    },
+    {
+     "model_mm": 1468.8,
+     "era5_mm": 1317.4,
+     "days": 368,
+     "raw_ratio": 1.115,
+     "clipped": false
+    },
+    {
+     "model_mm": 2031.7,
+     "era5_mm": 1707.4,
+     "days": 364,
+     "raw_ratio": 1.19,
+     "clipped": false
+    },
+    {
+     "model_mm": 2831.4,
+     "era5_mm": 2352.3,
+     "days": 368,
+     "raw_ratio": 1.204,
+     "clipped": false
+    },
+    {
+     "model_mm": 2772.5,
+     "era5_mm": 2333.8,
+     "days": 368,
+     "raw_ratio": 1.188,
+     "clipped": false
+    },
+    {
+     "model_mm": 3345.2,
+     "era5_mm": 2874.2,
+     "days": 368,
+     "raw_ratio": 1.164,
+     "clipped": false
+    },
+    {
+     "model_mm": 4329.5,
+     "era5_mm": 3855.1,
+     "days": 368,
+     "raw_ratio": 1.123,
+     "clipped": false
+    },
+    {
+     "model_mm": 4079.5,
+     "era5_mm": 3468.6,
+     "days": 364,
+     "raw_ratio": 1.176,
+     "clipped": false
+    },
+    {
+     "model_mm": 2911.2,
+     "era5_mm": 2475.2,
+     "days": 368,
+     "raw_ratio": 1.176,
+     "clipped": false
+    },
+    {
+     "model_mm": 1053.7,
+     "era5_mm": 726.6,
+     "days": 368,
+     "raw_ratio": 1.45,
+     "clipped": false
+    }
+   ]
+  },
+  "cn_hainan_baisha": {
+   "latitude": 19.23,
+   "longitude": 109.45,
+   "built_at_utc": "2026-10-20T17:48:55Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.617,
+    1.228,
+    0.942,
+    0.842,
+    0.907,
+    0.945,
+    0.988,
+    0.98,
+    0.946,
+    0.995,
+    1.031,
+    1.507
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 535.4,
+     "era5_mm": 331.2,
+     "days": 361,
+     "raw_ratio": 1.617,
+     "clipped": false
+    },
+    {
+     "model_mm": 527.3,
+     "era5_mm": 429.4,
+     "days": 361,
+     "raw_ratio": 1.228,
+     "clipped": false
+    },
+    {
+     "model_mm": 591.8,
+     "era5_mm": 628.2,
+     "days": 357,
+     "raw_ratio": 0.942,
+     "clipped": false
+    },
+    {
+     "model_mm": 1426.8,
+     "era5_mm": 1695.4,
+     "days": 368,
+     "raw_ratio": 0.842,
+     "clipped": false
+    },
+    {
+     "model_mm": 1906.2,
+     "era5_mm": 2100.9,
+     "days": 364,
+     "raw_ratio": 0.907,
+     "clipped": false
+    },
+    {
+     "model_mm": 2653.3,
+     "era5_mm": 2808.0,
+     "days": 368,
+     "raw_ratio": 0.945,
+     "clipped": false
+    },
+    {
+     "model_mm": 2499.8,
+     "era5_mm": 2530.0,
+     "days": 368,
+     "raw_ratio": 0.988,
+     "clipped": false
+    },
+    {
+     "model_mm": 3147.1,
+     "era5_mm": 3210.3,
+     "days": 368,
+     "raw_ratio": 0.98,
+     "clipped": false
+    },
+    {
+     "model_mm": 3216.8,
+     "era5_mm": 3401.5,
+     "days": 368,
+     "raw_ratio": 0.946,
+     "clipped": false
+    },
+    {
+     "model_mm": 2790.4,
+     "era5_mm": 2805.8,
+     "days": 364,
+     "raw_ratio": 0.995,
+     "clipped": false
+    },
+    {
+     "model_mm": 1671.8,
+     "era5_mm": 1621.8,
+     "days": 368,
+     "raw_ratio": 1.031,
+     "clipped": false
+    },
+    {
+     "model_mm": 790.5,
+     "era5_mm": 524.7,
+     "days": 368,
+     "raw_ratio": 1.507,
+     "clipped": false
+    }
+   ]
+  },
+  "cn_yunnan_jinghong": {
+   "latitude": 22.0,
+   "longitude": 100.8,
+   "built_at_utc": "2026-10-20T17:49:26Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.108,
+    1.22,
+    1.233,
+    1.022,
+    0.993,
+    1.014,
+    1.068,
+    1.187,
+    1.318,
+    1.537,
+    1.563,
+    1.348
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 402.5,
+     "era5_mm": 363.4,
+     "days": 361,
+     "raw_ratio": 1.108,
+     "clipped": false
+    },
+    {
+     "model_mm": 383.6,
+     "era5_mm": 314.5,
+     "days": 361,
+     "raw_ratio": 1.22,
+     "clipped": false
+    },
+    {
+     "model_mm": 490.0,
+     "era5_mm": 397.3,
+     "days": 357,
+     "raw_ratio": 1.233,
+     "clipped": false
+    },
+    {
+     "model_mm": 1272.8,
+     "era5_mm": 1246.0,
+     "days": 368,
+     "raw_ratio": 1.022,
+     "clipped": false
+    },
+    {
+     "model_mm": 2442.1,
+     "era5_mm": 2459.3,
+     "days": 364,
+     "raw_ratio": 0.993,
+     "clipped": false
+    },
+    {
+     "model_mm": 3615.0,
+     "era5_mm": 3563.8,
+     "days": 368,
+     "raw_ratio": 1.014,
+     "clipped": false
+    },
+    {
+     "model_mm": 4259.7,
+     "era5_mm": 3987.8,
+     "days": 368,
+     "raw_ratio": 1.068,
+     "clipped": false
+    },
+    {
+     "model_mm": 4242.7,
+     "era5_mm": 3574.3,
+     "days": 368,
+     "raw_ratio": 1.187,
+     "clipped": false
+    },
+    {
+     "model_mm": 3593.3,
+     "era5_mm": 2726.7,
+     "days": 368,
+     "raw_ratio": 1.318,
+     "clipped": false
+    },
+    {
+     "model_mm": 2381.6,
+     "era5_mm": 1549.3,
+     "days": 364,
+     "raw_ratio": 1.537,
+     "clipped": false
+    },
+    {
+     "model_mm": 1248.2,
+     "era5_mm": 798.4,
+     "days": 368,
+     "raw_ratio": 1.563,
+     "clipped": false
+    },
+    {
+     "model_mm": 618.3,
+     "era5_mm": 458.7,
+     "days": 368,
+     "raw_ratio": 1.348,
+     "clipped": false
+    }
+   ]
+  },
+  "cn_yunnan_mengla": {
+   "latitude": 21.47,
+   "longitude": 101.56,
+   "built_at_utc": "2026-10-20T17:49:26Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    2.0,
+    2.0,
+    1.604,
+    1.469,
+    1.386,
+    1.291,
+    1.222,
+    1.172,
+    1.205,
+    1.209,
+    1.531,
+    1.938
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 636.1,
+     "era5_mm": 259.2,
+     "days": 361,
+     "raw_ratio": 2.454,
+     "clipped": true
+    },
+    {
+     "model_mm": 574.2,
+     "era5_mm": 285.5,
+     "days": 361,
+     "raw_ratio": 2.011,
+     "clipped": true
+    },
+    {
+     "model_mm": 620.0,
+     "era5_mm": 386.6,
+     "days": 357,
+     "raw_ratio": 1.604,
+     "clipped": false
+    },
+    {
+     "model_mm": 1545.5,
+     "era5_mm": 1052.0,
+     "days": 368,
+     "raw_ratio": 1.469,
+     "clipped": false
+    },
+    {
+     "model_mm": 2784.5,
+     "era5_mm": 2009.2,
+     "days": 364,
+     "raw_ratio": 1.386,
+     "clipped": false
+    },
+    {
+     "model_mm": 3850.3,
+     "era5_mm": 2983.4,
+     "days": 368,
+     "raw_ratio": 1.291,
+     "clipped": false
+    },
+    {
+     "model_mm": 4504.2,
+     "era5_mm": 3684.9,
+     "days": 368,
+     "raw_ratio": 1.222,
+     "clipped": false
+    },
+    {
+     "model_mm": 4103.5,
+     "era5_mm": 3500.5,
+     "days": 368,
+     "raw_ratio": 1.172,
+     "clipped": false
+    },
+    {
+     "model_mm": 3202.8,
+     "era5_mm": 2657.2,
+     "days": 368,
+     "raw_ratio": 1.205,
+     "clipped": false
+    },
+    {
+     "model_mm": 1676.3,
+     "era5_mm": 1386.7,
+     "days": 364,
+     "raw_ratio": 1.209,
+     "clipped": false
+    },
+    {
+     "model_mm": 899.9,
+     "era5_mm": 587.6,
+     "days": 368,
+     "raw_ratio": 1.531,
+     "clipped": false
+    },
+    {
+     "model_mm": 689.0,
+     "era5_mm": 355.6,
+     "days": 368,
+     "raw_ratio": 1.938,
+     "clipped": false
+    }
+   ]
+  },
+  "cn_yunnan_puer": {
+   "latitude": 22.83,
+   "longitude": 100.97,
+   "built_at_utc": "2026-10-20T17:49:26Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.354,
+    1.235,
+    1.335,
+    1.196,
+    1.128,
+    1.088,
+    1.062,
+    1.03,
+    1.032,
+    1.037,
+    1.179,
+    1.249
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 460.7,
+     "era5_mm": 340.3,
+     "days": 361,
+     "raw_ratio": 1.354,
+     "clipped": false
+    },
+    {
+     "model_mm": 395.4,
+     "era5_mm": 320.1,
+     "days": 361,
+     "raw_ratio": 1.235,
+     "clipped": false
+    },
+    {
+     "model_mm": 431.8,
+     "era5_mm": 323.5,
+     "days": 357,
+     "raw_ratio": 1.335,
+     "clipped": false
+    },
+    {
+     "model_mm": 1124.3,
+     "era5_mm": 939.7,
+     "days": 368,
+     "raw_ratio": 1.196,
+     "clipped": false
+    },
+    {
+     "model_mm": 2494.8,
+     "era5_mm": 2210.9,
+     "days": 364,
+     "raw_ratio": 1.128,
+     "clipped": false
+    },
+    {
+     "model_mm": 3769.3,
+     "era5_mm": 3463.0,
+     "days": 368,
+     "raw_ratio": 1.088,
+     "clipped": false
+    },
+    {
+     "model_mm": 4494.0,
+     "era5_mm": 4232.3,
+     "days": 368,
+     "raw_ratio": 1.062,
+     "clipped": false
+    },
+    {
+     "model_mm": 3994.8,
+     "era5_mm": 3877.3,
+     "days": 368,
+     "raw_ratio": 1.03,
+     "clipped": false
+    },
+    {
+     "model_mm": 3095.6,
+     "era5_mm": 3000.4,
+     "days": 368,
+     "raw_ratio": 1.032,
+     "clipped": false
+    },
+    {
+     "model_mm": 1828.8,
+     "era5_mm": 1763.7,
+     "days": 364,
+     "raw_ratio": 1.037,
+     "clipped": false
+    },
+    {
+     "model_mm": 1022.8,
+     "era5_mm": 867.7,
+     "days": 368,
+     "raw_ratio": 1.179,
+     "clipped": false
+    },
+    {
+     "model_mm": 611.1,
+     "era5_mm": 489.1,
+     "days": 368,
+     "raw_ratio": 1.249,
+     "clipped": false
+    }
+   ]
+  },
+  "id_sumatra_medan": {
+   "latitude": 3.59,
+   "longitude": 98.67,
+   "built_at_utc": "2026-10-20T17:49:26Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.44,
+    1.447,
+    1.342,
+    1.226,
+    1.151,
+    1.208,
+    1.345,
+    1.476,
+    1.428,
+    1.373,
+    1.359,
+    1.382
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 4780.5,
+     "era5_mm": 3319.5,
+     "days": 361,
+     "raw_ratio": 1.44,
+     "clipped": false
+    },
+    {
+     "model_mm": 3952.0,
+     "era5_mm": 2730.8,
+     "days": 361,
+     "raw_ratio": 1.447,
+     "clipped": false
+    },
+    {
+     "model_mm": 3790.8,
+     "era5_mm": 2824.4,
+     "days": 357,
+     "raw_ratio": 1.342,
+     "clipped": false
+    },
+    {
+     "model_mm": 4109.6,
+     "era5_mm": 3353.4,
+     "days": 368,
+     "raw_ratio": 1.226,
+     "clipped": false
+    },
+    {
+     "model_mm": 4100.1,
+     "era5_mm": 3561.9,
+     "days": 364,
+     "raw_ratio": 1.151,
+     "clipped": false
+    },
+    {
+     "model_mm": 3757.9,
+     "era5_mm": 3110.5,
+     "days": 368,
+     "raw_ratio": 1.208,
+     "clipped": false
+    },
+    {
+     "model_mm": 3961.4,
+     "era5_mm": 2945.5,
+     "days": 368,
+     "raw_ratio": 1.345,
+     "clipped": false
+    },
+    {
+     "model_mm": 4317.9,
+     "era5_mm": 2926.2,
+     "days": 368,
+     "raw_ratio": 1.476,
+     "clipped": false
+    },
+    {
+     "model_mm": 5336.2,
+     "era5_mm": 3736.7,
+     "days": 368,
+     "raw_ratio": 1.428,
+     "clipped": false
+    },
+    {
+     "model_mm": 6146.3,
+     "era5_mm": 4476.4,
+     "days": 364,
+     "raw_ratio": 1.373,
+     "clipped": false
+    },
+    {
+     "model_mm": 6627.8,
+     "era5_mm": 4875.9,
+     "days": 368,
+     "raw_ratio": 1.359,
+     "clipped": false
+    },
+    {
+     "model_mm": 6112.9,
+     "era5_mm": 4423.2,
+     "days": 368,
+     "raw_ratio": 1.382,
+     "clipped": false
+    }
+   ]
+  },
+  "id_sumatra_pekanbaru": {
+   "latitude": 0.51,
+   "longitude": 101.45,
+   "built_at_utc": "2026-10-20T17:49:57Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.192,
+    1.15,
+    1.229,
+    1.318,
+    1.354,
+    1.3,
+    1.182,
+    1.19,
+    1.239,
+    1.201,
+    1.225,
+    1.175
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 3706.2,
+     "era5_mm": 3109.1,
+     "days": 361,
+     "raw_ratio": 1.192,
+     "clipped": false
+    },
+    {
+     "model_mm": 3389.6,
+     "era5_mm": 2947.9,
+     "days": 361,
+     "raw_ratio": 1.15,
+     "clipped": false
+    },
+    {
+     "model_mm": 3499.2,
+     "era5_mm": 2847.2,
+     "days": 357,
+     "raw_ratio": 1.229,
+     "clipped": false
+    },
+    {
+     "model_mm": 3404.0,
+     "era5_mm": 2582.9,
+     "days": 368,
+     "raw_ratio": 1.318,
+     "clipped": false
+    },
+    {
+     "model_mm": 2951.1,
+     "era5_mm": 2180.0,
+     "days": 364,
+     "raw_ratio": 1.354,
+     "clipped": false
+    },
+    {
+     "model_mm": 2090.7,
+     "era5_mm": 1608.5,
+     "days": 368,
+     "raw_ratio": 1.3,
+     "clipped": false
+    },
+    {
+     "model_mm": 2253.4,
+     "era5_mm": 1907.1,
+     "days": 368,
+     "raw_ratio": 1.182,
+     "clipped": false
+    },
+    {
+     "model_mm": 2342.0,
+     "era5_mm": 1967.3,
+     "days": 368,
+     "raw_ratio": 1.19,
+     "clipped": false
+    },
+    {
+     "model_mm": 2900.5,
+     "era5_mm": 2341.5,
+     "days": 368,
+     "raw_ratio": 1.239,
+     "clipped": false
+    },
+    {
+     "model_mm": 3154.5,
+     "era5_mm": 2626.9,
+     "days": 364,
+     "raw_ratio": 1.201,
+     "clipped": false
+    },
+    {
+     "model_mm": 3835.4,
+     "era5_mm": 3130.8,
+     "days": 368,
+     "raw_ratio": 1.225,
+     "clipped": false
+    },
+    {
+     "model_mm": 4027.7,
+     "era5_mm": 3428.8,
+     "days": 368,
+     "raw_ratio": 1.175,
+     "clipped": false
+    }
+   ]
+  },
+  "id_sumatra_jambi": {
+   "latitude": -1.61,
+   "longitude": 103.61,
+   "built_at_utc": "2026-10-20T17:49:57Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.113,
+    1.053,
+    1.043,
+    1.116,
+    1.241,
+    1.389,
+    1.396,
+    1.392,
+    1.334,
+    1.146,
+    1.092,
+    1.062
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 3319.4,
+     "era5_mm": 2981.4,
+     "days": 361,
+     "raw_ratio": 1.113,
+     "clipped": false
+    },
+    {
+     "model_mm": 3202.5,
+     "era5_mm": 3041.0,
+     "days": 361,
+     "raw_ratio": 1.053,
+     "clipped": false
+    },
+    {
+     "model_mm": 3284.7,
+     "era5_mm": 3149.2,
+     "days": 357,
+     "raw_ratio": 1.043,
+     "clipped": false
+    },
+    {
+     "model_mm": 3524.1,
+     "era5_mm": 3157.1,
+     "days": 368,
+     "raw_ratio": 1.116,
+     "clipped": false
+    },
+    {
+     "model_mm": 3289.2,
+     "era5_mm": 2649.9,
+     "days": 364,
+     "raw_ratio": 1.241,
+     "clipped": false
+    },
+    {
+     "model_mm": 2541.2,
+     "era5_mm": 1830.1,
+     "days": 368,
+     "raw_ratio": 1.389,
+     "clipped": false
+    },
+    {
+     "model_mm": 2290.2,
+     "era5_mm": 1640.6,
+     "days": 368,
+     "raw_ratio": 1.396,
+     "clipped": false
+    },
+    {
+     "model_mm": 2297.9,
+     "era5_mm": 1650.4,
+     "days": 368,
+     "raw_ratio": 1.392,
+     "clipped": false
+    },
+    {
+     "model_mm": 2652.5,
+     "era5_mm": 1988.1,
+     "days": 368,
+     "raw_ratio": 1.334,
+     "clipped": false
+    },
+    {
+     "model_mm": 2833.7,
+     "era5_mm": 2473.4,
+     "days": 364,
+     "raw_ratio": 1.146,
+     "clipped": false
+    },
+    {
+     "model_mm": 3177.8,
+     "era5_mm": 2911.2,
+     "days": 368,
+     "raw_ratio": 1.092,
+     "clipped": false
+    },
+    {
+     "model_mm": 3489.0,
+     "era5_mm": 3285.1,
+     "days": 368,
+     "raw_ratio": 1.062,
+     "clipped": false
+    }
+   ]
+  },
+  "id_sumatra_palembang": {
+   "latitude": -2.99,
+   "longitude": 104.76,
+   "built_at_utc": "2026-10-20T17:49:57Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.282,
+    1.211,
+    1.181,
+    1.198,
+    1.223,
+    1.245,
+    1.235,
+    1.166,
+    1.178,
+    1.186,
+    1.28,
+    1.293
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 4089.5,
+     "era5_mm": 3190.5,
+     "days": 361,
+     "raw_ratio": 1.282,
+     "clipped": false
+    },
+    {
+     "model_mm": 3852.8,
+     "era5_mm": 3180.2,
+     "days": 361,
+     "raw_ratio": 1.211,
+     "clipped": false
+    },
+    {
+     "model_mm": 3848.0,
+     "era5_mm": 3257.7,
+     "days": 357,
+     "raw_ratio": 1.181,
+     "clipped": false
+    },
+    {
+     "model_mm": 3529.8,
+     "era5_mm": 2946.6,
+     "days": 368,
+     "raw_ratio": 1.198,
+     "clipped": false
+    },
+    {
+     "model_mm": 3057.5,
+     "era5_mm": 2499.8,
+     "days": 364,
+     "raw_ratio": 1.223,
+     "clipped": false
+    },
+    {
+     "model_mm": 2208.7,
+     "era5_mm": 1774.2,
+     "days": 368,
+     "raw_ratio": 1.245,
+     "clipped": false
+    },
+    {
+     "model_mm": 1836.5,
+     "era5_mm": 1487.2,
+     "days": 368,
+     "raw_ratio": 1.235,
+     "clipped": false
+    },
+    {
+     "model_mm": 1704.0,
+     "era5_mm": 1461.8,
+     "days": 368,
+     "raw_ratio": 1.166,
+     "clipped": false
+    },
+    {
+     "model_mm": 2094.0,
+     "era5_mm": 1778.2,
+     "days": 368,
+     "raw_ratio": 1.178,
+     "clipped": false
+    },
+    {
+     "model_mm": 2810.7,
+     "era5_mm": 2370.1,
+     "days": 364,
+     "raw_ratio": 1.186,
+     "clipped": false
+    },
+    {
+     "model_mm": 3652.2,
+     "era5_mm": 2852.6,
+     "days": 368,
+     "raw_ratio": 1.28,
+     "clipped": false
+    },
+    {
+     "model_mm": 4115.8,
+     "era5_mm": 3184.3,
+     "days": 368,
+     "raw_ratio": 1.293,
+     "clipped": false
+    }
+   ]
+  },
+  "id_sumatra_lampung": {
+   "latitude": -5.43,
+   "longitude": 105.26,
+   "built_at_utc": "2026-10-20T17:49:57Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    0.906,
+    0.934,
+    0.839,
+    0.887,
+    0.875,
+    0.978,
+    0.875,
+    0.755,
+    0.698,
+    0.794,
+    0.869,
+    0.934
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 3354.8,
+     "era5_mm": 3701.6,
+     "days": 361,
+     "raw_ratio": 0.906,
+     "clipped": false
+    },
+    {
+     "model_mm": 3378.1,
+     "era5_mm": 3618.7,
+     "days": 361,
+     "raw_ratio": 0.934,
+     "clipped": false
+    },
+    {
+     "model_mm": 2951.9,
+     "era5_mm": 3518.2,
+     "days": 357,
+     "raw_ratio": 0.839,
+     "clipped": false
+    },
+    {
+     "model_mm": 2736.8,
+     "era5_mm": 3087.0,
+     "days": 368,
+     "raw_ratio": 0.887,
+     "clipped": false
+    },
+    {
+     "model_mm": 2370.9,
+     "era5_mm": 2710.3,
+     "days": 364,
+     "raw_ratio": 0.875,
+     "clipped": false
+    },
+    {
+     "model_mm": 2142.9,
+     "era5_mm": 2192.1,
+     "days": 368,
+     "raw_ratio": 0.978,
+     "clipped": false
+    },
+    {
+     "model_mm": 1793.5,
+     "era5_mm": 2050.3,
+     "days": 368,
+     "raw_ratio": 0.875,
+     "clipped": false
+    },
+    {
+     "model_mm": 1505.3,
+     "era5_mm": 1994.8,
+     "days": 368,
+     "raw_ratio": 0.755,
+     "clipped": false
+    },
+    {
+     "model_mm": 1405.8,
+     "era5_mm": 2015.1,
+     "days": 368,
+     "raw_ratio": 0.698,
+     "clipped": false
+    },
+    {
+     "model_mm": 1956.8,
+     "era5_mm": 2463.5,
+     "days": 364,
+     "raw_ratio": 0.794,
+     "clipped": false
+    },
+    {
+     "model_mm": 2587.6,
+     "era5_mm": 2978.6,
+     "days": 368,
+     "raw_ratio": 0.869,
+     "clipped": false
+    },
+    {
+     "model_mm": 3341.3,
+     "era5_mm": 3577.0,
+     "days": 368,
+     "raw_ratio": 0.934,
+     "clipped": false
+    }
+   ]
+  },
+  "id_kalimantan_pontianak": {
+   "latitude": -0.03,
+   "longitude": 109.34,
+   "built_at_utc": "2026-10-20T17:50:29Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.188,
+    1.31,
+    1.374,
+    1.436,
+    1.458,
+    1.441,
+    1.341,
+    1.324,
+    1.286,
+    1.192,
+    1.106,
+    1.11
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 3772.3,
+     "era5_mm": 3175.3,
+     "days": 361,
+     "raw_ratio": 1.188,
+     "clipped": false
+    },
+    {
+     "model_mm": 3767.5,
+     "era5_mm": 2875.7,
+     "days": 361,
+     "raw_ratio": 1.31,
+     "clipped": false
+    },
+    {
+     "model_mm": 3704.8,
+     "era5_mm": 2696.4,
+     "days": 357,
+     "raw_ratio": 1.374,
+     "clipped": false
+    },
+    {
+     "model_mm": 3806.7,
+     "era5_mm": 2651.2,
+     "days": 368,
+     "raw_ratio": 1.436,
+     "clipped": false
+    },
+    {
+     "model_mm": 3615.4,
+     "era5_mm": 2479.2,
+     "days": 364,
+     "raw_ratio": 1.458,
+     "clipped": false
+    },
+    {
+     "model_mm": 2997.8,
+     "era5_mm": 2081.0,
+     "days": 368,
+     "raw_ratio": 1.441,
+     "clipped": false
+    },
+    {
+     "model_mm": 3031.6,
+     "era5_mm": 2261.4,
+     "days": 368,
+     "raw_ratio": 1.341,
+     "clipped": false
+    },
+    {
+     "model_mm": 2982.2,
+     "era5_mm": 2251.7,
+     "days": 368,
+     "raw_ratio": 1.324,
+     "clipped": false
+    },
+    {
+     "model_mm": 3712.1,
+     "era5_mm": 2886.6,
+     "days": 368,
+     "raw_ratio": 1.286,
+     "clipped": false
+    },
+    {
+     "model_mm": 3979.6,
+     "era5_mm": 3338.4,
+     "days": 364,
+     "raw_ratio": 1.192,
+     "clipped": false
+    },
+    {
+     "model_mm": 4225.1,
+     "era5_mm": 3819.7,
+     "days": 368,
+     "raw_ratio": 1.106,
+     "clipped": false
+    },
+    {
+     "model_mm": 4175.5,
+     "era5_mm": 3762.3,
+     "days": 368,
+     "raw_ratio": 1.11,
+     "clipped": false
+    }
+   ]
+  },
+  "vn_southeast_binh_phuoc": {
+   "latitude": 11.53,
+   "longitude": 106.89,
+   "built_at_utc": "2026-10-20T17:50:29Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.076,
+    0.997,
+    1.072,
+    1.163,
+    1.148,
+    1.092,
+    1.131,
+    1.178,
+    1.329,
+    1.342,
+    1.408,
+    1.265
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 430.1,
+     "era5_mm": 399.8,
+     "days": 361,
+     "raw_ratio": 1.076,
+     "clipped": false
+    },
+    {
+     "model_mm": 344.4,
+     "era5_mm": 345.3,
+     "days": 361,
+     "raw_ratio": 0.997,
+     "clipped": false
+    },
+    {
+     "model_mm": 605.3,
+     "era5_mm": 564.5,
+     "days": 357,
+     "raw_ratio": 1.072,
+     "clipped": false
+    },
+    {
+     "model_mm": 1755.8,
+     "era5_mm": 1509.2,
+     "days": 368,
+     "raw_ratio": 1.163,
+     "clipped": false
+    },
+    {
+     "model_mm": 3137.3,
+     "era5_mm": 2732.3,
+     "days": 364,
+     "raw_ratio": 1.148,
+     "clipped": false
+    },
+    {
+     "model_mm": 4914.5,
+     "era5_mm": 4498.5,
+     "days": 368,
+     "raw_ratio": 1.092,
+     "clipped": false
+    },
+    {
+     "model_mm": 5512.9,
+     "era5_mm": 4874.8,
+     "days": 368,
+     "raw_ratio": 1.131,
+     "clipped": false
+    },
+    {
+     "model_mm": 6351.4,
+     "era5_mm": 5390.0,
+     "days": 368,
+     "raw_ratio": 1.178,
+     "clipped": false
+    },
+    {
+     "model_mm": 5904.3,
+     "era5_mm": 4444.1,
+     "days": 368,
+     "raw_ratio": 1.329,
+     "clipped": false
+    },
+    {
+     "model_mm": 4858.1,
+     "era5_mm": 3618.7,
+     "days": 364,
+     "raw_ratio": 1.342,
+     "clipped": false
+    },
+    {
+     "model_mm": 2723.8,
+     "era5_mm": 1934.9,
+     "days": 368,
+     "raw_ratio": 1.408,
+     "clipped": false
+    },
+    {
+     "model_mm": 1132.8,
+     "era5_mm": 895.4,
+     "days": 368,
+     "raw_ratio": 1.265,
+     "clipped": false
+    }
+   ]
+  },
+  "vn_southeast_tay_ninh": {
+   "latitude": 11.31,
+   "longitude": 106.1,
+   "built_at_utc": "2026-10-20T17:50:29Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.124,
+    1.497,
+    1.665,
+    1.408,
+    1.387,
+    1.349,
+    1.458,
+    1.49,
+    1.571,
+    1.466,
+    1.387,
+    1.137
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 349.1,
+     "era5_mm": 310.7,
+     "days": 361,
+     "raw_ratio": 1.124,
+     "clipped": false
+    },
+    {
+     "model_mm": 389.6,
+     "era5_mm": 260.2,
+     "days": 361,
+     "raw_ratio": 1.497,
+     "clipped": false
+    },
+    {
+     "model_mm": 726.8,
+     "era5_mm": 436.5,
+     "days": 357,
+     "raw_ratio": 1.665,
+     "clipped": false
+    },
+    {
+     "model_mm": 1778.5,
+     "era5_mm": 1262.9,
+     "days": 368,
+     "raw_ratio": 1.408,
+     "clipped": false
+    },
+    {
+     "model_mm": 2774.7,
+     "era5_mm": 2000.9,
+     "days": 364,
+     "raw_ratio": 1.387,
+     "clipped": false
+    },
+    {
+     "model_mm": 3962.5,
+     "era5_mm": 2937.4,
+     "days": 368,
+     "raw_ratio": 1.349,
+     "clipped": false
+    },
+    {
+     "model_mm": 4258.4,
+     "era5_mm": 2920.3,
+     "days": 368,
+     "raw_ratio": 1.458,
+     "clipped": false
+    },
+    {
+     "model_mm": 4912.5,
+     "era5_mm": 3296.2,
+     "days": 368,
+     "raw_ratio": 1.49,
+     "clipped": false
+    },
+    {
+     "model_mm": 4792.1,
+     "era5_mm": 3051.0,
+     "days": 368,
+     "raw_ratio": 1.571,
+     "clipped": false
+    },
+    {
+     "model_mm": 4010.1,
+     "era5_mm": 2735.6,
+     "days": 364,
+     "raw_ratio": 1.466,
+     "clipped": false
+    },
+    {
+     "model_mm": 2319.3,
+     "era5_mm": 1672.2,
+     "days": 368,
+     "raw_ratio": 1.387,
+     "clipped": false
+    },
+    {
+     "model_mm": 914.7,
+     "era5_mm": 804.6,
+     "days": 368,
+     "raw_ratio": 1.137,
+     "clipped": false
+    }
+   ]
+  },
+  "vn_central_highlands_pleiku": {
+   "latitude": 13.98,
+   "longitude": 108.0,
+   "built_at_utc": "2026-10-20T17:50:29Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    0.5,
+    0.887,
+    0.794,
+    0.65,
+    0.674,
+    0.721,
+    0.773,
+    0.775,
+    0.795,
+    0.815,
+    0.827,
+    0.746
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 110.2,
+     "era5_mm": 241.5,
+     "days": 361,
+     "raw_ratio": 0.456,
+     "clipped": true
+    },
+    {
+     "model_mm": 235.9,
+     "era5_mm": 265.9,
+     "days": 361,
+     "raw_ratio": 0.887,
+     "clipped": false
+    },
+    {
+     "model_mm": 404.5,
+     "era5_mm": 509.5,
+     "days": 357,
+     "raw_ratio": 0.794,
+     "clipped": false
+    },
+    {
+     "model_mm": 1087.7,
+     "era5_mm": 1672.3,
+     "days": 368,
+     "raw_ratio": 0.65,
+     "clipped": false
+    },
+    {
+     "model_mm": 1817.2,
+     "era5_mm": 2695.8,
+     "days": 364,
+     "raw_ratio": 0.674,
+     "clipped": false
+    },
+    {
+     "model_mm": 3027.3,
+     "era5_mm": 4196.8,
+     "days": 368,
+     "raw_ratio": 0.721,
+     "clipped": false
+    },
+    {
+     "model_mm": 3309.1,
+     "era5_mm": 4279.0,
+     "days": 368,
+     "raw_ratio": 0.773,
+     "clipped": false
+    },
+    {
+     "model_mm": 3821.3,
+     "era5_mm": 4932.3,
+     "days": 368,
+     "raw_ratio": 0.775,
+     "clipped": false
+    },
+    {
+     "model_mm": 3337.6,
+     "era5_mm": 4200.7,
+     "days": 368,
+     "raw_ratio": 0.795,
+     "clipped": false
+    },
+    {
+     "model_mm": 2795.0,
+     "era5_mm": 3427.7,
+     "days": 364,
+     "raw_ratio": 0.815,
+     "clipped": false
+    },
+    {
+     "model_mm": 1427.6,
+     "era5_mm": 1726.5,
+     "days": 368,
+     "raw_ratio": 0.827,
+     "clipped": false
+    },
+    {
+     "model_mm": 532.6,
+     "era5_mm": 713.5,
+     "days": 368,
+     "raw_ratio": 0.746,
+     "clipped": false
+    }
+   ]
+  },
+  "vn_central_highlands_buon_ma_thuot": {
+   "latitude": 12.68,
+   "longitude": 108.05,
+   "built_at_utc": "2026-10-20T17:51:00Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    0.782,
+    1.436,
+    2.0,
+    1.94,
+    1.89,
+    1.782,
+    1.764,
+    1.698,
+    1.611,
+    1.547,
+    1.349,
+    1.263
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 183.8,
+     "era5_mm": 235.0,
+     "days": 361,
+     "raw_ratio": 0.782,
+     "clipped": false
+    },
+    {
+     "model_mm": 207.1,
+     "era5_mm": 144.2,
+     "days": 361,
+     "raw_ratio": 1.436,
+     "clipped": false
+    },
+    {
+     "model_mm": 390.8,
+     "era5_mm": 180.6,
+     "days": 357,
+     "raw_ratio": 2.164,
+     "clipped": true
+    },
+    {
+     "model_mm": 1510.0,
+     "era5_mm": 778.5,
+     "days": 368,
+     "raw_ratio": 1.94,
+     "clipped": false
+    },
+    {
+     "model_mm": 2413.5,
+     "era5_mm": 1277.0,
+     "days": 364,
+     "raw_ratio": 1.89,
+     "clipped": false
+    },
+    {
+     "model_mm": 3722.0,
+     "era5_mm": 2088.4,
+     "days": 368,
+     "raw_ratio": 1.782,
+     "clipped": false
+    },
+    {
+     "model_mm": 3634.5,
+     "era5_mm": 2060.6,
+     "days": 368,
+     "raw_ratio": 1.764,
+     "clipped": false
+    },
+    {
+     "model_mm": 4260.1,
+     "era5_mm": 2509.0,
+     "days": 368,
+     "raw_ratio": 1.698,
+     "clipped": false
+    },
+    {
+     "model_mm": 3563.5,
+     "era5_mm": 2212.5,
+     "days": 368,
+     "raw_ratio": 1.611,
+     "clipped": false
+    },
+    {
+     "model_mm": 3109.9,
+     "era5_mm": 2010.5,
+     "days": 364,
+     "raw_ratio": 1.547,
+     "clipped": false
+    },
+    {
+     "model_mm": 1557.5,
+     "era5_mm": 1154.4,
+     "days": 368,
+     "raw_ratio": 1.349,
+     "clipped": false
+    },
+    {
+     "model_mm": 761.9,
+     "era5_mm": 603.1,
+     "days": 368,
+     "raw_ratio": 1.263,
+     "clipped": false
+    }
+   ]
+  },
+  "ci_nawa_soubre": {
+   "latitude": 5.78,
+   "longitude": -6.6,
+   "built_at_utc": "2026-10-20T17:51:00Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.565,
+    1.558,
+    1.664,
+    1.617,
+    1.468,
+    1.425,
+    1.326,
+    1.368,
+    1.298,
+    1.251,
+    1.227,
+    1.166
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 419.1,
+     "era5_mm": 267.8,
+     "days": 361,
+     "raw_ratio": 1.565,
+     "clipped": false
+    },
+    {
+     "model_mm": 780.9,
+     "era5_mm": 501.1,
+     "days": 361,
+     "raw_ratio": 1.558,
+     "clipped": false
+    },
+    {
+     "model_mm": 1236.2,
+     "era5_mm": 742.7,
+     "days": 357,
+     "raw_ratio": 1.664,
+     "clipped": false
+    },
+    {
+     "model_mm": 1811.0,
+     "era5_mm": 1120.0,
+     "days": 368,
+     "raw_ratio": 1.617,
+     "clipped": false
+    },
+    {
+     "model_mm": 2154.4,
+     "era5_mm": 1467.2,
+     "days": 364,
+     "raw_ratio": 1.468,
+     "clipped": false
+    },
+    {
+     "model_mm": 2004.2,
+     "era5_mm": 1406.1,
+     "days": 368,
+     "raw_ratio": 1.425,
+     "clipped": false
+    },
+    {
+     "model_mm": 1772.4,
+     "era5_mm": 1336.6,
+     "days": 368,
+     "raw_ratio": 1.326,
+     "clipped": false
+    },
+    {
+     "model_mm": 1716.2,
+     "era5_mm": 1254.7,
+     "days": 368,
+     "raw_ratio": 1.368,
+     "clipped": false
+    },
+    {
+     "model_mm": 2194.7,
+     "era5_mm": 1690.6,
+     "days": 368,
+     "raw_ratio": 1.298,
+     "clipped": false
+    },
+    {
+     "model_mm": 1959.7,
+     "era5_mm": 1566.9,
+     "days": 364,
+     "raw_ratio": 1.251,
+     "clipped": false
+    },
+    {
+     "model_mm": 1310.7,
+     "era5_mm": 1068.3,
+     "days": 368,
+     "raw_ratio": 1.227,
+     "clipped": false
+    },
+    {
+     "model_mm": 527.1,
+     "era5_mm": 451.9,
+     "days": 368,
+     "raw_ratio": 1.166,
+     "clipped": false
+    }
+   ]
+  },
+  "ci_sud_comoe_aboisso": {
+   "latitude": 5.47,
+   "longitude": -3.21,
+   "built_at_utc": "2026-10-20T17:51:00Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    0.943,
+    1.048,
+    1.06,
+    0.898,
+    0.923,
+    0.934,
+    1.096,
+    1.094,
+    0.897,
+    0.804,
+    0.767,
+    0.795
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 810.1,
+     "era5_mm": 859.0,
+     "days": 361,
+     "raw_ratio": 0.943,
+     "clipped": false
+    },
+    {
+     "model_mm": 1072.1,
+     "era5_mm": 1022.6,
+     "days": 361,
+     "raw_ratio": 1.048,
+     "clipped": false
+    },
+    {
+     "model_mm": 1544.5,
+     "era5_mm": 1456.4,
+     "days": 357,
+     "raw_ratio": 1.06,
+     "clipped": false
+    },
+    {
+     "model_mm": 2018.5,
+     "era5_mm": 2248.3,
+     "days": 368,
+     "raw_ratio": 0.898,
+     "clipped": false
+    },
+    {
+     "model_mm": 2759.3,
+     "era5_mm": 2987.9,
+     "days": 364,
+     "raw_ratio": 0.923,
+     "clipped": false
+    },
+    {
+     "model_mm": 2598.5,
+     "era5_mm": 2782.1,
+     "days": 368,
+     "raw_ratio": 0.934,
+     "clipped": false
+    },
+    {
+     "model_mm": 2184.7,
+     "era5_mm": 1993.8,
+     "days": 368,
+     "raw_ratio": 1.096,
+     "clipped": false
+    },
+    {
+     "model_mm": 1449.6,
+     "era5_mm": 1325.6,
+     "days": 368,
+     "raw_ratio": 1.094,
+     "clipped": false
+    },
+    {
+     "model_mm": 1800.2,
+     "era5_mm": 2006.8,
+     "days": 368,
+     "raw_ratio": 0.897,
+     "clipped": false
+    },
+    {
+     "model_mm": 1894.9,
+     "era5_mm": 2357.6,
+     "days": 364,
+     "raw_ratio": 0.804,
+     "clipped": false
+    },
+    {
+     "model_mm": 1627.2,
+     "era5_mm": 2122.6,
+     "days": 368,
+     "raw_ratio": 0.767,
+     "clipped": false
+    },
+    {
+     "model_mm": 965.0,
+     "era5_mm": 1213.4,
+     "days": 368,
+     "raw_ratio": 0.795,
+     "clipped": false
+    }
+   ]
+  },
+  "ci_indenié_abengourou": {
+   "latitude": 6.73,
+   "longitude": -3.49,
+   "built_at_utc": "2026-10-20T17:51:00Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    1.94,
+    1.789,
+    1.715,
+    1.779,
+    1.689,
+    1.676,
+    1.516,
+    1.565,
+    1.595,
+    1.78,
+    1.817,
+    2.0
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 322.8,
+     "era5_mm": 166.4,
+     "days": 361,
+     "raw_ratio": 1.94,
+     "clipped": false
+    },
+    {
+     "model_mm": 696.6,
+     "era5_mm": 389.3,
+     "days": 361,
+     "raw_ratio": 1.789,
+     "clipped": false
+    },
+    {
+     "model_mm": 1318.8,
+     "era5_mm": 769.1,
+     "days": 357,
+     "raw_ratio": 1.715,
+     "clipped": false
+    },
+    {
+     "model_mm": 1938.4,
+     "era5_mm": 1089.6,
+     "days": 368,
+     "raw_ratio": 1.779,
+     "clipped": false
+    },
+    {
+     "model_mm": 2511.3,
+     "era5_mm": 1487.2,
+     "days": 364,
+     "raw_ratio": 1.689,
+     "clipped": false
+    },
+    {
+     "model_mm": 2306.5,
+     "era5_mm": 1376.2,
+     "days": 368,
+     "raw_ratio": 1.676,
+     "clipped": false
+    },
+    {
+     "model_mm": 1864.6,
+     "era5_mm": 1229.7,
+     "days": 368,
+     "raw_ratio": 1.516,
+     "clipped": false
+    },
+    {
+     "model_mm": 1412.4,
+     "era5_mm": 902.6,
+     "days": 368,
+     "raw_ratio": 1.565,
+     "clipped": false
+    },
+    {
+     "model_mm": 1891.0,
+     "era5_mm": 1185.3,
+     "days": 368,
+     "raw_ratio": 1.595,
+     "clipped": false
+    },
+    {
+     "model_mm": 1879.7,
+     "era5_mm": 1055.9,
+     "days": 364,
+     "raw_ratio": 1.78,
+     "clipped": false
+    },
+    {
+     "model_mm": 1385.2,
+     "era5_mm": 762.5,
+     "days": 368,
+     "raw_ratio": 1.817,
+     "clipped": false
+    },
+    {
+     "model_mm": 489.2,
+     "era5_mm": 211.0,
+     "days": 368,
+     "raw_ratio": 2.318,
+     "clipped": true
+    }
+   ]
+  },
+  "th_chiang_rai": {
+   "latitude": 19.7324,
+   "longitude": 99.9191,
+   "built_at_utc": "2026-10-20T17:55:02Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    2.0,
+    2.0,
+    1.959,
+    1.798,
+    1.941,
+    1.68,
+    1.423,
+    1.281,
+    1.329,
+    1.509,
+    2.0,
+    2.0
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 469.9,
+     "era5_mm": 124.7,
+     "days": 361,
+     "raw_ratio": 3.768,
+     "clipped": true
+    },
+    {
+     "model_mm": 410.5,
+     "era5_mm": 180.1,
+     "days": 361,
+     "raw_ratio": 2.279,
+     "clipped": true
+    },
+    {
+     "model_mm": 449.5,
+     "era5_mm": 229.4,
+     "days": 357,
+     "raw_ratio": 1.959,
+     "clipped": false
+    },
+    {
+     "model_mm": 1503.9,
+     "era5_mm": 836.3,
+     "days": 368,
+     "raw_ratio": 1.798,
+     "clipped": false
+    },
+    {
+     "model_mm": 2444.3,
+     "era5_mm": 1259.5,
+     "days": 364,
+     "raw_ratio": 1.941,
+     "clipped": false
+    },
+    {
+     "model_mm": 3788.4,
+     "era5_mm": 2254.5,
+     "days": 368,
+     "raw_ratio": 1.68,
+     "clipped": false
+    },
+    {
+     "model_mm": 4241.9,
+     "era5_mm": 2981.3,
+     "days": 368,
+     "raw_ratio": 1.423,
+     "clipped": false
+    },
+    {
+     "model_mm": 4728.5,
+     "era5_mm": 3690.0,
+     "days": 368,
+     "raw_ratio": 1.281,
+     "clipped": false
+    },
+    {
+     "model_mm": 4156.9,
+     "era5_mm": 3126.7,
+     "days": 368,
+     "raw_ratio": 1.329,
+     "clipped": false
+    },
+    {
+     "model_mm": 2912.2,
+     "era5_mm": 1930.2,
+     "days": 364,
+     "raw_ratio": 1.509,
+     "clipped": false
+    },
+    {
+     "model_mm": 1544.6,
+     "era5_mm": 742.9,
+     "days": 368,
+     "raw_ratio": 2.079,
+     "clipped": true
+    },
+    {
+     "model_mm": 733.1,
+     "era5_mm": 261.9,
+     "days": 368,
+     "raw_ratio": 2.799,
+     "clipped": true
+    }
+   ]
+  },
+  "th_phayao": {
+   "latitude": 19.2711,
+   "longitude": 100.1604,
+   "built_at_utc": "2026-10-20T17:55:02Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    2.0,
+    1.772,
+    1.781,
+    1.661,
+    1.655,
+    1.402,
+    1.278,
+    1.206,
+    1.303,
+    1.428,
+    1.93,
+    2.0
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 410.4,
+     "era5_mm": 133.9,
+     "days": 361,
+     "raw_ratio": 3.065,
+     "clipped": true
+    },
+    {
+     "model_mm": 396.6,
+     "era5_mm": 223.8,
+     "days": 361,
+     "raw_ratio": 1.772,
+     "clipped": false
+    },
+    {
+     "model_mm": 521.9,
+     "era5_mm": 293.0,
+     "days": 357,
+     "raw_ratio": 1.781,
+     "clipped": false
+    },
+    {
+     "model_mm": 1441.2,
+     "era5_mm": 867.9,
+     "days": 368,
+     "raw_ratio": 1.661,
+     "clipped": false
+    },
+    {
+     "model_mm": 2124.7,
+     "era5_mm": 1283.8,
+     "days": 364,
+     "raw_ratio": 1.655,
+     "clipped": false
+    },
+    {
+     "model_mm": 3129.5,
+     "era5_mm": 2232.9,
+     "days": 368,
+     "raw_ratio": 1.402,
+     "clipped": false
+    },
+    {
+     "model_mm": 3333.4,
+     "era5_mm": 2607.6,
+     "days": 368,
+     "raw_ratio": 1.278,
+     "clipped": false
+    },
+    {
+     "model_mm": 3664.6,
+     "era5_mm": 3037.7,
+     "days": 368,
+     "raw_ratio": 1.206,
+     "clipped": false
+    },
+    {
+     "model_mm": 3195.7,
+     "era5_mm": 2453.4,
+     "days": 368,
+     "raw_ratio": 1.303,
+     "clipped": false
+    },
+    {
+     "model_mm": 2288.7,
+     "era5_mm": 1603.2,
+     "days": 364,
+     "raw_ratio": 1.428,
+     "clipped": false
+    },
+    {
+     "model_mm": 1287.8,
+     "era5_mm": 667.3,
+     "days": 368,
+     "raw_ratio": 1.93,
+     "clipped": false
+    },
+    {
+     "model_mm": 626.6,
+     "era5_mm": 233.3,
+     "days": 368,
+     "raw_ratio": 2.686,
+     "clipped": true
+    }
+   ]
+  },
+  "th_lampang": {
+   "latitude": 18.3554,
+   "longitude": 99.5025,
+   "built_at_utc": "2026-10-20T17:55:02Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    2.0,
+    1.62,
+    2.0,
+    1.64,
+    1.648,
+    1.504,
+    1.381,
+    1.302,
+    1.305,
+    1.39,
+    1.594,
+    1.891
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 276.2,
+     "era5_mm": 127.7,
+     "days": 361,
+     "raw_ratio": 2.163,
+     "clipped": true
+    },
+    {
+     "model_mm": 390.6,
+     "era5_mm": 241.1,
+     "days": 361,
+     "raw_ratio": 1.62,
+     "clipped": false
+    },
+    {
+     "model_mm": 538.2,
+     "era5_mm": 264.5,
+     "days": 357,
+     "raw_ratio": 2.035,
+     "clipped": true
+    },
+    {
+     "model_mm": 1407.6,
+     "era5_mm": 858.5,
+     "days": 368,
+     "raw_ratio": 1.64,
+     "clipped": false
+    },
+    {
+     "model_mm": 2014.3,
+     "era5_mm": 1221.9,
+     "days": 364,
+     "raw_ratio": 1.648,
+     "clipped": false
+    },
+    {
+     "model_mm": 2975.8,
+     "era5_mm": 1978.4,
+     "days": 368,
+     "raw_ratio": 1.504,
+     "clipped": false
+    },
+    {
+     "model_mm": 3067.9,
+     "era5_mm": 2221.3,
+     "days": 368,
+     "raw_ratio": 1.381,
+     "clipped": false
+    },
+    {
+     "model_mm": 3749.8,
+     "era5_mm": 2879.7,
+     "days": 368,
+     "raw_ratio": 1.302,
+     "clipped": false
+    },
+    {
+     "model_mm": 3527.1,
+     "era5_mm": 2703.0,
+     "days": 368,
+     "raw_ratio": 1.305,
+     "clipped": false
+    },
+    {
+     "model_mm": 2766.9,
+     "era5_mm": 1990.9,
+     "days": 364,
+     "raw_ratio": 1.39,
+     "clipped": false
+    },
+    {
+     "model_mm": 1363.9,
+     "era5_mm": 855.7,
+     "days": 368,
+     "raw_ratio": 1.594,
+     "clipped": false
+    },
+    {
+     "model_mm": 477.5,
+     "era5_mm": 252.5,
+     "days": 368,
+     "raw_ratio": 1.891,
+     "clipped": false
+    }
+   ]
+  },
+  "th_lamphun": {
+   "latitude": 18.0655,
+   "longitude": 98.9914,
+   "built_at_utc": "2026-10-20T17:55:02Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.576,
+    1.317,
+    1.324,
+    1.209,
+    1.139,
+    1.063,
+    0.992,
+    0.985,
+    0.912,
+    0.912,
+    0.862,
+    1.273
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 321.1,
+     "era5_mm": 203.7,
+     "days": 361,
+     "raw_ratio": 1.576,
+     "clipped": false
+    },
+    {
+     "model_mm": 351.5,
+     "era5_mm": 266.8,
+     "days": 361,
+     "raw_ratio": 1.317,
+     "clipped": false
+    },
+    {
+     "model_mm": 491.0,
+     "era5_mm": 370.8,
+     "days": 357,
+     "raw_ratio": 1.324,
+     "clipped": false
+    },
+    {
+     "model_mm": 1384.8,
+     "era5_mm": 1145.7,
+     "days": 368,
+     "raw_ratio": 1.209,
+     "clipped": false
+    },
+    {
+     "model_mm": 1978.6,
+     "era5_mm": 1736.9,
+     "days": 364,
+     "raw_ratio": 1.139,
+     "clipped": false
+    },
+    {
+     "model_mm": 2707.4,
+     "era5_mm": 2546.7,
+     "days": 368,
+     "raw_ratio": 1.063,
+     "clipped": false
+    },
+    {
+     "model_mm": 2708.5,
+     "era5_mm": 2731.6,
+     "days": 368,
+     "raw_ratio": 0.992,
+     "clipped": false
+    },
+    {
+     "model_mm": 3488.5,
+     "era5_mm": 3542.4,
+     "days": 368,
+     "raw_ratio": 0.985,
+     "clipped": false
+    },
+    {
+     "model_mm": 3245.0,
+     "era5_mm": 3556.5,
+     "days": 368,
+     "raw_ratio": 0.912,
+     "clipped": false
+    },
+    {
+     "model_mm": 2570.7,
+     "era5_mm": 2818.5,
+     "days": 364,
+     "raw_ratio": 0.912,
+     "clipped": false
+    },
+    {
+     "model_mm": 1166.5,
+     "era5_mm": 1353.4,
+     "days": 368,
+     "raw_ratio": 0.862,
+     "clipped": false
+    },
+    {
+     "model_mm": 541.7,
+     "era5_mm": 425.5,
+     "days": 368,
+     "raw_ratio": 1.273,
+     "clipped": false
+    }
+   ]
+  },
+  "th_chiang_mai": {
+   "latitude": 18.6979,
+   "longitude": 98.8362,
+   "built_at_utc": "2026-10-20T17:55:33Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.864,
+    1.328,
+    1.323,
+    0.982,
+    0.884,
+    0.918,
+    0.878,
+    0.997,
+    1.05,
+    1.239,
+    1.436,
+    1.529
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 325.7,
+     "era5_mm": 174.7,
+     "days": 361,
+     "raw_ratio": 1.864,
+     "clipped": false
+    },
+    {
+     "model_mm": 289.4,
+     "era5_mm": 218.0,
+     "days": 361,
+     "raw_ratio": 1.328,
+     "clipped": false
+    },
+    {
+     "model_mm": 473.9,
+     "era5_mm": 358.1,
+     "days": 357,
+     "raw_ratio": 1.323,
+     "clipped": false
+    },
+    {
+     "model_mm": 1396.6,
+     "era5_mm": 1422.5,
+     "days": 368,
+     "raw_ratio": 0.982,
+     "clipped": false
+    },
+    {
+     "model_mm": 2028.7,
+     "era5_mm": 2295.4,
+     "days": 364,
+     "raw_ratio": 0.884,
+     "clipped": false
+    },
+    {
+     "model_mm": 3009.0,
+     "era5_mm": 3276.6,
+     "days": 368,
+     "raw_ratio": 0.918,
+     "clipped": false
+    },
+    {
+     "model_mm": 3177.3,
+     "era5_mm": 3617.4,
+     "days": 368,
+     "raw_ratio": 0.878,
+     "clipped": false
+    },
+    {
+     "model_mm": 4029.7,
+     "era5_mm": 4043.6,
+     "days": 368,
+     "raw_ratio": 0.997,
+     "clipped": false
+    },
+    {
+     "model_mm": 3734.5,
+     "era5_mm": 3557.7,
+     "days": 368,
+     "raw_ratio": 1.05,
+     "clipped": false
+    },
+    {
+     "model_mm": 3021.7,
+     "era5_mm": 2438.2,
+     "days": 364,
+     "raw_ratio": 1.239,
+     "clipped": false
+    },
+    {
+     "model_mm": 1573.5,
+     "era5_mm": 1095.8,
+     "days": 368,
+     "raw_ratio": 1.436,
+     "clipped": false
+    },
+    {
+     "model_mm": 703.9,
+     "era5_mm": 460.4,
+     "days": 368,
+     "raw_ratio": 1.529,
+     "clipped": false
+    }
+   ]
+  },
+  "th_mae_hong_son": {
+   "latitude": 18.6905,
+   "longitude": 97.9995,
+   "built_at_utc": "2026-10-20T17:55:33Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.477,
+    1.319,
+    1.497,
+    1.049,
+    1.076,
+    1.076,
+    1.099,
+    1.169,
+    1.172,
+    1.2,
+    1.091,
+    1.066
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 205.0,
+     "era5_mm": 138.8,
+     "days": 361,
+     "raw_ratio": 1.477,
+     "clipped": false
+    },
+    {
+     "model_mm": 212.9,
+     "era5_mm": 161.4,
+     "days": 361,
+     "raw_ratio": 1.319,
+     "clipped": false
+    },
+    {
+     "model_mm": 351.1,
+     "era5_mm": 234.5,
+     "days": 357,
+     "raw_ratio": 1.497,
+     "clipped": false
+    },
+    {
+     "model_mm": 1246.2,
+     "era5_mm": 1187.9,
+     "days": 368,
+     "raw_ratio": 1.049,
+     "clipped": false
+    },
+    {
+     "model_mm": 2175.3,
+     "era5_mm": 2021.6,
+     "days": 364,
+     "raw_ratio": 1.076,
+     "clipped": false
+    },
+    {
+     "model_mm": 3463.6,
+     "era5_mm": 3218.9,
+     "days": 368,
+     "raw_ratio": 1.076,
+     "clipped": false
+    },
+    {
+     "model_mm": 3814.7,
+     "era5_mm": 3471.2,
+     "days": 368,
+     "raw_ratio": 1.099,
+     "clipped": false
+    },
+    {
+     "model_mm": 4784.8,
+     "era5_mm": 4093.1,
+     "days": 368,
+     "raw_ratio": 1.169,
+     "clipped": false
+    },
+    {
+     "model_mm": 4215.5,
+     "era5_mm": 3598.2,
+     "days": 368,
+     "raw_ratio": 1.172,
+     "clipped": false
+    },
+    {
+     "model_mm": 3240.3,
+     "era5_mm": 2700.4,
+     "days": 364,
+     "raw_ratio": 1.2,
+     "clipped": false
+    },
+    {
+     "model_mm": 1333.2,
+     "era5_mm": 1222.2,
+     "days": 368,
+     "raw_ratio": 1.091,
+     "clipped": false
+    },
+    {
+     "model_mm": 476.0,
+     "era5_mm": 446.7,
+     "days": 368,
+     "raw_ratio": 1.066,
+     "clipped": false
+    }
+   ]
+  },
+  "th_tak": {
+   "latitude": 16.4985,
+   "longitude": 98.628,
+   "built_at_utc": "2026-10-20T17:55:33Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.925,
+    1.505,
+    1.01,
+    1.097,
+    1.4,
+    1.461,
+    1.617,
+    1.474,
+    1.337,
+    1.12,
+    0.931,
+    1.29
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 266.2,
+     "era5_mm": 138.3,
+     "days": 361,
+     "raw_ratio": 1.925,
+     "clipped": false
+    },
+    {
+     "model_mm": 323.8,
+     "era5_mm": 215.1,
+     "days": 361,
+     "raw_ratio": 1.505,
+     "clipped": false
+    },
+    {
+     "model_mm": 374.9,
+     "era5_mm": 371.2,
+     "days": 357,
+     "raw_ratio": 1.01,
+     "clipped": false
+    },
+    {
+     "model_mm": 1244.5,
+     "era5_mm": 1134.0,
+     "days": 368,
+     "raw_ratio": 1.097,
+     "clipped": false
+    },
+    {
+     "model_mm": 2900.1,
+     "era5_mm": 2072.2,
+     "days": 364,
+     "raw_ratio": 1.4,
+     "clipped": false
+    },
+    {
+     "model_mm": 4510.3,
+     "era5_mm": 3086.3,
+     "days": 368,
+     "raw_ratio": 1.461,
+     "clipped": false
+    },
+    {
+     "model_mm": 5464.7,
+     "era5_mm": 3378.9,
+     "days": 368,
+     "raw_ratio": 1.617,
+     "clipped": false
+    },
+    {
+     "model_mm": 5417.8,
+     "era5_mm": 3675.5,
+     "days": 368,
+     "raw_ratio": 1.474,
+     "clipped": false
+    },
+    {
+     "model_mm": 4275.3,
+     "era5_mm": 3198.2,
+     "days": 368,
+     "raw_ratio": 1.337,
+     "clipped": false
+    },
+    {
+     "model_mm": 2641.0,
+     "era5_mm": 2358.0,
+     "days": 364,
+     "raw_ratio": 1.12,
+     "clipped": false
+    },
+    {
+     "model_mm": 974.7,
+     "era5_mm": 1046.4,
+     "days": 368,
+     "raw_ratio": 0.931,
+     "clipped": false
+    },
+    {
+     "model_mm": 455.9,
+     "era5_mm": 353.5,
+     "days": 368,
+     "raw_ratio": 1.29,
+     "clipped": false
+    }
+   ]
+  },
+  "th_kamphaeng_phet": {
+   "latitude": 16.3356,
+   "longitude": 99.5087,
+   "built_at_utc": "2026-10-20T17:55:33Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    2.0,
+    1.662,
+    1.638,
+    1.63,
+    1.544,
+    1.562,
+    1.592,
+    1.621,
+    1.618,
+    1.595,
+    1.66,
+    1.837
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 261.9,
+     "era5_mm": 127.2,
+     "days": 361,
+     "raw_ratio": 2.059,
+     "clipped": true
+    },
+    {
+     "model_mm": 296.9,
+     "era5_mm": 178.6,
+     "days": 361,
+     "raw_ratio": 1.662,
+     "clipped": false
+    },
+    {
+     "model_mm": 403.5,
+     "era5_mm": 246.4,
+     "days": 357,
+     "raw_ratio": 1.638,
+     "clipped": false
+    },
+    {
+     "model_mm": 1397.0,
+     "era5_mm": 856.8,
+     "days": 368,
+     "raw_ratio": 1.63,
+     "clipped": false
+    },
+    {
+     "model_mm": 2231.9,
+     "era5_mm": 1445.1,
+     "days": 364,
+     "raw_ratio": 1.544,
+     "clipped": false
+    },
+    {
+     "model_mm": 3459.2,
+     "era5_mm": 2214.9,
+     "days": 368,
+     "raw_ratio": 1.562,
+     "clipped": false
+    },
+    {
+     "model_mm": 3913.0,
+     "era5_mm": 2458.6,
+     "days": 368,
+     "raw_ratio": 1.592,
+     "clipped": false
+    },
+    {
+     "model_mm": 4899.9,
+     "era5_mm": 3022.0,
+     "days": 368,
+     "raw_ratio": 1.621,
+     "clipped": false
+    },
+    {
+     "model_mm": 4557.4,
+     "era5_mm": 2816.7,
+     "days": 368,
+     "raw_ratio": 1.618,
+     "clipped": false
+    },
+    {
+     "model_mm": 3457.0,
+     "era5_mm": 2166.9,
+     "days": 364,
+     "raw_ratio": 1.595,
+     "clipped": false
+    },
+    {
+     "model_mm": 1600.2,
+     "era5_mm": 963.8,
+     "days": 368,
+     "raw_ratio": 1.66,
+     "clipped": false
+    },
+    {
+     "model_mm": 608.8,
+     "era5_mm": 331.5,
+     "days": 368,
+     "raw_ratio": 1.837,
+     "clipped": false
+    }
+   ]
+  },
+  "th_sukhothai": {
+   "latitude": 17.2526,
+   "longitude": 99.6996,
+   "built_at_utc": "2026-10-20T17:56:05Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    1.358,
+    1.064,
+    1.226,
+    1.398,
+    1.449,
+    1.415,
+    1.518,
+    1.481,
+    1.455,
+    1.436,
+    1.563,
+    2.0
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 280.3,
+     "era5_mm": 206.4,
+     "days": 361,
+     "raw_ratio": 1.358,
+     "clipped": false
+    },
+    {
+     "model_mm": 394.2,
+     "era5_mm": 370.5,
+     "days": 361,
+     "raw_ratio": 1.064,
+     "clipped": false
+    },
+    {
+     "model_mm": 534.4,
+     "era5_mm": 435.9,
+     "days": 357,
+     "raw_ratio": 1.226,
+     "clipped": false
+    },
+    {
+     "model_mm": 1447.7,
+     "era5_mm": 1035.5,
+     "days": 368,
+     "raw_ratio": 1.398,
+     "clipped": false
+    },
+    {
+     "model_mm": 1945.3,
+     "era5_mm": 1342.7,
+     "days": 364,
+     "raw_ratio": 1.449,
+     "clipped": false
+    },
+    {
+     "model_mm": 2808.5,
+     "era5_mm": 1985.3,
+     "days": 368,
+     "raw_ratio": 1.415,
+     "clipped": false
+    },
+    {
+     "model_mm": 2826.8,
+     "era5_mm": 1862.3,
+     "days": 368,
+     "raw_ratio": 1.518,
+     "clipped": false
+    },
+    {
+     "model_mm": 3700.6,
+     "era5_mm": 2498.2,
+     "days": 368,
+     "raw_ratio": 1.481,
+     "clipped": false
+    },
+    {
+     "model_mm": 3493.0,
+     "era5_mm": 2400.5,
+     "days": 368,
+     "raw_ratio": 1.455,
+     "clipped": false
+    },
+    {
+     "model_mm": 2779.5,
+     "era5_mm": 1935.1,
+     "days": 364,
+     "raw_ratio": 1.436,
+     "clipped": false
+    },
+    {
+     "model_mm": 1294.2,
+     "era5_mm": 827.9,
+     "days": 368,
+     "raw_ratio": 1.563,
+     "clipped": false
+    },
+    {
+     "model_mm": 498.4,
+     "era5_mm": 217.6,
+     "days": 368,
+     "raw_ratio": 2.29,
+     "clipped": true
+    }
+   ]
+  },
+  "th_phrae": {
+   "latitude": 18.2556,
+   "longitude": 99.9262,
+   "built_at_utc": "2026-10-20T17:56:05Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    1.679,
+    1.654,
+    1.826,
+    1.625,
+    1.349,
+    1.231,
+    1.071,
+    1.14,
+    1.186,
+    1.382,
+    1.666,
+    2.0
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 263.7,
+     "era5_mm": 157.1,
+     "days": 361,
+     "raw_ratio": 1.679,
+     "clipped": false
+    },
+    {
+     "model_mm": 420.0,
+     "era5_mm": 253.9,
+     "days": 361,
+     "raw_ratio": 1.654,
+     "clipped": false
+    },
+    {
+     "model_mm": 541.0,
+     "era5_mm": 296.2,
+     "days": 357,
+     "raw_ratio": 1.826,
+     "clipped": false
+    },
+    {
+     "model_mm": 1594.0,
+     "era5_mm": 981.2,
+     "days": 368,
+     "raw_ratio": 1.625,
+     "clipped": false
+    },
+    {
+     "model_mm": 2116.5,
+     "era5_mm": 1568.7,
+     "days": 364,
+     "raw_ratio": 1.349,
+     "clipped": false
+    },
+    {
+     "model_mm": 3099.7,
+     "era5_mm": 2518.0,
+     "days": 368,
+     "raw_ratio": 1.231,
+     "clipped": false
+    },
+    {
+     "model_mm": 3026.2,
+     "era5_mm": 2825.1,
+     "days": 368,
+     "raw_ratio": 1.071,
+     "clipped": false
+    },
+    {
+     "model_mm": 3784.1,
+     "era5_mm": 3320.4,
+     "days": 368,
+     "raw_ratio": 1.14,
+     "clipped": false
+    },
+    {
+     "model_mm": 3291.1,
+     "era5_mm": 2775.5,
+     "days": 368,
+     "raw_ratio": 1.186,
+     "clipped": false
+    },
+    {
+     "model_mm": 2578.9,
+     "era5_mm": 1865.4,
+     "days": 364,
+     "raw_ratio": 1.382,
+     "clipped": false
+    },
+    {
+     "model_mm": 1142.2,
+     "era5_mm": 685.8,
+     "days": 368,
+     "raw_ratio": 1.666,
+     "clipped": false
+    },
+    {
+     "model_mm": 531.0,
+     "era5_mm": 239.1,
+     "days": 368,
+     "raw_ratio": 2.221,
+     "clipped": true
+    }
+   ]
+  },
+  "th_nan": {
+   "latitude": 18.8233,
+   "longitude": 100.8465,
+   "built_at_utc": "2026-10-20T17:56:05Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    1.993,
+    1.795,
+    1.828,
+    1.757,
+    2.0,
+    2.0
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 357.5,
+     "era5_mm": 126.3,
+     "days": 361,
+     "raw_ratio": 2.831,
+     "clipped": true
+    },
+    {
+     "model_mm": 415.8,
+     "era5_mm": 194.8,
+     "days": 361,
+     "raw_ratio": 2.134,
+     "clipped": true
+    },
+    {
+     "model_mm": 649.5,
+     "era5_mm": 308.5,
+     "days": 357,
+     "raw_ratio": 2.105,
+     "clipped": true
+    },
+    {
+     "model_mm": 1671.7,
+     "era5_mm": 816.1,
+     "days": 368,
+     "raw_ratio": 2.048,
+     "clipped": true
+    },
+    {
+     "model_mm": 2844.0,
+     "era5_mm": 1227.0,
+     "days": 364,
+     "raw_ratio": 2.318,
+     "clipped": true
+    },
+    {
+     "model_mm": 4599.5,
+     "era5_mm": 2295.0,
+     "days": 368,
+     "raw_ratio": 2.004,
+     "clipped": true
+    },
+    {
+     "model_mm": 5310.2,
+     "era5_mm": 2664.9,
+     "days": 368,
+     "raw_ratio": 1.993,
+     "clipped": false
+    },
+    {
+     "model_mm": 5583.5,
+     "era5_mm": 3111.0,
+     "days": 368,
+     "raw_ratio": 1.795,
+     "clipped": false
+    },
+    {
+     "model_mm": 4150.2,
+     "era5_mm": 2270.7,
+     "days": 368,
+     "raw_ratio": 1.828,
+     "clipped": false
+    },
+    {
+     "model_mm": 2501.8,
+     "era5_mm": 1424.2,
+     "days": 364,
+     "raw_ratio": 1.757,
+     "clipped": false
+    },
+    {
+     "model_mm": 997.9,
+     "era5_mm": 498.7,
+     "days": 368,
+     "raw_ratio": 2.001,
+     "clipped": true
+    },
+    {
+     "model_mm": 442.0,
+     "era5_mm": 157.3,
+     "days": 368,
+     "raw_ratio": 2.81,
+     "clipped": true
+    }
+   ]
+  },
+  "th_uttaradit": {
+   "latitude": 17.7715,
+   "longitude": 100.5445,
+   "built_at_utc": "2026-10-20T17:56:05Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    0.973,
+    1.225,
+    1.372,
+    1.231,
+    1.025,
+    1.026,
+    0.97,
+    1.058,
+    1.042,
+    1.1,
+    1.025,
+    1.069
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 194.7,
+     "era5_mm": 200.1,
+     "days": 361,
+     "raw_ratio": 0.973,
+     "clipped": false
+    },
+    {
+     "model_mm": 327.5,
+     "era5_mm": 267.3,
+     "days": 361,
+     "raw_ratio": 1.225,
+     "clipped": false
+    },
+    {
+     "model_mm": 448.0,
+     "era5_mm": 326.6,
+     "days": 357,
+     "raw_ratio": 1.372,
+     "clipped": false
+    },
+    {
+     "model_mm": 1265.9,
+     "era5_mm": 1028.1,
+     "days": 368,
+     "raw_ratio": 1.231,
+     "clipped": false
+    },
+    {
+     "model_mm": 1793.6,
+     "era5_mm": 1749.1,
+     "days": 364,
+     "raw_ratio": 1.025,
+     "clipped": false
+    },
+    {
+     "model_mm": 2968.8,
+     "era5_mm": 2892.2,
+     "days": 368,
+     "raw_ratio": 1.026,
+     "clipped": false
+    },
+    {
+     "model_mm": 3164.9,
+     "era5_mm": 3264.2,
+     "days": 368,
+     "raw_ratio": 0.97,
+     "clipped": false
+    },
+    {
+     "model_mm": 4141.1,
+     "era5_mm": 3913.5,
+     "days": 368,
+     "raw_ratio": 1.058,
+     "clipped": false
+    },
+    {
+     "model_mm": 3300.3,
+     "era5_mm": 3166.5,
+     "days": 368,
+     "raw_ratio": 1.042,
+     "clipped": false
+    },
+    {
+     "model_mm": 2385.8,
+     "era5_mm": 2168.2,
+     "days": 364,
+     "raw_ratio": 1.1,
+     "clipped": false
+    },
+    {
+     "model_mm": 749.1,
+     "era5_mm": 730.7,
+     "days": 368,
+     "raw_ratio": 1.025,
+     "clipped": false
+    },
+    {
+     "model_mm": 294.2,
+     "era5_mm": 275.3,
+     "days": 368,
+     "raw_ratio": 1.069,
+     "clipped": false
+    }
+   ]
+  },
+  "th_phitsanulok": {
+   "latitude": 17.0476,
+   "longitude": 100.4903,
+   "built_at_utc": "2026-10-20T17:56:36Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.508,
+    1.75,
+    1.432,
+    1.868,
+    1.858,
+    1.73,
+    1.825,
+    1.65,
+    1.71,
+    1.523,
+    1.668,
+    1.877
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 345.8,
+     "era5_mm": 229.3,
+     "days": 361,
+     "raw_ratio": 1.508,
+     "clipped": false
+    },
+    {
+     "model_mm": 499.9,
+     "era5_mm": 285.7,
+     "days": 361,
+     "raw_ratio": 1.75,
+     "clipped": false
+    },
+    {
+     "model_mm": 465.3,
+     "era5_mm": 325.0,
+     "days": 357,
+     "raw_ratio": 1.432,
+     "clipped": false
+    },
+    {
+     "model_mm": 1480.1,
+     "era5_mm": 792.2,
+     "days": 368,
+     "raw_ratio": 1.868,
+     "clipped": false
+    },
+    {
+     "model_mm": 2514.4,
+     "era5_mm": 1353.5,
+     "days": 364,
+     "raw_ratio": 1.858,
+     "clipped": false
+    },
+    {
+     "model_mm": 3998.7,
+     "era5_mm": 2311.7,
+     "days": 368,
+     "raw_ratio": 1.73,
+     "clipped": false
+    },
+    {
+     "model_mm": 4472.0,
+     "era5_mm": 2450.6,
+     "days": 368,
+     "raw_ratio": 1.825,
+     "clipped": false
+    },
+    {
+     "model_mm": 5126.8,
+     "era5_mm": 3107.0,
+     "days": 368,
+     "raw_ratio": 1.65,
+     "clipped": false
+    },
+    {
+     "model_mm": 4309.2,
+     "era5_mm": 2520.7,
+     "days": 368,
+     "raw_ratio": 1.71,
+     "clipped": false
+    },
+    {
+     "model_mm": 2955.0,
+     "era5_mm": 1940.8,
+     "days": 364,
+     "raw_ratio": 1.523,
+     "clipped": false
+    },
+    {
+     "model_mm": 1111.8,
+     "era5_mm": 666.7,
+     "days": 368,
+     "raw_ratio": 1.668,
+     "clipped": false
+    },
+    {
+     "model_mm": 479.7,
+     "era5_mm": 255.5,
+     "days": 368,
+     "raw_ratio": 1.877,
+     "clipped": false
+    }
+   ]
+  },
+  "th_phichit": {
+   "latitude": 16.2538,
+   "longitude": 100.3748,
+   "built_at_utc": "2026-10-20T17:56:36Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.256,
+    1.442,
+    1.418,
+    1.225,
+    1.114,
+    1.14,
+    1.164,
+    1.226,
+    1.281,
+    1.349,
+    1.515,
+    1.548
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 217.0,
+     "era5_mm": 172.8,
+     "days": 361,
+     "raw_ratio": 1.256,
+     "clipped": false
+    },
+    {
+     "model_mm": 387.1,
+     "era5_mm": 268.4,
+     "days": 361,
+     "raw_ratio": 1.442,
+     "clipped": false
+    },
+    {
+     "model_mm": 507.0,
+     "era5_mm": 357.6,
+     "days": 357,
+     "raw_ratio": 1.418,
+     "clipped": false
+    },
+    {
+     "model_mm": 1258.0,
+     "era5_mm": 1026.6,
+     "days": 368,
+     "raw_ratio": 1.225,
+     "clipped": false
+    },
+    {
+     "model_mm": 1903.9,
+     "era5_mm": 1709.3,
+     "days": 364,
+     "raw_ratio": 1.114,
+     "clipped": false
+    },
+    {
+     "model_mm": 2970.9,
+     "era5_mm": 2606.1,
+     "days": 368,
+     "raw_ratio": 1.14,
+     "clipped": false
+    },
+    {
+     "model_mm": 3271.2,
+     "era5_mm": 2811.5,
+     "days": 368,
+     "raw_ratio": 1.164,
+     "clipped": false
+    },
+    {
+     "model_mm": 4092.7,
+     "era5_mm": 3337.3,
+     "days": 368,
+     "raw_ratio": 1.226,
+     "clipped": false
+    },
+    {
+     "model_mm": 3643.2,
+     "era5_mm": 2843.3,
+     "days": 368,
+     "raw_ratio": 1.281,
+     "clipped": false
+    },
+    {
+     "model_mm": 2750.5,
+     "era5_mm": 2038.8,
+     "days": 364,
+     "raw_ratio": 1.349,
+     "clipped": false
+    },
+    {
+     "model_mm": 1113.0,
+     "era5_mm": 734.7,
+     "days": 368,
+     "raw_ratio": 1.515,
+     "clipped": false
+    },
+    {
+     "model_mm": 375.6,
+     "era5_mm": 242.7,
+     "days": 368,
+     "raw_ratio": 1.548,
+     "clipped": false
+    }
+   ]
+  },
+  "th_nakhon_sawan": {
+   "latitude": 15.699,
+   "longitude": 99.9615,
+   "built_at_utc": "2026-10-20T17:56:36Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.352,
+    1.399,
+    1.363,
+    1.195,
+    1.242,
+    1.296,
+    1.391,
+    1.22,
+    1.22,
+    1.193,
+    1.386,
+    1.316
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 172.1,
+     "era5_mm": 127.3,
+     "days": 361,
+     "raw_ratio": 1.352,
+     "clipped": false
+    },
+    {
+     "model_mm": 300.4,
+     "era5_mm": 214.7,
+     "days": 361,
+     "raw_ratio": 1.399,
+     "clipped": false
+    },
+    {
+     "model_mm": 484.3,
+     "era5_mm": 355.4,
+     "days": 357,
+     "raw_ratio": 1.363,
+     "clipped": false
+    },
+    {
+     "model_mm": 1264.9,
+     "era5_mm": 1058.5,
+     "days": 368,
+     "raw_ratio": 1.195,
+     "clipped": false
+    },
+    {
+     "model_mm": 1755.5,
+     "era5_mm": 1413.8,
+     "days": 364,
+     "raw_ratio": 1.242,
+     "clipped": false
+    },
+    {
+     "model_mm": 2458.6,
+     "era5_mm": 1896.8,
+     "days": 368,
+     "raw_ratio": 1.296,
+     "clipped": false
+    },
+    {
+     "model_mm": 2407.3,
+     "era5_mm": 1730.3,
+     "days": 368,
+     "raw_ratio": 1.391,
+     "clipped": false
+    },
+    {
+     "model_mm": 3092.8,
+     "era5_mm": 2534.4,
+     "days": 368,
+     "raw_ratio": 1.22,
+     "clipped": false
+    },
+    {
+     "model_mm": 3091.2,
+     "era5_mm": 2533.1,
+     "days": 368,
+     "raw_ratio": 1.22,
+     "clipped": false
+    },
+    {
+     "model_mm": 2621.6,
+     "era5_mm": 2197.3,
+     "days": 364,
+     "raw_ratio": 1.193,
+     "clipped": false
+    },
+    {
+     "model_mm": 1317.2,
+     "era5_mm": 950.5,
+     "days": 368,
+     "raw_ratio": 1.386,
+     "clipped": false
+    },
+    {
+     "model_mm": 431.8,
+     "era5_mm": 328.1,
+     "days": 368,
+     "raw_ratio": 1.316,
+     "clipped": false
+    }
+   ]
+  },
+  "th_uthai_thani": {
+   "latitude": 15.3603,
+   "longitude": 99.5288,
+   "built_at_utc": "2026-10-20T17:56:36Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.387,
+    1.309,
+    1.188,
+    1.202,
+    1.31,
+    1.488,
+    1.801,
+    1.674,
+    1.555,
+    1.442,
+    1.464,
+    1.712
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 257.2,
+     "era5_mm": 185.4,
+     "days": 361,
+     "raw_ratio": 1.387,
+     "clipped": false
+    },
+    {
+     "model_mm": 412.4,
+     "era5_mm": 315.1,
+     "days": 361,
+     "raw_ratio": 1.309,
+     "clipped": false
+    },
+    {
+     "model_mm": 567.5,
+     "era5_mm": 477.7,
+     "days": 357,
+     "raw_ratio": 1.188,
+     "clipped": false
+    },
+    {
+     "model_mm": 1436.4,
+     "era5_mm": 1195.5,
+     "days": 368,
+     "raw_ratio": 1.202,
+     "clipped": false
+    },
+    {
+     "model_mm": 2018.8,
+     "era5_mm": 1540.9,
+     "days": 364,
+     "raw_ratio": 1.31,
+     "clipped": false
+    },
+    {
+     "model_mm": 3102.3,
+     "era5_mm": 2084.4,
+     "days": 368,
+     "raw_ratio": 1.488,
+     "clipped": false
+    },
+    {
+     "model_mm": 3388.6,
+     "era5_mm": 1881.7,
+     "days": 368,
+     "raw_ratio": 1.801,
+     "clipped": false
+    },
+    {
+     "model_mm": 4304.9,
+     "era5_mm": 2572.0,
+     "days": 368,
+     "raw_ratio": 1.674,
+     "clipped": false
+    },
+    {
+     "model_mm": 4181.8,
+     "era5_mm": 2688.8,
+     "days": 368,
+     "raw_ratio": 1.555,
+     "clipped": false
+    },
+    {
+     "model_mm": 3384.4,
+     "era5_mm": 2347.5,
+     "days": 364,
+     "raw_ratio": 1.442,
+     "clipped": false
+    },
+    {
+     "model_mm": 1730.5,
+     "era5_mm": 1182.1,
+     "days": 368,
+     "raw_ratio": 1.464,
+     "clipped": false
+    },
+    {
+     "model_mm": 615.0,
+     "era5_mm": 359.2,
+     "days": 368,
+     "raw_ratio": 1.712,
+     "clipped": false
+    }
+   ]
+  },
+  "th_phetchabun": {
+   "latitude": 16.2095,
+   "longitude": 101.2118,
+   "built_at_utc": "2026-10-20T17:57:08Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    1.77,
+    1.997,
+    2.0,
+    1.795,
+    1.356,
+    1.225,
+    1.159,
+    1.253,
+    1.382,
+    1.521,
+    1.934,
+    2.0
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 282.7,
+     "era5_mm": 159.7,
+     "days": 361,
+     "raw_ratio": 1.77,
+     "clipped": false
+    },
+    {
+     "model_mm": 455.9,
+     "era5_mm": 228.3,
+     "days": 361,
+     "raw_ratio": 1.997,
+     "clipped": false
+    },
+    {
+     "model_mm": 632.5,
+     "era5_mm": 303.3,
+     "days": 357,
+     "raw_ratio": 2.085,
+     "clipped": true
+    },
+    {
+     "model_mm": 1266.0,
+     "era5_mm": 705.2,
+     "days": 368,
+     "raw_ratio": 1.795,
+     "clipped": false
+    },
+    {
+     "model_mm": 1845.3,
+     "era5_mm": 1361.2,
+     "days": 364,
+     "raw_ratio": 1.356,
+     "clipped": false
+    },
+    {
+     "model_mm": 2876.3,
+     "era5_mm": 2347.9,
+     "days": 368,
+     "raw_ratio": 1.225,
+     "clipped": false
+    },
+    {
+     "model_mm": 3112.5,
+     "era5_mm": 2685.3,
+     "days": 368,
+     "raw_ratio": 1.159,
+     "clipped": false
+    },
+    {
+     "model_mm": 4013.0,
+     "era5_mm": 3201.5,
+     "days": 368,
+     "raw_ratio": 1.253,
+     "clipped": false
+    },
+    {
+     "model_mm": 3523.7,
+     "era5_mm": 2549.6,
+     "days": 368,
+     "raw_ratio": 1.382,
+     "clipped": false
+    },
+    {
+     "model_mm": 2747.8,
+     "era5_mm": 1806.9,
+     "days": 364,
+     "raw_ratio": 1.521,
+     "clipped": false
+    },
+    {
+     "model_mm": 1094.8,
+     "era5_mm": 566.1,
+     "days": 368,
+     "raw_ratio": 1.934,
+     "clipped": false
+    },
+    {
+     "model_mm": 376.5,
+     "era5_mm": 156.3,
+     "days": 368,
+     "raw_ratio": 2.409,
+     "clipped": true
+    }
+   ]
+  },
+  "th_loei": {
+   "latitude": 17.4873,
+   "longitude": 101.5178,
+   "built_at_utc": "2026-10-20T17:57:08Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.487,
+    1.697,
+    1.798,
+    1.567,
+    1.352,
+    1.16,
+    1.088,
+    1.128,
+    1.103,
+    1.135,
+    1.021,
+    1.547
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 310.1,
+     "era5_mm": 208.6,
+     "days": 361,
+     "raw_ratio": 1.487,
+     "clipped": false
+    },
+    {
+     "model_mm": 536.2,
+     "era5_mm": 316.0,
+     "days": 361,
+     "raw_ratio": 1.697,
+     "clipped": false
+    },
+    {
+     "model_mm": 792.1,
+     "era5_mm": 440.5,
+     "days": 357,
+     "raw_ratio": 1.798,
+     "clipped": false
+    },
+    {
+     "model_mm": 1357.9,
+     "era5_mm": 866.7,
+     "days": 368,
+     "raw_ratio": 1.567,
+     "clipped": false
+    },
+    {
+     "model_mm": 1636.4,
+     "era5_mm": 1210.6,
+     "days": 364,
+     "raw_ratio": 1.352,
+     "clipped": false
+    },
+    {
+     "model_mm": 2156.2,
+     "era5_mm": 1858.4,
+     "days": 368,
+     "raw_ratio": 1.16,
+     "clipped": false
+    },
+    {
+     "model_mm": 2213.9,
+     "era5_mm": 2034.6,
+     "days": 368,
+     "raw_ratio": 1.088,
+     "clipped": false
+    },
+    {
+     "model_mm": 2997.5,
+     "era5_mm": 2656.4,
+     "days": 368,
+     "raw_ratio": 1.128,
+     "clipped": false
+    },
+    {
+     "model_mm": 2530.9,
+     "era5_mm": 2295.4,
+     "days": 368,
+     "raw_ratio": 1.103,
+     "clipped": false
+    },
+    {
+     "model_mm": 1923.6,
+     "era5_mm": 1695.3,
+     "days": 364,
+     "raw_ratio": 1.135,
+     "clipped": false
+    },
+    {
+     "model_mm": 635.4,
+     "era5_mm": 622.2,
+     "days": 368,
+     "raw_ratio": 1.021,
+     "clipped": false
+    },
+    {
+     "model_mm": 326.3,
+     "era5_mm": 210.9,
+     "days": 368,
+     "raw_ratio": 1.547,
+     "clipped": false
+    }
+   ]
+  },
+  "th_nong_bua_lam_phu": {
+   "latitude": 17.2203,
+   "longitude": 102.3167,
+   "built_at_utc": "2026-10-20T17:57:08Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.597,
+    1.845,
+    1.609,
+    1.71,
+    1.488,
+    1.4,
+    1.302,
+    1.265,
+    1.308,
+    1.315,
+    1.532,
+    1.73
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 234.4,
+     "era5_mm": 146.8,
+     "days": 361,
+     "raw_ratio": 1.597,
+     "clipped": false
+    },
+    {
+     "model_mm": 409.9,
+     "era5_mm": 222.2,
+     "days": 361,
+     "raw_ratio": 1.845,
+     "clipped": false
+    },
+    {
+     "model_mm": 512.9,
+     "era5_mm": 318.8,
+     "days": 357,
+     "raw_ratio": 1.609,
+     "clipped": false
+    },
+    {
+     "model_mm": 1368.1,
+     "era5_mm": 799.9,
+     "days": 368,
+     "raw_ratio": 1.71,
+     "clipped": false
+    },
+    {
+     "model_mm": 1914.5,
+     "era5_mm": 1287.0,
+     "days": 364,
+     "raw_ratio": 1.488,
+     "clipped": false
+    },
+    {
+     "model_mm": 2928.9,
+     "era5_mm": 2092.2,
+     "days": 368,
+     "raw_ratio": 1.4,
+     "clipped": false
+    },
+    {
+     "model_mm": 3037.8,
+     "era5_mm": 2332.5,
+     "days": 368,
+     "raw_ratio": 1.302,
+     "clipped": false
+    },
+    {
+     "model_mm": 3730.7,
+     "era5_mm": 2948.6,
+     "days": 368,
+     "raw_ratio": 1.265,
+     "clipped": false
+    },
+    {
+     "model_mm": 3259.2,
+     "era5_mm": 2491.6,
+     "days": 368,
+     "raw_ratio": 1.308,
+     "clipped": false
+    },
+    {
+     "model_mm": 2373.4,
+     "era5_mm": 1804.2,
+     "days": 364,
+     "raw_ratio": 1.315,
+     "clipped": false
+    },
+    {
+     "model_mm": 958.6,
+     "era5_mm": 625.6,
+     "days": 368,
+     "raw_ratio": 1.532,
+     "clipped": false
+    },
+    {
+     "model_mm": 312.7,
+     "era5_mm": 180.8,
+     "days": 368,
+     "raw_ratio": 1.73,
+     "clipped": false
+    }
+   ]
+  },
+  "th_northeast_udon_thani": {
+   "latitude": 17.41,
+   "longitude": 102.79,
+   "built_at_utc": "2026-10-20T17:57:08Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.711,
+    1.799,
+    1.565,
+    1.475,
+    1.292,
+    1.286,
+    1.192,
+    1.183,
+    1.202,
+    1.272,
+    1.599,
+    1.635
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 253.7,
+     "era5_mm": 148.3,
+     "days": 361,
+     "raw_ratio": 1.711,
+     "clipped": false
+    },
+    {
+     "model_mm": 476.8,
+     "era5_mm": 265.1,
+     "days": 361,
+     "raw_ratio": 1.799,
+     "clipped": false
+    },
+    {
+     "model_mm": 598.1,
+     "era5_mm": 382.1,
+     "days": 357,
+     "raw_ratio": 1.565,
+     "clipped": false
+    },
+    {
+     "model_mm": 1259.5,
+     "era5_mm": 853.8,
+     "days": 368,
+     "raw_ratio": 1.475,
+     "clipped": false
+    },
+    {
+     "model_mm": 1917.9,
+     "era5_mm": 1484.5,
+     "days": 364,
+     "raw_ratio": 1.292,
+     "clipped": false
+    },
+    {
+     "model_mm": 3225.5,
+     "era5_mm": 2508.3,
+     "days": 368,
+     "raw_ratio": 1.286,
+     "clipped": false
+    },
+    {
+     "model_mm": 3682.4,
+     "era5_mm": 3088.9,
+     "days": 368,
+     "raw_ratio": 1.192,
+     "clipped": false
+    },
+    {
+     "model_mm": 4430.8,
+     "era5_mm": 3746.7,
+     "days": 368,
+     "raw_ratio": 1.183,
+     "clipped": false
+    },
+    {
+     "model_mm": 3541.4,
+     "era5_mm": 2946.7,
+     "days": 368,
+     "raw_ratio": 1.202,
+     "clipped": false
+    },
+    {
+     "model_mm": 2403.6,
+     "era5_mm": 1889.3,
+     "days": 364,
+     "raw_ratio": 1.272,
+     "clipped": false
+    },
+    {
+     "model_mm": 773.7,
+     "era5_mm": 484.0,
+     "days": 368,
+     "raw_ratio": 1.599,
+     "clipped": false
+    },
+    {
+     "model_mm": 234.2,
+     "era5_mm": 143.2,
+     "days": 368,
+     "raw_ratio": 1.635,
+     "clipped": false
+    }
+   ]
+  },
+  "th_nong_khai": {
+   "latitude": 17.9296,
+   "longitude": 102.7845,
+   "built_at_utc": "2026-10-20T18:01:10Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.044,
+    1.709,
+    1.988,
+    1.88,
+    1.633,
+    1.454,
+    1.333,
+    1.26,
+    1.279,
+    1.347,
+    1.66,
+    1.669
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 172.4,
+     "era5_mm": 165.1,
+     "days": 361,
+     "raw_ratio": 1.044,
+     "clipped": false
+    },
+    {
+     "model_mm": 403.3,
+     "era5_mm": 236.0,
+     "days": 361,
+     "raw_ratio": 1.709,
+     "clipped": false
+    },
+    {
+     "model_mm": 603.6,
+     "era5_mm": 303.6,
+     "days": 357,
+     "raw_ratio": 1.988,
+     "clipped": false
+    },
+    {
+     "model_mm": 1644.9,
+     "era5_mm": 875.1,
+     "days": 368,
+     "raw_ratio": 1.88,
+     "clipped": false
+    },
+    {
+     "model_mm": 3039.1,
+     "era5_mm": 1860.9,
+     "days": 364,
+     "raw_ratio": 1.633,
+     "clipped": false
+    },
+    {
+     "model_mm": 4767.3,
+     "era5_mm": 3277.8,
+     "days": 368,
+     "raw_ratio": 1.454,
+     "clipped": false
+    },
+    {
+     "model_mm": 5396.5,
+     "era5_mm": 4049.6,
+     "days": 368,
+     "raw_ratio": 1.333,
+     "clipped": false
+    },
+    {
+     "model_mm": 5720.4,
+     "era5_mm": 4539.3,
+     "days": 368,
+     "raw_ratio": 1.26,
+     "clipped": false
+    },
+    {
+     "model_mm": 4304.6,
+     "era5_mm": 3364.3,
+     "days": 368,
+     "raw_ratio": 1.279,
+     "clipped": false
+    },
+    {
+     "model_mm": 2661.2,
+     "era5_mm": 1975.4,
+     "days": 364,
+     "raw_ratio": 1.347,
+     "clipped": false
+    },
+    {
+     "model_mm": 712.2,
+     "era5_mm": 429.0,
+     "days": 368,
+     "raw_ratio": 1.66,
+     "clipped": false
+    },
+    {
+     "model_mm": 199.5,
+     "era5_mm": 119.5,
+     "days": 368,
+     "raw_ratio": 1.669,
+     "clipped": false
+    }
+   ]
+  },
+  "th_northeast_bueng_kan": {
+   "latitude": 18.36,
+   "longitude": 103.65,
+   "built_at_utc": "2026-10-20T18:01:10Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    1.359,
+    2.0,
+    2.0,
+    1.958,
+    1.635,
+    1.471,
+    1.303,
+    1.199,
+    1.171,
+    1.195,
+    1.339,
+    1.134
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 206.1,
+     "era5_mm": 151.7,
+     "days": 361,
+     "raw_ratio": 1.359,
+     "clipped": false
+    },
+    {
+     "model_mm": 545.0,
+     "era5_mm": 262.2,
+     "days": 361,
+     "raw_ratio": 2.079,
+     "clipped": true
+    },
+    {
+     "model_mm": 792.6,
+     "era5_mm": 370.8,
+     "days": 357,
+     "raw_ratio": 2.138,
+     "clipped": true
+    },
+    {
+     "model_mm": 2084.8,
+     "era5_mm": 1065.0,
+     "days": 368,
+     "raw_ratio": 1.958,
+     "clipped": false
+    },
+    {
+     "model_mm": 4083.5,
+     "era5_mm": 2498.2,
+     "days": 364,
+     "raw_ratio": 1.635,
+     "clipped": false
+    },
+    {
+     "model_mm": 6141.7,
+     "era5_mm": 4174.0,
+     "days": 368,
+     "raw_ratio": 1.471,
+     "clipped": false
+    },
+    {
+     "model_mm": 6828.0,
+     "era5_mm": 5240.2,
+     "days": 368,
+     "raw_ratio": 1.303,
+     "clipped": false
+    },
+    {
+     "model_mm": 6598.5,
+     "era5_mm": 5505.3,
+     "days": 368,
+     "raw_ratio": 1.199,
+     "clipped": false
+    },
+    {
+     "model_mm": 4651.2,
+     "era5_mm": 3970.9,
+     "days": 368,
+     "raw_ratio": 1.171,
+     "clipped": false
+    },
+    {
+     "model_mm": 2598.8,
+     "era5_mm": 2175.4,
+     "days": 364,
+     "raw_ratio": 1.195,
+     "clipped": false
+    },
+    {
+     "model_mm": 490.7,
+     "era5_mm": 366.6,
+     "days": 368,
+     "raw_ratio": 1.339,
+     "clipped": false
+    },
+    {
+     "model_mm": 132.2,
+     "era5_mm": 116.6,
+     "days": 368,
+     "raw_ratio": 1.134,
+     "clipped": false
+    }
+   ]
+  },
+  "th_sakon_nakhon": {
+   "latitude": 17.4204,
+   "longitude": 103.8453,
+   "built_at_utc": "2026-10-20T18:01:10Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.793,
+    1.97,
+    1.991,
+    1.613,
+    1.539,
+    1.397,
+    1.317,
+    1.253,
+    1.25,
+    1.286,
+    1.333,
+    1.537
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 193.1,
+     "era5_mm": 107.7,
+     "days": 361,
+     "raw_ratio": 1.793,
+     "clipped": false
+    },
+    {
+     "model_mm": 420.7,
+     "era5_mm": 213.5,
+     "days": 361,
+     "raw_ratio": 1.97,
+     "clipped": false
+    },
+    {
+     "model_mm": 627.5,
+     "era5_mm": 315.1,
+     "days": 357,
+     "raw_ratio": 1.991,
+     "clipped": false
+    },
+    {
+     "model_mm": 1477.7,
+     "era5_mm": 916.4,
+     "days": 368,
+     "raw_ratio": 1.613,
+     "clipped": false
+    },
+    {
+     "model_mm": 2543.9,
+     "era5_mm": 1652.9,
+     "days": 364,
+     "raw_ratio": 1.539,
+     "clipped": false
+    },
+    {
+     "model_mm": 3873.3,
+     "era5_mm": 2771.9,
+     "days": 368,
+     "raw_ratio": 1.397,
+     "clipped": false
+    },
+    {
+     "model_mm": 4347.3,
+     "era5_mm": 3300.8,
+     "days": 368,
+     "raw_ratio": 1.317,
+     "clipped": false
+    },
+    {
+     "model_mm": 4830.1,
+     "era5_mm": 3853.8,
+     "days": 368,
+     "raw_ratio": 1.253,
+     "clipped": false
+    },
+    {
+     "model_mm": 3619.6,
+     "era5_mm": 2896.2,
+     "days": 368,
+     "raw_ratio": 1.25,
+     "clipped": false
+    },
+    {
+     "model_mm": 2289.5,
+     "era5_mm": 1780.1,
+     "days": 364,
+     "raw_ratio": 1.286,
+     "clipped": false
+    },
+    {
+     "model_mm": 512.9,
+     "era5_mm": 384.8,
+     "days": 368,
+     "raw_ratio": 1.333,
+     "clipped": false
+    },
+    {
+     "model_mm": 187.2,
+     "era5_mm": 121.8,
+     "days": 368,
+     "raw_ratio": 1.537,
+     "clipped": false
+    }
+   ]
+  },
+  "th_nakhon_phanom": {
+   "latitude": 17.4304,
+   "longitude": 104.3965,
+   "built_at_utc": "2026-10-20T18:01:10Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.73,
+    1.799,
+    1.953,
+    1.478,
+    1.329,
+    1.184,
+    1.131,
+    1.073,
+    1.104,
+    1.1,
+    1.302,
+    1.11
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 158.1,
+     "era5_mm": 91.4,
+     "days": 361,
+     "raw_ratio": 1.73,
+     "clipped": false
+    },
+    {
+     "model_mm": 404.8,
+     "era5_mm": 225.0,
+     "days": 361,
+     "raw_ratio": 1.799,
+     "clipped": false
+    },
+    {
+     "model_mm": 629.7,
+     "era5_mm": 322.5,
+     "days": 357,
+     "raw_ratio": 1.953,
+     "clipped": false
+    },
+    {
+     "model_mm": 1599.6,
+     "era5_mm": 1082.6,
+     "days": 368,
+     "raw_ratio": 1.478,
+     "clipped": false
+    },
+    {
+     "model_mm": 2847.5,
+     "era5_mm": 2142.4,
+     "days": 364,
+     "raw_ratio": 1.329,
+     "clipped": false
+    },
+    {
+     "model_mm": 4404.7,
+     "era5_mm": 3720.8,
+     "days": 368,
+     "raw_ratio": 1.184,
+     "clipped": false
+    },
+    {
+     "model_mm": 5009.5,
+     "era5_mm": 4430.2,
+     "days": 368,
+     "raw_ratio": 1.131,
+     "clipped": false
+    },
+    {
+     "model_mm": 5138.7,
+     "era5_mm": 4789.7,
+     "days": 368,
+     "raw_ratio": 1.073,
+     "clipped": false
+    },
+    {
+     "model_mm": 3768.1,
+     "era5_mm": 3411.9,
+     "days": 368,
+     "raw_ratio": 1.104,
+     "clipped": false
+    },
+    {
+     "model_mm": 2170.1,
+     "era5_mm": 1972.4,
+     "days": 364,
+     "raw_ratio": 1.1,
+     "clipped": false
+    },
+    {
+     "model_mm": 546.3,
+     "era5_mm": 419.5,
+     "days": 368,
+     "raw_ratio": 1.302,
+     "clipped": false
+    },
+    {
+     "model_mm": 134.8,
+     "era5_mm": 121.4,
+     "days": 368,
+     "raw_ratio": 1.11,
+     "clipped": false
+    }
+   ]
+  },
+  "th_mukdahan": {
+   "latitude": 16.5443,
+   "longitude": 104.5251,
+   "built_at_utc": "2026-10-20T18:01:41Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    0.945,
+    1.056,
+    1.235,
+    0.962,
+    1.012,
+    0.924,
+    0.975,
+    0.952,
+    1.006,
+    0.983,
+    0.963,
+    0.83
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 108.9,
+     "era5_mm": 115.2,
+     "days": 361,
+     "raw_ratio": 0.945,
+     "clipped": false
+    },
+    {
+     "model_mm": 262.7,
+     "era5_mm": 248.8,
+     "days": 361,
+     "raw_ratio": 1.056,
+     "clipped": false
+    },
+    {
+     "model_mm": 450.8,
+     "era5_mm": 365.0,
+     "days": 357,
+     "raw_ratio": 1.235,
+     "clipped": false
+    },
+    {
+     "model_mm": 1231.0,
+     "era5_mm": 1279.2,
+     "days": 368,
+     "raw_ratio": 0.962,
+     "clipped": false
+    },
+    {
+     "model_mm": 1909.8,
+     "era5_mm": 1886.9,
+     "days": 364,
+     "raw_ratio": 1.012,
+     "clipped": false
+    },
+    {
+     "model_mm": 2810.8,
+     "era5_mm": 3041.5,
+     "days": 368,
+     "raw_ratio": 0.924,
+     "clipped": false
+    },
+    {
+     "model_mm": 3020.9,
+     "era5_mm": 3099.5,
+     "days": 368,
+     "raw_ratio": 0.975,
+     "clipped": false
+    },
+    {
+     "model_mm": 3617.5,
+     "era5_mm": 3799.3,
+     "days": 368,
+     "raw_ratio": 0.952,
+     "clipped": false
+    },
+    {
+     "model_mm": 2912.8,
+     "era5_mm": 2896.0,
+     "days": 368,
+     "raw_ratio": 1.006,
+     "clipped": false
+    },
+    {
+     "model_mm": 2002.3,
+     "era5_mm": 2036.0,
+     "days": 364,
+     "raw_ratio": 0.983,
+     "clipped": false
+    },
+    {
+     "model_mm": 573.1,
+     "era5_mm": 594.9,
+     "days": 368,
+     "raw_ratio": 0.963,
+     "clipped": false
+    },
+    {
+     "model_mm": 188.7,
+     "era5_mm": 227.4,
+     "days": 368,
+     "raw_ratio": 0.83,
+     "clipped": false
+    }
+   ]
+  },
+  "th_yasothon": {
+   "latitude": 15.8147,
+   "longitude": 104.4053,
+   "built_at_utc": "2026-10-20T18:01:41Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.433,
+    1.737,
+    1.513,
+    1.261,
+    1.187,
+    1.128,
+    1.134,
+    1.159,
+    1.22,
+    1.205,
+    1.18,
+    0.988
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 116.2,
+     "era5_mm": 81.1,
+     "days": 361,
+     "raw_ratio": 1.433,
+     "clipped": false
+    },
+    {
+     "model_mm": 292.2,
+     "era5_mm": 168.2,
+     "days": 361,
+     "raw_ratio": 1.737,
+     "clipped": false
+    },
+    {
+     "model_mm": 483.4,
+     "era5_mm": 319.6,
+     "days": 357,
+     "raw_ratio": 1.513,
+     "clipped": false
+    },
+    {
+     "model_mm": 1430.5,
+     "era5_mm": 1134.3,
+     "days": 368,
+     "raw_ratio": 1.261,
+     "clipped": false
+    },
+    {
+     "model_mm": 2026.9,
+     "era5_mm": 1707.4,
+     "days": 364,
+     "raw_ratio": 1.187,
+     "clipped": false
+    },
+    {
+     "model_mm": 3089.0,
+     "era5_mm": 2737.8,
+     "days": 368,
+     "raw_ratio": 1.128,
+     "clipped": false
+    },
+    {
+     "model_mm": 3178.7,
+     "era5_mm": 2803.9,
+     "days": 368,
+     "raw_ratio": 1.134,
+     "clipped": false
+    },
+    {
+     "model_mm": 4073.1,
+     "era5_mm": 3513.1,
+     "days": 368,
+     "raw_ratio": 1.159,
+     "clipped": false
+    },
+    {
+     "model_mm": 3420.2,
+     "era5_mm": 2803.0,
+     "days": 368,
+     "raw_ratio": 1.22,
+     "clipped": false
+    },
+    {
+     "model_mm": 2492.2,
+     "era5_mm": 2068.8,
+     "days": 364,
+     "raw_ratio": 1.205,
+     "clipped": false
+    },
+    {
+     "model_mm": 825.4,
+     "era5_mm": 699.4,
+     "days": 368,
+     "raw_ratio": 1.18,
+     "clipped": false
+    },
+    {
+     "model_mm": 225.0,
+     "era5_mm": 227.7,
+     "days": 368,
+     "raw_ratio": 0.988,
+     "clipped": false
+    }
+   ]
+  },
+  "th_amnat_charoen": {
+   "latitude": 15.9147,
+   "longitude": 104.7421,
+   "built_at_utc": "2026-10-20T18:01:41Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.975,
+    1.993,
+    1.605,
+    1.121,
+    1.057,
+    1.009,
+    1.041,
+    1.046,
+    1.072,
+    1.021,
+    0.914,
+    0.721
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 150.1,
+     "era5_mm": 76.0,
+     "days": 361,
+     "raw_ratio": 1.975,
+     "clipped": false
+    },
+    {
+     "model_mm": 353.9,
+     "era5_mm": 177.6,
+     "days": 361,
+     "raw_ratio": 1.993,
+     "clipped": false
+    },
+    {
+     "model_mm": 561.8,
+     "era5_mm": 350.0,
+     "days": 357,
+     "raw_ratio": 1.605,
+     "clipped": false
+    },
+    {
+     "model_mm": 1394.0,
+     "era5_mm": 1244.0,
+     "days": 368,
+     "raw_ratio": 1.121,
+     "clipped": false
+    },
+    {
+     "model_mm": 1961.6,
+     "era5_mm": 1855.1,
+     "days": 364,
+     "raw_ratio": 1.057,
+     "clipped": false
+    },
+    {
+     "model_mm": 2983.6,
+     "era5_mm": 2958.1,
+     "days": 368,
+     "raw_ratio": 1.009,
+     "clipped": false
+    },
+    {
+     "model_mm": 3171.4,
+     "era5_mm": 3047.5,
+     "days": 368,
+     "raw_ratio": 1.041,
+     "clipped": false
+    },
+    {
+     "model_mm": 3963.2,
+     "era5_mm": 3790.4,
+     "days": 368,
+     "raw_ratio": 1.046,
+     "clipped": false
+    },
+    {
+     "model_mm": 3232.5,
+     "era5_mm": 3014.8,
+     "days": 368,
+     "raw_ratio": 1.072,
+     "clipped": false
+    },
+    {
+     "model_mm": 2219.5,
+     "era5_mm": 2173.3,
+     "days": 364,
+     "raw_ratio": 1.021,
+     "clipped": false
+    },
+    {
+     "model_mm": 656.3,
+     "era5_mm": 717.7,
+     "days": 368,
+     "raw_ratio": 0.914,
+     "clipped": false
+    },
+    {
+     "model_mm": 157.1,
+     "era5_mm": 217.9,
+     "days": 368,
+     "raw_ratio": 0.721,
+     "clipped": false
+    }
+   ]
+  },
+  "th_northeast_ubon": {
+   "latitude": 15.24,
+   "longitude": 104.85,
+   "built_at_utc": "2026-10-20T18:01:41Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    1.701,
+    2.0,
+    1.939,
+    1.359,
+    1.184,
+    1.228,
+    1.25,
+    1.328,
+    1.275,
+    1.253,
+    1.092,
+    1.03
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 147.1,
+     "era5_mm": 86.5,
+     "days": 361,
+     "raw_ratio": 1.701,
+     "clipped": false
+    },
+    {
+     "model_mm": 373.0,
+     "era5_mm": 170.8,
+     "days": 361,
+     "raw_ratio": 2.184,
+     "clipped": true
+    },
+    {
+     "model_mm": 635.1,
+     "era5_mm": 327.5,
+     "days": 357,
+     "raw_ratio": 1.939,
+     "clipped": false
+    },
+    {
+     "model_mm": 1598.2,
+     "era5_mm": 1175.8,
+     "days": 368,
+     "raw_ratio": 1.359,
+     "clipped": false
+    },
+    {
+     "model_mm": 2131.8,
+     "era5_mm": 1801.0,
+     "days": 364,
+     "raw_ratio": 1.184,
+     "clipped": false
+    },
+    {
+     "model_mm": 3486.1,
+     "era5_mm": 2839.2,
+     "days": 368,
+     "raw_ratio": 1.228,
+     "clipped": false
+    },
+    {
+     "model_mm": 3546.1,
+     "era5_mm": 2836.9,
+     "days": 368,
+     "raw_ratio": 1.25,
+     "clipped": false
+    },
+    {
+     "model_mm": 4617.6,
+     "era5_mm": 3476.3,
+     "days": 368,
+     "raw_ratio": 1.328,
+     "clipped": false
+    },
+    {
+     "model_mm": 3675.7,
+     "era5_mm": 2883.9,
+     "days": 368,
+     "raw_ratio": 1.275,
+     "clipped": false
+    },
+    {
+     "model_mm": 2788.7,
+     "era5_mm": 2226.3,
+     "days": 364,
+     "raw_ratio": 1.253,
+     "clipped": false
+    },
+    {
+     "model_mm": 957.7,
+     "era5_mm": 877.4,
+     "days": 368,
+     "raw_ratio": 1.092,
+     "clipped": false
+    },
+    {
+     "model_mm": 283.2,
+     "era5_mm": 274.9,
+     "days": 368,
+     "raw_ratio": 1.03,
+     "clipped": false
+    }
+   ]
+  },
+  "th_si_sa_ket": {
+   "latitude": 14.9528,
+   "longitude": 104.4162,
+   "built_at_utc": "2026-10-20T18:02:13Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.517,
+    1.587,
+    1.75,
+    1.353,
+    1.206,
+    1.281,
+    1.258,
+    1.288,
+    1.168,
+    1.133,
+    1.004,
+    0.844
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 167.6,
+     "era5_mm": 110.5,
+     "days": 361,
+     "raw_ratio": 1.517,
+     "clipped": false
+    },
+    {
+     "model_mm": 310.4,
+     "era5_mm": 195.6,
+     "days": 361,
+     "raw_ratio": 1.587,
+     "clipped": false
+    },
+    {
+     "model_mm": 596.0,
+     "era5_mm": 340.6,
+     "days": 357,
+     "raw_ratio": 1.75,
+     "clipped": false
+    },
+    {
+     "model_mm": 1449.5,
+     "era5_mm": 1071.7,
+     "days": 368,
+     "raw_ratio": 1.353,
+     "clipped": false
+    },
+    {
+     "model_mm": 1940.5,
+     "era5_mm": 1608.4,
+     "days": 364,
+     "raw_ratio": 1.206,
+     "clipped": false
+    },
+    {
+     "model_mm": 3227.3,
+     "era5_mm": 2519.7,
+     "days": 368,
+     "raw_ratio": 1.281,
+     "clipped": false
+    },
+    {
+     "model_mm": 3140.8,
+     "era5_mm": 2495.8,
+     "days": 368,
+     "raw_ratio": 1.258,
+     "clipped": false
+    },
+    {
+     "model_mm": 4151.2,
+     "era5_mm": 3222.5,
+     "days": 368,
+     "raw_ratio": 1.288,
+     "clipped": false
+    },
+    {
+     "model_mm": 3227.9,
+     "era5_mm": 2763.0,
+     "days": 368,
+     "raw_ratio": 1.168,
+     "clipped": false
+    },
+    {
+     "model_mm": 2556.4,
+     "era5_mm": 2256.9,
+     "days": 364,
+     "raw_ratio": 1.133,
+     "clipped": false
+    },
+    {
+     "model_mm": 912.2,
+     "era5_mm": 908.4,
+     "days": 368,
+     "raw_ratio": 1.004,
+     "clipped": false
+    },
+    {
+     "model_mm": 263.1,
+     "era5_mm": 311.6,
+     "days": 368,
+     "raw_ratio": 0.844,
+     "clipped": false
+    }
+   ]
+  },
+  "th_surin": {
+   "latitude": 14.9065,
+   "longitude": 103.5848,
+   "built_at_utc": "2026-10-20T18:02:13Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    2.0,
+    2.0,
+    1.836,
+    1.407,
+    1.217,
+    1.25,
+    1.241,
+    1.306,
+    1.285,
+    1.281,
+    1.272,
+    1.286
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 210.7,
+     "era5_mm": 86.6,
+     "days": 361,
+     "raw_ratio": 2.433,
+     "clipped": true
+    },
+    {
+     "model_mm": 450.9,
+     "era5_mm": 204.9,
+     "days": 361,
+     "raw_ratio": 2.201,
+     "clipped": true
+    },
+    {
+     "model_mm": 677.2,
+     "era5_mm": 368.8,
+     "days": 357,
+     "raw_ratio": 1.836,
+     "clipped": false
+    },
+    {
+     "model_mm": 1493.8,
+     "era5_mm": 1061.7,
+     "days": 368,
+     "raw_ratio": 1.407,
+     "clipped": false
+    },
+    {
+     "model_mm": 1898.9,
+     "era5_mm": 1559.9,
+     "days": 364,
+     "raw_ratio": 1.217,
+     "clipped": false
+    },
+    {
+     "model_mm": 2754.0,
+     "era5_mm": 2202.5,
+     "days": 368,
+     "raw_ratio": 1.25,
+     "clipped": false
+    },
+    {
+     "model_mm": 2637.3,
+     "era5_mm": 2124.9,
+     "days": 368,
+     "raw_ratio": 1.241,
+     "clipped": false
+    },
+    {
+     "model_mm": 3547.9,
+     "era5_mm": 2717.3,
+     "days": 368,
+     "raw_ratio": 1.306,
+     "clipped": false
+    },
+    {
+     "model_mm": 3123.1,
+     "era5_mm": 2429.8,
+     "days": 368,
+     "raw_ratio": 1.285,
+     "clipped": false
+    },
+    {
+     "model_mm": 2542.2,
+     "era5_mm": 1984.3,
+     "days": 364,
+     "raw_ratio": 1.281,
+     "clipped": false
+    },
+    {
+     "model_mm": 986.3,
+     "era5_mm": 775.4,
+     "days": 368,
+     "raw_ratio": 1.272,
+     "clipped": false
+    },
+    {
+     "model_mm": 329.7,
+     "era5_mm": 256.4,
+     "days": 368,
+     "raw_ratio": 1.286,
+     "clipped": false
+    }
+   ]
+  },
+  "th_buri_ram": {
+   "latitude": 14.9604,
+   "longitude": 102.9704,
+   "built_at_utc": "2026-10-20T18:02:13Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    2.0,
+    1.703,
+    1.485,
+    1.14,
+    1.057,
+    1.074,
+    1.086,
+    1.165,
+    1.169,
+    1.237,
+    1.271,
+    1.532
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 171.9,
+     "era5_mm": 66.8,
+     "days": 361,
+     "raw_ratio": 2.573,
+     "clipped": true
+    },
+    {
+     "model_mm": 424.7,
+     "era5_mm": 249.4,
+     "days": 361,
+     "raw_ratio": 1.703,
+     "clipped": false
+    },
+    {
+     "model_mm": 633.3,
+     "era5_mm": 426.4,
+     "days": 357,
+     "raw_ratio": 1.485,
+     "clipped": false
+    },
+    {
+     "model_mm": 1308.4,
+     "era5_mm": 1147.6,
+     "days": 368,
+     "raw_ratio": 1.14,
+     "clipped": false
+    },
+    {
+     "model_mm": 1608.9,
+     "era5_mm": 1522.4,
+     "days": 364,
+     "raw_ratio": 1.057,
+     "clipped": false
+    },
+    {
+     "model_mm": 2178.4,
+     "era5_mm": 2027.5,
+     "days": 368,
+     "raw_ratio": 1.074,
+     "clipped": false
+    },
+    {
+     "model_mm": 2098.2,
+     "era5_mm": 1931.8,
+     "days": 368,
+     "raw_ratio": 1.086,
+     "clipped": false
+    },
+    {
+     "model_mm": 2936.1,
+     "era5_mm": 2520.2,
+     "days": 368,
+     "raw_ratio": 1.165,
+     "clipped": false
+    },
+    {
+     "model_mm": 2768.4,
+     "era5_mm": 2367.6,
+     "days": 368,
+     "raw_ratio": 1.169,
+     "clipped": false
+    },
+    {
+     "model_mm": 2368.1,
+     "era5_mm": 1914.5,
+     "days": 364,
+     "raw_ratio": 1.237,
+     "clipped": false
+    },
+    {
+     "model_mm": 976.9,
+     "era5_mm": 768.7,
+     "days": 368,
+     "raw_ratio": 1.271,
+     "clipped": false
+    },
+    {
+     "model_mm": 366.5,
+     "era5_mm": 239.2,
+     "days": 368,
+     "raw_ratio": 1.532,
+     "clipped": false
+    }
+   ]
+  },
+  "th_maha_sarakham": {
+   "latitude": 16.0247,
+   "longitude": 103.1797,
+   "built_at_utc": "2026-10-20T18:02:13Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    2.0,
+    1.999,
+    1.713,
+    1.432,
+    1.144,
+    1.077,
+    0.993,
+    1.082,
+    1.155,
+    1.195,
+    1.318,
+    1.329
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 156.3,
+     "era5_mm": 73.8,
+     "days": 361,
+     "raw_ratio": 2.118,
+     "clipped": true
+    },
+    {
+     "model_mm": 402.9,
+     "era5_mm": 201.6,
+     "days": 361,
+     "raw_ratio": 1.999,
+     "clipped": false
+    },
+    {
+     "model_mm": 564.4,
+     "era5_mm": 329.5,
+     "days": 357,
+     "raw_ratio": 1.713,
+     "clipped": false
+    },
+    {
+     "model_mm": 1298.6,
+     "era5_mm": 906.7,
+     "days": 368,
+     "raw_ratio": 1.432,
+     "clipped": false
+    },
+    {
+     "model_mm": 1566.4,
+     "era5_mm": 1369.6,
+     "days": 364,
+     "raw_ratio": 1.144,
+     "clipped": false
+    },
+    {
+     "model_mm": 2295.6,
+     "era5_mm": 2131.2,
+     "days": 368,
+     "raw_ratio": 1.077,
+     "clipped": false
+    },
+    {
+     "model_mm": 2092.8,
+     "era5_mm": 2107.8,
+     "days": 368,
+     "raw_ratio": 0.993,
+     "clipped": false
+    },
+    {
+     "model_mm": 2955.0,
+     "era5_mm": 2732.1,
+     "days": 368,
+     "raw_ratio": 1.082,
+     "clipped": false
+    },
+    {
+     "model_mm": 2590.8,
+     "era5_mm": 2243.9,
+     "days": 368,
+     "raw_ratio": 1.155,
+     "clipped": false
+    },
+    {
+     "model_mm": 2186.1,
+     "era5_mm": 1829.2,
+     "days": 364,
+     "raw_ratio": 1.195,
+     "clipped": false
+    },
+    {
+     "model_mm": 809.5,
+     "era5_mm": 614.2,
+     "days": 368,
+     "raw_ratio": 1.318,
+     "clipped": false
+    },
+    {
+     "model_mm": 283.0,
+     "era5_mm": 212.9,
+     "days": 368,
+     "raw_ratio": 1.329,
+     "clipped": false
+    }
+   ]
+  },
+  "th_roi_et": {
+   "latitude": 15.9381,
+   "longitude": 103.8256,
+   "built_at_utc": "2026-10-20T18:02:44Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.019,
+    1.327,
+    1.276,
+    1.392,
+    1.231,
+    1.168,
+    1.155,
+    1.198,
+    1.286,
+    1.216,
+    1.243,
+    0.921
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 80.2,
+     "era5_mm": 78.7,
+     "days": 361,
+     "raw_ratio": 1.019,
+     "clipped": false
+    },
+    {
+     "model_mm": 275.9,
+     "era5_mm": 207.9,
+     "days": 361,
+     "raw_ratio": 1.327,
+     "clipped": false
+    },
+    {
+     "model_mm": 464.0,
+     "era5_mm": 363.6,
+     "days": 357,
+     "raw_ratio": 1.276,
+     "clipped": false
+    },
+    {
+     "model_mm": 1377.9,
+     "era5_mm": 990.1,
+     "days": 368,
+     "raw_ratio": 1.392,
+     "clipped": false
+    },
+    {
+     "model_mm": 1885.9,
+     "era5_mm": 1532.1,
+     "days": 364,
+     "raw_ratio": 1.231,
+     "clipped": false
+    },
+    {
+     "model_mm": 2784.2,
+     "era5_mm": 2384.4,
+     "days": 368,
+     "raw_ratio": 1.168,
+     "clipped": false
+    },
+    {
+     "model_mm": 2816.3,
+     "era5_mm": 2438.9,
+     "days": 368,
+     "raw_ratio": 1.155,
+     "clipped": false
+    },
+    {
+     "model_mm": 3712.9,
+     "era5_mm": 3098.8,
+     "days": 368,
+     "raw_ratio": 1.198,
+     "clipped": false
+    },
+    {
+     "model_mm": 3215.6,
+     "era5_mm": 2501.1,
+     "days": 368,
+     "raw_ratio": 1.286,
+     "clipped": false
+    },
+    {
+     "model_mm": 2416.2,
+     "era5_mm": 1987.6,
+     "days": 364,
+     "raw_ratio": 1.216,
+     "clipped": false
+    },
+    {
+     "model_mm": 815.9,
+     "era5_mm": 656.5,
+     "days": 368,
+     "raw_ratio": 1.243,
+     "clipped": false
+    },
+    {
+     "model_mm": 226.8,
+     "era5_mm": 246.2,
+     "days": 368,
+     "raw_ratio": 0.921,
+     "clipped": false
+    }
+   ]
+  },
+  "th_kalasin": {
+   "latitude": 16.6439,
+   "longitude": 103.6795,
+   "built_at_utc": "2026-10-20T18:02:44Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    2.0,
+    1.838,
+    1.664,
+    1.438,
+    1.304,
+    1.079,
+    0.993,
+    0.944,
+    1.044,
+    1.08,
+    1.55,
+    1.71
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 153.0,
+     "era5_mm": 55.6,
+     "days": 361,
+     "raw_ratio": 2.752,
+     "clipped": true
+    },
+    {
+     "model_mm": 367.6,
+     "era5_mm": 200.0,
+     "days": 361,
+     "raw_ratio": 1.838,
+     "clipped": false
+    },
+    {
+     "model_mm": 515.3,
+     "era5_mm": 309.7,
+     "days": 357,
+     "raw_ratio": 1.664,
+     "clipped": false
+    },
+    {
+     "model_mm": 1309.1,
+     "era5_mm": 910.6,
+     "days": 368,
+     "raw_ratio": 1.438,
+     "clipped": false
+    },
+    {
+     "model_mm": 1775.4,
+     "era5_mm": 1362.0,
+     "days": 364,
+     "raw_ratio": 1.304,
+     "clipped": false
+    },
+    {
+     "model_mm": 2729.0,
+     "era5_mm": 2528.3,
+     "days": 368,
+     "raw_ratio": 1.079,
+     "clipped": false
+    },
+    {
+     "model_mm": 2782.1,
+     "era5_mm": 2801.0,
+     "days": 368,
+     "raw_ratio": 0.993,
+     "clipped": false
+    },
+    {
+     "model_mm": 3581.7,
+     "era5_mm": 3795.3,
+     "days": 368,
+     "raw_ratio": 0.944,
+     "clipped": false
+    },
+    {
+     "model_mm": 2989.0,
+     "era5_mm": 2863.8,
+     "days": 368,
+     "raw_ratio": 1.044,
+     "clipped": false
+    },
+    {
+     "model_mm": 2260.5,
+     "era5_mm": 2093.3,
+     "days": 364,
+     "raw_ratio": 1.08,
+     "clipped": false
+    },
+    {
+     "model_mm": 780.0,
+     "era5_mm": 503.2,
+     "days": 368,
+     "raw_ratio": 1.55,
+     "clipped": false
+    },
+    {
+     "model_mm": 271.4,
+     "era5_mm": 158.7,
+     "days": 368,
+     "raw_ratio": 1.71,
+     "clipped": false
+    }
+   ]
+  },
+  "th_khon_kaen": {
+   "latitude": 16.3485,
+   "longitude": 102.4723,
+   "built_at_utc": "2026-10-20T18:02:44Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.873,
+    1.668,
+    1.594,
+    1.241,
+    1.096,
+    1.045,
+    1.043,
+    1.131,
+    1.256,
+    1.335,
+    1.536,
+    1.57
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 186.7,
+     "era5_mm": 99.7,
+     "days": 361,
+     "raw_ratio": 1.873,
+     "clipped": false
+    },
+    {
+     "model_mm": 439.3,
+     "era5_mm": 263.3,
+     "days": 361,
+     "raw_ratio": 1.668,
+     "clipped": false
+    },
+    {
+     "model_mm": 646.8,
+     "era5_mm": 405.8,
+     "days": 357,
+     "raw_ratio": 1.594,
+     "clipped": false
+    },
+    {
+     "model_mm": 1307.5,
+     "era5_mm": 1053.4,
+     "days": 368,
+     "raw_ratio": 1.241,
+     "clipped": false
+    },
+    {
+     "model_mm": 1528.7,
+     "era5_mm": 1394.7,
+     "days": 364,
+     "raw_ratio": 1.096,
+     "clipped": false
+    },
+    {
+     "model_mm": 2152.3,
+     "era5_mm": 2059.4,
+     "days": 368,
+     "raw_ratio": 1.045,
+     "clipped": false
+    },
+    {
+     "model_mm": 2031.8,
+     "era5_mm": 1948.2,
+     "days": 368,
+     "raw_ratio": 1.043,
+     "clipped": false
+    },
+    {
+     "model_mm": 2823.0,
+     "era5_mm": 2495.6,
+     "days": 368,
+     "raw_ratio": 1.131,
+     "clipped": false
+    },
+    {
+     "model_mm": 2731.7,
+     "era5_mm": 2174.4,
+     "days": 368,
+     "raw_ratio": 1.256,
+     "clipped": false
+    },
+    {
+     "model_mm": 2326.5,
+     "era5_mm": 1743.2,
+     "days": 364,
+     "raw_ratio": 1.335,
+     "clipped": false
+    },
+    {
+     "model_mm": 1061.5,
+     "era5_mm": 690.9,
+     "days": 368,
+     "raw_ratio": 1.536,
+     "clipped": false
+    },
+    {
+     "model_mm": 321.7,
+     "era5_mm": 204.9,
+     "days": 368,
+     "raw_ratio": 1.57,
+     "clipped": false
+    }
+   ]
+  },
+  "th_chaiyaphum": {
+   "latitude": 15.9592,
+   "longitude": 101.8808,
+   "built_at_utc": "2026-10-20T18:02:44Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.373,
+    1.457,
+    1.416,
+    1.229,
+    1.13,
+    1.113,
+    1.17,
+    1.312,
+    1.376,
+    1.397,
+    1.341,
+    1.402
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 149.8,
+     "era5_mm": 109.1,
+     "days": 361,
+     "raw_ratio": 1.373,
+     "clipped": false
+    },
+    {
+     "model_mm": 361.9,
+     "era5_mm": 248.4,
+     "days": 361,
+     "raw_ratio": 1.457,
+     "clipped": false
+    },
+    {
+     "model_mm": 562.2,
+     "era5_mm": 396.9,
+     "days": 357,
+     "raw_ratio": 1.416,
+     "clipped": false
+    },
+    {
+     "model_mm": 1223.7,
+     "era5_mm": 995.6,
+     "days": 368,
+     "raw_ratio": 1.229,
+     "clipped": false
+    },
+    {
+     "model_mm": 1558.8,
+     "era5_mm": 1379.2,
+     "days": 364,
+     "raw_ratio": 1.13,
+     "clipped": false
+    },
+    {
+     "model_mm": 2201.2,
+     "era5_mm": 1977.1,
+     "days": 368,
+     "raw_ratio": 1.113,
+     "clipped": false
+    },
+    {
+     "model_mm": 2211.3,
+     "era5_mm": 1890.0,
+     "days": 368,
+     "raw_ratio": 1.17,
+     "clipped": false
+    },
+    {
+     "model_mm": 3152.3,
+     "era5_mm": 2403.3,
+     "days": 368,
+     "raw_ratio": 1.312,
+     "clipped": false
+    },
+    {
+     "model_mm": 3032.8,
+     "era5_mm": 2204.8,
+     "days": 368,
+     "raw_ratio": 1.376,
+     "clipped": false
+    },
+    {
+     "model_mm": 2479.1,
+     "era5_mm": 1775.0,
+     "days": 364,
+     "raw_ratio": 1.397,
+     "clipped": false
+    },
+    {
+     "model_mm": 990.9,
+     "era5_mm": 738.8,
+     "days": 368,
+     "raw_ratio": 1.341,
+     "clipped": false
+    },
+    {
+     "model_mm": 267.7,
+     "era5_mm": 190.9,
+     "days": 368,
+     "raw_ratio": 1.402,
+     "clipped": false
+    }
+   ]
+  },
+  "th_nakhon_ratchasima": {
+   "latitude": 14.9476,
+   "longitude": 102.1023,
+   "built_at_utc": "2026-10-20T18:06:46Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    2.0,
+    1.536,
+    1.347,
+    1.081,
+    1.016,
+    1.045,
+    1.042,
+    1.136,
+    1.193,
+    1.317,
+    1.461,
+    1.686
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 168.4,
+     "era5_mm": 64.8,
+     "days": 361,
+     "raw_ratio": 2.599,
+     "clipped": true
+    },
+    {
+     "model_mm": 417.2,
+     "era5_mm": 271.7,
+     "days": 361,
+     "raw_ratio": 1.536,
+     "clipped": false
+    },
+    {
+     "model_mm": 629.6,
+     "era5_mm": 467.5,
+     "days": 357,
+     "raw_ratio": 1.347,
+     "clipped": false
+    },
+    {
+     "model_mm": 1188.8,
+     "era5_mm": 1100.1,
+     "days": 368,
+     "raw_ratio": 1.081,
+     "clipped": false
+    },
+    {
+     "model_mm": 1418.8,
+     "era5_mm": 1396.9,
+     "days": 364,
+     "raw_ratio": 1.016,
+     "clipped": false
+    },
+    {
+     "model_mm": 1909.9,
+     "era5_mm": 1828.1,
+     "days": 368,
+     "raw_ratio": 1.045,
+     "clipped": false
+    },
+    {
+     "model_mm": 1864.6,
+     "era5_mm": 1789.7,
+     "days": 368,
+     "raw_ratio": 1.042,
+     "clipped": false
+    },
+    {
+     "model_mm": 2581.0,
+     "era5_mm": 2272.6,
+     "days": 368,
+     "raw_ratio": 1.136,
+     "clipped": false
+    },
+    {
+     "model_mm": 2565.7,
+     "era5_mm": 2150.6,
+     "days": 368,
+     "raw_ratio": 1.193,
+     "clipped": false
+    },
+    {
+     "model_mm": 2254.5,
+     "era5_mm": 1711.7,
+     "days": 364,
+     "raw_ratio": 1.317,
+     "clipped": false
+    },
+    {
+     "model_mm": 1059.3,
+     "era5_mm": 725.1,
+     "days": 368,
+     "raw_ratio": 1.461,
+     "clipped": false
+    },
+    {
+     "model_mm": 371.1,
+     "era5_mm": 220.1,
+     "days": 368,
+     "raw_ratio": 1.686,
+     "clipped": false
+    }
+   ]
+  },
+  "th_saraburi": {
+   "latitude": 14.6217,
+   "longitude": 101.0132,
+   "built_at_utc": "2026-10-20T18:06:46Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    2.0,
+    1.929,
+    1.446,
+    1.089,
+    1.254,
+    1.341,
+    1.46,
+    1.301,
+    1.23,
+    1.063,
+    0.956,
+    0.793
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 380.1,
+     "era5_mm": 162.3,
+     "days": 361,
+     "raw_ratio": 2.342,
+     "clipped": true
+    },
+    {
+     "model_mm": 568.2,
+     "era5_mm": 294.5,
+     "days": 361,
+     "raw_ratio": 1.929,
+     "clipped": false
+    },
+    {
+     "model_mm": 738.3,
+     "era5_mm": 510.5,
+     "days": 357,
+     "raw_ratio": 1.446,
+     "clipped": false
+    },
+    {
+     "model_mm": 1258.7,
+     "era5_mm": 1155.9,
+     "days": 368,
+     "raw_ratio": 1.089,
+     "clipped": false
+    },
+    {
+     "model_mm": 1997.5,
+     "era5_mm": 1593.2,
+     "days": 364,
+     "raw_ratio": 1.254,
+     "clipped": false
+    },
+    {
+     "model_mm": 3045.5,
+     "era5_mm": 2271.8,
+     "days": 368,
+     "raw_ratio": 1.341,
+     "clipped": false
+    },
+    {
+     "model_mm": 3398.0,
+     "era5_mm": 2326.8,
+     "days": 368,
+     "raw_ratio": 1.46,
+     "clipped": false
+    },
+    {
+     "model_mm": 3944.4,
+     "era5_mm": 3031.5,
+     "days": 368,
+     "raw_ratio": 1.301,
+     "clipped": false
+    },
+    {
+     "model_mm": 3407.6,
+     "era5_mm": 2770.7,
+     "days": 368,
+     "raw_ratio": 1.23,
+     "clipped": false
+    },
+    {
+     "model_mm": 2523.2,
+     "era5_mm": 2372.6,
+     "days": 364,
+     "raw_ratio": 1.063,
+     "clipped": false
+    },
+    {
+     "model_mm": 1049.9,
+     "era5_mm": 1098.4,
+     "days": 368,
+     "raw_ratio": 0.956,
+     "clipped": false
+    },
+    {
+     "model_mm": 368.6,
+     "era5_mm": 464.6,
+     "days": 368,
+     "raw_ratio": 0.793,
+     "clipped": false
+    }
+   ]
+  },
+  "th_lopburi": {
+   "latitude": 15.0767,
+   "longitude": 100.9213,
+   "built_at_utc": "2026-10-20T18:06:46Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    2.0,
+    1.752,
+    1.63,
+    1.333,
+    1.244,
+    1.309,
+    1.387,
+    1.343,
+    1.34,
+    1.259,
+    1.398,
+    1.226
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 257.5,
+     "era5_mm": 128.7,
+     "days": 361,
+     "raw_ratio": 2.001,
+     "clipped": true
+    },
+    {
+     "model_mm": 457.4,
+     "era5_mm": 261.0,
+     "days": 361,
+     "raw_ratio": 1.752,
+     "clipped": false
+    },
+    {
+     "model_mm": 634.9,
+     "era5_mm": 389.4,
+     "days": 357,
+     "raw_ratio": 1.63,
+     "clipped": false
+    },
+    {
+     "model_mm": 1293.3,
+     "era5_mm": 969.9,
+     "days": 368,
+     "raw_ratio": 1.333,
+     "clipped": false
+    },
+    {
+     "model_mm": 1763.5,
+     "era5_mm": 1417.5,
+     "days": 364,
+     "raw_ratio": 1.244,
+     "clipped": false
+    },
+    {
+     "model_mm": 2673.8,
+     "era5_mm": 2043.1,
+     "days": 368,
+     "raw_ratio": 1.309,
+     "clipped": false
+    },
+    {
+     "model_mm": 2874.0,
+     "era5_mm": 2071.5,
+     "days": 368,
+     "raw_ratio": 1.387,
+     "clipped": false
+    },
+    {
+     "model_mm": 3661.0,
+     "era5_mm": 2726.6,
+     "days": 368,
+     "raw_ratio": 1.343,
+     "clipped": false
+    },
+    {
+     "model_mm": 3232.1,
+     "era5_mm": 2411.5,
+     "days": 368,
+     "raw_ratio": 1.34,
+     "clipped": false
+    },
+    {
+     "model_mm": 2442.1,
+     "era5_mm": 1939.8,
+     "days": 364,
+     "raw_ratio": 1.259,
+     "clipped": false
+    },
+    {
+     "model_mm": 985.0,
+     "era5_mm": 704.8,
+     "days": 368,
+     "raw_ratio": 1.398,
+     "clipped": false
+    },
+    {
+     "model_mm": 326.1,
+     "era5_mm": 265.9,
+     "days": 368,
+     "raw_ratio": 1.226,
+     "clipped": false
+    }
+   ]
+  },
+  "th_chai_nat": {
+   "latitude": 15.1634,
+   "longitude": 100.0126,
+   "built_at_utc": "2026-10-20T18:06:46Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.384,
+    1.341,
+    1.284,
+    1.168,
+    1.203,
+    1.272,
+    1.43,
+    1.27,
+    1.206,
+    1.111,
+    1.173,
+    1.199
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 212.4,
+     "era5_mm": 153.5,
+     "days": 361,
+     "raw_ratio": 1.384,
+     "clipped": false
+    },
+    {
+     "model_mm": 353.0,
+     "era5_mm": 263.2,
+     "days": 361,
+     "raw_ratio": 1.341,
+     "clipped": false
+    },
+    {
+     "model_mm": 552.1,
+     "era5_mm": 430.0,
+     "days": 357,
+     "raw_ratio": 1.284,
+     "clipped": false
+    },
+    {
+     "model_mm": 1226.9,
+     "era5_mm": 1050.4,
+     "days": 368,
+     "raw_ratio": 1.168,
+     "clipped": false
+    },
+    {
+     "model_mm": 1611.7,
+     "era5_mm": 1339.5,
+     "days": 364,
+     "raw_ratio": 1.203,
+     "clipped": false
+    },
+    {
+     "model_mm": 2302.6,
+     "era5_mm": 1809.7,
+     "days": 368,
+     "raw_ratio": 1.272,
+     "clipped": false
+    },
+    {
+     "model_mm": 2411.2,
+     "era5_mm": 1686.2,
+     "days": 368,
+     "raw_ratio": 1.43,
+     "clipped": false
+    },
+    {
+     "model_mm": 3095.1,
+     "era5_mm": 2436.4,
+     "days": 368,
+     "raw_ratio": 1.27,
+     "clipped": false
+    },
+    {
+     "model_mm": 3058.9,
+     "era5_mm": 2535.6,
+     "days": 368,
+     "raw_ratio": 1.206,
+     "clipped": false
+    },
+    {
+     "model_mm": 2495.2,
+     "era5_mm": 2245.6,
+     "days": 364,
+     "raw_ratio": 1.111,
+     "clipped": false
+    },
+    {
+     "model_mm": 1285.9,
+     "era5_mm": 1096.6,
+     "days": 368,
+     "raw_ratio": 1.173,
+     "clipped": false
+    },
+    {
+     "model_mm": 432.1,
+     "era5_mm": 360.4,
+     "days": 368,
+     "raw_ratio": 1.199,
+     "clipped": false
+    }
+   ]
+  },
+  "th_suphan_buri": {
+   "latitude": 14.5174,
+   "longitude": 99.829,
+   "built_at_utc": "2026-10-20T18:07:18Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.961,
+    1.303,
+    1.458,
+    1.239,
+    1.378,
+    1.284,
+    1.435,
+    1.327,
+    1.278,
+    1.161,
+    1.107,
+    1.083
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 268.1,
+     "era5_mm": 136.7,
+     "days": 361,
+     "raw_ratio": 1.961,
+     "clipped": false
+    },
+    {
+     "model_mm": 467.6,
+     "era5_mm": 358.9,
+     "days": 361,
+     "raw_ratio": 1.303,
+     "clipped": false
+    },
+    {
+     "model_mm": 691.5,
+     "era5_mm": 474.2,
+     "days": 357,
+     "raw_ratio": 1.458,
+     "clipped": false
+    },
+    {
+     "model_mm": 1329.2,
+     "era5_mm": 1072.6,
+     "days": 368,
+     "raw_ratio": 1.239,
+     "clipped": false
+    },
+    {
+     "model_mm": 1595.7,
+     "era5_mm": 1158.4,
+     "days": 364,
+     "raw_ratio": 1.378,
+     "clipped": false
+    },
+    {
+     "model_mm": 2073.2,
+     "era5_mm": 1614.6,
+     "days": 368,
+     "raw_ratio": 1.284,
+     "clipped": false
+    },
+    {
+     "model_mm": 1912.0,
+     "era5_mm": 1332.2,
+     "days": 368,
+     "raw_ratio": 1.435,
+     "clipped": false
+    },
+    {
+     "model_mm": 2569.6,
+     "era5_mm": 1935.8,
+     "days": 368,
+     "raw_ratio": 1.327,
+     "clipped": false
+    },
+    {
+     "model_mm": 2752.8,
+     "era5_mm": 2153.7,
+     "days": 368,
+     "raw_ratio": 1.278,
+     "clipped": false
+    },
+    {
+     "model_mm": 2482.7,
+     "era5_mm": 2139.3,
+     "days": 364,
+     "raw_ratio": 1.161,
+     "clipped": false
+    },
+    {
+     "model_mm": 1359.1,
+     "era5_mm": 1227.7,
+     "days": 368,
+     "raw_ratio": 1.107,
+     "clipped": false
+    },
+    {
+     "model_mm": 474.5,
+     "era5_mm": 438.3,
+     "days": 368,
+     "raw_ratio": 1.083,
+     "clipped": false
+    }
+   ]
+  },
+  "th_nakhon_nayok": {
+   "latitude": 14.2337,
+   "longitude": 101.2148,
+   "built_at_utc": "2026-10-20T18:07:18Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    2.0,
+    1.751,
+    1.436,
+    1.218,
+    1.575,
+    1.764,
+    2.0,
+    1.826,
+    1.611,
+    1.229,
+    0.936,
+    0.722
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 323.5,
+     "era5_mm": 160.5,
+     "days": 361,
+     "raw_ratio": 2.016,
+     "clipped": true
+    },
+    {
+     "model_mm": 570.2,
+     "era5_mm": 325.7,
+     "days": 361,
+     "raw_ratio": 1.751,
+     "clipped": false
+    },
+    {
+     "model_mm": 835.2,
+     "era5_mm": 581.6,
+     "days": 357,
+     "raw_ratio": 1.436,
+     "clipped": false
+    },
+    {
+     "model_mm": 1769.2,
+     "era5_mm": 1452.2,
+     "days": 368,
+     "raw_ratio": 1.218,
+     "clipped": false
+    },
+    {
+     "model_mm": 3344.6,
+     "era5_mm": 2123.5,
+     "days": 364,
+     "raw_ratio": 1.575,
+     "clipped": false
+    },
+    {
+     "model_mm": 5448.1,
+     "era5_mm": 3088.1,
+     "days": 368,
+     "raw_ratio": 1.764,
+     "clipped": false
+    },
+    {
+     "model_mm": 6462.1,
+     "era5_mm": 3063.8,
+     "days": 368,
+     "raw_ratio": 2.109,
+     "clipped": true
+    },
+    {
+     "model_mm": 6949.3,
+     "era5_mm": 3806.0,
+     "days": 368,
+     "raw_ratio": 1.826,
+     "clipped": false
+    },
+    {
+     "model_mm": 5404.7,
+     "era5_mm": 3354.4,
+     "days": 368,
+     "raw_ratio": 1.611,
+     "clipped": false
+    },
+    {
+     "model_mm": 3485.7,
+     "era5_mm": 2836.0,
+     "days": 364,
+     "raw_ratio": 1.229,
+     "clipped": false
+    },
+    {
+     "model_mm": 1176.4,
+     "era5_mm": 1257.3,
+     "days": 368,
+     "raw_ratio": 0.936,
+     "clipped": false
+    },
+    {
+     "model_mm": 352.5,
+     "era5_mm": 488.4,
+     "days": 368,
+     "raw_ratio": 0.722,
+     "clipped": false
+    }
+   ]
+  },
+  "th_prachin_buri": {
+   "latitude": 14.0215,
+   "longitude": 101.6262,
+   "built_at_utc": "2026-10-20T18:07:18Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    2.0,
+    2.0,
+    2.0,
+    1.693,
+    1.741,
+    1.732,
+    1.814,
+    1.713,
+    1.663,
+    1.558,
+    1.467,
+    1.314
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 317.7,
+     "era5_mm": 120.7,
+     "days": 361,
+     "raw_ratio": 2.632,
+     "clipped": true
+    },
+    {
+     "model_mm": 601.3,
+     "era5_mm": 246.7,
+     "days": 361,
+     "raw_ratio": 2.437,
+     "clipped": true
+    },
+    {
+     "model_mm": 899.4,
+     "era5_mm": 392.4,
+     "days": 357,
+     "raw_ratio": 2.292,
+     "clipped": true
+    },
+    {
+     "model_mm": 1742.1,
+     "era5_mm": 1029.2,
+     "days": 368,
+     "raw_ratio": 1.693,
+     "clipped": false
+    },
+    {
+     "model_mm": 2698.6,
+     "era5_mm": 1550.4,
+     "days": 364,
+     "raw_ratio": 1.741,
+     "clipped": false
+    },
+    {
+     "model_mm": 4143.5,
+     "era5_mm": 2392.3,
+     "days": 368,
+     "raw_ratio": 1.732,
+     "clipped": false
+    },
+    {
+     "model_mm": 4549.8,
+     "era5_mm": 2507.6,
+     "days": 368,
+     "raw_ratio": 1.814,
+     "clipped": false
+    },
+    {
+     "model_mm": 5310.8,
+     "era5_mm": 3099.8,
+     "days": 368,
+     "raw_ratio": 1.713,
+     "clipped": false
+    },
+    {
+     "model_mm": 4337.8,
+     "era5_mm": 2608.2,
+     "days": 368,
+     "raw_ratio": 1.663,
+     "clipped": false
+    },
+    {
+     "model_mm": 3135.0,
+     "era5_mm": 2012.3,
+     "days": 364,
+     "raw_ratio": 1.558,
+     "clipped": false
+    },
+    {
+     "model_mm": 1133.9,
+     "era5_mm": 772.9,
+     "days": 368,
+     "raw_ratio": 1.467,
+     "clipped": false
+    },
+    {
+     "model_mm": 363.9,
+     "era5_mm": 276.9,
+     "days": 368,
+     "raw_ratio": 1.314,
+     "clipped": false
+    }
+   ]
+  },
+  "th_chachoengsao": {
+   "latitude": 13.5741,
+   "longitude": 101.4239,
+   "built_at_utc": "2026-10-20T18:07:18Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.408,
+    1.455,
+    1.385,
+    1.168,
+    1.045,
+    1.114,
+    1.17,
+    1.272,
+    1.329,
+    1.357,
+    1.429,
+    1.232
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 254.1,
+     "era5_mm": 180.5,
+     "days": 361,
+     "raw_ratio": 1.408,
+     "clipped": false
+    },
+    {
+     "model_mm": 568.5,
+     "era5_mm": 390.6,
+     "days": 361,
+     "raw_ratio": 1.455,
+     "clipped": false
+    },
+    {
+     "model_mm": 919.2,
+     "era5_mm": 663.5,
+     "days": 357,
+     "raw_ratio": 1.385,
+     "clipped": false
+    },
+    {
+     "model_mm": 1601.3,
+     "era5_mm": 1371.4,
+     "days": 368,
+     "raw_ratio": 1.168,
+     "clipped": false
+    },
+    {
+     "model_mm": 1849.0,
+     "era5_mm": 1769.0,
+     "days": 364,
+     "raw_ratio": 1.045,
+     "clipped": false
+    },
+    {
+     "model_mm": 2748.8,
+     "era5_mm": 2468.3,
+     "days": 368,
+     "raw_ratio": 1.114,
+     "clipped": false
+    },
+    {
+     "model_mm": 2766.9,
+     "era5_mm": 2365.0,
+     "days": 368,
+     "raw_ratio": 1.17,
+     "clipped": false
+    },
+    {
+     "model_mm": 3663.3,
+     "era5_mm": 2879.5,
+     "days": 368,
+     "raw_ratio": 1.272,
+     "clipped": false
+    },
+    {
+     "model_mm": 3315.8,
+     "era5_mm": 2494.7,
+     "days": 368,
+     "raw_ratio": 1.329,
+     "clipped": false
+    },
+    {
+     "model_mm": 2761.8,
+     "era5_mm": 2034.5,
+     "days": 364,
+     "raw_ratio": 1.357,
+     "clipped": false
+    },
+    {
+     "model_mm": 1303.3,
+     "era5_mm": 912.3,
+     "days": 368,
+     "raw_ratio": 1.429,
+     "clipped": false
+    },
+    {
+     "model_mm": 400.3,
+     "era5_mm": 324.9,
+     "days": 368,
+     "raw_ratio": 1.232,
+     "clipped": false
+    }
+   ]
+  },
+  "th_sa_kaeo": {
+   "latitude": 13.6729,
+   "longitude": 102.4424,
+   "built_at_utc": "2026-10-20T18:07:49Z",
+   "quality_status": "WARNING",
+   "ratio_by_month": [
+    2.0,
+    1.975,
+    1.707,
+    1.205,
+    1.154,
+    1.058,
+    1.07,
+    1.076,
+    1.203,
+    1.224,
+    1.379,
+    1.344
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 329.1,
+     "era5_mm": 101.0,
+     "days": 361,
+     "raw_ratio": 3.258,
+     "clipped": true
+    },
+    {
+     "model_mm": 591.8,
+     "era5_mm": 299.7,
+     "days": 361,
+     "raw_ratio": 1.975,
+     "clipped": false
+    },
+    {
+     "model_mm": 831.7,
+     "era5_mm": 487.2,
+     "days": 357,
+     "raw_ratio": 1.707,
+     "clipped": false
+    },
+    {
+     "model_mm": 1429.7,
+     "era5_mm": 1186.9,
+     "days": 368,
+     "raw_ratio": 1.205,
+     "clipped": false
+    },
+    {
+     "model_mm": 1565.6,
+     "era5_mm": 1357.0,
+     "days": 364,
+     "raw_ratio": 1.154,
+     "clipped": false
+    },
+    {
+     "model_mm": 2087.6,
+     "era5_mm": 1973.8,
+     "days": 368,
+     "raw_ratio": 1.058,
+     "clipped": false
+    },
+    {
+     "model_mm": 1941.4,
+     "era5_mm": 1814.4,
+     "days": 368,
+     "raw_ratio": 1.07,
+     "clipped": false
+    },
+    {
+     "model_mm": 2707.7,
+     "era5_mm": 2515.4,
+     "days": 368,
+     "raw_ratio": 1.076,
+     "clipped": false
+    },
+    {
+     "model_mm": 2747.3,
+     "era5_mm": 2283.2,
+     "days": 368,
+     "raw_ratio": 1.203,
+     "clipped": false
+    },
+    {
+     "model_mm": 2454.1,
+     "era5_mm": 2004.7,
+     "days": 364,
+     "raw_ratio": 1.224,
+     "clipped": false
+    },
+    {
+     "model_mm": 1289.2,
+     "era5_mm": 934.9,
+     "days": 368,
+     "raw_ratio": 1.379,
+     "clipped": false
+    },
+    {
+     "model_mm": 487.7,
+     "era5_mm": 362.8,
+     "days": 368,
+     "raw_ratio": 1.344,
+     "clipped": false
+    }
+   ]
+  },
+  "th_chanthaburi": {
+   "latitude": 12.8166,
+   "longitude": 102.1104,
+   "built_at_utc": "2026-10-20T18:07:49Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.212,
+    1.089,
+    1.144,
+    1.032,
+    1.126,
+    1.27,
+    1.39,
+    1.383,
+    1.264,
+    1.2,
+    1.122,
+    1.142
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 404.2,
+     "era5_mm": 333.4,
+     "days": 361,
+     "raw_ratio": 1.212,
+     "clipped": false
+    },
+    {
+     "model_mm": 785.4,
+     "era5_mm": 720.9,
+     "days": 361,
+     "raw_ratio": 1.089,
+     "clipped": false
+    },
+    {
+     "model_mm": 1233.4,
+     "era5_mm": 1078.1,
+     "days": 357,
+     "raw_ratio": 1.144,
+     "clipped": false
+    },
+    {
+     "model_mm": 2146.7,
+     "era5_mm": 2080.5,
+     "days": 368,
+     "raw_ratio": 1.032,
+     "clipped": false
+    },
+    {
+     "model_mm": 3323.7,
+     "era5_mm": 2952.0,
+     "days": 364,
+     "raw_ratio": 1.126,
+     "clipped": false
+    },
+    {
+     "model_mm": 5491.0,
+     "era5_mm": 4325.2,
+     "days": 368,
+     "raw_ratio": 1.27,
+     "clipped": false
+    },
+    {
+     "model_mm": 6098.5,
+     "era5_mm": 4386.4,
+     "days": 368,
+     "raw_ratio": 1.39,
+     "clipped": false
+    },
+    {
+     "model_mm": 6780.2,
+     "era5_mm": 4901.0,
+     "days": 368,
+     "raw_ratio": 1.383,
+     "clipped": false
+    },
+    {
+     "model_mm": 5328.3,
+     "era5_mm": 4214.3,
+     "days": 368,
+     "raw_ratio": 1.264,
+     "clipped": false
+    },
+    {
+     "model_mm": 3859.9,
+     "era5_mm": 3217.2,
+     "days": 364,
+     "raw_ratio": 1.2,
+     "clipped": false
+    },
+    {
+     "model_mm": 1620.0,
+     "era5_mm": 1443.6,
+     "days": 368,
+     "raw_ratio": 1.122,
+     "clipped": false
+    },
+    {
+     "model_mm": 456.6,
+     "era5_mm": 399.9,
+     "days": 368,
+     "raw_ratio": 1.142,
+     "clipped": false
+    }
+   ]
+  },
+  "th_trat": {
+   "latitude": 12.1713,
+   "longitude": 102.5653,
+   "built_at_utc": "2026-10-20T18:07:49Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    0.997,
+    0.907,
+    0.907,
+    0.896,
+    0.909,
+    1.029,
+    1.1,
+    1.128,
+    1.008,
+    0.911,
+    0.775,
+    0.848
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 501.7,
+     "era5_mm": 503.3,
+     "days": 361,
+     "raw_ratio": 0.997,
+     "clipped": false
+    },
+    {
+     "model_mm": 832.7,
+     "era5_mm": 918.4,
+     "days": 361,
+     "raw_ratio": 0.907,
+     "clipped": false
+    },
+    {
+     "model_mm": 1137.8,
+     "era5_mm": 1254.0,
+     "days": 357,
+     "raw_ratio": 0.907,
+     "clipped": false
+    },
+    {
+     "model_mm": 2124.9,
+     "era5_mm": 2371.4,
+     "days": 368,
+     "raw_ratio": 0.896,
+     "clipped": false
+    },
+    {
+     "model_mm": 3419.0,
+     "era5_mm": 3760.6,
+     "days": 364,
+     "raw_ratio": 0.909,
+     "clipped": false
+    },
+    {
+     "model_mm": 5912.6,
+     "era5_mm": 5745.7,
+     "days": 368,
+     "raw_ratio": 1.029,
+     "clipped": false
+    },
+    {
+     "model_mm": 6637.2,
+     "era5_mm": 6033.0,
+     "days": 368,
+     "raw_ratio": 1.1,
+     "clipped": false
+    },
+    {
+     "model_mm": 7289.3,
+     "era5_mm": 6463.4,
+     "days": 368,
+     "raw_ratio": 1.128,
+     "clipped": false
+    },
+    {
+     "model_mm": 5344.2,
+     "era5_mm": 5301.5,
+     "days": 368,
+     "raw_ratio": 1.008,
+     "clipped": false
+    },
+    {
+     "model_mm": 3643.3,
+     "era5_mm": 3998.1,
+     "days": 364,
+     "raw_ratio": 0.911,
+     "clipped": false
+    },
+    {
+     "model_mm": 1366.1,
+     "era5_mm": 1763.4,
+     "days": 368,
+     "raw_ratio": 0.775,
+     "clipped": false
+    },
+    {
+     "model_mm": 512.5,
+     "era5_mm": 604.6,
+     "days": 368,
+     "raw_ratio": 0.848,
+     "clipped": false
+    }
+   ]
+  },
+  "th_east_rayong": {
+   "latitude": 12.68,
+   "longitude": 101.28,
+   "built_at_utc": "2026-10-20T18:07:49Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.344,
+    1.068,
+    0.995,
+    0.894,
+    0.981,
+    1.03,
+    1.118,
+    1.137,
+    1.073,
+    1.046,
+    0.965,
+    1.086
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 425.7,
+     "era5_mm": 316.7,
+     "days": 361,
+     "raw_ratio": 1.344,
+     "clipped": false
+    },
+    {
+     "model_mm": 625.3,
+     "era5_mm": 585.7,
+     "days": 361,
+     "raw_ratio": 1.068,
+     "clipped": false
+    },
+    {
+     "model_mm": 873.4,
+     "era5_mm": 877.5,
+     "days": 357,
+     "raw_ratio": 0.995,
+     "clipped": false
+    },
+    {
+     "model_mm": 1478.7,
+     "era5_mm": 1654.0,
+     "days": 368,
+     "raw_ratio": 0.894,
+     "clipped": false
+    },
+    {
+     "model_mm": 1914.9,
+     "era5_mm": 1951.4,
+     "days": 364,
+     "raw_ratio": 0.981,
+     "clipped": false
+    },
+    {
+     "model_mm": 2700.5,
+     "era5_mm": 2623.0,
+     "days": 368,
+     "raw_ratio": 1.03,
+     "clipped": false
+    },
+    {
+     "model_mm": 2706.1,
+     "era5_mm": 2420.8,
+     "days": 368,
+     "raw_ratio": 1.118,
+     "clipped": false
+    },
+    {
+     "model_mm": 3289.1,
+     "era5_mm": 2892.9,
+     "days": 368,
+     "raw_ratio": 1.137,
+     "clipped": false
+    },
+    {
+     "model_mm": 3240.9,
+     "era5_mm": 3019.1,
+     "days": 368,
+     "raw_ratio": 1.073,
+     "clipped": false
+    },
+    {
+     "model_mm": 2796.5,
+     "era5_mm": 2673.3,
+     "days": 364,
+     "raw_ratio": 1.046,
+     "clipped": false
+    },
+    {
+     "model_mm": 1577.7,
+     "era5_mm": 1634.8,
+     "days": 368,
+     "raw_ratio": 0.965,
+     "clipped": false
+    },
+    {
+     "model_mm": 592.2,
+     "era5_mm": 545.2,
+     "days": 368,
+     "raw_ratio": 1.086,
+     "clipped": false
+    }
+   ]
+  },
+  "th_chon_buri": {
+   "latitude": 13.0364,
+   "longitude": 101.164,
+   "built_at_utc": "2026-10-20T18:15:21Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    0.97,
+    0.901,
+    0.841,
+    0.814,
+    0.823,
+    0.894,
+    0.938,
+    1.014,
+    0.966,
+    0.957,
+    0.855,
+    0.879
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 340.8,
+     "era5_mm": 351.3,
+     "days": 361,
+     "raw_ratio": 0.97,
+     "clipped": false
+    },
+    {
+     "model_mm": 591.6,
+     "era5_mm": 656.9,
+     "days": 361,
+     "raw_ratio": 0.901,
+     "clipped": false
+    },
+    {
+     "model_mm": 839.1,
+     "era5_mm": 997.9,
+     "days": 357,
+     "raw_ratio": 0.841,
+     "clipped": false
+    },
+    {
+     "model_mm": 1414.8,
+     "era5_mm": 1738.8,
+     "days": 368,
+     "raw_ratio": 0.814,
+     "clipped": false
+    },
+    {
+     "model_mm": 1654.8,
+     "era5_mm": 2010.4,
+     "days": 364,
+     "raw_ratio": 0.823,
+     "clipped": false
+    },
+    {
+     "model_mm": 2298.7,
+     "era5_mm": 2571.2,
+     "days": 368,
+     "raw_ratio": 0.894,
+     "clipped": false
+    },
+    {
+     "model_mm": 2216.0,
+     "era5_mm": 2362.2,
+     "days": 368,
+     "raw_ratio": 0.938,
+     "clipped": false
+    },
+    {
+     "model_mm": 2914.8,
+     "era5_mm": 2875.7,
+     "days": 368,
+     "raw_ratio": 1.014,
+     "clipped": false
+    },
+    {
+     "model_mm": 2801.8,
+     "era5_mm": 2899.5,
+     "days": 368,
+     "raw_ratio": 0.966,
+     "clipped": false
+    },
+    {
+     "model_mm": 2415.5,
+     "era5_mm": 2525.2,
+     "days": 364,
+     "raw_ratio": 0.957,
+     "clipped": false
+    },
+    {
+     "model_mm": 1225.9,
+     "era5_mm": 1434.5,
+     "days": 368,
+     "raw_ratio": 0.855,
+     "clipped": false
+    },
+    {
+     "model_mm": 447.5,
+     "era5_mm": 508.9,
+     "days": 368,
+     "raw_ratio": 0.879,
+     "clipped": false
+    }
+   ]
+  },
+  "th_nakhon_pathom": {
+   "latitude": 13.9135,
+   "longitude": 100.0722,
+   "built_at_utc": "2026-10-20T18:15:21Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.319,
+    1.004,
+    1.155,
+    1.219,
+    1.465,
+    1.408,
+    1.567,
+    1.385,
+    1.318,
+    1.151,
+    1.092,
+    1.018
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 339.3,
+     "era5_mm": 257.3,
+     "days": 361,
+     "raw_ratio": 1.319,
+     "clipped": false
+    },
+    {
+     "model_mm": 459.0,
+     "era5_mm": 457.1,
+     "days": 361,
+     "raw_ratio": 1.004,
+     "clipped": false
+    },
+    {
+     "model_mm": 690.3,
+     "era5_mm": 597.8,
+     "days": 357,
+     "raw_ratio": 1.155,
+     "clipped": false
+    },
+    {
+     "model_mm": 1404.8,
+     "era5_mm": 1152.2,
+     "days": 368,
+     "raw_ratio": 1.219,
+     "clipped": false
+    },
+    {
+     "model_mm": 1935.8,
+     "era5_mm": 1321.8,
+     "days": 364,
+     "raw_ratio": 1.465,
+     "clipped": false
+    },
+    {
+     "model_mm": 2512.8,
+     "era5_mm": 1785.0,
+     "days": 368,
+     "raw_ratio": 1.408,
+     "clipped": false
+    },
+    {
+     "model_mm": 2473.9,
+     "era5_mm": 1579.2,
+     "days": 368,
+     "raw_ratio": 1.567,
+     "clipped": false
+    },
+    {
+     "model_mm": 2984.8,
+     "era5_mm": 2154.4,
+     "days": 368,
+     "raw_ratio": 1.385,
+     "clipped": false
+    },
+    {
+     "model_mm": 3042.9,
+     "era5_mm": 2309.6,
+     "days": 368,
+     "raw_ratio": 1.318,
+     "clipped": false
+    },
+    {
+     "model_mm": 2549.5,
+     "era5_mm": 2215.8,
+     "days": 364,
+     "raw_ratio": 1.151,
+     "clipped": false
+    },
+    {
+     "model_mm": 1387.9,
+     "era5_mm": 1271.2,
+     "days": 368,
+     "raw_ratio": 1.092,
+     "clipped": false
+    },
+    {
+     "model_mm": 521.5,
+     "era5_mm": 512.1,
+     "days": 368,
+     "raw_ratio": 1.018,
+     "clipped": false
+    }
+   ]
+  },
+  "th_kanchanaburi": {
+   "latitude": 14.6946,
+   "longitude": 99.037,
+   "built_at_utc": "2026-10-20T18:15:21Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.449,
+    1.124,
+    1.218,
+    1.042,
+    0.997,
+    0.957,
+    0.94,
+    0.984,
+    1.077,
+    1.185,
+    1.363,
+    1.638
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 167.6,
+     "era5_mm": 115.7,
+     "days": 361,
+     "raw_ratio": 1.449,
+     "clipped": false
+    },
+    {
+     "model_mm": 289.5,
+     "era5_mm": 257.6,
+     "days": 361,
+     "raw_ratio": 1.124,
+     "clipped": false
+    },
+    {
+     "model_mm": 507.4,
+     "era5_mm": 416.6,
+     "days": 357,
+     "raw_ratio": 1.218,
+     "clipped": false
+    },
+    {
+     "model_mm": 1113.9,
+     "era5_mm": 1069.4,
+     "days": 368,
+     "raw_ratio": 1.042,
+     "clipped": false
+    },
+    {
+     "model_mm": 1567.5,
+     "era5_mm": 1572.3,
+     "days": 364,
+     "raw_ratio": 0.997,
+     "clipped": false
+    },
+    {
+     "model_mm": 2199.8,
+     "era5_mm": 2297.9,
+     "days": 368,
+     "raw_ratio": 0.957,
+     "clipped": false
+    },
+    {
+     "model_mm": 2096.6,
+     "era5_mm": 2230.7,
+     "days": 368,
+     "raw_ratio": 0.94,
+     "clipped": false
+    },
+    {
+     "model_mm": 2565.2,
+     "era5_mm": 2607.5,
+     "days": 368,
+     "raw_ratio": 0.984,
+     "clipped": false
+    },
+    {
+     "model_mm": 2615.0,
+     "era5_mm": 2428.9,
+     "days": 368,
+     "raw_ratio": 1.077,
+     "clipped": false
+    },
+    {
+     "model_mm": 2314.9,
+     "era5_mm": 1954.0,
+     "days": 364,
+     "raw_ratio": 1.185,
+     "clipped": false
+    },
+    {
+     "model_mm": 1270.8,
+     "era5_mm": 932.4,
+     "days": 368,
+     "raw_ratio": 1.363,
+     "clipped": false
+    },
+    {
+     "model_mm": 370.8,
+     "era5_mm": 226.4,
+     "days": 368,
+     "raw_ratio": 1.638,
+     "clipped": false
+    }
+   ]
+  },
+  "th_ratchaburi": {
+   "latitude": 13.543,
+   "longitude": 99.621,
+   "built_at_utc": "2026-10-20T18:15:21Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.183,
+    1.062,
+    1.077,
+    1.161,
+    1.052,
+    0.989,
+    0.988,
+    1.066,
+    1.131,
+    1.146,
+    1.206,
+    1.452
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 328.2,
+     "era5_mm": 277.4,
+     "days": 361,
+     "raw_ratio": 1.183,
+     "clipped": false
+    },
+    {
+     "model_mm": 461.9,
+     "era5_mm": 435.1,
+     "days": 361,
+     "raw_ratio": 1.062,
+     "clipped": false
+    },
+    {
+     "model_mm": 606.3,
+     "era5_mm": 563.0,
+     "days": 357,
+     "raw_ratio": 1.077,
+     "clipped": false
+    },
+    {
+     "model_mm": 1248.6,
+     "era5_mm": 1075.9,
+     "days": 368,
+     "raw_ratio": 1.161,
+     "clipped": false
+    },
+    {
+     "model_mm": 1482.5,
+     "era5_mm": 1409.0,
+     "days": 364,
+     "raw_ratio": 1.052,
+     "clipped": false
+    },
+    {
+     "model_mm": 1946.5,
+     "era5_mm": 1968.0,
+     "days": 368,
+     "raw_ratio": 0.989,
+     "clipped": false
+    },
+    {
+     "model_mm": 1766.8,
+     "era5_mm": 1788.8,
+     "days": 368,
+     "raw_ratio": 0.988,
+     "clipped": false
+    },
+    {
+     "model_mm": 2263.6,
+     "era5_mm": 2123.5,
+     "days": 368,
+     "raw_ratio": 1.066,
+     "clipped": false
+    },
+    {
+     "model_mm": 2686.3,
+     "era5_mm": 2374.8,
+     "days": 368,
+     "raw_ratio": 1.131,
+     "clipped": false
+    },
+    {
+     "model_mm": 2488.0,
+     "era5_mm": 2171.8,
+     "days": 364,
+     "raw_ratio": 1.146,
+     "clipped": false
+    },
+    {
+     "model_mm": 1623.6,
+     "era5_mm": 1346.3,
+     "days": 368,
+     "raw_ratio": 1.206,
+     "clipped": false
+    },
+    {
+     "model_mm": 592.5,
+     "era5_mm": 408.1,
+     "days": 368,
+     "raw_ratio": 1.452,
+     "clipped": false
+    }
+   ]
+  },
+  "th_phetchaburi": {
+   "latitude": 12.9378,
+   "longitude": 99.6028,
+   "built_at_utc": "2026-10-20T18:17:12Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    0.934,
+    0.977,
+    0.972,
+    0.839,
+    0.755,
+    0.712,
+    0.757,
+    0.802,
+    0.891,
+    0.966,
+    1.065,
+    1.387
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 310.8,
+     "era5_mm": 332.8,
+     "days": 361,
+     "raw_ratio": 0.934,
+     "clipped": false
+    },
+    {
+     "model_mm": 518.8,
+     "era5_mm": 531.1,
+     "days": 361,
+     "raw_ratio": 0.977,
+     "clipped": false
+    },
+    {
+     "model_mm": 687.7,
+     "era5_mm": 707.2,
+     "days": 357,
+     "raw_ratio": 0.972,
+     "clipped": false
+    },
+    {
+     "model_mm": 1234.9,
+     "era5_mm": 1471.2,
+     "days": 368,
+     "raw_ratio": 0.839,
+     "clipped": false
+    },
+    {
+     "model_mm": 1449.2,
+     "era5_mm": 1919.6,
+     "days": 364,
+     "raw_ratio": 0.755,
+     "clipped": false
+    },
+    {
+     "model_mm": 1926.4,
+     "era5_mm": 2707.0,
+     "days": 368,
+     "raw_ratio": 0.712,
+     "clipped": false
+    },
+    {
+     "model_mm": 1848.1,
+     "era5_mm": 2442.7,
+     "days": 368,
+     "raw_ratio": 0.757,
+     "clipped": false
+    },
+    {
+     "model_mm": 2242.4,
+     "era5_mm": 2794.5,
+     "days": 368,
+     "raw_ratio": 0.802,
+     "clipped": false
+    },
+    {
+     "model_mm": 2555.1,
+     "era5_mm": 2866.9,
+     "days": 368,
+     "raw_ratio": 0.891,
+     "clipped": false
+    },
+    {
+     "model_mm": 2398.0,
+     "era5_mm": 2483.4,
+     "days": 364,
+     "raw_ratio": 0.966,
+     "clipped": false
+    },
+    {
+     "model_mm": 1581.4,
+     "era5_mm": 1484.9,
+     "days": 368,
+     "raw_ratio": 1.065,
+     "clipped": false
+    },
+    {
+     "model_mm": 622.6,
+     "era5_mm": 449.0,
+     "days": 368,
+     "raw_ratio": 1.387,
+     "clipped": false
+    }
+   ]
+  },
+  "th_prachuap_khiri_khan": {
+   "latitude": 11.8362,
+   "longitude": 99.6255,
+   "built_at_utc": "2026-10-20T18:17:12Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    0.853,
+    0.835,
+    0.746,
+    0.712,
+    0.659,
+    0.695,
+    0.697,
+    0.67,
+    0.614,
+    0.623,
+    0.675,
+    0.859
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 399.4,
+     "era5_mm": 468.5,
+     "days": 361,
+     "raw_ratio": 0.853,
+     "clipped": false
+    },
+    {
+     "model_mm": 576.3,
+     "era5_mm": 689.8,
+     "days": 361,
+     "raw_ratio": 0.835,
+     "clipped": false
+    },
+    {
+     "model_mm": 795.6,
+     "era5_mm": 1066.6,
+     "days": 357,
+     "raw_ratio": 0.746,
+     "clipped": false
+    },
+    {
+     "model_mm": 1339.3,
+     "era5_mm": 1879.9,
+     "days": 368,
+     "raw_ratio": 0.712,
+     "clipped": false
+    },
+    {
+     "model_mm": 1617.8,
+     "era5_mm": 2453.9,
+     "days": 364,
+     "raw_ratio": 0.659,
+     "clipped": false
+    },
+    {
+     "model_mm": 2235.8,
+     "era5_mm": 3217.4,
+     "days": 368,
+     "raw_ratio": 0.695,
+     "clipped": false
+    },
+    {
+     "model_mm": 2117.8,
+     "era5_mm": 3036.3,
+     "days": 368,
+     "raw_ratio": 0.697,
+     "clipped": false
+    },
+    {
+     "model_mm": 2273.4,
+     "era5_mm": 3392.3,
+     "days": 368,
+     "raw_ratio": 0.67,
+     "clipped": false
+    },
+    {
+     "model_mm": 2199.6,
+     "era5_mm": 3583.6,
+     "days": 368,
+     "raw_ratio": 0.614,
+     "clipped": false
+    },
+    {
+     "model_mm": 2006.5,
+     "era5_mm": 3218.5,
+     "days": 364,
+     "raw_ratio": 0.623,
+     "clipped": false
+    },
+    {
+     "model_mm": 1395.5,
+     "era5_mm": 2067.2,
+     "days": 368,
+     "raw_ratio": 0.675,
+     "clipped": false
+    },
+    {
+     "model_mm": 632.0,
+     "era5_mm": 735.6,
+     "days": 368,
+     "raw_ratio": 0.859,
+     "clipped": false
+    }
+   ]
+  },
+  "th_chumphon": {
+   "latitude": 10.3162,
+   "longitude": 99.0744,
+   "built_at_utc": "2026-10-20T18:17:12Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    0.915,
+    0.948,
+    0.922,
+    0.854,
+    0.78,
+    0.683,
+    0.603,
+    0.608,
+    0.738,
+    0.815,
+    0.896,
+    0.891
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 1112.2,
+     "era5_mm": 1215.0,
+     "days": 361,
+     "raw_ratio": 0.915,
+     "clipped": false
+    },
+    {
+     "model_mm": 832.9,
+     "era5_mm": 878.7,
+     "days": 361,
+     "raw_ratio": 0.948,
+     "clipped": false
+    },
+    {
+     "model_mm": 1121.1,
+     "era5_mm": 1216.1,
+     "days": 357,
+     "raw_ratio": 0.922,
+     "clipped": false
+    },
+    {
+     "model_mm": 1484.8,
+     "era5_mm": 1739.3,
+     "days": 368,
+     "raw_ratio": 0.854,
+     "clipped": false
+    },
+    {
+     "model_mm": 1663.4,
+     "era5_mm": 2133.0,
+     "days": 364,
+     "raw_ratio": 0.78,
+     "clipped": false
+    },
+    {
+     "model_mm": 1874.2,
+     "era5_mm": 2743.9,
+     "days": 368,
+     "raw_ratio": 0.683,
+     "clipped": false
+    },
+    {
+     "model_mm": 1543.0,
+     "era5_mm": 2559.5,
+     "days": 368,
+     "raw_ratio": 0.603,
+     "clipped": false
+    },
+    {
+     "model_mm": 1928.7,
+     "era5_mm": 3170.6,
+     "days": 368,
+     "raw_ratio": 0.608,
+     "clipped": false
+    },
+    {
+     "model_mm": 2580.5,
+     "era5_mm": 3494.3,
+     "days": 368,
+     "raw_ratio": 0.738,
+     "clipped": false
+    },
+    {
+     "model_mm": 3165.3,
+     "era5_mm": 3881.6,
+     "days": 364,
+     "raw_ratio": 0.815,
+     "clipped": false
+    },
+    {
+     "model_mm": 2880.3,
+     "era5_mm": 3213.1,
+     "days": 368,
+     "raw_ratio": 0.896,
+     "clipped": false
+    },
+    {
+     "model_mm": 1729.5,
+     "era5_mm": 1941.1,
+     "days": 368,
+     "raw_ratio": 0.891,
+     "clipped": false
+    }
+   ]
+  },
+  "th_ranong": {
+   "latitude": 10.0474,
+   "longitude": 98.6787,
+   "built_at_utc": "2026-10-20T18:17:12Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    0.516,
+    0.63,
+    0.667,
+    0.856,
+    0.998,
+    1.12,
+    1.14,
+    1.079,
+    1.006,
+    0.923,
+    0.78,
+    0.604
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 566.1,
+     "era5_mm": 1097.4,
+     "days": 361,
+     "raw_ratio": 0.516,
+     "clipped": false
+    },
+    {
+     "model_mm": 514.9,
+     "era5_mm": 817.7,
+     "days": 361,
+     "raw_ratio": 0.63,
+     "clipped": false
+    },
+    {
+     "model_mm": 913.2,
+     "era5_mm": 1368.5,
+     "days": 357,
+     "raw_ratio": 0.667,
+     "clipped": false
+    },
+    {
+     "model_mm": 1830.7,
+     "era5_mm": 2139.1,
+     "days": 368,
+     "raw_ratio": 0.856,
+     "clipped": false
+    },
+    {
+     "model_mm": 2601.1,
+     "era5_mm": 2606.1,
+     "days": 364,
+     "raw_ratio": 0.998,
+     "clipped": false
+    },
+    {
+     "model_mm": 3562.8,
+     "era5_mm": 3180.3,
+     "days": 368,
+     "raw_ratio": 1.12,
+     "clipped": false
+    },
+    {
+     "model_mm": 3506.5,
+     "era5_mm": 3075.1,
+     "days": 368,
+     "raw_ratio": 1.14,
+     "clipped": false
+    },
+    {
+     "model_mm": 4110.0,
+     "era5_mm": 3807.5,
+     "days": 368,
+     "raw_ratio": 1.079,
+     "clipped": false
+    },
+    {
+     "model_mm": 4288.8,
+     "era5_mm": 4262.0,
+     "days": 368,
+     "raw_ratio": 1.006,
+     "clipped": false
+    },
+    {
+     "model_mm": 3914.6,
+     "era5_mm": 4242.9,
+     "days": 364,
+     "raw_ratio": 0.923,
+     "clipped": false
+    },
+    {
+     "model_mm": 2591.9,
+     "era5_mm": 3323.2,
+     "days": 368,
+     "raw_ratio": 0.78,
+     "clipped": false
+    },
+    {
+     "model_mm": 1053.1,
+     "era5_mm": 1743.7,
+     "days": 368,
+     "raw_ratio": 0.604,
+     "clipped": false
+    }
+   ]
+  },
+  "th_south_surat_thani": {
+   "latitude": 9.14,
+   "longitude": 99.33,
+   "built_at_utc": "2026-10-20T18:17:44Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    0.788,
+    0.942,
+    0.901,
+    1.119,
+    1.265,
+    1.536,
+    1.872,
+    1.701,
+    1.376,
+    1.138,
+    0.972,
+    0.907
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 1117.5,
+     "era5_mm": 1418.3,
+     "days": 361,
+     "raw_ratio": 0.788,
+     "clipped": false
+    },
+    {
+     "model_mm": 709.5,
+     "era5_mm": 752.8,
+     "days": 361,
+     "raw_ratio": 0.942,
+     "clipped": false
+    },
+    {
+     "model_mm": 1011.6,
+     "era5_mm": 1122.5,
+     "days": 357,
+     "raw_ratio": 0.901,
+     "clipped": false
+    },
+    {
+     "model_mm": 1627.2,
+     "era5_mm": 1454.1,
+     "days": 368,
+     "raw_ratio": 1.119,
+     "clipped": false
+    },
+    {
+     "model_mm": 2070.5,
+     "era5_mm": 1636.7,
+     "days": 364,
+     "raw_ratio": 1.265,
+     "clipped": false
+    },
+    {
+     "model_mm": 2443.6,
+     "era5_mm": 1591.3,
+     "days": 368,
+     "raw_ratio": 1.536,
+     "clipped": false
+    },
+    {
+     "model_mm": 2323.5,
+     "era5_mm": 1241.5,
+     "days": 368,
+     "raw_ratio": 1.872,
+     "clipped": false
+    },
+    {
+     "model_mm": 2622.5,
+     "era5_mm": 1541.4,
+     "days": 368,
+     "raw_ratio": 1.701,
+     "clipped": false
+    },
+    {
+     "model_mm": 3090.5,
+     "era5_mm": 2245.2,
+     "days": 368,
+     "raw_ratio": 1.376,
+     "clipped": false
+    },
+    {
+     "model_mm": 3507.7,
+     "era5_mm": 3083.0,
+     "days": 364,
+     "raw_ratio": 1.138,
+     "clipped": false
+    },
+    {
+     "model_mm": 3173.4,
+     "era5_mm": 3266.0,
+     "days": 368,
+     "raw_ratio": 0.972,
+     "clipped": false
+    },
+    {
+     "model_mm": 2030.2,
+     "era5_mm": 2237.9,
+     "days": 368,
+     "raw_ratio": 0.907,
+     "clipped": false
+    }
+   ]
+  },
+  "th_phangnga": {
+   "latitude": 8.6756,
+   "longitude": 98.2426,
+   "built_at_utc": "2026-10-20T18:17:44Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.662,
+    1.769,
+    1.525,
+    1.279,
+    1.165,
+    1.129,
+    1.121,
+    1.15,
+    1.122,
+    1.147,
+    1.171,
+    1.381
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 1271.4,
+     "era5_mm": 764.9,
+     "days": 361,
+     "raw_ratio": 1.662,
+     "clipped": false
+    },
+    {
+     "model_mm": 1232.9,
+     "era5_mm": 696.8,
+     "days": 361,
+     "raw_ratio": 1.769,
+     "clipped": false
+    },
+    {
+     "model_mm": 1683.4,
+     "era5_mm": 1104.1,
+     "days": 357,
+     "raw_ratio": 1.525,
+     "clipped": false
+    },
+    {
+     "model_mm": 2700.4,
+     "era5_mm": 2110.6,
+     "days": 368,
+     "raw_ratio": 1.279,
+     "clipped": false
+    },
+    {
+     "model_mm": 3563.5,
+     "era5_mm": 3058.7,
+     "days": 364,
+     "raw_ratio": 1.165,
+     "clipped": false
+    },
+    {
+     "model_mm": 4416.7,
+     "era5_mm": 3910.4,
+     "days": 368,
+     "raw_ratio": 1.129,
+     "clipped": false
+    },
+    {
+     "model_mm": 4465.6,
+     "era5_mm": 3982.3,
+     "days": 368,
+     "raw_ratio": 1.121,
+     "clipped": false
+    },
+    {
+     "model_mm": 5183.5,
+     "era5_mm": 4506.2,
+     "days": 368,
+     "raw_ratio": 1.15,
+     "clipped": false
+    },
+    {
+     "model_mm": 5303.1,
+     "era5_mm": 4725.6,
+     "days": 368,
+     "raw_ratio": 1.122,
+     "clipped": false
+    },
+    {
+     "model_mm": 4981.8,
+     "era5_mm": 4341.7,
+     "days": 364,
+     "raw_ratio": 1.147,
+     "clipped": false
+    },
+    {
+     "model_mm": 3439.3,
+     "era5_mm": 2937.8,
+     "days": 368,
+     "raw_ratio": 1.171,
+     "clipped": false
+    },
+    {
+     "model_mm": 2016.0,
+     "era5_mm": 1459.4,
+     "days": 368,
+     "raw_ratio": 1.381,
+     "clipped": false
+    }
+   ]
+  },
+  "th_phuket": {
+   "latitude": 7.8445,
+   "longitude": 98.3653,
+   "built_at_utc": "2026-10-20T18:17:44Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.067,
+    1.397,
+    1.276,
+    1.123,
+    1.08,
+    1.013,
+    1.082,
+    0.987,
+    1.01,
+    1.006,
+    1.034,
+    1.082
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 970.0,
+     "era5_mm": 909.5,
+     "days": 361,
+     "raw_ratio": 1.067,
+     "clipped": false
+    },
+    {
+     "model_mm": 823.3,
+     "era5_mm": 589.2,
+     "days": 361,
+     "raw_ratio": 1.397,
+     "clipped": false
+    },
+    {
+     "model_mm": 1220.7,
+     "era5_mm": 956.3,
+     "days": 357,
+     "raw_ratio": 1.276,
+     "clipped": false
+    },
+    {
+     "model_mm": 1879.9,
+     "era5_mm": 1674.6,
+     "days": 368,
+     "raw_ratio": 1.123,
+     "clipped": false
+    },
+    {
+     "model_mm": 2342.6,
+     "era5_mm": 2169.1,
+     "days": 364,
+     "raw_ratio": 1.08,
+     "clipped": false
+    },
+    {
+     "model_mm": 2465.0,
+     "era5_mm": 2434.5,
+     "days": 368,
+     "raw_ratio": 1.013,
+     "clipped": false
+    },
+    {
+     "model_mm": 2404.5,
+     "era5_mm": 2221.4,
+     "days": 368,
+     "raw_ratio": 1.082,
+     "clipped": false
+    },
+    {
+     "model_mm": 2654.4,
+     "era5_mm": 2690.3,
+     "days": 368,
+     "raw_ratio": 0.987,
+     "clipped": false
+    },
+    {
+     "model_mm": 3244.4,
+     "era5_mm": 3213.6,
+     "days": 368,
+     "raw_ratio": 1.01,
+     "clipped": false
+    },
+    {
+     "model_mm": 3559.8,
+     "era5_mm": 3539.6,
+     "days": 364,
+     "raw_ratio": 1.006,
+     "clipped": false
+    },
+    {
+     "model_mm": 2993.9,
+     "era5_mm": 2896.5,
+     "days": 368,
+     "raw_ratio": 1.034,
+     "clipped": false
+    },
+    {
+     "model_mm": 1884.1,
+     "era5_mm": 1740.7,
+     "days": 368,
+     "raw_ratio": 1.082,
+     "clipped": false
+    }
+   ]
+  },
+  "th_krabi": {
+   "latitude": 8.0376,
+   "longitude": 98.986,
+   "built_at_utc": "2026-10-20T18:17:44Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.412,
+    1.53,
+    1.338,
+    1.132,
+    1.039,
+    0.935,
+    0.908,
+    0.886,
+    0.918,
+    0.899,
+    0.957,
+    1.016
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 1193.4,
+     "era5_mm": 845.1,
+     "days": 361,
+     "raw_ratio": 1.412,
+     "clipped": false
+    },
+    {
+     "model_mm": 1030.5,
+     "era5_mm": 673.5,
+     "days": 361,
+     "raw_ratio": 1.53,
+     "clipped": false
+    },
+    {
+     "model_mm": 1628.9,
+     "era5_mm": 1217.0,
+     "days": 357,
+     "raw_ratio": 1.338,
+     "clipped": false
+    },
+    {
+     "model_mm": 2484.4,
+     "era5_mm": 2195.0,
+     "days": 368,
+     "raw_ratio": 1.132,
+     "clipped": false
+    },
+    {
+     "model_mm": 2986.3,
+     "era5_mm": 2874.5,
+     "days": 364,
+     "raw_ratio": 1.039,
+     "clipped": false
+    },
+    {
+     "model_mm": 3093.3,
+     "era5_mm": 3306.6,
+     "days": 368,
+     "raw_ratio": 0.935,
+     "clipped": false
+    },
+    {
+     "model_mm": 2973.2,
+     "era5_mm": 3275.4,
+     "days": 368,
+     "raw_ratio": 0.908,
+     "clipped": false
+    },
+    {
+     "model_mm": 3313.3,
+     "era5_mm": 3740.8,
+     "days": 368,
+     "raw_ratio": 0.886,
+     "clipped": false
+    },
+    {
+     "model_mm": 3750.1,
+     "era5_mm": 4086.6,
+     "days": 368,
+     "raw_ratio": 0.918,
+     "clipped": false
+    },
+    {
+     "model_mm": 3930.8,
+     "era5_mm": 4371.1,
+     "days": 364,
+     "raw_ratio": 0.899,
+     "clipped": false
+    },
+    {
+     "model_mm": 3251.7,
+     "era5_mm": 3397.8,
+     "days": 368,
+     "raw_ratio": 0.957,
+     "clipped": false
+    },
+    {
+     "model_mm": 2109.5,
+     "era5_mm": 2076.4,
+     "days": 368,
+     "raw_ratio": 1.016,
+     "clipped": false
+    }
+   ]
+  },
+  "th_south_trang": {
+   "latitude": 7.56,
+   "longitude": 99.61,
+   "built_at_utc": "2026-10-20T18:18:15Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    0.832,
+    0.903,
+    0.917,
+    0.974,
+    1.065,
+    1.123,
+    1.217,
+    1.146,
+    1.163,
+    0.97,
+    0.902,
+    0.747
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 738.3,
+     "era5_mm": 887.3,
+     "days": 361,
+     "raw_ratio": 0.832,
+     "clipped": false
+    },
+    {
+     "model_mm": 545.9,
+     "era5_mm": 604.6,
+     "days": 361,
+     "raw_ratio": 0.903,
+     "clipped": false
+    },
+    {
+     "model_mm": 979.4,
+     "era5_mm": 1067.6,
+     "days": 357,
+     "raw_ratio": 0.917,
+     "clipped": false
+    },
+    {
+     "model_mm": 2016.0,
+     "era5_mm": 2070.6,
+     "days": 368,
+     "raw_ratio": 0.974,
+     "clipped": false
+    },
+    {
+     "model_mm": 2695.1,
+     "era5_mm": 2530.8,
+     "days": 364,
+     "raw_ratio": 1.065,
+     "clipped": false
+    },
+    {
+     "model_mm": 3143.3,
+     "era5_mm": 2798.1,
+     "days": 368,
+     "raw_ratio": 1.123,
+     "clipped": false
+    },
+    {
+     "model_mm": 3133.6,
+     "era5_mm": 2575.1,
+     "days": 368,
+     "raw_ratio": 1.217,
+     "clipped": false
+    },
+    {
+     "model_mm": 3665.5,
+     "era5_mm": 3198.4,
+     "days": 368,
+     "raw_ratio": 1.146,
+     "clipped": false
+    },
+    {
+     "model_mm": 4177.7,
+     "era5_mm": 3592.8,
+     "days": 368,
+     "raw_ratio": 1.163,
+     "clipped": false
+    },
+    {
+     "model_mm": 4245.3,
+     "era5_mm": 4377.9,
+     "days": 364,
+     "raw_ratio": 0.97,
+     "clipped": false
+    },
+    {
+     "model_mm": 3226.7,
+     "era5_mm": 3577.1,
+     "days": 368,
+     "raw_ratio": 0.902,
+     "clipped": false
+    },
+    {
+     "model_mm": 1832.8,
+     "era5_mm": 2452.4,
+     "days": 368,
+     "raw_ratio": 0.747,
+     "clipped": false
+    }
+   ]
+  },
+  "th_south_nakhon_si_thammarat": {
+   "latitude": 8.43,
+   "longitude": 99.96,
+   "built_at_utc": "2026-10-20T18:18:15Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.038,
+    1.033,
+    1.025,
+    1.05,
+    0.984,
+    0.885,
+    0.805,
+    0.746,
+    0.839,
+    0.863,
+    0.953,
+    0.978
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 2158.2,
+     "era5_mm": 2079.0,
+     "days": 361,
+     "raw_ratio": 1.038,
+     "clipped": false
+    },
+    {
+     "model_mm": 1235.8,
+     "era5_mm": 1196.2,
+     "days": 361,
+     "raw_ratio": 1.033,
+     "clipped": false
+    },
+    {
+     "model_mm": 1424.0,
+     "era5_mm": 1389.9,
+     "days": 357,
+     "raw_ratio": 1.025,
+     "clipped": false
+    },
+    {
+     "model_mm": 1919.8,
+     "era5_mm": 1829.2,
+     "days": 368,
+     "raw_ratio": 1.05,
+     "clipped": false
+    },
+    {
+     "model_mm": 2016.4,
+     "era5_mm": 2049.2,
+     "days": 364,
+     "raw_ratio": 0.984,
+     "clipped": false
+    },
+    {
+     "model_mm": 1854.5,
+     "era5_mm": 2096.3,
+     "days": 368,
+     "raw_ratio": 0.885,
+     "clipped": false
+    },
+    {
+     "model_mm": 1498.7,
+     "era5_mm": 1861.5,
+     "days": 368,
+     "raw_ratio": 0.805,
+     "clipped": false
+    },
+    {
+     "model_mm": 1637.0,
+     "era5_mm": 2195.8,
+     "days": 368,
+     "raw_ratio": 0.746,
+     "clipped": false
+    },
+    {
+     "model_mm": 2486.4,
+     "era5_mm": 2965.0,
+     "days": 368,
+     "raw_ratio": 0.839,
+     "clipped": false
+    },
+    {
+     "model_mm": 3579.0,
+     "era5_mm": 4148.3,
+     "days": 364,
+     "raw_ratio": 0.863,
+     "clipped": false
+    },
+    {
+     "model_mm": 4266.5,
+     "era5_mm": 4476.8,
+     "days": 368,
+     "raw_ratio": 0.953,
+     "clipped": false
+    },
+    {
+     "model_mm": 3390.8,
+     "era5_mm": 3466.8,
+     "days": 368,
+     "raw_ratio": 0.978,
+     "clipped": false
+    }
+   ]
+  },
+  "th_phatthalung": {
+   "latitude": 7.4986,
+   "longitude": 100.0864,
+   "built_at_utc": "2026-10-20T18:18:15Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.224,
+    1.316,
+    1.271,
+    1.268,
+    1.26,
+    1.173,
+    1.165,
+    0.951,
+    1.078,
+    1.009,
+    1.1,
+    1.089
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 2399.3,
+     "era5_mm": 1960.9,
+     "days": 361,
+     "raw_ratio": 1.224,
+     "clipped": false
+    },
+    {
+     "model_mm": 1514.9,
+     "era5_mm": 1151.2,
+     "days": 361,
+     "raw_ratio": 1.316,
+     "clipped": false
+    },
+    {
+     "model_mm": 1658.4,
+     "era5_mm": 1305.2,
+     "days": 357,
+     "raw_ratio": 1.271,
+     "clipped": false
+    },
+    {
+     "model_mm": 2082.5,
+     "era5_mm": 1642.6,
+     "days": 368,
+     "raw_ratio": 1.268,
+     "clipped": false
+    },
+    {
+     "model_mm": 2250.8,
+     "era5_mm": 1785.9,
+     "days": 364,
+     "raw_ratio": 1.26,
+     "clipped": false
+    },
+    {
+     "model_mm": 2074.2,
+     "era5_mm": 1767.7,
+     "days": 368,
+     "raw_ratio": 1.173,
+     "clipped": false
+    },
+    {
+     "model_mm": 1817.1,
+     "era5_mm": 1559.4,
+     "days": 368,
+     "raw_ratio": 1.165,
+     "clipped": false
+    },
+    {
+     "model_mm": 1765.6,
+     "era5_mm": 1857.3,
+     "days": 368,
+     "raw_ratio": 0.951,
+     "clipped": false
+    },
+    {
+     "model_mm": 2709.8,
+     "era5_mm": 2514.0,
+     "days": 368,
+     "raw_ratio": 1.078,
+     "clipped": false
+    },
+    {
+     "model_mm": 4041.4,
+     "era5_mm": 4004.6,
+     "days": 364,
+     "raw_ratio": 1.009,
+     "clipped": false
+    },
+    {
+     "model_mm": 4809.0,
+     "era5_mm": 4373.1,
+     "days": 368,
+     "raw_ratio": 1.1,
+     "clipped": false
+    },
+    {
+     "model_mm": 3897.9,
+     "era5_mm": 3580.6,
+     "days": 368,
+     "raw_ratio": 1.089,
+     "clipped": false
+    }
+   ]
+  },
+  "th_south_songkhla": {
+   "latitude": 7.2,
+   "longitude": 100.6,
+   "built_at_utc": "2026-10-20T18:18:15Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    0.835,
+    0.853,
+    0.86,
+    1.085,
+    1.241,
+    1.353,
+    1.487,
+    1.409,
+    1.31,
+    0.973,
+    0.895,
+    0.835
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 2051.1,
+     "era5_mm": 2455.7,
+     "days": 361,
+     "raw_ratio": 0.835,
+     "clipped": false
+    },
+    {
+     "model_mm": 1016.5,
+     "era5_mm": 1192.2,
+     "days": 361,
+     "raw_ratio": 0.853,
+     "clipped": false
+    },
+    {
+     "model_mm": 1125.9,
+     "era5_mm": 1309.3,
+     "days": 357,
+     "raw_ratio": 0.86,
+     "clipped": false
+    },
+    {
+     "model_mm": 1583.8,
+     "era5_mm": 1460.1,
+     "days": 368,
+     "raw_ratio": 1.085,
+     "clipped": false
+    },
+    {
+     "model_mm": 1899.5,
+     "era5_mm": 1531.0,
+     "days": 364,
+     "raw_ratio": 1.241,
+     "clipped": false
+    },
+    {
+     "model_mm": 1889.3,
+     "era5_mm": 1396.1,
+     "days": 368,
+     "raw_ratio": 1.353,
+     "clipped": false
+    },
+    {
+     "model_mm": 1743.9,
+     "era5_mm": 1172.7,
+     "days": 368,
+     "raw_ratio": 1.487,
+     "clipped": false
+    },
+    {
+     "model_mm": 1846.8,
+     "era5_mm": 1310.9,
+     "days": 368,
+     "raw_ratio": 1.409,
+     "clipped": false
+    },
+    {
+     "model_mm": 2629.1,
+     "era5_mm": 2007.2,
+     "days": 368,
+     "raw_ratio": 1.31,
+     "clipped": false
+    },
+    {
+     "model_mm": 4080.2,
+     "era5_mm": 4194.3,
+     "days": 364,
+     "raw_ratio": 0.973,
+     "clipped": false
+    },
+    {
+     "model_mm": 4696.2,
+     "era5_mm": 5248.7,
+     "days": 368,
+     "raw_ratio": 0.895,
+     "clipped": false
+    },
+    {
+     "model_mm": 3814.7,
+     "era5_mm": 4570.2,
+     "days": 368,
+     "raw_ratio": 0.835,
+     "clipped": false
+    }
+   ]
+  },
+  "th_satun": {
+   "latitude": 6.7302,
+   "longitude": 99.647,
+   "built_at_utc": "2026-10-20T18:18:46Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    0.907,
+    1.1,
+    1.167,
+    1.1,
+    1.141,
+    1.11,
+    1.168,
+    1.013,
+    1.031,
+    0.92,
+    0.926,
+    0.84
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 942.2,
+     "era5_mm": 1039.1,
+     "days": 361,
+     "raw_ratio": 0.907,
+     "clipped": false
+    },
+    {
+     "model_mm": 735.6,
+     "era5_mm": 669.0,
+     "days": 361,
+     "raw_ratio": 1.1,
+     "clipped": false
+    },
+    {
+     "model_mm": 1368.0,
+     "era5_mm": 1172.6,
+     "days": 357,
+     "raw_ratio": 1.167,
+     "clipped": false
+    },
+    {
+     "model_mm": 2157.0,
+     "era5_mm": 1961.3,
+     "days": 368,
+     "raw_ratio": 1.1,
+     "clipped": false
+    },
+    {
+     "model_mm": 2767.3,
+     "era5_mm": 2425.3,
+     "days": 364,
+     "raw_ratio": 1.141,
+     "clipped": false
+    },
+    {
+     "model_mm": 2720.8,
+     "era5_mm": 2450.9,
+     "days": 368,
+     "raw_ratio": 1.11,
+     "clipped": false
+    },
+    {
+     "model_mm": 2906.5,
+     "era5_mm": 2489.0,
+     "days": 368,
+     "raw_ratio": 1.168,
+     "clipped": false
+    },
+    {
+     "model_mm": 3037.8,
+     "era5_mm": 2999.1,
+     "days": 368,
+     "raw_ratio": 1.013,
+     "clipped": false
+    },
+    {
+     "model_mm": 3722.5,
+     "era5_mm": 3609.2,
+     "days": 368,
+     "raw_ratio": 1.031,
+     "clipped": false
+    },
+    {
+     "model_mm": 3930.6,
+     "era5_mm": 4272.4,
+     "days": 364,
+     "raw_ratio": 0.92,
+     "clipped": false
+    },
+    {
+     "model_mm": 3395.6,
+     "era5_mm": 3668.4,
+     "days": 368,
+     "raw_ratio": 0.926,
+     "clipped": false
+    },
+    {
+     "model_mm": 2125.0,
+     "era5_mm": 2529.1,
+     "days": 368,
+     "raw_ratio": 0.84,
+     "clipped": false
+    }
+   ]
+  },
+  "th_pattani": {
+   "latitude": 6.7472,
+   "longitude": 101.3814,
+   "built_at_utc": "2026-10-20T18:18:46Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    0.834,
+    0.905,
+    1.029,
+    1.479,
+    1.568,
+    1.706,
+    1.724,
+    1.896,
+    1.77,
+    1.386,
+    1.121,
+    1.004
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 2329.4,
+     "era5_mm": 2792.3,
+     "days": 361,
+     "raw_ratio": 0.834,
+     "clipped": false
+    },
+    {
+     "model_mm": 1234.0,
+     "era5_mm": 1363.1,
+     "days": 361,
+     "raw_ratio": 0.905,
+     "clipped": false
+    },
+    {
+     "model_mm": 1279.7,
+     "era5_mm": 1243.4,
+     "days": 357,
+     "raw_ratio": 1.029,
+     "clipped": false
+    },
+    {
+     "model_mm": 1995.3,
+     "era5_mm": 1348.7,
+     "days": 368,
+     "raw_ratio": 1.479,
+     "clipped": false
+    },
+    {
+     "model_mm": 2533.3,
+     "era5_mm": 1615.7,
+     "days": 364,
+     "raw_ratio": 1.568,
+     "clipped": false
+    },
+    {
+     "model_mm": 2681.8,
+     "era5_mm": 1572.0,
+     "days": 368,
+     "raw_ratio": 1.706,
+     "clipped": false
+    },
+    {
+     "model_mm": 2632.2,
+     "era5_mm": 1526.5,
+     "days": 368,
+     "raw_ratio": 1.724,
+     "clipped": false
+    },
+    {
+     "model_mm": 2924.0,
+     "era5_mm": 1542.2,
+     "days": 368,
+     "raw_ratio": 1.896,
+     "clipped": false
+    },
+    {
+     "model_mm": 3710.2,
+     "era5_mm": 2095.6,
+     "days": 368,
+     "raw_ratio": 1.77,
+     "clipped": false
+    },
+    {
+     "model_mm": 5347.8,
+     "era5_mm": 3859.7,
+     "days": 364,
+     "raw_ratio": 1.386,
+     "clipped": false
+    },
+    {
+     "model_mm": 5613.4,
+     "era5_mm": 5006.2,
+     "days": 368,
+     "raw_ratio": 1.121,
+     "clipped": false
+    },
+    {
+     "model_mm": 4633.0,
+     "era5_mm": 4616.2,
+     "days": 368,
+     "raw_ratio": 1.004,
+     "clipped": false
+    }
+   ]
+  },
+  "th_south_yala": {
+   "latitude": 6.54,
+   "longitude": 101.28,
+   "built_at_utc": "2026-10-20T18:18:46Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.131,
+    1.24,
+    1.231,
+    1.208,
+    1.253,
+    1.26,
+    1.31,
+    1.262,
+    1.278,
+    1.201,
+    1.154,
+    1.127
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 2438.1,
+     "era5_mm": 2155.9,
+     "days": 361,
+     "raw_ratio": 1.131,
+     "clipped": false
+    },
+    {
+     "model_mm": 1444.2,
+     "era5_mm": 1164.5,
+     "days": 361,
+     "raw_ratio": 1.24,
+     "clipped": false
+    },
+    {
+     "model_mm": 1502.7,
+     "era5_mm": 1220.6,
+     "days": 357,
+     "raw_ratio": 1.231,
+     "clipped": false
+    },
+    {
+     "model_mm": 1881.7,
+     "era5_mm": 1558.2,
+     "days": 368,
+     "raw_ratio": 1.208,
+     "clipped": false
+    },
+    {
+     "model_mm": 2205.2,
+     "era5_mm": 1760.5,
+     "days": 364,
+     "raw_ratio": 1.253,
+     "clipped": false
+    },
+    {
+     "model_mm": 2096.4,
+     "era5_mm": 1663.4,
+     "days": 368,
+     "raw_ratio": 1.26,
+     "clipped": false
+    },
+    {
+     "model_mm": 2136.7,
+     "era5_mm": 1631.2,
+     "days": 368,
+     "raw_ratio": 1.31,
+     "clipped": false
+    },
+    {
+     "model_mm": 2189.0,
+     "era5_mm": 1734.9,
+     "days": 368,
+     "raw_ratio": 1.262,
+     "clipped": false
+    },
+    {
+     "model_mm": 3010.2,
+     "era5_mm": 2355.6,
+     "days": 368,
+     "raw_ratio": 1.278,
+     "clipped": false
+    },
+    {
+     "model_mm": 4382.2,
+     "era5_mm": 3648.3,
+     "days": 364,
+     "raw_ratio": 1.201,
+     "clipped": false
+    },
+    {
+     "model_mm": 5000.3,
+     "era5_mm": 4333.7,
+     "days": 368,
+     "raw_ratio": 1.154,
+     "clipped": false
+    },
+    {
+     "model_mm": 4229.4,
+     "era5_mm": 3754.0,
+     "days": 368,
+     "raw_ratio": 1.127,
+     "clipped": false
+    }
+   ]
+  },
+  "th_narathiwat": {
+   "latitude": 6.1848,
+   "longitude": 101.7365,
+   "built_at_utc": "2026-10-20T18:18:46Z",
+   "quality_status": "PASS",
+   "ratio_by_month": [
+    1.162,
+    1.351,
+    1.488,
+    1.523,
+    1.688,
+    1.516,
+    1.471,
+    1.334,
+    1.435,
+    1.331,
+    1.205,
+    1.162
+   ],
+   "details_by_month": [
+    {
+     "model_mm": 3673.6,
+     "era5_mm": 3161.3,
+     "days": 361,
+     "raw_ratio": 1.162,
+     "clipped": false
+    },
+    {
+     "model_mm": 2314.0,
+     "era5_mm": 1713.3,
+     "days": 361,
+     "raw_ratio": 1.351,
+     "clipped": false
+    },
+    {
+     "model_mm": 2171.7,
+     "era5_mm": 1459.5,
+     "days": 357,
+     "raw_ratio": 1.488,
+     "clipped": false
+    },
+    {
+     "model_mm": 2666.7,
+     "era5_mm": 1751.2,
+     "days": 368,
+     "raw_ratio": 1.523,
+     "clipped": false
+    },
+    {
+     "model_mm": 3308.7,
+     "era5_mm": 1959.8,
+     "days": 364,
+     "raw_ratio": 1.688,
+     "clipped": false
+    },
+    {
+     "model_mm": 3208.6,
+     "era5_mm": 2116.4,
+     "days": 368,
+     "raw_ratio": 1.516,
+     "clipped": false
+    },
+    {
+     "model_mm": 3215.1,
+     "era5_mm": 2185.3,
+     "days": 368,
+     "raw_ratio": 1.471,
+     "clipped": false
+    },
+    {
+     "model_mm": 3091.7,
+     "era5_mm": 2316.8,
+     "days": 368,
+     "raw_ratio": 1.334,
+     "clipped": false
+    },
+    {
+     "model_mm": 3907.2,
+     "era5_mm": 2721.9,
+     "days": 368,
+     "raw_ratio": 1.435,
+     "clipped": false
+    },
+    {
+     "model_mm": 5223.7,
+     "era5_mm": 3924.6,
+     "days": 364,
+     "raw_ratio": 1.331,
+     "clipped": false
+    },
+    {
+     "model_mm": 6064.7,
+     "era5_mm": 5032.5,
+     "days": 368,
+     "raw_ratio": 1.205,
+     "clipped": false
+    },
+    {
+     "model_mm": 5491.6,
+     "era5_mm": 4724.6,
+     "days": 368,
+     "raw_ratio": 1.162,
+     "clipped": false
+    }
+   ]
+  }
+ },
+ "generated_at_utc": "2026-10-20T18:18:46Z"
+}
