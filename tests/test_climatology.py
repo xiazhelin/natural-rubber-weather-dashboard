@@ -191,7 +191,10 @@ class ImergArchiveTest(unittest.TestCase):
     def test_fetch_day_falls_back_to_older_version(self):
         import io
         import urllib.error
-        from PIL import Image
+        try:
+            from PIL import Image
+        except ImportError:
+            self.skipTest("Pillow not installed")
         img = Image.new("I", (360, 180), 0)
         img.putpixel((280, 82), 123)  # 7.2N 100.6E → 12.3 mm（0.1mm存储）
         buf = io.BytesIO()

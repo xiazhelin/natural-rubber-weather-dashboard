@@ -63,7 +63,13 @@ jobs:
           git add site/data/weather.json site/data/history.json site/data/thailand-weekly-rain.json site/assets/climate/
           if [ -d data/observations ]; then git add data/observations/; fi
           git diff --cached --quiet || git commit -m "data: update production-region weather"
-          git push
+          # 其他工作流（季节基准、卫星回填）可能在本次运行期间推送了提交，先变基再推送
+          pushed=0
+          for attempt in 1 2 3; do
+            if git pull --rebase && git push; then pushed=1; break; fi
+            echo "push failed (attempt $attempt), retrying"; sleep 10
+          done
+          [ "$pushed" = 1 ]
 
       - name: 配置GitHub Pages
         uses: actions/configure-pages@v5
