@@ -39,11 +39,14 @@ def group_of(st):
     return c
 
 KEY_SHARE_PCT = 3.0
+# 代表点权重尚不齐全的国家：全部代表点都算重点，区域汇总等权（越南目前仅2/4省有权重）
 UNWEIGHTED_COUNTRIES = {"越南", "中国", "科特迪瓦"}
 
 
 def key_station(station, weights):
     share = (weights.get(station["station_id"]) or {}).get("share_of_country_pct")
+    if station["country"] in UNWEIGHTED_COUNTRIES:
+        return True, share
     if share is not None:
         return share >= KEY_SHARE_PCT, share
     return station["country"] in UNWEIGHTED_COUNTRIES, None
@@ -61,7 +64,7 @@ def evaluate(weather, weights):
         cc = st.get("climate_context") or {}
         sm = st.get("summary") or {}
         ens = cc.get("forecast_7d_ensemble") or {}
-        w = share if share is not None else 1.0
+        w = share if (share is not None and st["country"] not in UNWEIGHTED_COUNTRIES) else 1.0
         by_group.setdefault(group_of(st), []).append((st, ens, w))
         if not is_key:
             continue

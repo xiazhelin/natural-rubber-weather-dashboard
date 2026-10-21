@@ -50,5 +50,20 @@ class MapLayersTest(unittest.TestCase):
                 self.assertEqual(thai_iso[loc["station_id"]], loc["province_code"], loc["station_id"])
 
 
+class VietnamWeightsTest(unittest.TestCase):
+    def test_vietnam_partial_weights_are_consistent(self):
+        w = json.loads((ROOT / "site" / "data" / "production-weights.json").read_text(encoding="utf-8"))
+        vn = {k: v for k, v in w["stations"].items() if k.startswith("vn_")}
+        national = w["countries"]["越南"]["production_t"]
+        self.assertEqual(national, w["denominators"]["vietnam_2024_production_t"])
+        self.assertEqual(w["countries"]["越南"]["coverage"], "PARTIAL")
+        self.assertEqual(sum(v["estimated_production_t"] for v in vn.values()), w["denominators"]["tracked_vietnam_production_t"])
+        for item in vn.values():
+            self.assertAlmostEqual(item["share_of_country_pct"], item["estimated_production_t"] / national * 100, places=3)
+        config = json.loads((ROOT / "config" / "locations.json").read_text(encoding="utf-8"))
+        ids = {loc["station_id"] for loc in config["locations"]}
+        self.assertTrue(set(vn) <= ids)
+
+
 if __name__ == "__main__":
     unittest.main()

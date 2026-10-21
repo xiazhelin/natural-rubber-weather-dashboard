@@ -459,7 +459,7 @@ function renderWeeklySummary() {
   $("#weeklySummary").innerHTML = `
     <article class="weekly-summary-block">
       <h3>【预报 / 估算】0–7天 · 作业扰动</h3>
-      <p>${tappingRain.length}/${stations.length}个代表点的晨间割胶作业窗至少1天有雨；强降雨关注${heavy.length}个、少雨关注${dry.length}个、高温关注${heat.length}个。</p>
+      <p>${tappingRain.length}/${stations.length}个代表点的晨间割胶作业窗至少1天受雨（当日累计≥1 mm）；强降雨关注${heavy.length}个、少雨关注${dry.length}个、高温关注${heat.length}个。</p>
       <p>泰国同口径2025f生胶片产量中，强降雨关注府占${number(heavyExposure.coveragePct, 2)}%，少雨关注府占${number(dryExposure.coveragePct, 2)}%。</p>
       <small>阈值：7日降雨 ≥ ${thresholds.heavy_rain_total_7d_mm ?? "—"} mm / &lt; ${thresholds.dry_total_7d_mm ?? "—"} mm，日最高温 ≥ ${thresholds.hot_day_max_c ?? "—"}℃。泰国权重覆盖${number(thaiContext.coveragePct, 2)}%同版全国产量；生胶片与其他国家干胶不可加总。</small>
     </article>
@@ -718,7 +718,7 @@ function renderMapLegend() {
   const note = $("#mapLayerNote");
   if (note) {
     note.textContent = layer === "weight"
-      ? "颜色为代表点所在府/省占本国产量的比例：泰国为OAE 2025f生胶片，印尼为BPS 2024干胶；越南、中国、科特迪瓦暂无同口径权重，显示为无权重。"
+      ? "颜色为代表点所在府/省占本国产量的比例：泰国为OAE 2025f生胶片，印尼为BPS 2024干胶，越南为省统计局2024干胶（目前仅平福、多乐两省，西宁、嘉莱待补）；中国、科特迪瓦暂无同口径权重，显示为无权重。"
       : layer === "ensemble"
       ? `${def?.ensemble?.source || "ECMWF集合预报"}：各成员未来7日降雨与校正后的常年分布比较，偏多=高于常年第67百分位、偏少=低于第33百分位；常年水平下两者各约33%。概率越集中，信号越可靠。`
       : `${MAP_LAYERS[layer].hint}；档位按同一网格点历年同期（${def?.baseline ? `ERA5 ${def.baseline.start_year}–${def.baseline.end_year}` : "季节基准未构建"}）百分位划分，已做模式/卫星偏差校正。一区多点时按产量权重取主导档位。`;
@@ -1042,7 +1042,7 @@ function renderDetail() {
       <div class="production-metric"><span>${hasNumber(weight?.share_of_world_pct) ? `占全球产量（${meta.global_share_denominator_year}分母）` : "全球占比"}</span><strong>${hasNumber(weight?.share_of_world_pct) ? percent(weight.share_of_world_pct) : "口径不可比"}</strong></div>
       <div><span>7日降雨</span><strong>${number(s.precipitation_7d_mm)} mm</strong></div>
       <div><span>晨间割胶作业窗7日降雨</span><strong>${number(s.tapping_window_precipitation_7d_mm)} mm</strong></div>
-      <div><span>晨间割胶作业窗雨日 / 雨小时</span><strong>${s.tapping_window_rain_days_7d ?? "—"} 天 / ${s.tapping_window_rain_hours_7d ?? "—"} 小时</strong></div>
+      <div><span title="雨日：当日窗口累计≥1 mm；雨小时：该小时≥0.1 mm">晨间割胶作业窗雨日 / 雨小时</span><strong>${s.tapping_window_rain_days_7d ?? "—"} 天 / ${s.tapping_window_rain_hours_7d ?? "—"} 小时</strong></div>
       <div><span>较上次更新</span><strong>${change == null ? "—" : `${change > 0 ? "+" : ""}${number(change)} mm`}</strong></div>
       <div><span>雨日 / 强降雨日</span><strong>${s.rain_days_7d ?? "—"} / ${s.heavy_rain_days_7d ?? "—"} 天</strong></div>
       <div><span>7日最高 / 最低温</span><strong>${number(s.temperature_max_7d_c)} / ${number(s.temperature_min_7d_c)} ℃</strong></div>

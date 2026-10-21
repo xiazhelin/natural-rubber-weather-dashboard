@@ -83,6 +83,29 @@ PHENOLOGY = {
 }
 
 
+NO_LINE_START = set("，。、；：？！）》」』”’%,.;:)")
+
+
+def wrap_cn(text: str, width: int):
+    """按字符数折行；标点不放行首（避头点），连续的数字/字母（如 100%、ERA5）不拆开。"""
+    lines = textwrap.wrap(text, width, break_on_hyphens=False)
+    out = []
+    for line in lines:
+        if out and line and out[-1] and out[-1][-1].isascii() and out[-1][-1].isalnum() and line[0].isascii() and line[0].isalnum():
+            head = out[-1]
+            k = len(head)
+            while k > 0 and head[k - 1].isascii() and (head[k - 1].isalnum() or head[k - 1] == "."):
+                k -= 1
+            if 0 < k:
+                out[-1], line = head[:k], head[k:] + line
+        while out and line and line[0] in NO_LINE_START:
+            out[-1] += line[0]
+            line = line[1:]
+        if line:
+            out.append(line)
+    return out
+
+
 def load(name: str):
     return json.loads((DATA / name).read_text(encoding="utf-8"))
 
@@ -105,6 +128,8 @@ def group_of(st: dict) -> str:
         return "中国" + r
     return c
 
+
+WEIGHTED_COUNTRIES = ("泰国", "印度尼西亚")
 
 GROUP_ORDER = [
     "泰国南部东海岸", "泰国南部西海岸", "泰国东北部", "泰国北部", "泰国中东部",
@@ -200,6 +225,9 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
                 past7[s["station_id"]] = v
 
     def w_of(s):
+        # 只有代表点权重齐全的国家按产量加权；越南（仅2/4省有数据）、中国、科特迪瓦等权，避免部分权重造成偏差
+        if s["country"] not in WEIGHTED_COUNTRIES:
+            return 1.0
         return (weights.get(s["station_id"]) or {}).get("share_of_country_pct") or 1.0
 
     # ---- 站点行 ----
@@ -229,7 +257,7 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
             "past7": wavg([(r["past7"], r["w"]) for r in rs]),
             "tap_days": wavg([(r["tap_days"], r["w"]) for r in rs]),
             "heavy_days": wavg([(r["heavy_days"], r["w"]) for r in rs]),
-            "weighted": rs[0]["country"] in ("泰国", "印度尼西亚"),
+            "weighted": rs[0]["country"] in WEIGHTED_COUNTRIES,
             **{f"{k}_{f}": v for k in ("forecast_7d", "past_7d", "past_30d")
                for f, v in group_anomaly(rs, k).items()},
         })
@@ -267,7 +295,7 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
             why.append(f"7日≥{th['heavy_rain_total_7d_mm']}mm")
         if (r["heavy_days"] or 0) >= 2:
             why.append(f"暴雨日{r['heavy_days']}天")
-        if (r["tap_days"] or 0) >= 5:
+        if (r["tap_days"] or 0) >= 4:
             why.append(f"割胶窗受雨{r['tap_days']}天")
         if "HEAT" in r["states"]:
             why.append(f"最高温{r['tmax']:.0f}℃")
@@ -310,7 +338,7 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
     if has_clim:
         def lab(g, k):
             share = g[k + "_above_share"] if "多" in g[k + "_label"] else g[k + "_below_share"]
-            return f"{g['group']}（{g[k + '_label']}，{share:.0%}产量权重）"
+            return f"{g['group']}（{g[k + '_label']}，{share:.0%}{'产量权重' if g['weighted'] else '点位'}）"
         f_wet = [g for g in groups if (g.get("forecast_7d_label") or "").endswith("偏多")]
         f_dry = [g for g in groups if (g.get("forecast_7d_label") or "").endswith("偏少")]
         parts = []
@@ -354,12 +382,12 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
             parts.append("偏少概率较高：" + "、".join(dry))
         bullets.append("集合预报（ECMWF 51成员，常年水平下偏多/偏少各约33%）"
                        + ("，" + "；".join(parts) if parts else "，各区域均无明显偏多或偏少倾向（概率<55%）") + "。")
-    tap = [g for g in groups if (g["tap_days"] or 0) >= 3.5]
+    tap = [g for g in groups if (g["tap_days"] or 0) >= 3]
     if tap:
-        bullets.append("割胶窗口（当地02–10时）受雨偏多：" + "、".join(
+        bullets.append("割胶窗口（当地02–10时，当日累计≥1mm算受雨）受雨偏多：" + "、".join(
             f"{g['group']} 平均{g['tap_days']:.1f}/7天" for g in sorted(tap, key=lambda g: -g["tap_days"])) + "。")
     else:
-        bullets.append("各区域割胶窗口受雨天数平均均低于3.5/7天，早间割胶干扰有限。")
+        bullets.append("各区域割胶窗口受雨天数（当日窗口累计≥1mm）平均均低于3/7天，早间割胶干扰有限。")
     for p in th_panels:
         if p["name"] == "南部东海岸":
             diff = p["last4"] - p["last4_mean"]
@@ -409,7 +437,7 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
         for para in [p.strip() for p in commentary.strip().splitlines() if p.strip()]:
             bullet = para.startswith(("- ", "• ", "* "))
             text = para[2:].strip() if bullet else para
-            for i, ln in enumerate(textwrap.wrap(text, 56, break_on_hyphens=False)):
+            for i, ln in enumerate(wrap_cn(text, 56)):
                 c_lines.append((("• " if i == 0 else "   ") if bullet else "") + ln)
         box_h = 0.026 + 0.0168 * len(c_lines) + 0.008
         fig1.patches.append(matplotlib.patches.FancyBboxPatch(
@@ -425,7 +453,7 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
     fig1.text(0.06, y, "本期要点（自动生成）" if commentary else "本期要点", fontsize=10.5, weight="bold", color=INK)
     y -= 0.022
     for b in bullets:
-        lines = textwrap.wrap(b, 58, break_on_hyphens=False)
+        lines = wrap_cn(b, 58)
         for i, ln in enumerate(lines):
             fig1.text(0.065, y, ("• " if i == 0 else "   ") + ln, fontsize=8.6, color=INK)
             y -= 0.0165
@@ -438,6 +466,9 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
     need = 0.015 + 0.225 + 0.075 + 0.175
     k_s = min(1.3, (y - 0.125) / need)
     hA, hB = 0.215 * k_s, 0.165 * k_s
+    # 每行至少约 9pt 高，否则缩小标签字号，避免区域名称互相重叠
+    row_pt = hB * A4[1] * 72 / max(len(groups), 1)
+    label_fs = max(6.0, min(8.5, row_pt * 0.62))
     # 图A：区域未来7日 vs 近7日
     axA_top = y - 0.015
     axA = fig1.add_axes([0.25, axA_top - hA - 0.01, 0.70, hA])
@@ -458,7 +489,7 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
         axA.text(max(g["rain7"] or 0, g.get("forecast_7d_normal") or 0, g["past7"] or 0) + 2, i, lab,
                  va="center", fontsize=7.5, color=INK)
     axA.set_yticks(list(ys))
-    axA.set_yticklabels([g["group"] + ("" if g["weighted"] else "*") for g in gl])
+    axA.set_yticklabels([g["group"] + ("" if g["weighted"] else "*") for g in gl], fontsize=label_fs)
     axA.axvline(th["heavy_rain_total_7d_mm"], color=RED, lw=0.8, ls="--", zorder=1)
     axA.text(th["heavy_rain_total_7d_mm"], len(gl) - 0.4, f" {th['heavy_rain_total_7d_mm']}mm", color=RED, fontsize=7)
     axA.grid(axis="x", color=GRID, zorder=0)
@@ -473,15 +504,15 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
     yB = axA_top - hA - 0.01 - 0.065
     axB = fig1.add_axes([0.25, yB - hB - 0.01, 0.70, hB])
     vals = [g["tap_days"] or 0 for g in gl]
-    axB.barh(list(ys), vals, color=[ORANGE if v >= 3.5 else LIGHT for v in vals], height=0.55, zorder=2)
+    axB.barh(list(ys), vals, color=[ORANGE if v >= 3 else LIGHT for v in vals], height=0.55, zorder=2)
     for i, v in enumerate(vals):
         axB.text(v + 0.08, i, f"{v:.1f}", va="center", fontsize=7.5, color=INK)
     axB.set_yticks(list(ys))
-    axB.set_yticklabels([g["group"] for g in gl])
+    axB.set_yticklabels([g["group"] for g in gl], fontsize=label_fs)
     axB.set_xlim(0, 7)
     axB.set_xlabel("天（满7）")
     axB.grid(axis="x", color=GRID, zorder=0)
-    fig1.text(0.06, yB + 0.008, "② 未来7日割胶窗口（当地02–10时）受雨天数，橙色≥3.5天", fontsize=10, weight="bold", color=INK)
+    fig1.text(0.06, yB + 0.008, "② 未来7日割胶窗口（当地02–10时）受雨天数（当日≥1mm），橙色≥3天", fontsize=10, weight="bold", color=INK)
 
     # 图C（第3页上半）：泰国周度 vs 同周均值
     fig3 = plt.figure(figsize=A4)
@@ -505,12 +536,12 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
         if k == 0:
             ax.set_ylabel("mm/周", fontsize=7)
             ax.legend(fontsize=6, frameon=False, loc="upper left")
-    fig1.text(0.06, 0.035, "\n".join(textwrap.wrap(foot, 92)), fontsize=6.3, color=MUTED, va="bottom")
+    fig1.text(0.06, 0.035, "\n".join(wrap_cn(foot, 92)), fontsize=6.3, color=MUTED, va="bottom")
 
     # ---------- 第2页 ----------
     fig2 = plt.figure(figsize=A4)
     fig2.text(0.06, 0.965, "关注点位明细", fontsize=14, weight="bold", color=INK)
-    fig2.text(0.06, 0.947, ("筛选：7日累计≥150mm、暴雨日（≥25mm）≥2天、割胶窗受雨≥5天、最高温≥35℃"
+    fig2.text(0.06, 0.947, ("筛选：7日累计≥150mm、暴雨日（≥25mm）≥2天、割胶窗受雨≥4天、最高温≥35℃"
               + ("、未来7日或近30日低于常年P10/高于P90" if has_clim else "") + "；按占本国产量排序。"),
               fontsize=7.5, color=MUTED)
     MAXROWS = 16
@@ -570,7 +601,7 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
     else:
         yG = yT2 - 0.04
 
-    fig2.text(0.06, 0.035, "\n".join(textwrap.wrap(foot, 92)), fontsize=6.3, color=MUTED, va="bottom")
+    fig2.text(0.06, 0.035, "\n".join(wrap_cn(foot, 92)), fontsize=6.3, color=MUTED, va="bottom")
 
 
     # ---------- 第3页下半：中期展望 ----------
@@ -589,7 +620,7 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
         axI.axis("off")
         fig3.text(0.06, yG - 0.03 - hfig, "说明：图为NOAA官方产品原图（ESTIMATE），仅作第2–3周热带降水/气旋风险背景；以官方图内图例与有效期为准。",
                   fontsize=7.5, color=MUTED)
-    fig3.text(0.06, 0.035, "\n".join(textwrap.wrap(foot, 92)), fontsize=6.3, color=MUTED, va="bottom")
+    fig3.text(0.06, 0.035, "\n".join(wrap_cn(foot, 92)), fontsize=6.3, color=MUTED, va="bottom")
 
     with PdfPages(pdf_path) as pdf:
         pdf.savefig(fig1)

@@ -71,6 +71,27 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertEqual(station["summary"]["tapping_window_rain_hours_7d"], 56)
         self.assertEqual(len(station["forecast_utc_6h"]), 28)
 
+    def test_tapping_rain_day_uses_daily_threshold(self):
+        daily = {
+            "time": [f"2026-09-{day:02d}" for day in range(12, 19)],
+            **{key: [1] * 7 for key in ("weather_code", "temperature_2m_max", "temperature_2m_min", "precipitation_sum",
+                                        "precipitation_probability_max", "wind_gusts_10m_max", "et0_fao_evapotranspiration")},
+        }
+        # 每天窗口内8小时各0.1 mm（累计0.8 mm）：算8个雨小时，但不足1 mm不算雨日；最后一天每小时0.2 mm（累计1.6 mm）算雨日
+        rain = [0.2 if (hour // 24 == 6 and hour % 24 in range(2, 10)) else (0.1 if hour % 24 in range(2, 10) else 0) for hour in range(192)]
+        payload = {"timezone": "Asia/Bangkok", "elevation": 1, "daily": daily, "hourly": {
+            "time": [(datetime(2026, 9, 12) + timedelta(hours=h)).isoformat(timespec="minutes") for h in range(192)],
+            "precipitation": rain, "precipitation_probability": [50] * 192,
+            "soil_moisture_9_to_27cm": [0.3] * 192, "soil_moisture_27_to_81cm": [0.3] * 192}}
+        location = {"station_id": "t", "country": "泰国", "region": "南部", "place": "t", "latitude": 8, "longitude": 100}
+        window = {**self.tapping_window, "rain_day_threshold_mm": 1.0}
+        summary = MODULE.build_station(location, payload, self.thresholds, window,
+                                       datetime(2026, 9, 12, tzinfo=MODULE.timezone.utc))["summary"]
+        self.assertEqual(summary["tapping_window_rain_hours_7d"], 56)
+        self.assertEqual(summary["tapping_window_rain_days_7d"], 1)
+        config = json.loads((SCRIPT.parents[1] / "config" / "locations.json").read_text(encoding="utf-8"))
+        self.assertEqual(config["tapping_window"]["rain_day_threshold_mm"], 1.0)
+
     def test_six_hour_forecast_aligns_local_hours_to_utc(self):
         hourly = {
             "time": [

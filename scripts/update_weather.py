@@ -755,7 +755,8 @@ def build_station(location, payload, thresholds, tapping_window, forecast_start_
         if _finite(tapping_hours)
         else None,
         "tapping_window_rain_days_7d": sum(
-            value >= tapping_window["rain_hour_threshold_mm"] for value in _finite(tapping_rain)
+            value >= tapping_window.get("rain_day_threshold_mm", tapping_window["rain_hour_threshold_mm"])
+            for value in _finite(tapping_rain)
         )
         if _finite(tapping_rain)
         else None,

@@ -31,6 +31,13 @@ class AlertRulesTest(unittest.TestCase):
         keys = self.rules([station("vn_x", country="越南", region="东南部", heavy=3)])
         self.assertEqual(keys, {"vn_x:HEAVY_7D"})
 
+    def test_partially_weighted_country_stays_key(self):
+        weights = {**self.weights, "vn_dak_lak": {"share_of_country_pct": 2.3}}
+        weather = {"thresholds": {"heavy_rain_total_7d_mm": 150},
+                   "stations": [station("vn_dak_lak", country="越南", region="中央高原", rain=200)]}
+        keys = {s["key"] for s in ALERTS.evaluate(weather, weights)}
+        self.assertEqual(keys, {"vn_dak_lak:HEAVY_7D"})
+
     def test_wet_requires_ensemble_agreement(self):
         f7 = {"category": "ABOVE_P90", "value_mm": 120, "normal_mm": 60}
         weak = station("th_south_songkhla", f7=f7, ens={"quality_status": "PASS", "prob_above_p90_pct": 20,

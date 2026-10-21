@@ -8,7 +8,7 @@
   "overall_quality_status": "WARNING",
   "prepared_at": "2026-10-01",
   "unit": "mixed_country_specific_units",
-  "methodology": "泰国采用OAE 2025f省级生胶片产量/同版全国产量（68个正产量府）；印尼采用BPS 2024年省级干胶产量。泰国生胶片与全球干胶口径不等价，不计算泰国或跨国合计的全球占比。各府天气仅为单个模式网格样本。",
+  "methodology": "泰国采用OAE 2025f省级生胶片产量/同版全国产量（68个正产量府）；印尼采用BPS 2024年省级干胶产量；越南采用省统计局2024年统计年鉴（初值）省级干胶产量/国家统计局2024年全国干胶产量（初值），目前仅平福、多乐两省，西宁、嘉莱待补，区域汇总仍按等权。泰国生胶片与全球干胶口径不等价，不计算泰国或跨国合计的全球占比。各府天气仅为单个模式网格样本。",
   "countries": {
     "泰国": {
       "reference_year": 2025,
@@ -26,6 +26,16 @@
       "production_t": 2132000,
       "global_share_denominator_year": 2025,
       "methodology": "BPS 2024年全国统一省级天然橡胶产量表，吨数按用户提供的BPS表转录；省内占比由213.2万吨全国总量重算。全球占比仅为2024省级产量除以ANRPC 2025全球产量的跨年参考值。"
+    },
+    "越南": {
+      "reference_year": 2024,
+      "data_type": "ESTIMATE",
+      "quality_status": "WARNING",
+      "production_t": 1327700,
+      "production_unit": "吨干胶（mủ khô）",
+      "global_share_denominator_year": 2025,
+      "coverage": "PARTIAL",
+      "methodology": "省级干胶产量取自各省统计局《2024年统计年鉴》（初值）：平福449,803吨、多乐31,059吨；分母为国家统计局《2024年统计年鉴》全国干胶产量初值1,327.7千吨。西宁、嘉莱两省年鉴暂缺，保持MISSING，不补0；在4个代表点权重齐备前，越南区域汇总仍按等权。"
     }
   },
   "denominators": {
@@ -39,7 +49,10 @@
     "tracked_indonesia_production_t": 1517600,
     "tracked_share_of_indonesia_pct": 71.182,
     "tracked_indonesia_share_of_world_pct": 10.1369,
-    "tracked_share_of_world_pct": null
+    "tracked_share_of_world_pct": null,
+    "vietnam_2024_production_t": 1327700,
+    "tracked_vietnam_production_t": 480862,
+    "tracked_share_of_vietnam_pct": 36.2177
   },
   "sources": [
     {
@@ -67,6 +80,25 @@
       "use": "印尼全国及省级天然橡胶产量",
       "source_data_date": "2026-08-27",
       "ingestion_method": "MANUAL_TRANSCRIPTION_USER_SUPPLIED"
+    },
+    {
+      "source_name": "Vietnam NSO Statistical Yearbook 2024 (Niên giám Thống kê Việt Nam), table 238",
+      "url": "https://www.nso.gov.vn/en/data-and-statistics/2025/09/statistical-yearbook-of-viet-nam-2024/",
+      "period": "2024 (Sơ bộ)",
+      "data_type": "ESTIMATE",
+      "unit": "千吨干胶",
+      "use": "越南全国干胶产量分母（1,327.7千吨）",
+      "ingestion_method": "MANUAL_TRANSCRIPTION_USER_SUPPLIED"
+    },
+    {
+      "source_name": "Vietnam provincial statistical yearbooks 2024: Bình Phước, Đắk Lắk",
+      "url": "https://thongke.dongnai.gov.vn/Lists/NienGiamThongKe/Attachments/37/Sach%20NGTK%20Binh%20Phuoc%202024.pdf",
+      "period": "2024",
+      "data_type": "ESTIMATE",
+      "unit": "吨干胶",
+      "use": "越南平福、多乐省级干胶产量；多乐年鉴页面 https://thongkedaklak.nso.gov.vn/nien-giam-thong-ke/4",
+      "ingestion_method": "MANUAL_TRANSCRIPTION_USER_SUPPLIED",
+      "note": "平福为2024初值；西宁、嘉莱待补。"
     }
   ],
   "stations": {
@@ -791,6 +823,26 @@
       "share_of_world_pct": null,
       "quality_status": "WARNING",
       "source_as_of": "2026-03"
+    },
+    "vn_southeast_binh_phuoc": {
+      "province_name_vn": "Bình Phước",
+      "estimated_production_t": 449803,
+      "production_unit": "吨干胶（mủ khô）",
+      "share_of_country_pct": 33.8784,
+      "share_of_world_pct": 3.0045,
+      "quality_status": "WARNING",
+      "source": "Niên giám Thống kê tỉnh Bình Phước 2024，表“部分长期作物面积与产量”（Sơ bộ 2024）",
+      "source_as_of": "2025"
+    },
+    "vn_central_highlands_buon_ma_thuot": {
+      "province_name_vn": "Đắk Lắk",
+      "estimated_production_t": 31059,
+      "production_unit": "吨干胶（mủ khô）",
+      "share_of_country_pct": 2.3393,
+      "share_of_world_pct": 0.2075,
+      "quality_status": "WARNING",
+      "source": "Niên giám Thống kê tỉnh Đắk Lắk 2024，表169“分县橡胶产量”合计",
+      "source_as_of": "2025"
     }
   }
 }

@@ -80,7 +80,7 @@ def main(geo_path):
     weights = json.loads(weights_path.read_text(encoding="utf-8"))
     weights["prepared_at"] = "2026-10-01"
     weights["unit"] = "mixed_country_specific_units"
-    weights["methodology"] = "泰国采用OAE 2025f省级生胶片产量/同版全国产量（68个正产量府）；印尼采用BPS 2024年省级干胶产量。泰国生胶片与全球干胶口径不等价，不计算泰国或跨国合计的全球占比。各府天气仅为单个模式网格样本。"
+    weights["methodology"] = weights.get("methodology") or "泰国采用OAE 2025f省级生胶片产量/同版全国产量（68个正产量府）；印尼采用BPS 2024年省级干胶产量。泰国生胶片与全球干胶口径不等价，不计算泰国或跨国合计的全球占比。各府天气仅为单个模式网格样本。"
     weights["countries"]["泰国"] = {"reference_year": 2025, "data_type": "ESTIMATE", "quality_status": "WARNING",
         "production_t": total, "production_unit": "吨生胶片", "global_share_denominator_year": None,
         "methodology": "OAE《Agricultural Statistics of Thailand 2025》表5.9省级2025f生胶片产量；68个正产量府之和与同版全国合计一致。未列出府不补0；天气代表点不是府平均。"}
