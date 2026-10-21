@@ -48,20 +48,20 @@ plt.rcParams.update({
     "axes.unicode_minus": False,
     "axes.spines.top": False,
     "axes.spines.right": False,
-    "axes.edgecolor": "#9aa0a6",
-    "axes.labelcolor": "#3c4043",
+    "axes.edgecolor": "#bcc5be",
+    "axes.labelcolor": "#44574f",
     "xtick.color": "#5f6368",
     "ytick.color": "#3c4043",
     "font.size": 8.5,
 })
 
-INK = "#202124"
-MUTED = "#5f6368"
-BLUE = "#2f6db5"
-LIGHT = "#c9d7ea"
-ORANGE = "#d9822b"
-RED = "#c0392b"
-GRID = "#e8eaed"
+INK = "#18302a"   # 橡胶叶深绿（与网页同色）
+MUTED = "#6f7f78"
+BLUE = "#2c6aa5"  # 季风蓝：降雨 / 偏湿
+LIGHT = "#cfd4c9"
+ORANGE = "#b7792a"  # 烟片胶琥珀：近7日 / 关注
+RED = "#b4412e"
+GRID = "#e6e9e5"
 
 # 泰南东/西海岸划分（东北季风期 10–12 月以东海岸为主）
 TH_SOUTH_WEST = {"th_ranong", "th_phangnga", "th_phuket", "th_krabi", "th_south_trang", "th_satun"}
@@ -392,7 +392,7 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
         box_h = 0.026 + 0.0168 * len(c_lines) + 0.008
         fig1.patches.append(matplotlib.patches.FancyBboxPatch(
             (0.05, y - box_h + 0.012), 0.90, box_h, boxstyle="round,pad=0.004,rounding_size=0.006",
-            transform=fig1.transFigure, facecolor="#eef3fa", edgecolor="#c9d7ea", lw=0.8, zorder=0))
+            transform=fig1.transFigure, facecolor="#f1f3f0", edgecolor="#d9dfda", lw=0.8, zorder=0))
         fig1.text(0.065, y, "本期点评", fontsize=10.5, weight="bold", color=BLUE)
         y -= 0.022
         for ln in c_lines:
@@ -512,7 +512,7 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
     for (r, c), cell in tb.get_celld().items():
         cell.set_edgecolor(GRID)
         if r == 0:
-            cell.set_facecolor("#f1f3f4")
+            cell.set_facecolor("#f1f3f0")
             cell.set_text_props(weight="bold")
         if c == 7 and r > 0:
             cell._loc = "left"

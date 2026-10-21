@@ -5,54 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="天然橡胶重点产区未来七天天气跟踪与数据来源核验面板">
   <title>天然橡胶产区天气跟踪</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b5d55'/%3E%3Cpath d='M16 35c11-2 18-9 24-22 8 11 9 22 2 30-7 8-19 7-26-8Z' fill='%23d6f36a'/%3E%3Cpath d='M20 47c9-9 17-16 28-22' stroke='white' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2317302a'/%3E%3Cpath d='M16 35c11-2 18-9 24-22 8 11 9 22 2 30-7 8-19 7-26-8Z' fill='%23c98a2e'/%3E%3Cpath d='M20 47c9-9 17-16 28-22' stroke='white' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-  <header class="topbar">
-    <div>
-      <p class="eyebrow">NATURAL RUBBER · WEATHER MONITOR</p>
-      <h1>天然橡胶产区天气跟踪</h1>
-      <div class="meta-line">
-        <span id="updatedAt">等待数据</span>
-        <span id="qualityBadge" class="quality missing">MISSING</span>
-        <span>预测窗口 D0–D6</span>
-      </div>
-      <div class="meta-line">
-        <span>自动更新计划：每天北京时间 21:00</span>
-        <span>实际更新时间见上方；GitHub 调度可能延迟</span>
-      </div>
+  <header class="masthead">
+    <div class="masthead-title">
+      <h1>天然橡胶产区天气</h1>
+      <p class="masthead-sub">泰国、印尼、越南、中国、科特迪瓦 88 个代表网格点的未来7日预报、近期实况与常年同期比较</p>
     </div>
-    <a class="map-launch" href="capacity.html">轮胎产能与橡胶产区地图 ↗</a>
+    <dl class="masthead-status">
+      <div><dt>数据生成</dt><dd><span id="updatedAt">等待数据</span> <span id="qualityBadge" class="quality missing">MISSING</span></dd></div>
+      <div><dt>预报窗口</dt><dd>D0–D6</dd></div>
+      <div><dt>计划更新</dt><dd>每天北京时间 21:00（GitHub 调度可能延迟）</dd></div>
+    </dl>
+    <a class="map-launch" href="capacity.html">轮胎产能与产区地图</a>
   </header>
 
   <main>
-    <section class="panel freshness-panel" aria-labelledby="freshnessTitle">
-      <div class="panel-heading">
-        <div>
-          <p class="section-kicker">数据运行状态</p>
-          <h2 id="freshnessTitle">数据新鲜度与质量</h2>
-        </div>
-        <p class="table-caption">超出各数据源合理更新时间时自动降为 WARNING</p>
-      </div>
-      <div id="freshnessGrid" class="freshness-grid" aria-live="polite">
-        <p class="weekly-summary-note">正在检查各数据源。</p>
-      </div>
-    </section>
-
-    <section class="panel weekly-summary" aria-labelledby="weeklySummaryTitle">
-      <div class="panel-heading">
-        <div>
-          <p class="section-kicker">供给影响驾驶舱</p>
-          <h2 id="weeklySummaryTitle">天气对供给影响摘要</h2>
-        </div>
-        <span id="weeklyPeriod" class="source-badge">D0–D6 · 全部代表点</span>
-      </div>
-      <div id="weeklySummary" class="weekly-summary-grid" aria-live="polite">
-        <p class="weekly-summary-note">等待天气数据生成总结。</p>
-      </div>
-    </section>
-
     <section class="toolbar" aria-label="筛选条件">
       <label>
         <span>国家</span>
@@ -75,54 +48,21 @@
       <p id="resultCount" class="result-count" aria-live="polite">0个地点</p>
     </section>
 
-    <section class="metric-grid" aria-label="天气概览">
-      <button type="button" class="metric-card accent" data-weather-filter="all" aria-controls="weatherRows" aria-pressed="true">
-        <span>选中地点 · 7日平均降雨</span>
-        <strong id="avgRain">—</strong>
-        <small>mm，地点等权</small>
-        <small id="weightedRain">产量权重正在读取</small>
-        <small class="metric-action">点击查看全部筛选地点 ↓</small>
-      </button>
-      <button type="button" class="metric-card warning" data-weather-filter="HEAVY_RAIN" aria-controls="weatherRows" aria-pressed="false">
-        <span>强降雨关注地点</span>
-        <strong id="heavyCount">—</strong>
-        <small id="heavyRule">7日累计达到阈值</small>
-        <small id="heavyExposure">产量暴露正在读取</small>
-        <small class="metric-action">点击查看地点 ↓</small>
-      </button>
-      <button type="button" class="metric-card dry" data-weather-filter="DRY" aria-controls="weatherRows" aria-pressed="false">
-        <span>少雨关注地点</span>
-        <strong id="dryCount">—</strong>
-        <small id="dryRule">7日累计低于阈值</small>
-        <small id="dryExposure">产量暴露正在读取</small>
-        <small class="metric-action">点击查看地点 ↓</small>
-      </button>
-      <button type="button" class="metric-card heat" data-weather-filter="HEAT" aria-controls="weatherRows" aria-pressed="false">
-        <span>高温关注地点</span>
-        <strong id="heatCount">—</strong>
-        <small id="heatRule">7日最高温达到阈值</small>
-        <small id="heatExposure">产量暴露正在读取</small>
-        <small class="metric-action">点击查看地点 ↓</small>
-      </button>
-    </section>
-
     <section class="workspace">
       <article class="panel map-panel">
-        <div class="panel-heading">
-          <div>
-            <p class="section-kicker">空间分布</p>
-            <h2>重点产区代表网格</h2>
-          </div>
-          <div class="legend" aria-label="图例">
-            <span><i class="dot heavy"></i>强降雨</span>
-            <span><i class="dot dry"></i>少雨</span>
-            <span><i class="dot heat"></i>高温</span>
-            <span><i class="dot normal"></i>常规</span>
-            <span><i class="weight-dot"></i>圆点大小=产量权重</span>
+        <div class="map-head">
+          <h2>与常年同期比，哪里偏湿、哪里偏干</h2>
+          <div class="layer-switch" role="group" aria-label="地图填色">
+            <button type="button" data-map-layer="forecast_7d" aria-pressed="true">未来7日</button>
+            <button type="button" data-map-layer="past_7d" aria-pressed="false">过去7日</button>
+            <button type="button" data-map-layer="past_30d" aria-pressed="false">过去30日</button>
+            <button type="button" data-map-layer="weight" aria-pressed="false">产量权重</button>
           </div>
         </div>
+        <div id="mapLegend" class="map-legend" aria-label="图例"></div>
         <div id="maps" class="maps" aria-live="polite"></div>
-        <p class="map-note">滚轮或右上角按钮缩放、拖动平移；筛选“泰国”可查看77府边界与68个正产量府天气点。圆点大小按各国同口径产量权重缩放；单个模式网格不代表整府平均或胶园边界。府界：<a href="https://www.geoboundaries.org/api/current/gbOpen/THA/ADM1/" target="_blank" rel="noreferrer">geoBoundaries THA ADM1</a>（2017边界、ODbL 1.0）；其他国界：<a href="https://www.naturalearthdata.com/downloads/110m-cultural-vectors/" target="_blank" rel="noreferrer">Natural Earth 1:110m</a>，仅供定位。</p>
+        <p id="mapLayerNote" class="map-note"></p>
+        <p class="map-note map-credits">滚轮或按钮缩放、拖动平移，点击府/省或圆点查看明细；圆点大小为产量权重，带色描边表示强降雨、少雨或高温关注。单个模式网格不代表整府平均或胶园边界。界线：泰国 OCHA COD-AB 2019（77府）；印尼 BAKOSURTANAL 1:250,000（2012年前省界，苏门答腊与西加里曼丹未变）；越南 63省（2025年合并前）；科特迪瓦 OCHA COD-AB 2016（33区）；中国南部省界与周边陆地 Natural Earth 1:10m。仅供定位，不代表任何边界立场。</p>
       </article>
 
       <article class="panel detail-panel" id="detailPanel">
@@ -133,10 +73,62 @@
       </article>
     </section>
 
+    <section class="metric-grid" aria-label="天气概览">
+      <button type="button" class="metric-card accent" data-weather-filter="all" aria-controls="weatherRows" aria-pressed="true">
+        <span>筛选地点的7日平均降雨</span>
+        <strong id="avgRain">—</strong>
+        <small>mm，地点等权</small>
+        <small id="weightedRain">产量权重正在读取</small>
+        <small class="metric-action">查看全部地点</small>
+      </button>
+      <button type="button" class="metric-card warning" data-weather-filter="HEAVY_RAIN" aria-controls="weatherRows" aria-pressed="false">
+        <span>强降雨关注地点</span>
+        <strong id="heavyCount">—</strong>
+        <small id="heavyRule">7日累计达到阈值</small>
+        <small id="heavyExposure">产量暴露正在读取</small>
+        <small class="metric-action">只看这些地点</small>
+      </button>
+      <button type="button" class="metric-card dry" data-weather-filter="DRY" aria-controls="weatherRows" aria-pressed="false">
+        <span>少雨关注地点</span>
+        <strong id="dryCount">—</strong>
+        <small id="dryRule">7日累计低于阈值</small>
+        <small id="dryExposure">产量暴露正在读取</small>
+        <small class="metric-action">只看这些地点</small>
+      </button>
+      <button type="button" class="metric-card heat" data-weather-filter="HEAT" aria-controls="weatherRows" aria-pressed="false">
+        <span>高温关注地点</span>
+        <strong id="heatCount">—</strong>
+        <small id="heatRule">7日最高温达到阈值</small>
+        <small id="heatExposure">产量暴露正在读取</small>
+        <small class="metric-action">只看这些地点</small>
+      </button>
+    </section>
+
+    <section class="panel weekly-summary" aria-labelledby="weeklySummaryTitle">
+      <div class="panel-heading">
+        <div>
+          <h2 id="weeklySummaryTitle">天气对供给影响摘要</h2>
+        </div>
+        <span id="weeklyPeriod" class="source-badge">D0–D6 · 全部代表点</span>
+      </div>
+      <div id="weeklySummary" class="weekly-summary-grid" aria-live="polite">
+        <p class="weekly-summary-note">等待天气数据生成总结。</p>
+      </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
     <section class="panel table-panel" aria-labelledby="sevenDayTitle">
       <div class="panel-heading">
         <div>
-          <p class="section-kicker">逐点跟踪</p>
           <h2 id="sevenDayTitle">未来七天天气</h2>
         </div>
         <p id="weatherTableCaption" class="table-caption">点击任意一行查看日度明细</p>
@@ -172,7 +164,6 @@
     <section class="panel table-panel six-hour-panel" aria-labelledby="sixHourTitle">
       <div class="panel-heading">
         <div>
-          <p class="section-kicker">未来7天 · 时段细化</p>
           <h2 id="sixHourTitle">每6小时降雨预报</h2>
         </div>
         <p class="table-caption">6小时累计降雨，单位：mm；表头为时段起点（UTC）</p>
@@ -197,7 +188,6 @@
     <section class="panel thailand-rain-panel" aria-labelledby="thailandRainTitle">
       <div class="panel-heading">
         <div>
-          <p class="section-kicker">泰国产区历史</p>
           <h2 id="thailandRainTitle">泰国分区周度降雨</h2>
         </div>
         <span id="thailandRainPeriod" class="source-badge">2022至最新完整周</span>
@@ -213,7 +203,6 @@
 <section class="panel cpc-panel">
   <div class="panel-heading">
     <div>
-      <p class="section-kicker">实况验证</p>
       <h2>NOAA/CPC 东南亚降水监测</h2>
     </div>
     <span class="source-badge">观测分析 · 非预报</span>
@@ -273,7 +262,6 @@
     <section class="panel cpc-panel" aria-labelledby="seasiaTempAnomalyTitle">
       <div class="panel-heading">
         <div>
-          <p class="section-kicker">气温实况</p>
           <h2 id="seasiaTempAnomalyTitle">NOAA/CPC 东南亚最近四周气温距平</h2>
         </div>
         <span class="source-badge">周度实况 · 单位℃</span>
@@ -301,7 +289,6 @@
     <section class="panel cpc-panel">
       <div class="panel-heading">
         <div>
-          <p class="section-kicker">中短期预报</p>
           <h2>NOAA/CPC GFS 集合降水预报</h2>
         </div>
         <span class="source-badge">预测 · 未来1—14日</span>
@@ -361,7 +348,6 @@
     <section class="panel cpc-panel outlook-panel" aria-labelledby="extendedOutlookTitle">
       <div class="panel-heading">
         <div>
-          <p class="section-kicker">中期与季节展望</p>
           <h2 id="extendedOutlookTitle">热带风险、降水与气温展望</h2>
         </div>
         <span class="source-badge">ESTIMATE · 概率/距平</span>
@@ -396,7 +382,6 @@
     <section class="panel cpc-panel">
       <div class="panel-heading">
         <div>
-          <p class="section-kicker">中期气候背景</p>
           <h2>ENSO 与印度洋偶极子</h2>
         </div>
         <span class="source-badge">周度观测 · 月度展望</span>
@@ -426,9 +411,20 @@
         BoM指数为周度观测，RONI图为官方月度展望；两家机构的相对指数口径不可直接混用。气候状态只用于背景跟踪，不等于产区降雨或天然橡胶供应结论。
       </p>
     </section>
+    <section class="panel freshness-panel" aria-labelledby="freshnessTitle">
+      <div class="panel-heading">
+        <div>
+          <h2 id="freshnessTitle">数据新鲜度与质量</h2>
+        </div>
+        <p class="table-caption">超出各数据源合理更新时间时自动降为 WARNING</p>
+      </div>
+      <div id="freshnessGrid" class="freshness-grid" aria-live="polite">
+        <p class="weekly-summary-note">正在检查各数据源。</p>
+      </div>
+    </section>
+
     <section class="method-grid" id="update-guide">
       <article class="method-card source-card">
-        <p class="section-kicker">数据来源</p>
         <h2 id="sourceName">Open-Meteo Weather Forecast API</h2>
         <dl>
           <div><dt>来源性质</dt><dd id="sourceNature">数值天气模式网格数据，不是地面气象站观测</dd></div>
@@ -442,7 +438,6 @@
       </article>
 
       <article class="method-card source-card">
-        <p class="section-kicker">实况估算来源</p>
         <h2 id="imergSourceName">NASA GPM IMERG Late Run GIS</h2>
         <dl>
           <div><dt>来源性质</dt><dd id="imergNature">卫星与多源融合的近实时降水估算</dd></div>
@@ -455,7 +450,6 @@
       </article>
 
       <article class="method-card source-card">
-        <p class="section-kicker">产量权重口径</p>
         <h2>产区产量权重</h2>
         <dl>
           <div><dt>数据状态</dt><dd id="weightStatus">MISSING</dd></div>
@@ -470,7 +464,6 @@
       </article>
 
       <article class="method-card caution-card">
-        <p class="section-kicker">研究边界</p>
         <h2>天气状态不等于供应结论</h2>
         <p>强降雨、少雨和高温仅是筛选状态。是否影响割胶和产量，还需结合持续时间、物候、停割期、胶农利润、原料价格及库存缓冲验证。</p>
         <p>晨间割胶作业窗为项目统一研究时段，不代表每个产区的实际班次。IMERG是网格估算，不等同于地面站实测；预报兑现率也不等同于供应受损程度。</p>

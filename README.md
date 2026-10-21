@@ -91,6 +91,27 @@ IMERG GeoTIFF的NASA PPS HTTPS入口需凭据。不配置时，Open-Meteo预报�
 3. 回填完成后会自动计算“IMERG/ERA5”逐月比例；之后每日更新自动使用。
 4. NASA存档的起始日期与历史版本号无法事先确认：早于存档起点或版本号不同的日期记为不可用并跳过，不补0。
 
+### 地图界线
+
+首页地图使用预处理后的 TopoJSON（`site/data/maps/asia.topo.json`、`africa.topo.json`，合计约0.9MB），网页运行时不再从外部下载世界地图。
+
+- 泰国：OCHA COD-AB 2019 一级行政区（77府，ADM1_PCODE 转为 ISO 3166-2，如 TH-90）。
+- 印度尼西亚：BAKOSURTANAL 1:250,000 省界（2012年前的32省划分；橡胶主产的苏门答腊与西加里曼丹省界未变）。
+- 越南：63省（2025年7月合并前划分）。
+- 科特迪瓦：OCHA COD-AB 2016 二级区（33个大区）。
+- 中国南部4省与周边陆地：Natural Earth 1:10m（中国观点版）。
+
+地图按“与常年同期比”的百分位档位给府/省填色，可切换未来7日、过去7日、过去30日与产量权重；一区多点（如海南4点）时按产量权重取主导档位。代表点与行政区的对应关系在构建时用空间连接计算（`station_ids`），`tests/test_map_layers.py` 校验每个代表点恰好落入一个区，且泰国代表点所在府与配置的府代码一致。
+
+更换界线数据或新增/移动代表点后，重新生成：
+
+```bash
+npm i --no-save mapshaper@0.6.102
+node scripts/build-map-layers.mjs --src "地图数据 geojson" --ne <含 Natural Earth 10m geojson 的目录>
+```
+
+原始界线文件（约100MB）放在本地“地图数据 geojson”文件夹，已加入 `.gitignore`，不进仓库；只提交生成结果。Natural Earth 需要 `ne_10m_admin_0_countries_chn.geojson` 与 `ne_10m_admin_1_states_provinces.geojson`，可从 natural-earth-vector 仓库下载。
+
 ## GitHub Pages首次发布
 
 1. 创建一个公开GitHub仓库并推送本目录。
