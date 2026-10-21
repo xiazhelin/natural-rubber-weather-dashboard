@@ -152,18 +152,29 @@ class WeatherPipelineTest(unittest.TestCase):
         self.assertEqual(verification["72h"]["realization_pct"], 100.0)
         self.assertEqual(verification["24h"]["forecast_generated_at_utc"], "2026-09-07T13:00:00Z")
 
-    def test_history_is_bounded(self):
+    def test_history_is_bounded_and_archived(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "history.json"
-            for index in range(3):
+            archive = Path(directory) / "archive"
+            stamps = ["2026-09-30T13:00:00Z", "2026-10-01T13:00:00Z", "2026-10-02T13:00:00Z"]
+            for index, stamp in enumerate(stamps):
                 dataset = {
-                    "generated_at_utc": f"2026-09-12T0{index}:00:00Z",
+                    "generated_at_utc": stamp,
                     "stations": [{"station_id": "test", "quality_status": "PASS", "summary": {"precipitation_7d_mm": index}}],
                 }
-                MODULE.update_history(path, dataset, maximum=2)
-            snapshots = json.loads(path.read_text(encoding="utf-8"))["snapshots"]
-            self.assertEqual(len(snapshots), 2)
-            self.assertEqual(snapshots[0]["generated_at_utc"], "2026-09-12T01:00:00Z")
+                MODULE.update_history(path, dataset, keep=2, archive_dir=archive)
+            # 重复运行同一期不应产生重复快照
+            MODULE.update_history(path, dataset, keep=2, archive_dir=archive)
+            text = path.read_text(encoding="utf-8")
+            snapshots = json.loads(text)["snapshots"]
+            self.assertEqual([item["generated_at_utc"] for item in snapshots], stamps[1:])
+            self.assertNotIn("\n  ", text)  # 紧凑存储
+            files = sorted(str(f.relative_to(archive)) for f in archive.rglob("*.json"))
+            self.assertEqual(files, ["2026-09/20260930T130000Z.json", "2026-10/20261001T130000Z.json", "2026-10/20261002T130000Z.json"])
+            first = archive / files[0]
+            before = first.stat().st_mtime_ns
+            MODULE.update_history(path, dataset, keep=2, archive_dir=archive)
+            self.assertEqual(first.stat().st_mtime_ns, before)  # 已归档的快照不改写
 
     def test_bom_index_parser_and_svg(self):
         points = MODULE.parse_bom_index(

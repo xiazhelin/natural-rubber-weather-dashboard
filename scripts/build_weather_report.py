@@ -332,6 +332,28 @@ def build(out_dir: Path, commentary: str | None = None) -> dict:
             src_label = ("卫星实况" if n_sat == len(srcs) else
                          ("模式估算" if n_sat == 0 else f"{n_sat}/{len(srcs)}点为卫星实况，其余模式估算"))
             bullets.append(f"过去30日累计（{src_label}）" + "；".join(parts) + "。")
+    # 集合预报概率：按产量权重（无权重等权）汇总到区域
+    ens_groups = []
+    for g in groups:
+        rs = [r for r in rows if r["group"] == g["group"]]
+        pairs = [((r["cc"].get("forecast_7d_ensemble") or {}), r["w"]) for r in rs]
+        pairs = [(e, w) for e, w in pairs if e.get("quality_status") == "PASS"]
+        if not pairs:
+            continue
+        tw = sum(w for _, w in pairs)
+        up = sum(e["prob_above_normal_pct"] * w for e, w in pairs) / tw
+        down = sum(e["prob_below_normal_pct"] * w for e, w in pairs) / tw
+        ens_groups.append((g["group"], up, down))
+    if ens_groups:
+        wet = [f"{name}（{up:.0f}%）" for name, up, down in sorted(ens_groups, key=lambda x: -x[1]) if up >= 55]
+        dry = [f"{name}（{down:.0f}%）" for name, up, down in sorted(ens_groups, key=lambda x: -x[2]) if down >= 55]
+        parts = []
+        if wet:
+            parts.append("偏多概率较高：" + "、".join(wet))
+        if dry:
+            parts.append("偏少概率较高：" + "、".join(dry))
+        bullets.append("集合预报（ECMWF 51成员，常年水平下偏多/偏少各约33%）"
+                       + ("，" + "；".join(parts) if parts else "，各区域均无明显偏多或偏少倾向（概率<55%）") + "。")
     tap = [g for g in groups if (g["tap_days"] or 0) >= 3.5]
     if tap:
         bullets.append("割胶窗口（当地02–10时）受雨偏多：" + "、".join(

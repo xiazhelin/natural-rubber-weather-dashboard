@@ -509,8 +509,33 @@ const MAP_LAYERS = {
   forecast_7d: { label: "未来7日", hint: "未来7日预报降雨与常年同期比" },
   past_7d: { label: "过去7日", hint: "过去7日降雨（卫星实况优先）与常年同期比" },
   past_30d: { label: "过去30日", hint: "过去30日降雨（卫星实况优先）与常年同期比" },
+  ensemble: { label: "集合概率", hint: "ECMWF 51成员集合预报中，未来7日降雨偏多或偏少的成员比例" },
   weight: { label: "产量权重", hint: "代表点所在区占本国产量的比例" },
 };
+const ENSEMBLE_LABELS = {
+  BELOW_P10: "偏少概率≥80%",
+  BELOW_NORMAL: "偏少概率≥60%",
+  NEAR_NORMAL: "无明显倾向",
+  ABOVE_NORMAL: "偏多概率≥60%",
+  ABOVE_P90: "偏多概率≥80%",
+};
+
+// 集合概率 → 与距平同一套色阶：强倾向用深色，明显倾向用浅色
+function ensembleCategory(ens) {
+  if (!ens || ens.quality_status !== "PASS") return null;
+  const up = Number(ens.prob_above_normal_pct);
+  const down = Number(ens.prob_below_normal_pct);
+  if (up >= 80) return "ABOVE_P90";
+  if (down >= 80) return "BELOW_P10";
+  if (up >= 60) return "ABOVE_NORMAL";
+  if (down >= 60) return "BELOW_NORMAL";
+  return "NEAR_NORMAL";
+}
+
+function ensembleText(ens) {
+  if (!ens || ens.quality_status !== "PASS") return "集合预报缺失";
+  return `偏多概率 ${ens.prob_above_normal_pct}%、偏少概率 ${ens.prob_below_normal_pct}%（常年各约33%）；中位数 ${number(ens.median_mm, 0)} mm，10–90% 区间 ${number(ens.p10_mm, 0)}–${number(ens.p90_mm, 0)} mm`;
+}
 const ANOMALY_ORDER = ["BELOW_P10", "BELOW_NORMAL", "NEAR_NORMAL", "ABOVE_NORMAL", "ABOVE_P90"];
 const WEIGHT_STEPS = [[8, "≥8%"], [4, "4–8%"], [2, "2–4%"], [1, "1–2%"], [0, "<1%"]];
 state.mapLayer = "forecast_7d";
@@ -588,6 +613,11 @@ function mapGeometry(key, bounds, width) {
 }
 
 function stationAnomaly(station, layer) {
+  if (layer === "ensemble") {
+    const ens = station?.climate_context?.forecast_7d_ensemble;
+    const category = ensembleCategory(ens);
+    return category ? { ...ens, category } : null;
+  }
   return station?.climate_context?.[layer] || null;
 }
 
@@ -617,6 +647,9 @@ function regionTitle(region, stations, layer) {
   if (layer === "weight") {
     const parts = stations.map((s) => `${s.place} ${hasNumber(productionWeight(s)?.share_of_country_pct) ? `${number(productionWeight(s).share_of_country_pct, 1)}%` : "权重缺失"}`);
     return `${base}：${parts.join("；")}（占本国产量）`;
+  }
+  if (layer === "ensemble") {
+    return `${base}：${stations.map((s) => `${s.place} ${ensembleText(s.climate_context?.forecast_7d_ensemble)}`).join("；")}`;
   }
   const parts = stations.map((s) => {
     const item = stationAnomaly(s, layer);
@@ -677,7 +710,7 @@ function renderMapLegend() {
   if (!legend) return;
   const items = layer === "weight"
     ? [...WEIGHT_STEPS].reverse().map(([, label], i) => `<span><i class="swatch fill-w${i}"></i>${label}</span>`)
-    : ANOMALY_ORDER.map((code) => `<span><i class="swatch fill-${code.toLowerCase().replace(/_/g, "-")}"></i>${ANOMALY_LABELS[code]}</span>`);
+    : ANOMALY_ORDER.map((code) => `<span><i class="swatch fill-${code.toLowerCase().replace(/_/g, "-")}"></i>${(layer === "ensemble" ? ENSEMBLE_LABELS : ANOMALY_LABELS)[code]}</span>`);
   items.push('<span><i class="swatch fill-none"></i>无代表点</span>');
   items.push('<span class="legend-points"><i class="pt flag-heavy"></i>强降雨 <i class="pt flag-dry"></i>少雨 <i class="pt flag-heat"></i>高温关注</span>');
   legend.innerHTML = items.join("");
@@ -686,6 +719,8 @@ function renderMapLegend() {
   if (note) {
     note.textContent = layer === "weight"
       ? "颜色为代表点所在府/省占本国产量的比例：泰国为OAE 2025f生胶片，印尼为BPS 2024干胶；越南、中国、科特迪瓦暂无同口径权重，显示为无权重。"
+      : layer === "ensemble"
+      ? `${def?.ensemble?.source || "ECMWF集合预报"}：各成员未来7日降雨与校正后的常年分布比较，偏多=高于常年第67百分位、偏少=低于第33百分位；常年水平下两者各约33%。概率越集中，信号越可靠。`
       : `${MAP_LAYERS[layer].hint}；档位按同一网格点历年同期（${def?.baseline ? `ERA5 ${def.baseline.start_year}–${def.baseline.end_year}` : "季节基准未构建"}）百分位划分，已做模式/卫星偏差校正。一区多点时按产量权重取主导档位。`;
   }
   document.querySelectorAll("[data-map-layer]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.mapLayer === layer)));
@@ -1026,6 +1061,7 @@ function renderDetail() {
         return `<div><span>${label}${src}</span><strong>${number(item?.value_mm)} mm</strong><small>常年 ${number(item?.normal_mm)} mm</small><div class="anom-row">${anomalyBadge(item)}</div></div>`;
       }).join("")}</div>
     </div>
+    <p class="ensemble-line"><strong>集合预报（ECMWF 51成员）</strong>${escapeHtml(ensembleText(station.climate_context?.forecast_7d_ensemble))}</p>
     <div class="forecast-strip" aria-label="${escapeHtml(station.place)}未来七天逐日预报">${days}</div>
     <p class="detail-source">预报：${escapeHtml(state.data.source?.source_name)}；实况估算：${escapeHtml(state.data.observation_source?.source_name || "当前无法确认最新数据")}。兑现率=实况/验证期前预报，不是准确率。</p>
     <p class="detail-source">距平：${escapeHtml(state.data.climate_context_definition?.caveat || "季节基准尚未构建，保持MISSING。")}</p>

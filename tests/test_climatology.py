@@ -263,5 +263,51 @@ class ImergArchiveTest(unittest.TestCase):
         self.assertIsNone(ratios[6])       # 7月无数据
 
 
+class EnsembleTest(unittest.TestCase):
+    def payload(self, days, members=51, per_hour=lambda m, h: 0.1 * m):
+        times = [f"{d}T{h:02d}:00" for d in days for h in range(24)] + [f"2099-01-01T{h:02d}:00" for h in range(24)]
+        hourly = {"time": times, "precipitation": [per_hour(0, i) for i in range(len(times))]}
+        for m in range(1, members):
+            hourly[f"precipitation_member{m:02d}"] = [per_hour(m, i) for i in range(len(times))]
+        return {"hourly": hourly}
+
+    def test_member_totals_use_local_dates_and_drop_incomplete_members(self):
+        days = [f"2026-10-{d:02d}" for d in range(20, 27)]
+        payload = self.payload(days)
+        payload["hourly"]["precipitation_member05"][3] = None
+        totals = WX.ensemble_member_totals(payload, days)
+        self.assertEqual(len(totals), 50)          # 一个成员缺测被剔除
+        self.assertEqual(totals[0], 0.0)           # 控制成员
+        self.assertEqual(totals[1], round(0.1 * 168, 1))
+        self.assertEqual(WX.ensemble_member_totals(payload, days + ["2026-10-27"]), [])  # 小时数不足
+        self.assertEqual(WX.ensemble_member_totals(None, days), [])
+
+    def test_probabilities_against_corrected_baseline(self):
+        totals = list(range(0, 100, 2))  # 50个成员：0..98
+        stats = [40.0, 10.0, 30.0, 50.0, 80.0]
+        probs = WX.ensemble_probabilities(totals, stats)
+        self.assertEqual(probs["members"], 50)
+        self.assertEqual(probs["prob_above_normal_pct"], 48)   # >50：52..98 共24个
+        self.assertEqual(probs["prob_below_normal_pct"], 30)   # <30：0..28 共15个
+        self.assertEqual(probs["prob_above_p90_pct"], 18)
+        self.assertEqual(probs["prob_below_p10_pct"], 10)
+        self.assertEqual(probs["median_mm"], 49.0)
+        self.assertIsNone(WX.ensemble_probabilities(totals[:10], stats))
+        self.assertIsNone(WX.ensemble_probabilities(totals, None))
+
+    def test_attach_uses_same_window_and_bias_as_forecast(self):
+        station = {"daily": [{"date": f"2026-10-{d:02d}"} for d in range(20, 27)], "climate_context": {}}
+        clim = {"windows": {"7": [[20.0, 5.0, 12.0, 25.0, 40.0]] * 365}}
+        bias = {"ratio_by_month": [2.0] * 12}
+        totals = [30.0] * 30 + [90.0] * 21
+        result = WX.attach_ensemble(station, totals, clim, bias)
+        self.assertEqual(result["quality_status"], "PASS")
+        # 基准×2：p67=50、p90=80 → 21个成员（90mm）偏多且显著偏多
+        self.assertEqual(result["prob_above_normal_pct"], round(21 / 51 * 100))
+        self.assertEqual(result["prob_above_p90_pct"], round(21 / 51 * 100))
+        missing = WX.attach_ensemble({"daily": station["daily"]}, [], clim, bias)
+        self.assertEqual(missing["quality_status"], "MISSING")
+
+
 if __name__ == "__main__":
     unittest.main()

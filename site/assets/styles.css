@@ -176,6 +176,8 @@ input, select { width: 100%; min-height: 38px; padding: 6px 10px; background: va
 .climate-context .detail-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 0; }
 .climate-context .anom-row { margin-top: 4px; padding: 0; border: 0; }
 .detail-metrics span.anom { display: inline-block; font-size: .7rem; line-height: 1.5; }
+.ensemble-line { margin: 0 0 12px; padding: 8px 10px; background: var(--surface-2); border-radius: var(--radius); color: var(--ink-2); font-size: .76rem; line-height: 1.55; }
+.ensemble-line strong { display: block; color: var(--ink); font-size: .78rem; font-weight: 600; }
 .forecast-strip { display: grid; grid-template-columns: repeat(7, minmax(44px, 1fr)); gap: 3px; overflow-x: auto; }
 .forecast-day { padding: 6px 2px; text-align: center; }
 .forecast-day time { display: block; color: var(--muted); font-size: .64rem; line-height: 1.3; }

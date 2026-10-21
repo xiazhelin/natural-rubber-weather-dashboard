@@ -61,7 +61,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add site/data/weather.json site/data/history.json site/data/thailand-weekly-rain.json site/assets/climate/
-          if [ -d data/observations ]; then git add data/observations/; fi
+          for d in data/observations data/history; do if [ -d "$d" ]; then git add "$d/"; fi; done
           git diff --cached --quiet || git commit -m "data: update production-region weather"
           # 其他工作流（季节基准、卫星回填）可能在本次运行期间推送了提交，先变基再推送
           pushed=0

@@ -26,6 +26,8 @@ from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 API_URL = "https://api.open-meteo.com/v1/forecast"
+ENSEMBLE_API_URL = "https://ensemble-api.open-meteo.com/v1/ensemble"
+ENSEMBLE_MODEL = "ecmwf_ifs025"
 HISTORICAL_API_URL = "https://archive-api.open-meteo.com/v1/archive"
 DAILY_FIELDS = (
     "weather_code",
@@ -815,6 +817,101 @@ def fetch_batch(locations, timeout=45, retries=3):
             time.sleep(2**attempt)
 
 
+def fetch_ensemble_batch(locations, timeout=90, retries=3):
+    """ECMWF IFS 0.25° 集合预报（控制+50成员）逐小时降雨；按当地日期在本地汇总。"""
+    params = {
+        "latitude": ",".join(str(item["latitude"]) for item in locations),
+        "longitude": ",".join(str(item["longitude"]) for item in locations),
+        "hourly": "precipitation",
+        "models": ENSEMBLE_MODEL,
+        "forecast_days": 8,
+        "timezone": "auto",
+        "cell_selection": "land",
+    }
+    url = ENSEMBLE_API_URL + "?" + urllib.parse.urlencode(params)
+    request = urllib.request.Request(url, headers={"User-Agent": "natural-rubber-weather-dashboard/1.0"})
+    for attempt in range(retries):
+        try:
+            with urllib.request.urlopen(request, timeout=timeout) as response:
+                data = json.load(response)
+            payloads = data if isinstance(data, list) else [data]
+            if len(payloads) != len(locations):
+                raise ValueError(f"ensemble response count {len(payloads)} != request count {len(locations)}")
+            return payloads
+        except Exception:
+            if attempt + 1 == retries:
+                raise
+            time.sleep(2 ** (attempt + 2))
+
+
+def ensemble_member_totals(payload, dates):
+    """返回各成员在 dates（当地日期）内的降雨合计；任一小时缺失的成员剔除。"""
+    hourly = (payload or {}).get("hourly") or {}
+    times = hourly.get("time") or []
+    wanted = set(dates)
+    index = [i for i, stamp in enumerate(times) if str(stamp)[:10] in wanted]
+    if len(index) != 24 * len(dates):
+        return []
+    totals = []
+    for key, values in hourly.items():
+        if key != "precipitation" and not key.startswith("precipitation_member"):
+            continue
+        picked = [values[i] if i < len(values) else None for i in index]
+        if any(value is None for value in picked):
+            continue
+        totals.append(round(sum(float(value) for value in picked), 1))
+    return totals
+
+
+def _quantile_sorted(values, q):
+    pos = (len(values) - 1) * q
+    lo = int(pos)
+    hi = min(lo + 1, len(values) - 1)
+    return values[lo] + (values[hi] - values[lo]) * (pos - lo)
+
+
+def ensemble_probabilities(totals, stats, minimum_members=20):
+    """成员7日合计相对（已校正）常年分布 stats=[mean,p10,p33,p67,p90] 的概率。"""
+    if len(totals) < minimum_members or not stats:
+        return None
+    mean, p10, p33, p67, p90 = stats
+    n = len(totals)
+    ordered = sorted(totals)
+    share = lambda condition: round(sum(1 for value in totals if condition(value)) / n * 100)
+    return {
+        "model": ENSEMBLE_MODEL,
+        "members": n,
+        "median_mm": round(_quantile_sorted(ordered, 0.5), 1),
+        "p10_mm": round(_quantile_sorted(ordered, 0.1), 1),
+        "p90_mm": round(_quantile_sorted(ordered, 0.9), 1),
+        "prob_above_normal_pct": share(lambda v: v > p67),
+        "prob_below_normal_pct": share(lambda v: v < p33),
+        "prob_above_p90_pct": share(lambda v: v > p90),
+        "prob_below_p10_pct": share(lambda v: v < p10),
+        "climatological_pct": {"above_normal": 33, "below_normal": 33, "above_p90": 10, "below_p10": 10},
+    }
+
+
+def attach_ensemble(station, totals, clim_entry, bias_entry):
+    """把集合概率并入 climate_context.forecast_7d_ensemble；基准与 forecast_7d 同一窗口、同一校正比例。"""
+    context = station.setdefault("climate_context", {"quality_status": "MISSING"})
+    dates = [row["date"] for row in station.get("daily") or []]
+    result = None
+    if dates and totals:
+        start = datetime.fromisoformat(dates[0]).date()
+        table = ((clim_entry or {}).get("windows") or {}).get("7") or []
+        doy = _clim_day_of_year(start)
+        stats = table[doy - 1] if len(table) >= doy else None
+        ratio = bias_ratio_for(bias_entry, start, 7)
+        if stats and ratio is not None:
+            stats = [round(v * ratio, 1) for v in stats]
+        result = ensemble_probabilities(totals, stats)
+    context["forecast_7d_ensemble"] = result or {"model": ENSEMBLE_MODEL, "members": len(totals or []), "quality_status": "MISSING"}
+    if result:
+        context["forecast_7d_ensemble"]["quality_status"] = "PASS"
+    return context["forecast_7d_ensemble"]
+
+
 def fetch_past_batch(locations, timeout=45, retries=3):
     """过去30日的模式估算日降雨（Open-Meteo past_days），单独请求，不影响预报数组对齐。"""
     params = {
@@ -1384,16 +1481,47 @@ def history_entry(dataset):
     }
 
 
-def update_history(path, dataset, maximum=400):
+HISTORY_ARCHIVE_DIR = ROOT / "data" / "history"
+SITE_HISTORY_KEEP = 14
+
+
+def _compact_json(path, payload):
+    _atomic_write(path, json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n")
+
+
+def archive_snapshots(snapshots, directory=HISTORY_ARCHIVE_DIR):
+    """每期快照单独存为 data/history/<YYYY-MM>/<生成时间>.json；已存在则不再改写。
+
+    一期一个文件、写入后不变，git 中每期只存一次，避免每天重写大文件导致仓库膨胀；不发布到网页。
+    """
+    written = 0
+    for item in snapshots:
+        stamp = item.get("generated_at_utc") or ""
+        if len(stamp) < 16:
+            continue
+        path = directory / stamp[:7] / f"{stamp.replace(':', '').replace('-', '')}.json"
+        if path.exists():
+            continue
+        path.parent.mkdir(parents=True, exist_ok=True)
+        _compact_json(path, item)
+        written += 1
+    return written
+
+
+def update_history(path, dataset, keep=SITE_HISTORY_KEEP, archive_dir=HISTORY_ARCHIVE_DIR):
+    """网页只保留最近 keep 期快照（上期对比与24/72h兑现率只需最近几天）；全部快照按月归档。"""
     history = {"schema_version": 2, "snapshots": []}
     if path.exists():
         history = json.loads(path.read_text(encoding="utf-8"))
     snapshots = history.get("snapshots") or []
     snapshots = [item for item in snapshots if item.get("generated_at_utc") != dataset["generated_at_utc"]]
     snapshots.append(history_entry(dataset))
+    snapshots.sort(key=lambda item: item.get("generated_at_utc", ""))
+    archive_snapshots(snapshots, archive_dir)
     history["schema_version"] = 2
-    history["snapshots"] = snapshots[-maximum:]
-    atomic_json(path, history)
+    history["retention"] = f"最近{keep}期；完整历史每期一个文件，归档在仓库 data/history/（不发布到网页）"
+    history["snapshots"] = snapshots[-keep:]
+    _compact_json(path, history)
 
 
 def load_imerg_bias():
@@ -1418,6 +1546,7 @@ def collect(config_path, imerg_archive=None):
     imerg_bias_stations = (imerg_bias or {}).get("stations") or {}
     stations = []
     past_by_station = {}
+    ensemble_by_station = {}
     for start in range(0, len(locations), 15):
         batch = locations[start : start + 15]
         payloads = fetch_batch(batch)
@@ -1426,9 +1555,16 @@ def collect(config_path, imerg_archive=None):
         except Exception as exc:
             print(f"past rainfall warning: {exc}", file=sys.stderr)
             past_payloads = [None] * len(batch)
-        for location, payload, past in zip(batch, payloads, past_payloads):
+        try:
+            ensemble_payloads = fetch_ensemble_batch(batch)
+        except Exception as exc:
+            print(f"ensemble warning: {exc}", file=sys.stderr)
+            ensemble_payloads = [None] * len(batch)
+        for location, payload, past, ensemble in zip(batch, payloads, past_payloads, ensemble_payloads):
             station = build_station(location, payload, thresholds, tapping_window, now)
             past_by_station[location["station_id"]] = past_daily_from_payload(past)
+            ensemble_by_station[location["station_id"]] = ensemble_member_totals(
+                ensemble, [row["date"] for row in station["daily"]])
             stations.append(station)
     email = os.environ.get("NASA_PPS_EMAIL", "").strip()
     try:
@@ -1463,6 +1599,7 @@ def collect(config_path, imerg_archive=None):
             obs_stations.get(sid),
             imerg_bias_stations.get(sid),
         )
+        attach_ensemble(station, ensemble_by_station.get(sid), clim_stations.get(sid), bias_stations.get(sid))
     quality_counts = {status: sum(item["quality_status"] == status for item in stations) for status in ("PASS", "WARNING", "MISSING")}
     overall = "PASS" if quality_counts["PASS"] == len(stations) else "WARNING"
     return {
@@ -1488,6 +1625,13 @@ def collect(config_path, imerg_archive=None):
         "climate_context_definition": {
             **CLIMATE_CONTEXT_DEFINITION,
             "baseline": (climatology or {}).get("baseline"),
+            "ensemble": {
+                "source": "Open-Meteo Ensemble API · ECMWF IFS 0.25°（控制+50成员）",
+                "status": "PASS" if any(ensemble_by_station.values()) else "MISSING",
+                "definition": "各成员未来7日（D0–D6当地日）降雨合计，相对同一窗口、经模式偏差校正的常年分布：偏多=高于第67百分位，偏少=低于第33百分位；"
+                              "常年水平下两者各约33%，显著偏多/偏少（P90/P10）各约10%。",
+                "caveat": "偏差校正比例来自Best Match预报存档，集合模式可能另有偏差；集合离散度在热带对流区可能偏小，概率仅作风险筛选。",
+            },
             "observed_windows": {
                 "source": "NASA GPM IMERG Late Run 1日累计（UTC日）",
                 "status": "PASS" if obs_stations else "MISSING",
