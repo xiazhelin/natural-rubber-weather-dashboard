@@ -69,6 +69,7 @@ IMERG_ARCHIVE_VERSIONS = ("V07C", "V07B", "V07A")
 IMERG_ARCHIVE_PATH = ROOT / "data" / "observations" / "imerg-daily.json"
 IMERG_ARCHIVE_RECENT_DAYS = 35
 IMERG_RETRY_UNAVAILABLE_DAYS = 10
+OBS_MAX_LAG_DAYS = 2
 IMERG_SOURCE = {
     "source_id": "OBS_NASA_IMERG_LATE_GIS",
     "source_name": "NASA GPM IMERG Late Run GIS",
@@ -659,7 +660,8 @@ def build_climate_context(forecast_dates, forecast_7d_mm, past_daily, clim_entry
     """计算未来7日与过去7/14/30日降雨相对季节基准的距平。缺数据保持为空，不补值。
 
     bias_entry 存在时，先把 ERA5 基准（均值与分位数）乘以该月“模式/ERA5”比例，换算到模式口径再比较。
-    过去窗口优先用卫星实况 obs_daily（IMERG，UTC日）：窗口内每天都有值时采用，基准乘以“IMERG/ERA5”比例；
+    过去窗口优先用卫星实况 obs_daily（IMERG，UTC日）：窗口内每天都有值时采用（因卫星滞后，窗口可前移至多2天，
+    以 window_start/window_end 标明实际区间），基准乘以“IMERG/ERA5”比例；
     否则退回模式估算 past_daily。每个窗口记录 source（FORECAST / IMERG / MODEL）。
     """
     context = {"quality_status": "MISSING"}
@@ -674,7 +676,13 @@ def build_climate_context(forecast_dates, forecast_7d_mm, past_daily, clim_entry
         if key == "forecast_7d":
             value = forecast_7d_mm
         else:
-            value = _window_sum(obs_daily, start, length)
+            # 卫星Late产品约滞后1天：窗口可整体前移最多 OBS_MAX_LAG_DAYS 天，结束于最近有卫星数据的日期
+            value = None
+            for lag in range(OBS_MAX_LAG_DAYS + 1):
+                candidate = _window_sum(obs_daily, start - timedelta(days=lag), length)
+                if candidate is not None:
+                    value, start = candidate, start - timedelta(days=lag)
+                    break
             if value is not None:
                 source, ratio_entry = "IMERG", obs_bias_entry
             else:
@@ -693,6 +701,7 @@ def build_climate_context(forecast_dates, forecast_7d_mm, past_daily, clim_entry
         else:
             filled += 1
         item["window_start"] = start.isoformat()
+        item["window_end"] = (start + timedelta(days=length - 1)).isoformat()
         item["source"] = source
         item["bias_ratio"] = ratio
         item["bias_corrected"] = ratio is not None and stats is not None
@@ -1483,7 +1492,7 @@ def collect(config_path, imerg_archive=None):
                 "source": "NASA GPM IMERG Late Run 1日累计（UTC日）",
                 "status": "PASS" if obs_stations else "MISSING",
                 "bias_status": "PASS" if imerg_bias else "MISSING",
-                "note": "过去7/14/30日优先用卫星实况；窗口内任一天缺失则退回模式估算（source=MODEL）。"
+                "note": "过去7/14/30日优先用卫星实况；卫星约滞后1天，窗口可前移至多2天（见window_end）；仍不完整则退回模式估算（source=MODEL）。"
                         "卫星值按“IMERG/ERA5”逐月比例换算基准后比较；比例未建成时不校正。",
             },
             "bias_correction": {

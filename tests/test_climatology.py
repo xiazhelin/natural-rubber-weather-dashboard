@@ -242,6 +242,16 @@ class ImergArchiveTest(unittest.TestCase):
         self.assertEqual(ctx["past_30d"]["source"], "MODEL")  # 卫星不完整，退回模式
         self.assertEqual(ctx["past_30d"]["value_mm"], 30.0)
         self.assertEqual(ctx["past_30d"]["normal_mm"], 100.0)  # 模式比例缺失 → 不校正
+        # 卫星滞后：最近1天缺失时窗口前移1天，仍用卫星
+        lagged = {(d0 - timedelta(days=i)).isoformat(): 5.0 for i in range(2, 33)}
+        ctx = WX.build_climate_context(dates, 20.0, model, clim, None, lagged, obs_bias)
+        self.assertEqual(ctx["past_7d"]["source"], "IMERG")
+        self.assertEqual(ctx["past_7d"]["window_end"], (d0 - timedelta(days=2)).isoformat())
+        self.assertEqual(ctx["past_30d"]["source"], "IMERG")
+        # 滞后超过2天则退回模式
+        stale = {(d0 - timedelta(days=i)).isoformat(): 5.0 for i in range(4, 40)}
+        ctx = WX.build_climate_context(dates, 20.0, model, clim, None, stale, obs_bias)
+        self.assertEqual(ctx["past_7d"]["source"], "MODEL")
         none = WX.build_climate_context(dates, 20.0, {}, clim, None, {}, None)
         self.assertIsNone(none["past_7d"]["source"])
 
