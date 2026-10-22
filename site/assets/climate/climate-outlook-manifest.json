@@ -18,8 +18,8 @@
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-10-21T17:57:52Z",
-      "last_attempt_at_utc": "2026-10-21T17:57:52Z"
+      "last_success_at_utc": "2026-10-22T17:54:51Z",
+      "last_attempt_at_utc": "2026-10-22T17:54:51Z"
     },
     "iri_precip": {
       "title": "IRI季节降水概率",
@@ -49,9 +49,10 @@
           "filename": "iri-seasonal-precip-4.gif"
         }
       ],
-      "quality_status": "PASS",
+      "quality_status": "WARNING",
       "last_success_at_utc": "2026-10-21T17:57:52Z",
-      "last_attempt_at_utc": "2026-10-21T17:57:52Z"
+      "last_attempt_at_utc": "2026-10-22T17:54:51Z",
+      "warning": "HTTP Error 503: Service Unavailable"
     },
     "nmme_precip": {
       "title": "NMME月度降水距平",
@@ -83,8 +84,8 @@
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-10-21T17:57:52Z",
-      "last_attempt_at_utc": "2026-10-21T17:57:52Z"
+      "last_success_at_utc": "2026-10-22T17:54:51Z",
+      "last_attempt_at_utc": "2026-10-22T17:54:51Z"
     },
     "nmme_temperature": {
       "title": "NMME月度2米气温距平",
@@ -116,9 +117,9 @@
         }
       ],
       "quality_status": "PASS",
-      "last_success_at_utc": "2026-10-21T17:57:52Z",
-      "last_attempt_at_utc": "2026-10-21T17:57:52Z"
+      "last_success_at_utc": "2026-10-22T17:54:51Z",
+      "last_attempt_at_utc": "2026-10-22T17:54:51Z"
     }
   },
-  "updated_at_utc": "2026-10-21T17:57:52Z"
+  "updated_at_utc": "2026-10-22T17:54:51Z"
 }
