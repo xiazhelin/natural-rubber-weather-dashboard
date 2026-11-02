@@ -1004,7 +1004,7 @@ function renderThailandWeeklyRain() {
   $("#thailandRainMeta").innerHTML = `来源：<a href="${escapeHtml(data.source.documentation)}" target="_blank" rel="noreferrer">${escapeHtml(data.source.source_name)}</a>（${escapeHtml(data.source.upstream_model)}，0.25°再分析）。当地时间周一至周日累计，仅显示完整周；${escapeHtml(data.aggregation)}最新完整周截至 ${escapeHtml(data.period.end_date)}。`;
 }
 
-// ---------- 气象站实测（NOAA GSOD）：历年对比 ----------
+// ---------- 气象站实测（NOAA GHCNh）：历年对比 ----------
 // 数据由 scripts/update_station_obs.py 生成：data/stations/current.json（当年，每天更新）与 history.json（往年）。
 const STATION_CHARTS = [
   { key: "p15", title: "15日累计降水", unit: "mm", kind: "sum", window: 15, maxMissing: 2 },
@@ -1164,29 +1164,29 @@ function renderStationObs() {
   if (!select.dataset.ready) {
     const groups = {};
     meta.stations.forEach((st) => (groups[st.country] = groups[st.country] || []).push(st));
-    select.innerHTML = Object.entries(groups).map(([country, list]) => `<optgroup label="${escapeHtml(country)}">${list.map((st) => `<option value="${escapeHtml(st.gsod_id)}">${escapeHtml(stationLabel(st))}</option>`).join("")}</optgroup>`).join("");
+    select.innerHTML = Object.entries(groups).map(([country, list]) => `<optgroup label="${escapeHtml(country)}">${list.map((st) => `<option value="${escapeHtml(st.station_code)}">${escapeHtml(stationLabel(st))}</option>`).join("")}</optgroup>`).join("");
     select.dataset.ready = "1";
     select.addEventListener("change", () => { state.stationObs.selected = select.value; renderStationObs(); });
-    state.stationObs.selected = state.stationObs.selected || meta.stations[0].gsod_id;
+    state.stationObs.selected = state.stationObs.selected || meta.stations[0].station_code;
   }
   select.value = state.stationObs.selected;
-  const st = meta.stations.find((s) => s.gsod_id === state.stationObs.selected) || meta.stations[0];
+  const st = meta.stations.find((s) => s.station_code === state.stationObs.selected) || meta.stations[0];
   const currentYear = Number((meta.generated_at_utc || "").slice(0, 4)) || new Date().getUTCFullYear();
   const far = (st.targets || []).filter((t) => t.proximity === "FAR");
   const partial = hasNumber(st.current_prcp_partial_days) && st.current_prcp_reported_days
     ? `；今年 ${st.current_prcp_reported_days} 天有降水记录，其中 ${st.current_prcp_partial_days} 天只有部分时段报告` : "";
-  $("#stationObsInfo").innerHTML = `站号 ${escapeHtml(st.gsod_id)}，${number(st.latitude, 2)}°, ${number(st.longitude, 2)}°；代表 ${escapeHtml((st.targets || []).map((t) => `${t.place}（距 ${number(t.distance_km, 0)} km）`).join("、"))}；数据截至 ${escapeHtml(st.last_date || "—")}${partial}。`
+  $("#stationObsInfo").innerHTML = `站号 ${escapeHtml(st.station_code)}，${number(st.latitude, 2)}°, ${number(st.longitude, 2)}°；代表 ${escapeHtml((st.targets || []).map((t) => `${t.place}（距 ${number(t.distance_km, 0)} km）`).join("、"))}；数据截至 ${escapeHtml(st.last_date || "—")}${partial}。`
     + (far.length ? ` <strong class="station-far">站点离产区较远（${far.map((t) => `${t.place} ${number(t.distance_km, 0)} km`).join("、")}），只作区域参考。</strong>` : "")
     + (st.quality_status !== "PASS" ? ` <strong class="station-far">数据状态 ${escapeHtml(st.quality_status)}：最近7天无新记录。</strong>` : "");
   if (!state.stationObs.history) {
     $("#stationObsCharts").innerHTML = '<div class="loading-state"><span></span><p>正在读取往年数据…</p></div>';
     return;
   }
-  const years = Object.keys(stationYears(st.gsod_id)).map(Number).sort();
-  $("#stationObsPeriod").textContent = years.length ? `${years[0]}–${years.at(-1)} · NOAA GSOD` : "NOAA GSOD";
+  const years = Object.keys(stationYears(st.station_code)).map(Number).sort();
+  $("#stationObsPeriod").textContent = years.length ? `${years[0]}–${years.at(-1)} · NOAA GHCNh` : "NOAA GHCNh";
   $("#stationObsCharts").innerHTML = `<div class="station-legend"><span><i class="k-current"></i>${currentYear}</span><span><i class="k-last"></i>${currentYear - 1}</span><span><i class="k-past"></i>更早年份</span><span><i class="k-mean"></i>往年均值</span></div>`
-    + STATION_CHARTS.map((spec) => stationChart(spec, stationSeries(st.gsod_id, spec), currentYear)).join("");
-  bindStationHover(st.gsod_id, currentYear);
+    + STATION_CHARTS.map((spec) => stationChart(spec, stationSeries(st.station_code, spec), currentYear)).join("");
+  bindStationHover(st.station_code, currentYear);
 }
 
 // 悬停：显示该日各年数值
@@ -1222,10 +1222,10 @@ function bindStationHover(sid, currentYear) {
 }
 
 function stationCsvRows(ids) {
-  const header = "gsod_id,station_name,country,represents,date,prcp_mm,tmean_c,tmax_c,tmin_c";
+  const header = "station_code,station_name,country,represents,date,prcp_mm,tmean_c,tmax_c,tmin_c";
   const lines = [header];
   for (const sid of ids) {
-    const st = state.stationObs.current.stations.find((s) => s.gsod_id === sid);
+    const st = state.stationObs.current.stations.find((s) => s.station_code === sid);
     const rep = (st.targets || []).map((t) => t.place).join("/");
     const years = stationYears(sid);
     for (const year of Object.keys(years).sort()) {
@@ -1283,11 +1283,11 @@ async function loadStationObs() {
   $("#stationCsv").addEventListener("click", async () => {
     await loadHistory();
     const sid = state.stationObs.selected;
-    downloadCsv(`gsod_${sid}.csv`, stationCsvRows([sid]));
+    downloadCsv(`station_${sid}.csv`, stationCsvRows([sid]));
   });
   $("#stationCsvAll").addEventListener("click", async () => {
     await loadHistory();
-    downloadCsv("gsod_all_stations.csv", stationCsvRows(state.stationObs.current.stations.map((s) => s.gsod_id)));
+    downloadCsv("station_obs_all.csv", stationCsvRows(state.stationObs.current.stations.map((s) => s.station_code)));
   });
 }
 

@@ -1,8 +1,9 @@
+import csv
 import importlib.util
 import json
 import tempfile
 import unittest
-from datetime import date
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -10,6 +11,41 @@ SPEC = importlib.util.spec_from_file_location("station_obs", ROOT / "scripts" / 
 OBS = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(OBS)
 FIX = ROOT / "tests" / "fixtures"
+
+
+def ghcnh_lists_from_isd_sample():
+    """用 ISD 名录样本（真实坐标）构造 GHCNh 站点清单（定宽）与观测量清单。"""
+    lines, inv = [], ["GHCNh_ID    YEAR   JAN   FEB   MAR   APR   MAY   JUN   JUL   AUG   SEP   OCT   NOV   DEC"]
+    with open(FIX / "isd-history-sample.csv", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            try:
+                lat, lon, begin, end = float(row["LAT"]), float(row["LON"]), int(row["BEGIN"]), int(row["END"])
+            except ValueError:
+                continue
+            sid = f"{row['CTRY']}M000{row['USAF'][:5]}"
+            lines.append(f"{sid:<11} {lat:8.4f} {lon:9.4f} {0:6.1f} {'':2} {row['STATION NAME'][:30]:<30} {'':3} {'':3} {row['USAF'][:5]}")
+            if begin <= 20150101:
+                inv.append(f"{sid} 2015 " + " ".join(["240"] * 12))
+            if end >= 20250801:  # ISD 冻结前仍在报 → 视为至今仍在报
+                inv.append(f"{sid} 2026 " + " ".join(["240"] * 10 + ["0", "0"]))
+    # 宋卡同址的 ICAO 站号，观测更多 → 应优先
+    lines.append(f"{'THI0000VTSH':<11} {7.1866:8.4f} {100.6080:9.4f} {0:6.1f} {'':2} {'SONGKHLA AIRPORT':<30}")
+    inv.append("THI0000VTSH 2015 " + " ".join(["700"] * 12))
+    inv.append("THI0000VTSH 2026 " + " ".join(["700"] * 10 + ["0", "0"]))
+    return "\n".join(lines), "\n".join(inv)
+
+
+def psv(rows):
+    header = ["Station_ID", "Station_name", "Year", "Month", "Day", "Hour", "Minute", "Latitude", "Longitude",
+              "temperature", "temperature_Quality_Code", "precipitation", "precipitation_3_hour",
+              "precipitation_6_hour", "precipitation_12_hour", "precipitation_24_hour"]
+    out = ["|".join(header)]
+    for r in rows:
+        t = r["t"]
+        vals = {"Station_ID": "X", "Station_name": "X", "Year": t.year, "Month": t.month, "Day": t.day, "Hour": t.hour,
+                "Minute": t.minute, "Latitude": 7, "Longitude": 100, **{k: v for k, v in r.items() if k != "t"}}
+        out.append("|".join(str(vals.get(h, "")) for h in header))
+    return "\n".join(out) + "\n"
 
 
 class StationSelectionTest(unittest.TestCase):
@@ -28,74 +64,118 @@ class StationSelectionTest(unittest.TestCase):
         self.assertTrue(all(t["share_of_country_pct"] for t in targets if t["country"] == "印度尼西亚"))
         self.assertEqual(sum(t["country"] == "越南" for t in targets), 4)
 
-    def test_choose_nearest_long_record_station(self):
+    def test_choose_nearest_active_station(self):
         targets, _ = OBS.select_targets(self.locations, self.weights)
-        rows = OBS.parse_isd_history((FIX / "isd-history-sample.csv").read_text(encoding="utf-8"))
-        stations, unmatched = OBS.choose_stations(targets, rows, today=date(2025, 9, 1))
-        by_target = {t["station_id"]: (s["name"], t) for s in stations for t in s["targets"]}
-        self.assertEqual(by_target["th_south_songkhla"][0], "SONGKHLA")
+        station_text, inv_text = ghcnh_lists_from_isd_sample()
+        rows, inventory = OBS.parse_station_list(station_text), OBS.parse_inventory(inv_text)
+        self.assertEqual(inventory["THI0000VTSH"][2026][0], 700)
+        stations, unmatched = OBS.choose_stations(targets, rows, inventory, today=date(2026, 11, 2))
+        by_target = {t["station_id"]: (s["name"], s, t) for s in stations for t in s["targets"]}
+        self.assertEqual(by_target["th_south_songkhla"][1]["station_code"], "THI0000VTSH")  # 同址取观测多的站号
         self.assertEqual(by_target["id_sumatra_palembang"][0].split(" ")[0], "SULTAN")
         self.assertEqual(by_target["cn_yunnan_jinghong"][0], "JINGHONG")
-        self.assertEqual(by_target["th_northeast_bueng_kan"][1]["proximity"], "FAR")   # 最近站约110 km
-        self.assertEqual(by_target["vn_southeast_binh_phuoc"][1]["proximity"], "FAR")
-        ids = [s["gsod_id"] for s in stations]
+        self.assertEqual(by_target["cn_yunnan_jinghong"][1]["wmo_id"], "56959")
+        self.assertEqual(by_target["th_northeast_bueng_kan"][2]["proximity"], "FAR")   # 最近站约110 km
+        ids = [s["station_code"] for s in stations]
         self.assertEqual(len(ids), len(set(ids)))  # 共用站点已合并
         danxian = next(s for s in stations if s["name"] == "DANXIAN")
         self.assertGreaterEqual(len(danxian["targets"]), 2)
-        self.assertTrue(all(len(s["gsod_id"]) == 11 for s in stations))
-        # 科特迪瓦不在样本名录中 → 记为未匹配，不硬配
-        self.assertTrue(all(u["country"] == "科特迪瓦" for u in unmatched))
-        self.assertEqual(len(unmatched), 3)
+        self.assertTrue(all(u["country"] == "科特迪瓦" for u in unmatched))  # 样本无科特迪瓦站 → 不硬配
+        # 近3个月没有观测的站不选
+        stale = OBS.choose_stations(targets, rows, inventory, today=date(2027, 6, 1))[0]
+        self.assertEqual(stale, [])
 
 
-class GsodParseTest(unittest.TestCase):
-    def test_units_missing_and_flags(self):
-        daily = OBS.parse_gsod_csv((FIX / "gsod-sample.csv").read_text(encoding="utf-8"))
-        d1 = daily["2024-01-01"]
-        self.assertEqual(d1["prcp_mm"], 30.5)          # 1.20 in
-        self.assertEqual(d1["tmean_c"], 27.0)          # 80.6 F
-        self.assertEqual(d1["tmax_c"], 32.0)
-        self.assertIsNone(daily["2024-01-02"]["prcp_mm"])   # 标记 I：无降水报告
-        self.assertIsNone(daily["2024-01-02"]["tmax_c"])    # 9999.9
-        self.assertIsNone(daily["2024-01-03"]["prcp_mm"])   # 99.99
-        self.assertIsNone(daily["2024-01-03"]["tmean_c"])
-        arrays = OBS.year_arrays(daily, 2024)
-        self.assertEqual(arrays["days"], 366)
-        self.assertEqual(arrays["prcp_mm"][59], 12.7)       # 2月29日
-        self.assertEqual(arrays["prcp_reported_days"], 2)
-        self.assertEqual(arrays["prcp_partial_days"], 1)    # 标记 B
-        self.assertIsNone(arrays["prcp_mm"][100])           # 缺日不补0
-        self.assertEqual(arrays["last_date"], "2024-02-29")
+class DailyAggregationTest(unittest.TestCase):
+    def test_24h_6h_partial_and_temperature(self):
+        d = datetime(2026, 3, 1)
+        rows = []
+        # 3月1日：次日00Z报24小时量 12.4（另有6小时量，不应重复计入）
+        rows.append({"t": d + timedelta(days=1), "precipitation_24_hour": "12.4", "precipitation_6_hour": "3.0", "temperature": "25.0"})
+        rows.append({"t": d + timedelta(hours=6), "precipitation_6_hour": "4.0", "temperature": "30.0"})
+        rows.append({"t": d + timedelta(hours=12), "precipitation_6_hour": "5.4", "temperature": "29.0"})
+        rows.append({"t": d + timedelta(hours=18), "precipitation_6_hour": "0", "temperature": "27.0"})
+        rows.append({"t": d, "temperature": "24.0"})
+        # 3月2日：只有 06/12/18Z 三个6小时量 → 18小时，部分时段；含微量 T
+        d2 = d + timedelta(days=1)
+        for h, v in ((6, "1.0"), (12, "T"), (18, "2.0")):
+            rows.append({"t": d2 + timedelta(hours=h), "precipitation_6_hour": v})
+        # 3月3日：只有一个6小时量 → 缺测
+        rows.append({"t": d + timedelta(days=2, hours=6), "precipitation_6_hour": "9.0"})
+        # 3月4日：METAR 在 :50 报的逐时量，凑满24小时
+        for h in range(24):
+            rows.append({"t": d + timedelta(days=3, hours=h, minutes=50), "precipitation": "0.5"})
+        temps, accums = OBS.parse_ghcnh_psv(psv(rows))
+        daily = OBS.daily_from_obs(temps, accums, 2026)
+        self.assertEqual(daily["2026-03-01"]["prcp_mm"], 12.4)
+        self.assertIsNone(daily["2026-03-01"]["prcp_flag"])
+        self.assertEqual(daily["2026-03-01"]["tmean_c"], 27.5)   # 24/30/29/27
+        self.assertEqual(daily["2026-03-01"]["tmax_c"], 30.0)
+        self.assertEqual(daily["2026-03-02"]["prcp_mm"], 3.0)
+        self.assertEqual(daily["2026-03-02"]["prcp_flag"], "P")
+        self.assertIsNone(daily["2026-03-02"]["tmean_c"])        # 气温不足4次
+        self.assertNotIn("2026-03-03", {k for k, v in daily.items() if v["prcp_mm"] is not None})
+        self.assertEqual(daily["2026-03-04"]["prcp_mm"], 12.0)
+        arrays = OBS.year_arrays(daily, 2026)
+        self.assertEqual(arrays["days"], 365)
+        self.assertEqual(arrays["prcp_reported_days"], 3)
+        self.assertEqual(arrays["prcp_partial_days"], 1)
+        self.assertIsNone(arrays["prcp_mm"][100])                # 缺日不补0
 
-    def test_archive_reuses_past_years_and_builds_site_files(self):
-        csv_text = (FIX / "gsod-sample.csv").read_text(encoding="utf-8")
+    def test_station_with_12z_climatological_day(self):
+        d = datetime(2026, 5, 1, 12)
+        rows = [{"t": d + timedelta(days=i), "precipitation_24_hour": str(i + 1)} for i in range(3)]
+        daily = OBS.daily_from_obs(*OBS.parse_ghcnh_psv(psv(rows)), 2026)
+        # 12Z 上报的24小时量（覆盖前一日12Z至当日12Z）记在前一日
+        self.assertEqual(daily["2026-04-30"]["prcp_mm"], 1.0)
+        self.assertEqual(daily["2026-05-02"]["prcp_mm"], 3.0)
+
+
+class ArchiveTest(unittest.TestCase):
+    def test_archive_backfill_budget_and_site_files(self):
+        text = psv([{"t": datetime(2024, 1, 2), "precipitation_24_hour": "8.0"}])
         calls = []
 
         def fake_fetch(url, **_):
             calls.append(url)
-            return csv_text if "/2024/" in url else None
+            return text if "/2024/" in url else None
 
-        stations = [{"gsod_id": "48568099999", "name": "SONGKHLA", "country": "泰国", "latitude": 7.2, "longitude": 100.6,
+        stations = [{"station_code": "THM00048568", "name": "SONGKHLA", "country": "泰国", "latitude": 7.2, "longitude": 100.6,
                      "targets": [{"station_id": "th_south_songkhla", "place": "宋卡", "share_of_country_pct": 8.6,
                                   "distance_km": 2, "proximity": "NEAR"}], "represented_share_pct": 8.6, "proximity": "NEAR"}]
         with tempfile.TemporaryDirectory() as d:
             d = Path(d)
             today = date(2025, 3, 1)
-            archive = OBS.update_archive(stations, today, fetch=fake_fetch, archive_dir=d / "a")
-            self.assertIn(2024, archive["48568099999"])
+            # 时间预算为0：只下载当年，往年留到下次
+            archive, pending = OBS.update_archive(stations, today, fetch=fake_fetch, archive_dir=d / "a", budget_seconds=-1)
+            self.assertEqual(len(calls), 1)
+            self.assertEqual(pending, 2025 - OBS.FIRST_YEAR)
+            archive, pending = OBS.update_archive(stations, today, fetch=fake_fetch, archive_dir=d / "a")
+            self.assertEqual(pending, 0)
+            self.assertEqual(archive["THM00048568"][2024]["prcp_mm"][0], 8.0)
             n = len(calls)
             OBS.update_archive(stations, today, fetch=fake_fetch, archive_dir=d / "a")
             self.assertEqual(len(calls) - n, 1)  # 往年（含缺失年份）不再请求，只重下当年
-            self.assertTrue(json.loads((d / "a" / "48568099999" / "2016.json").read_text(encoding="utf-8"))["missing"])
+            self.assertTrue(json.loads((d / "a" / "THM00048568" / "2016.json").read_text(encoding="utf-8"))["missing"])
+            # 跨年：去年作为“当年”写的文件（无 final）会重下一次
+            (d / "a" / "THM00048568" / "2025.json").write_text(json.dumps({"year": 2025, "prcp_mm": []}), encoding="utf-8")
+            n = len(calls)
+            OBS.update_archive(stations, date(2026, 1, 2), fetch=fake_fetch, archive_dir=d / "a")
+            self.assertIn("/2025/", "".join(calls[n:]))
             meta = OBS.build_site_files(stations, [], archive, today, 71.1, site_dir=d / "site")
             hist = json.loads((d / "site" / "history.json").read_text(encoding="utf-8"))
             cur = json.loads((d / "site" / "current.json").read_text(encoding="utf-8"))
-            self.assertIn("2024", hist["data"]["48568099999"])
-            self.assertEqual(cur["stations"][0]["gsod_id"], "48568099999")
+            self.assertIn("2024", hist["data"]["THM00048568"])
+            self.assertEqual(cur["stations"][0]["station_code"], "THM00048568")
             self.assertEqual(meta[0]["quality_status"], "WARNING")  # 当年无数据
             mtime = (d / "site" / "history.json").stat().st_mtime_ns
             OBS.build_site_files(stations, [], archive, today, 71.1, site_dir=d / "site")
             self.assertEqual((d / "site" / "history.json").stat().st_mtime_ns, mtime)  # 往年不变则不改写
+
+    def test_select_and_save_refuses_empty_selection(self):
+        with tempfile.TemporaryDirectory() as d:
+            with self.assertRaises(RuntimeError):
+                OBS.select_and_save([], 0, date(2026, 11, 2), fetch=lambda url, **_: "x", config_path=Path(d) / "s.json")
 
 
 if __name__ == "__main__":

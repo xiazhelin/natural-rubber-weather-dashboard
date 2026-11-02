@@ -206,7 +206,7 @@
         <div>
           <h2 id="stationObsTitle">气象站实测：历年对比</h2>
         </div>
-        <span id="stationObsPeriod" class="source-badge">NOAA GSOD 逐日观测</span>
+        <span id="stationObsPeriod" class="source-badge">NOAA GHCNh 站点观测</span>
       </div>
       <div class="station-obs-controls">
         <label>
@@ -222,7 +222,7 @@
       <div id="stationObsCharts" class="station-obs-grid" aria-live="polite">
         <div class="loading-state"><span></span><p>正在读取气象站数据…</p></div>
       </div>
-      <p id="stationObsMeta" class="map-note">来源：NOAA NCEI Global Surface Summary of the Day（GSOD），各国气象站经GTS上报的观测汇总为逐日值。降水只有部分时段报告的日子可能偏少；缺测保持为空、不外推：15/30日累计在窗口内缺测超过2/4天时不画线，少量缺测时按已报告日累计，可能略偏少；年累计只累加已报告日。</p>
+      <p id="stationObsMeta" class="map-note">来源：NOAA NCEI Global Historical Climatology Network - hourly（GHCNh），各国气象站经GTS上报的逐时/定时观测，本面板按固定规则汇总为逐日值：降水用各时次上报的1/3/6/12/24小时累计量拼满一天，只拼到12–23小时的日子记为“部分时段”、可能偏少，不足12小时视为缺测；气温为当日观测≥4次时的平均/最高/最低。缺测保持为空、不外推：15/30日累计在窗口内缺测超过2/4天时不画线；年累计只累加已报告日。站点值是单点观测，与面板其他部分的网格/区域值口径不同。</p>
     </section>
 
 <section class="panel cpc-panel">
