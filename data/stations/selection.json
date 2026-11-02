@@ -1,5 +1,6 @@
 {
  "schema_version": 2,
+ "selection_version": 3,
  "source": "GHCNh",
  "selected_at": "2026-11-02",
  "thailand_coverage_pct": 71.09,
@@ -11,6 +12,7 @@
    "country": "泰国",
    "latitude": 7.5087,
    "longitude": 99.6166,
+   "prcp_days_checked": 208,
    "targets": [
     {
      "station_id": "th_south_trang",
@@ -47,6 +49,7 @@
    "country": "泰国",
    "latitude": 8.5667,
    "longitude": 99.25,
+   "prcp_days_checked": 190,
    "targets": [
     {
      "station_id": "th_south_surat_thani",
@@ -67,6 +70,7 @@
    "country": "泰国",
    "latitude": 7.1866,
    "longitude": 100.608,
+   "prcp_days_checked": 217,
    "targets": [
     {
      "station_id": "th_south_songkhla",
@@ -87,6 +91,7 @@
    "country": "泰国",
    "latitude": 8.4711,
    "longitude": 99.9556,
+   "prcp_days_checked": 218,
    "targets": [
     {
      "station_id": "th_south_nakhon_si_thammarat",
@@ -107,6 +112,7 @@
    "country": "泰国",
    "latitude": 6.7855,
    "longitude": 101.1536,
+   "prcp_days_checked": 173,
    "targets": [
     {
      "station_id": "th_south_yala",
@@ -127,6 +133,7 @@
    "country": "泰国",
    "latitude": 17.4391,
    "longitude": 101.7221,
+   "prcp_days_checked": 157,
    "targets": [
     {
      "station_id": "th_loei",
@@ -147,6 +154,7 @@
    "country": "泰国",
    "latitude": 6.5199,
    "longitude": 101.7434,
+   "prcp_days_checked": 190,
    "targets": [
     {
      "station_id": "th_narathiwat",
@@ -167,6 +175,7 @@
    "country": "泰国",
    "latitude": 15.2513,
    "longitude": 104.8702,
+   "prcp_days_checked": 152,
    "targets": [
     {
      "station_id": "th_northeast_ubon",
@@ -187,6 +196,7 @@
    "country": "泰国",
    "latitude": 17.2167,
    "longitude": 102.4167,
+   "prcp_days_checked": 159,
    "targets": [
     {
      "station_id": "th_northeast_udon_thani",
@@ -201,39 +211,41 @@
    "proximity": "NEAR"
   },
   {
-   "station_code": "THI0000VTSE",
-   "name": "CHUMPHON",
+   "station_code": "THI0000VTSR",
+   "name": "RANONG",
    "wmo_id": "TH",
    "country": "泰国",
-   "latitude": 10.7112,
-   "longitude": 99.3617,
+   "latitude": 9.7776,
+   "longitude": 98.5855,
+   "prcp_days_checked": 219,
    "targets": [
     {
      "station_id": "th_chumphon",
      "place": "春蓬",
      "region": "南部",
      "share_of_country_pct": 2.4915,
-     "distance_km": 54.0,
-     "proximity": "NEAR"
+     "distance_km": 80.3,
+     "proximity": "FAR"
     }
    ],
    "represented_share_pct": 2.49,
-   "proximity": "NEAR"
+   "proximity": "FAR"
   },
   {
-   "station_code": "THI0000VTSG",
+   "station_code": "THM00048563",
    "name": "KRABI",
-   "wmo_id": "TH",
+   "wmo_id": "48563 TH",
    "country": "泰国",
-   "latitude": 8.0991,
-   "longitude": 98.9862,
+   "latitude": 8.1,
+   "longitude": 98.9833,
+   "prcp_days_checked": 195,
    "targets": [
     {
      "station_id": "th_krabi",
      "place": "甲米",
      "region": "南部",
      "share_of_country_pct": 2.4111,
-     "distance_km": 6.8,
+     "distance_km": 6.9,
      "proximity": "NEAR"
     }
    ],
@@ -247,6 +259,7 @@
    "country": "泰国",
    "latitude": 8.6833,
    "longitude": 98.25,
+   "prcp_days_checked": 225,
    "targets": [
     {
      "station_id": "th_phangnga",
@@ -267,6 +280,7 @@
    "country": "泰国",
    "latitude": 17.1951,
    "longitude": 104.1186,
+   "prcp_days_checked": 0,
    "targets": [
     {
      "station_id": "th_sakon_nakhon",
@@ -281,19 +295,20 @@
    "proximity": "NEAR"
   },
   {
-   "station_code": "THI0000VTCT",
-   "name": "CHIANG RAI INTL",
-   "wmo_id": "TH",
+   "station_code": "THM00048304",
+   "name": "CHAING RAI ARGOMET",
+   "wmo_id": "48304 TH",
    "country": "泰国",
-   "latitude": 19.9523,
-   "longitude": 99.8829,
+   "latitude": 19.8667,
+   "longitude": 99.7667,
+   "prcp_days_checked": 162,
    "targets": [
     {
      "station_id": "th_chiang_rai",
      "place": "清莱",
      "region": "北部",
      "share_of_country_pct": 1.7918,
-     "distance_km": 24.7,
+     "distance_km": 21.8,
      "proximity": "NEAR"
     }
    ],
@@ -307,6 +322,7 @@
    "country": "印度尼西亚",
    "latitude": -2.9,
    "longitude": 104.7,
+   "prcp_days_checked": 223,
    "targets": [
     {
      "station_id": "id_sumatra_palembang",
@@ -327,6 +343,7 @@
    "country": "印度尼西亚",
    "latitude": 3.57,
    "longitude": 98.68,
+   "prcp_days_checked": 189,
    "targets": [
     {
      "station_id": "id_sumatra_medan",
@@ -347,6 +364,7 @@
    "country": "印度尼西亚",
    "latitude": -1.63,
    "longitude": 103.65,
+   "prcp_days_checked": 225,
    "targets": [
     {
      "station_id": "id_sumatra_jambi",
@@ -367,6 +385,7 @@
    "country": "印度尼西亚",
    "latitude": 0.47,
    "longitude": 101.45,
+   "prcp_days_checked": 221,
    "targets": [
     {
      "station_id": "id_sumatra_pekanbaru",
@@ -387,6 +406,7 @@
    "country": "印度尼西亚",
    "latitude": -0.15,
    "longitude": 109.4,
+   "prcp_days_checked": 234,
    "targets": [
     {
      "station_id": "id_kalimantan_pontianak",
@@ -401,19 +421,20 @@
    "proximity": "NEAR"
   },
   {
-   "station_code": "VMI0000VVTS",
-   "name": "TANSONNHAT INTL",
-   "wmo_id": "VN",
+   "station_code": "VMM00048894",
+   "name": "NHA BE",
+   "wmo_id": "48894 VN",
    "country": "越南",
-   "latitude": 10.8188,
-   "longitude": 106.6519,
+   "latitude": 10.65,
+   "longitude": 106.7167,
+   "prcp_days_checked": 360,
    "targets": [
     {
      "station_id": "vn_southeast_binh_phuoc",
      "place": "同帅（平福）",
      "region": "东南部",
      "share_of_country_pct": 33.8784,
-     "distance_km": 83.2,
+     "distance_km": 99.7,
      "proximity": "FAR"
     },
     {
@@ -421,7 +442,7 @@
      "place": "西宁",
      "region": "东南部",
      "share_of_country_pct": null,
-     "distance_km": 81.3,
+     "distance_km": 99.6,
      "proximity": "FAR"
     }
    ],
@@ -435,6 +456,7 @@
    "country": "中国",
    "latitude": 19.5167,
    "longitude": 109.5833,
+   "prcp_days_checked": 359,
    "targets": [
     {
      "station_id": "cn_hainan_danzhou",
@@ -471,6 +493,7 @@
    "country": "中国",
    "latitude": 21.5,
    "longitude": 101.5833,
+   "prcp_days_checked": 360,
    "targets": [
     {
      "station_id": "cn_yunnan_jinghong",
@@ -499,6 +522,7 @@
    "country": "中国",
    "latitude": 18.2167,
    "longitude": 109.5833,
+   "prcp_days_checked": 362,
    "targets": [
     {
      "station_id": "cn_hainan_wanning",
@@ -519,6 +543,7 @@
    "country": "科特迪瓦",
    "latitude": 5.3,
    "longitude": -3.3,
+   "prcp_days_checked": 329,
    "targets": [
     {
      "station_id": "ci_sud_comoe_aboisso",
@@ -539,6 +564,7 @@
    "country": "科特迪瓦",
    "latitude": 6.13,
    "longitude": -5.95,
+   "prcp_days_checked": 340,
    "targets": [
     {
      "station_id": "ci_nawa_soubre",
