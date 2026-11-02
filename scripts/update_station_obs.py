@@ -148,20 +148,34 @@ def parse_inventory(text):
     return dict(out)
 
 
-def recent_count(months_by_year, today):
-    """最近 3 个完整月的观测条数（上月往前数 3 个月）。"""
+def inventory_end(inventory):
+    """观测量清单实际更新到哪个月：全球观测总数仍达到峰值一半的最后一个月（清单可能滞后于数据本身）。"""
+    totals = defaultdict(int)
+    for years in inventory.values():
+        for y, months in years.items():
+            for i, c in enumerate(months):
+                totals[(y, i + 1)] += c
+    if not totals:
+        return None
+    peak = max(totals.values())
+    return max(k for k, v in totals.items() if v >= peak * 0.5)
+
+
+def recent_count(months_by_year, end):
+    """截至 end=(年, 月)（含）的最近 3 个月观测条数。"""
     total = 0
-    y, m = today.year, today.month
+    y, m = end
     for _ in range(3):
+        total += (months_by_year.get(y) or [0] * 12)[m - 1]
         m -= 1
         if m == 0:
             y, m = y - 1, 12
-        total += (months_by_year.get(y) or [0] * 12)[m - 1]
     return total
 
 
 def choose_stations(targets, station_rows, inventory, today=None):
     today = today or datetime.now(timezone.utc).date()
+    end = inventory_end(inventory) or (today.year, today.month)
     candidates = []
     for r in station_rows:
         inv = inventory.get(r["id"])
@@ -169,7 +183,7 @@ def choose_stations(targets, station_rows, inventory, today=None):
             continue
         if sum(inv.get(FIRST_YEAR - 1) or []) < MIN_OBS_FIRST_YEAR:
             continue
-        recent = recent_count(inv, today)
+        recent = recent_count(inv, end)
         if recent < MIN_OBS_RECENT:
             continue
         candidates.append({**r, "recent_obs": recent})
@@ -435,7 +449,11 @@ def select_and_save(targets, thai_coverage, today, fetch=http_get, config_path=S
     _write(config_path.parent / "selection-diagnostics.json", {
         "checked_at": today.isoformat(), "station_list_rows": len(rows), "inventory_ids": len(inventory),
         "station_list_head": station_text.splitlines()[:5], "inventory_head": inventory_text.splitlines()[:5],
-        "selected": len(stations), "unmatched": len(unmatched)})
+        "selected": len(stations), "unmatched": len(unmatched), "inventory_end": inventory_end(inventory),
+        "rows_by_country": {c: sum(1 for r in rows if r["ctry"] == f) for c, f in FIPS.items()},
+        "with_2015_obs_by_country": {c: sum(1 for r in rows if r["ctry"] == f and sum((inventory.get(r["id"]) or {}).get(FIRST_YEAR - 1) or []) >= MIN_OBS_FIRST_YEAR) for c, f in FIPS.items()},
+        "thai_inventory_sample": {r["id"]: {str(y): sum(v) for y, v in sorted((inventory.get(r["id"]) or {}).items())[-4:]}
+                                  for r in [x for x in rows if x["ctry"] == "TH"][:8]}})
     if not stations:
         raise RuntimeError("一个站点都没有选中，请检查 GHCNh 清单格式")
     config_path.parent.mkdir(parents=True, exist_ok=True)

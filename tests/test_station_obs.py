@@ -81,9 +81,13 @@ class StationSelectionTest(unittest.TestCase):
         danxian = next(s for s in stations if s["name"] == "DANXIAN")
         self.assertGreaterEqual(len(danxian["targets"]), 2)
         self.assertTrue(all(u["country"] == "科特迪瓦" for u in unmatched))  # 样本无科特迪瓦站 → 不硬配
-        # 近3个月没有观测的站不选
-        stale = OBS.choose_stations(targets, rows, inventory, today=date(2027, 6, 1))[0]
-        self.assertEqual(stale, [])
+        # 近期活跃以清单自身的截止月为准（清单可能滞后），截止月前3个月没有观测的站不选
+        self.assertEqual(OBS.inventory_end(inventory), (2026, 10))
+        for sid in ("THI0000VTSH", "THM00048568"):
+            inventory[sid].pop(2026)
+        stations = OBS.choose_stations(targets, rows, inventory, today=date(2027, 6, 1))[0]
+        songkhla = next(s for s in stations for t in s["targets"] if t["station_id"] == "th_south_songkhla")
+        self.assertNotIn(songkhla["station_code"], ("THI0000VTSH", "THM00048568"))
 
 
 class DailyAggregationTest(unittest.TestCase):
