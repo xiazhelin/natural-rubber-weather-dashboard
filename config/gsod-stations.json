@@ -1,0 +1,230 @@
+{
+ "schema_version": 1,
+ "selected_at": "2026-11-02",
+ "thailand_coverage_pct": 71.09,
+ "stations": [],
+ "unmatched": [
+  {
+   "station_id": "th_south_surat_thani",
+   "place": "素叻他尼",
+   "country": "泰国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "th_south_songkhla",
+   "place": "宋卡",
+   "country": "泰国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "th_south_nakhon_si_thammarat",
+   "place": "那空是贪玛叻",
+   "country": "泰国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "th_south_trang",
+   "place": "董里",
+   "country": "泰国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "th_south_yala",
+   "place": "也拉",
+   "country": "泰国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "th_northeast_bueng_kan",
+   "place": "汶干府",
+   "country": "泰国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "th_loei",
+   "place": "黎",
+   "country": "泰国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "th_phatthalung",
+   "place": "博他仑",
+   "country": "泰国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "th_narathiwat",
+   "place": "陶公",
+   "country": "泰国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "th_northeast_ubon",
+   "place": "乌汶",
+   "country": "泰国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "th_northeast_udon_thani",
+   "place": "乌隆他尼",
+   "country": "泰国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "th_chumphon",
+   "place": "春蓬",
+   "country": "泰国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "th_krabi",
+   "place": "甲米",
+   "country": "泰国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "th_phangnga",
+   "place": "攀牙",
+   "country": "泰国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "th_satun",
+   "place": "沙敦",
+   "country": "泰国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "th_sakon_nakhon",
+   "place": "色军",
+   "country": "泰国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "th_chiang_rai",
+   "place": "清莱",
+   "country": "泰国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "cn_hainan_danzhou",
+   "place": "儋州",
+   "country": "中国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "cn_hainan_qiongzhong",
+   "place": "琼中",
+   "country": "中国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "cn_hainan_wanning",
+   "place": "万宁",
+   "country": "中国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "cn_hainan_baisha",
+   "place": "白沙",
+   "country": "中国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "cn_yunnan_jinghong",
+   "place": "景洪",
+   "country": "中国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "cn_yunnan_mengla",
+   "place": "勐腊",
+   "country": "中国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "cn_yunnan_puer",
+   "place": "普洱",
+   "country": "中国",
+   "nearest_km": null
+  },
+  {
+   "station_id": "id_sumatra_medan",
+   "place": "棉兰",
+   "country": "印度尼西亚",
+   "nearest_km": null
+  },
+  {
+   "station_id": "id_sumatra_pekanbaru",
+   "place": "北干巴鲁",
+   "country": "印度尼西亚",
+   "nearest_km": null
+  },
+  {
+   "station_id": "id_sumatra_jambi",
+   "place": "占碑",
+   "country": "印度尼西亚",
+   "nearest_km": null
+  },
+  {
+   "station_id": "id_sumatra_palembang",
+   "place": "巨港",
+   "country": "印度尼西亚",
+   "nearest_km": null
+  },
+  {
+   "station_id": "id_sumatra_lampung",
+   "place": "班达楠榜",
+   "country": "印度尼西亚",
+   "nearest_km": null
+  },
+  {
+   "station_id": "id_kalimantan_pontianak",
+   "place": "坤甸",
+   "country": "印度尼西亚",
+   "nearest_km": null
+  },
+  {
+   "station_id": "vn_southeast_binh_phuoc",
+   "place": "同帅（平福）",
+   "country": "越南",
+   "nearest_km": null
+  },
+  {
+   "station_id": "vn_southeast_tay_ninh",
+   "place": "西宁",
+   "country": "越南",
+   "nearest_km": null
+  },
+  {
+   "station_id": "vn_central_highlands_pleiku",
+   "place": "波来古",
+   "country": "越南",
+   "nearest_km": null
+  },
+  {
+   "station_id": "vn_central_highlands_buon_ma_thuot",
+   "place": "邦美蜀",
+   "country": "越南",
+   "nearest_km": null
+  },
+  {
+   "station_id": "ci_nawa_soubre",
+   "place": "苏布雷",
+   "country": "科特迪瓦",
+   "nearest_km": null
+  },
+  {
+   "station_id": "ci_sud_comoe_aboisso",
+   "place": "阿博瓦索",
+   "country": "科特迪瓦",
+   "nearest_km": null
+  },
+  {
+   "station_id": "ci_indenié_abengourou",
+   "place": "阿本古鲁",
+   "country": "科特迪瓦",
+   "nearest_km": null
+  }
+ ]
+}

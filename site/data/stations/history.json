@@ -1,0 +1,1 @@
+{"schema_version":1,"generated_at_utc":"2026-11-02T06:52:40Z","source":{"source_name":"NOAA NCEI Global Surface Summary of the Day (GSOD)","documentation":"https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ncdc:C00516/html","data_nature":"气象站经GTS上报的观测汇总为逐日值；是地面站实测，但降水可能因只有部分时段报告而偏少","access":"NOAA NCEI 公开数据，无需密钥"},"data":{}}
