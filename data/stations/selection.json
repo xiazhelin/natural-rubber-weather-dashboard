@@ -1,0 +1,594 @@
+{
+ "schema_version": 2,
+ "source": "GHCNh",
+ "selected_at": "2026-11-02",
+ "thailand_coverage_pct": 71.09,
+ "stations": [
+  {
+   "station_code": "THI0000VTST",
+   "name": "TRANG",
+   "wmo_id": "TH",
+   "country": "泰国",
+   "latitude": 7.5087,
+   "longitude": 99.6166,
+   "targets": [
+    {
+     "station_id": "th_south_trang",
+     "place": "董里",
+     "region": "南部",
+     "share_of_country_pct": 5.5074,
+     "distance_km": 5.8,
+     "proximity": "NEAR"
+    },
+    {
+     "station_id": "th_phatthalung",
+     "place": "博他仑",
+     "region": "南部",
+     "share_of_country_pct": 3.8644,
+     "distance_km": 51.8,
+     "proximity": "NEAR"
+    },
+    {
+     "station_id": "th_satun",
+     "place": "沙敦",
+     "region": "南部",
+     "share_of_country_pct": 2.0401,
+     "distance_km": 86.6,
+     "proximity": "FAR"
+    }
+   ],
+   "represented_share_pct": 11.41,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "THM00048556",
+   "name": "PHRASANG",
+   "wmo_id": "48556 TH",
+   "country": "泰国",
+   "latitude": 8.5667,
+   "longitude": 99.25,
+   "targets": [
+    {
+     "station_id": "th_south_surat_thani",
+     "place": "素叻他尼",
+     "region": "南部",
+     "share_of_country_pct": 9.2897,
+     "distance_km": 64.4,
+     "proximity": "NEAR"
+    }
+   ],
+   "represented_share_pct": 9.29,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "THI0000VTSH",
+   "name": "SONGKHLA",
+   "wmo_id": "TH",
+   "country": "泰国",
+   "latitude": 7.1866,
+   "longitude": 100.608,
+   "targets": [
+    {
+     "station_id": "th_south_songkhla",
+     "place": "宋卡",
+     "region": "南部",
+     "share_of_country_pct": 8.5653,
+     "distance_km": 1.7,
+     "proximity": "NEAR"
+    }
+   ],
+   "represented_share_pct": 8.57,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "THI0000VTSN",
+   "name": "CHA IAN",
+   "wmo_id": "TH",
+   "country": "泰国",
+   "latitude": 8.4711,
+   "longitude": 99.9556,
+   "targets": [
+    {
+     "station_id": "th_south_nakhon_si_thammarat",
+     "place": "那空是贪玛叻",
+     "region": "南部",
+     "share_of_country_pct": 7.7515,
+     "distance_km": 4.6,
+     "proximity": "NEAR"
+    }
+   ],
+   "represented_share_pct": 7.75,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "THI0000VTSK",
+   "name": "PATTANI",
+   "wmo_id": "TH",
+   "country": "泰国",
+   "latitude": 6.7855,
+   "longitude": 101.1536,
+   "targets": [
+    {
+     "station_id": "th_south_yala",
+     "place": "也拉",
+     "region": "南部",
+     "share_of_country_pct": 4.8433,
+     "distance_km": 30.7,
+     "proximity": "NEAR"
+    }
+   ],
+   "represented_share_pct": 4.84,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "THI0000VTUL",
+   "name": "LOEI",
+   "wmo_id": "TH",
+   "country": "泰国",
+   "latitude": 17.4391,
+   "longitude": 101.7221,
+   "targets": [
+    {
+     "station_id": "th_loei",
+     "place": "黎",
+     "region": "东北部",
+     "share_of_country_pct": 4.429,
+     "distance_km": 22.3,
+     "proximity": "NEAR"
+    }
+   ],
+   "represented_share_pct": 4.43,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "THI0000VTSC",
+   "name": "NARATHIWAT",
+   "wmo_id": "TH",
+   "country": "泰国",
+   "latitude": 6.5199,
+   "longitude": 101.7434,
+   "targets": [
+    {
+     "station_id": "th_narathiwat",
+     "place": "陶公",
+     "region": "南部",
+     "share_of_country_pct": 3.754,
+     "distance_km": 37.3,
+     "proximity": "NEAR"
+    }
+   ],
+   "represented_share_pct": 3.75,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "THI0000VTUU",
+   "name": "UBON RATCHATHANI",
+   "wmo_id": "TH",
+   "country": "泰国",
+   "latitude": 15.2513,
+   "longitude": 104.8702,
+   "targets": [
+    {
+     "station_id": "th_northeast_ubon",
+     "place": "乌汶",
+     "region": "东北部",
+     "share_of_country_pct": 2.8838,
+     "distance_km": 2.5,
+     "proximity": "NEAR"
+    }
+   ],
+   "represented_share_pct": 2.88,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "THM00048360",
+   "name": "NONGBUALAMPHU",
+   "wmo_id": "48360 TH",
+   "country": "泰国",
+   "latitude": 17.2167,
+   "longitude": 102.4167,
+   "targets": [
+    {
+     "station_id": "th_northeast_udon_thani",
+     "place": "乌隆他尼",
+     "region": "东北部",
+     "share_of_country_pct": 2.79,
+     "distance_km": 45.1,
+     "proximity": "NEAR"
+    }
+   ],
+   "represented_share_pct": 2.79,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "THI0000VTSE",
+   "name": "CHUMPHON",
+   "wmo_id": "TH",
+   "country": "泰国",
+   "latitude": 10.7112,
+   "longitude": 99.3617,
+   "targets": [
+    {
+     "station_id": "th_chumphon",
+     "place": "春蓬",
+     "region": "南部",
+     "share_of_country_pct": 2.4915,
+     "distance_km": 54.0,
+     "proximity": "NEAR"
+    }
+   ],
+   "represented_share_pct": 2.49,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "THI0000VTSG",
+   "name": "KRABI",
+   "wmo_id": "TH",
+   "country": "泰国",
+   "latitude": 8.0991,
+   "longitude": 98.9862,
+   "targets": [
+    {
+     "station_id": "th_krabi",
+     "place": "甲米",
+     "region": "南部",
+     "share_of_country_pct": 2.4111,
+     "distance_km": 6.8,
+     "proximity": "NEAR"
+    }
+   ],
+   "represented_share_pct": 2.41,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "THM00048561",
+   "name": "TAKUA PA",
+   "wmo_id": "48561 TH",
+   "country": "泰国",
+   "latitude": 8.6833,
+   "longitude": 98.25,
+   "targets": [
+    {
+     "station_id": "th_phangnga",
+     "place": "攀牙",
+     "region": "南部",
+     "share_of_country_pct": 2.2097,
+     "distance_km": 1.2,
+     "proximity": "NEAR"
+    }
+   ],
+   "represented_share_pct": 2.21,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "THI0000VTUI",
+   "name": "SAKON NAKHON",
+   "wmo_id": "TH",
+   "country": "泰国",
+   "latitude": 17.1951,
+   "longitude": 104.1186,
+   "targets": [
+    {
+     "station_id": "th_sakon_nakhon",
+     "place": "色军",
+     "region": "东北部",
+     "share_of_country_pct": 1.9748,
+     "distance_km": 38.3,
+     "proximity": "NEAR"
+    }
+   ],
+   "represented_share_pct": 1.97,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "THI0000VTCT",
+   "name": "CHIANG RAI INTL",
+   "wmo_id": "TH",
+   "country": "泰国",
+   "latitude": 19.9523,
+   "longitude": 99.8829,
+   "targets": [
+    {
+     "station_id": "th_chiang_rai",
+     "place": "清莱",
+     "region": "北部",
+     "share_of_country_pct": 1.7918,
+     "distance_km": 24.7,
+     "proximity": "NEAR"
+    }
+   ],
+   "represented_share_pct": 1.79,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "IDU096221-1",
+   "name": "PALEMBANG/ST.M.BA",
+   "wmo_id": "ID",
+   "country": "印度尼西亚",
+   "latitude": -2.9,
+   "longitude": 104.7,
+   "targets": [
+    {
+     "station_id": "id_sumatra_palembang",
+     "place": "巨港",
+     "region": "南苏门答腊",
+     "share_of_country_pct": 29.0619,
+     "distance_km": 12.0,
+     "proximity": "NEAR"
+    }
+   ],
+   "represented_share_pct": 29.06,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "IDU096035-1",
+   "name": "MEDAN/POLONIA",
+   "wmo_id": "ID",
+   "country": "印度尼西亚",
+   "latitude": 3.57,
+   "longitude": 98.68,
+   "targets": [
+    {
+     "station_id": "id_sumatra_medan",
+     "place": "棉兰",
+     "region": "北苏门答腊",
+     "share_of_country_pct": 11.7964,
+     "distance_km": 2.5,
+     "proximity": "NEAR"
+    }
+   ],
+   "represented_share_pct": 11.8,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "IDU096195-1",
+   "name": "JAMBI/SULTANTAHA",
+   "wmo_id": "ID",
+   "country": "印度尼西亚",
+   "latitude": -1.63,
+   "longitude": 103.65,
+   "targets": [
+    {
+     "station_id": "id_sumatra_jambi",
+     "place": "占碑",
+     "region": "占碑",
+     "share_of_country_pct": 10.4409,
+     "distance_km": 5.0,
+     "proximity": "NEAR"
+    }
+   ],
+   "represented_share_pct": 10.44,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "IDU096109-1",
+   "name": "PEKANBARU/SIMPANGT",
+   "wmo_id": "ID",
+   "country": "印度尼西亚",
+   "latitude": 0.47,
+   "longitude": 101.45,
+   "targets": [
+    {
+     "station_id": "id_sumatra_pekanbaru",
+     "place": "北干巴鲁",
+     "region": "廖内",
+     "share_of_country_pct": 8.4756,
+     "distance_km": 4.4,
+     "proximity": "NEAR"
+    }
+   ],
+   "represented_share_pct": 8.48,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "IDU096581-1",
+   "name": "PONTIANAK/SUPADIO",
+   "wmo_id": "ID",
+   "country": "印度尼西亚",
+   "latitude": -0.15,
+   "longitude": 109.4,
+   "targets": [
+    {
+     "station_id": "id_kalimantan_pontianak",
+     "place": "坤甸",
+     "region": "西加里曼丹",
+     "share_of_country_pct": 7.4296,
+     "distance_km": 14.9,
+     "proximity": "NEAR"
+    }
+   ],
+   "represented_share_pct": 7.43,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "VMI0000VVTS",
+   "name": "TANSONNHAT INTL",
+   "wmo_id": "VN",
+   "country": "越南",
+   "latitude": 10.8188,
+   "longitude": 106.6519,
+   "targets": [
+    {
+     "station_id": "vn_southeast_binh_phuoc",
+     "place": "同帅（平福）",
+     "region": "东南部",
+     "share_of_country_pct": 33.8784,
+     "distance_km": 83.2,
+     "proximity": "FAR"
+    },
+    {
+     "station_id": "vn_southeast_tay_ninh",
+     "place": "西宁",
+     "region": "东南部",
+     "share_of_country_pct": null,
+     "distance_km": 81.3,
+     "proximity": "FAR"
+    }
+   ],
+   "represented_share_pct": 33.88,
+   "proximity": "FAR"
+  },
+  {
+   "station_code": "CHM00059845",
+   "name": "DANXIAN",
+   "wmo_id": "59845 CN",
+   "country": "中国",
+   "latitude": 19.5167,
+   "longitude": 109.5833,
+   "targets": [
+    {
+     "station_id": "cn_hainan_danzhou",
+     "place": "儋州",
+     "region": "海南",
+     "share_of_country_pct": null,
+     "distance_km": 0.5,
+     "proximity": "NEAR"
+    },
+    {
+     "station_id": "cn_hainan_qiongzhong",
+     "place": "琼中",
+     "region": "海南",
+     "share_of_country_pct": null,
+     "distance_km": 59.5,
+     "proximity": "NEAR"
+    },
+    {
+     "station_id": "cn_hainan_baisha",
+     "place": "白沙",
+     "region": "海南",
+     "share_of_country_pct": null,
+     "distance_km": 34.8,
+     "proximity": "NEAR"
+    }
+   ],
+   "represented_share_pct": null,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "CHM00056969",
+   "name": "MENGLA",
+   "wmo_id": "56969 CN",
+   "country": "中国",
+   "latitude": 21.5,
+   "longitude": 101.5833,
+   "targets": [
+    {
+     "station_id": "cn_yunnan_jinghong",
+     "place": "景洪",
+     "region": "云南",
+     "share_of_country_pct": null,
+     "distance_km": 98.2,
+     "proximity": "FAR"
+    },
+    {
+     "station_id": "cn_yunnan_mengla",
+     "place": "勐腊",
+     "region": "云南",
+     "share_of_country_pct": null,
+     "distance_km": 4.1,
+     "proximity": "NEAR"
+    }
+   ],
+   "represented_share_pct": null,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "CHM00059948",
+   "name": "SANYA",
+   "wmo_id": "59948 CN",
+   "country": "中国",
+   "latitude": 18.2167,
+   "longitude": 109.5833,
+   "targets": [
+    {
+     "station_id": "cn_hainan_wanning",
+     "place": "万宁",
+     "region": "海南",
+     "share_of_country_pct": null,
+     "distance_km": 107.0,
+     "proximity": "FAR"
+    }
+   ],
+   "represented_share_pct": null,
+   "proximity": "FAR"
+  },
+  {
+   "station_code": "IVI0000DIAD",
+   "name": "ADIAKE",
+   "wmo_id": "CI",
+   "country": "科特迪瓦",
+   "latitude": 5.3,
+   "longitude": -3.3,
+   "targets": [
+    {
+     "station_id": "ci_sud_comoe_aboisso",
+     "place": "阿博瓦索",
+     "region": "南科莫埃",
+     "share_of_country_pct": null,
+     "distance_km": 21.4,
+     "proximity": "NEAR"
+    }
+   ],
+   "represented_share_pct": null,
+   "proximity": "NEAR"
+  },
+  {
+   "station_code": "IVU005557-1",
+   "name": "GAGNOA",
+   "wmo_id": "65557 CI",
+   "country": "科特迪瓦",
+   "latitude": 6.13,
+   "longitude": -5.95,
+   "targets": [
+    {
+     "station_id": "ci_nawa_soubre",
+     "place": "苏布雷",
+     "region": "纳瓦区",
+     "share_of_country_pct": null,
+     "distance_km": 81.7,
+     "proximity": "FAR"
+    }
+   ],
+   "represented_share_pct": null,
+   "proximity": "FAR"
+  }
+ ],
+ "unmatched": [
+  {
+   "station_id": "th_northeast_bueng_kan",
+   "place": "汶干府",
+   "country": "泰国",
+   "nearest_km": 139
+  },
+  {
+   "station_id": "cn_yunnan_puer",
+   "place": "普洱",
+   "country": "中国",
+   "nearest_km": 146
+  },
+  {
+   "station_id": "id_sumatra_lampung",
+   "place": "班达楠榜",
+   "country": "印度尼西亚",
+   "nearest_km": 172
+  },
+  {
+   "station_id": "vn_central_highlands_pleiku",
+   "place": "波来古",
+   "country": "越南",
+   "nearest_km": 133
+  },
+  {
+   "station_id": "vn_central_highlands_buon_ma_thuot",
+   "place": "邦美蜀",
+   "country": "越南",
+   "nearest_km": 134
+  },
+  {
+   "station_id": "ci_indenié_abengourou",
+   "place": "阿本古鲁",
+   "country": "科特迪瓦",
+   "nearest_km": 160
+  }
+ ]
+}
