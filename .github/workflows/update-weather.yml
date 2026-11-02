@@ -49,6 +49,11 @@ jobs:
           NASA_PPS_EMAIL: ${{ secrets.NASA_PPS_EMAIL }}
         run: python scripts/update_weather.py
 
+      - name: 更新气象站实测（NOAA GSOD）
+        if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+        continue-on-error: true
+        run: python scripts/update_station_obs.py
+
       - name: 校验数据处理逻辑
         run: python -m unittest discover -s tests -p "test_*.py"
 
@@ -61,7 +66,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add site/data/weather.json site/data/history.json site/data/thailand-weekly-rain.json site/assets/climate/
-          for d in data/observations data/history; do if [ -d "$d" ]; then git add "$d/"; fi; done
+          if [ -f config/gsod-stations.json ]; then git add config/gsod-stations.json; fi
+          for d in data/observations data/history data/stations site/data/stations; do if [ -d "$d" ]; then git add "$d/"; fi; done
           git diff --cached --quiet || git commit -m "data: update production-region weather"
           # 其他工作流（季节基准、卫星回填）可能在本次运行期间推送了提交，先变基再推送
           pushed=0

@@ -1004,6 +1004,293 @@ function renderThailandWeeklyRain() {
   $("#thailandRainMeta").innerHTML = `来源：<a href="${escapeHtml(data.source.documentation)}" target="_blank" rel="noreferrer">${escapeHtml(data.source.source_name)}</a>（${escapeHtml(data.source.upstream_model)}，0.25°再分析）。当地时间周一至周日累计，仅显示完整周；${escapeHtml(data.aggregation)}最新完整周截至 ${escapeHtml(data.period.end_date)}。`;
 }
 
+// ---------- 气象站实测（NOAA GSOD）：历年对比 ----------
+// 数据由 scripts/update_station_obs.py 生成：data/stations/current.json（当年，每天更新）与 history.json（往年）。
+const STATION_CHARTS = [
+  { key: "p15", title: "15日累计降水", unit: "mm", kind: "sum", window: 15, maxMissing: 2 },
+  { key: "p30", title: "30日累计降水", unit: "mm", kind: "sum", window: 30, maxMissing: 4 },
+  { key: "ytd", title: "年累计降水", unit: "mm", kind: "ytd" },
+  { key: "t7", title: "7日平均气温", unit: "℃", kind: "mean", window: 7, maxMissing: 2 },
+];
+const MONTH_STARTS = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+state.stationObs = { meta: null, current: null, history: null, selected: null };
+
+function stationYears(sid) {
+  const out = {};
+  const hist = state.stationObs.history?.data?.[sid] || {};
+  for (const [year, v] of Object.entries(hist)) out[year] = v;
+  const cur = state.stationObs.current?.data?.[sid];
+  if (cur) out[cur.start.slice(0, 4)] = cur;
+  return out;
+}
+
+// 连续的逐日序列（跨年拼接），便于滚动窗口跨越1月1日
+function stationDaily(sid, field) {
+  const years = stationYears(sid);
+  const map = new Map();
+  for (const [year, v] of Object.entries(years)) {
+    const start = new Date(`${v.start}T00:00:00Z`);
+    (v[field] || []).forEach((value, i) => {
+      const d = new Date(start.getTime() + i * 86400000).toISOString().slice(0, 10);
+      map.set(d, value);
+    });
+  }
+  return { years: Object.keys(years).map(Number).sort(), map };
+}
+
+// 每年按日序（1–365，2月29日并入2月28日）计算指标
+function stationSeries(sid, spec) {
+  const field = spec.kind === "mean" ? "tmean_c" : "prcp_mm";
+  const { years, map } = stationDaily(sid, field);
+  const result = {};
+  for (const year of years) {
+    const values = new Array(365).fill(null);
+    let ytd = 0;
+    let started = false;
+    const leap = new Date(Date.UTC(year, 1, 29)).getUTCMonth() === 1;
+    // 年累计只画到该年最后一个有报告的日子，之后不再水平延伸
+    let lastReported = "";
+    for (const [d, v] of map) if (d.startsWith(`${year}-`) && hasNumber(v) && d > lastReported) lastReported = d;
+    for (let i = 0, n = leap ? 366 : 365; i < n; i += 1) {
+      const date = new Date(Date.UTC(year, 0, 1 + i));
+      const iso = date.toISOString().slice(0, 10);
+      if (spec.kind === "ytd" && iso > lastReported) break;
+      const slot = leap && i >= 59 ? i - 1 : i;
+      if (!map.has(iso)) { if (spec.kind === "ytd" && started) values[slot] = null; continue; }
+      if (spec.kind === "ytd") {
+        const v = map.get(iso);
+        if (hasNumber(v)) ytd += Number(v);
+        started = true;
+        values[slot] = Math.round(ytd * 10) / 10;
+        continue;
+      }
+      let total = 0;
+      let count = 0;
+      for (let k = 0; k < spec.window; k += 1) {
+        const v = map.get(new Date(date.getTime() - k * 86400000).toISOString().slice(0, 10));
+        if (hasNumber(v)) { total += Number(v); count += 1; }
+      }
+      if (spec.window - count > spec.maxMissing) continue;
+      // 缺测不外推：降水用已报告日的合计（窗口内少量缺测时可能略偏少），气温用已报告日的平均
+      values[slot] = spec.kind === "mean" ? Math.round(total / count * 10) / 10 : Math.round(total * 10) / 10;
+    }
+    if (values.some(hasNumber)) result[year] = values;
+  }
+  return result;
+}
+
+function stationChart(spec, series, currentYear) {
+  const years = Object.keys(series).map(Number).sort();
+  if (!years.length) return `<article class="station-chart"><h3>${spec.title}</h3><p class="weekly-summary-note">暂无数据</p></article>`;
+  const past = years.filter((y) => y !== currentYear);
+  const mean = Array.from({ length: 365 }, (_, i) => {
+    const vals = past.map((y) => series[y][i]).filter(hasNumber);
+    return vals.length >= 2 ? vals.reduce((a, b) => a + b, 0) / vals.length : null;
+  });
+  const all = years.flatMap((y) => series[y].filter(hasNumber));
+  let lo = Math.min(...all);
+  let hi = Math.max(...all);
+  if (spec.kind !== "mean") lo = 0;
+  const pad = (hi - lo) * 0.08 || 1;
+  hi += pad;
+  if (spec.kind === "mean") lo -= pad;
+  const W = 520, H = 210, L = 40, R = 64, T = 12, B = 24;
+  const x = (i) => L + i / 364 * (W - L - R);
+  const y = (v) => T + (hi - v) / (hi - lo) * (H - T - B);
+  const path = (values) => {
+    let d = "";
+    let pen = false;
+    values.forEach((v, i) => {
+      if (!hasNumber(v)) { pen = false; return; }
+      d += `${pen ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`;
+      pen = true;
+    });
+    return d;
+  };
+  const ticks = niceTicks(lo, hi, 4);
+  const grid = ticks.map((t) => `<line x1="${L}" x2="${W - R}" y1="${y(t).toFixed(1)}" y2="${y(t).toFixed(1)}"/><text x="${L - 6}" y="${(y(t) + 3.5).toFixed(1)}" text-anchor="end">${formatTick(t)}</text>`).join("");
+  const months = MONTH_STARTS.map((d, m) => (m % 3 === 0 ? `<text x="${x(d).toFixed(1)}" y="${H - 6}" text-anchor="${m === 0 ? "start" : "middle"}">${m + 1}月</text>` : "")).join("");
+  const lastYear = currentYear - 1;
+  const lines = past.map((yr) => `<path class="${yr === lastYear ? "so-last" : "so-past"}" d="${path(series[yr])}"><title>${yr}</title></path>`).join("")
+    + `<path class="so-mean" d="${path(mean)}"/>`
+    + (series[currentYear] ? `<path class="so-current" d="${path(series[currentYear])}"/>` : "");
+  const cur = series[currentYear] || [];
+  const lastIdx = cur.map((v, i) => (hasNumber(v) ? i : -1)).filter((i) => i >= 0).at(-1);
+  const label = lastIdx != null
+    ? `<circle class="so-dot" cx="${x(lastIdx).toFixed(1)}" cy="${y(cur[lastIdx]).toFixed(1)}" r="3"/><text class="so-label" x="${(x(lastIdx) + 6).toFixed(1)}" y="${(y(cur[lastIdx]) + 4).toFixed(1)}">${formatTick(cur[lastIdx])}${spec.unit}</text>`
+    : "";
+  const meanAt = lastIdx != null && hasNumber(mean[lastIdx]) ? `；往年同期均值 ${formatTick(mean[lastIdx])}${spec.unit}` : "";
+  const curText = lastIdx != null ? `${currentYear}最新 ${formatTick(cur[lastIdx])}${spec.unit}${meanAt}` : `${currentYear}暂无数据`;
+  return `<article class="station-chart" data-chart="${spec.key}">
+    <div class="station-chart-head"><h3>${spec.title}</h3><span>${escapeHtml(curText)}</span></div>
+    <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${escapeHtml(`${spec.title}：${curText}`)}">
+      <g class="so-grid">${grid}${months}</g><g class="so-lines">${lines}</g><g>${label}</g>
+      <line class="so-cross" x1="0" x2="0" y1="${T}" y2="${H - B}" visibility="hidden"/>
+      <rect class="so-hit" x="${L}" y="${T}" width="${W - L - R}" height="${H - T - B}" data-l="${L}" data-w="${W - L - R}"/>
+    </svg>
+    <div class="station-tip" hidden></div>
+  </article>`;
+}
+
+function niceTicks(lo, hi, n) {
+  const span = hi - lo;
+  const step0 = span / n;
+  const mag = 10 ** Math.floor(Math.log10(step0));
+  const step = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((s) => span / s <= n) || 10 * mag;
+  const out = [];
+  for (let v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) out.push(Math.round(v * 100) / 100);
+  return out;
+}
+
+function formatTick(v) {
+  return Math.abs(v) >= 100 ? Math.round(v).toLocaleString("zh-CN") : (Math.round(v * 10) / 10).toString();
+}
+
+function stationLabel(st) {
+  const t = st.targets || [];
+  const places = [...new Set(t.map((x) => x.place))].join("、");
+  const share = hasNumber(st.represented_share_pct) ? `，占${st.country}${number(st.represented_share_pct, 1)}%` : "";
+  return `${st.country} · ${places}（${st.name}${share}）`;
+}
+
+function renderStationObs() {
+  const meta = state.stationObs.current;
+  const select = $("#stationObsSelect");
+  if (!meta?.stations?.length) {
+    $("#stationObsCharts").innerHTML = '<div class="empty-state"><strong>气象站数据尚未生成</strong><span>每日更新任务运行后自动生成。</span></div>';
+    select.innerHTML = "<option>暂无站点</option>";
+    return;
+  }
+  if (!select.dataset.ready) {
+    const groups = {};
+    meta.stations.forEach((st) => (groups[st.country] = groups[st.country] || []).push(st));
+    select.innerHTML = Object.entries(groups).map(([country, list]) => `<optgroup label="${escapeHtml(country)}">${list.map((st) => `<option value="${escapeHtml(st.gsod_id)}">${escapeHtml(stationLabel(st))}</option>`).join("")}</optgroup>`).join("");
+    select.dataset.ready = "1";
+    select.addEventListener("change", () => { state.stationObs.selected = select.value; renderStationObs(); });
+    state.stationObs.selected = state.stationObs.selected || meta.stations[0].gsod_id;
+  }
+  select.value = state.stationObs.selected;
+  const st = meta.stations.find((s) => s.gsod_id === state.stationObs.selected) || meta.stations[0];
+  const currentYear = Number((meta.generated_at_utc || "").slice(0, 4)) || new Date().getUTCFullYear();
+  const far = (st.targets || []).filter((t) => t.proximity === "FAR");
+  const partial = hasNumber(st.current_prcp_partial_days) && st.current_prcp_reported_days
+    ? `；今年 ${st.current_prcp_reported_days} 天有降水记录，其中 ${st.current_prcp_partial_days} 天只有部分时段报告` : "";
+  $("#stationObsInfo").innerHTML = `站号 ${escapeHtml(st.gsod_id)}，${number(st.latitude, 2)}°, ${number(st.longitude, 2)}°；代表 ${escapeHtml((st.targets || []).map((t) => `${t.place}（距 ${number(t.distance_km, 0)} km）`).join("、"))}；数据截至 ${escapeHtml(st.last_date || "—")}${partial}。`
+    + (far.length ? ` <strong class="station-far">站点离产区较远（${far.map((t) => `${t.place} ${number(t.distance_km, 0)} km`).join("、")}），只作区域参考。</strong>` : "")
+    + (st.quality_status !== "PASS" ? ` <strong class="station-far">数据状态 ${escapeHtml(st.quality_status)}：最近7天无新记录。</strong>` : "");
+  if (!state.stationObs.history) {
+    $("#stationObsCharts").innerHTML = '<div class="loading-state"><span></span><p>正在读取往年数据…</p></div>';
+    return;
+  }
+  const years = Object.keys(stationYears(st.gsod_id)).map(Number).sort();
+  $("#stationObsPeriod").textContent = years.length ? `${years[0]}–${years.at(-1)} · NOAA GSOD` : "NOAA GSOD";
+  $("#stationObsCharts").innerHTML = `<div class="station-legend"><span><i class="k-current"></i>${currentYear}</span><span><i class="k-last"></i>${currentYear - 1}</span><span><i class="k-past"></i>更早年份</span><span><i class="k-mean"></i>往年均值</span></div>`
+    + STATION_CHARTS.map((spec) => stationChart(spec, stationSeries(st.gsod_id, spec), currentYear)).join("");
+  bindStationHover(st.gsod_id, currentYear);
+}
+
+// 悬停：显示该日各年数值
+function bindStationHover(sid, currentYear) {
+  document.querySelectorAll(".station-chart").forEach((card) => {
+    const spec = STATION_CHARTS.find((s) => s.key === card.dataset.chart);
+    const series = stationSeries(sid, spec);
+    const svg = card.querySelector("svg");
+    const hit = card.querySelector(".so-hit");
+    const cross = card.querySelector(".so-cross");
+    const tip = card.querySelector(".station-tip");
+    if (!hit) return;
+    const L = Number(hit.dataset.l);
+    const Wd = Number(hit.dataset.w);
+    const move = (event) => {
+      const box = svg.getBoundingClientRect();
+      const vb = svg.viewBox.baseVal;
+      const sx = (event.clientX - box.left) / box.width * vb.width;
+      const i = Math.max(0, Math.min(364, Math.round((sx - L) / Wd * 364)));
+      const xv = L + i / 364 * Wd;
+      cross.setAttribute("x1", xv); cross.setAttribute("x2", xv); cross.setAttribute("visibility", "visible");
+      const d = new Date(Date.UTC(2025, 0, 1 + i));
+      const rows = Object.keys(series).map(Number).sort((a, b) => b - a)
+        .map((yr) => `<div class="${yr === currentYear ? "cur" : ""}"><span>${yr}</span><b>${hasNumber(series[yr][i]) ? formatTick(series[yr][i]) : "—"}</b></div>`).join("");
+      tip.innerHTML = `<strong>${d.getUTCMonth() + 1}月${d.getUTCDate()}日 · ${spec.title}（${spec.unit}）</strong>${rows}`;
+      tip.hidden = false;
+      const left = (xv / vb.width) * box.width;
+      tip.style.left = `${Math.min(Math.max(left + 12, 0), box.width - tip.offsetWidth)}px`;
+    };
+    hit.addEventListener("pointermove", move);
+    hit.addEventListener("pointerleave", () => { tip.hidden = true; cross.setAttribute("visibility", "hidden"); });
+  });
+}
+
+function stationCsvRows(ids) {
+  const header = "gsod_id,station_name,country,represents,date,prcp_mm,tmean_c,tmax_c,tmin_c";
+  const lines = [header];
+  for (const sid of ids) {
+    const st = state.stationObs.current.stations.find((s) => s.gsod_id === sid);
+    const rep = (st.targets || []).map((t) => t.place).join("/");
+    const years = stationYears(sid);
+    for (const year of Object.keys(years).sort()) {
+      const v = years[year];
+      const start = new Date(`${v.start}T00:00:00Z`);
+      for (let i = 0; i < v.days; i += 1) {
+        const d = new Date(start.getTime() + i * 86400000).toISOString().slice(0, 10);
+        const cell = (a) => (hasNumber(a?.[i]) ? a[i] : "");
+        if (![v.prcp_mm, v.tmean_c, v.tmax_c, v.tmin_c].some((a) => hasNumber(a?.[i]))) continue;
+        lines.push([sid, `"${st.name}"`, st.country, rep, d, cell(v.prcp_mm), cell(v.tmean_c), cell(v.tmax_c), cell(v.tmin_c)].join(","));
+      }
+    }
+  }
+  return lines.join("\n");
+}
+
+function downloadCsv(name, text) {
+  const blob = new Blob(["﻿" + text], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+
+async function loadStationObs() {
+  try {
+    const res = await fetch(`data/stations/current.json?v=${Date.now()}`, { cache: "no-store" });
+    state.stationObs.current = res.ok ? await res.json() : null;
+  } catch (error) {
+    state.stationObs.current = null;
+  }
+  renderStationObs();
+  if (!state.stationObs.current) return;
+  const loadHistory = async () => {
+    if (state.stationObs.history || state.stationObs.loadingHistory) return;
+    state.stationObs.loadingHistory = true;
+    try {
+      const res = await fetch("data/stations/history.json", { cache: "default" });
+      state.stationObs.history = res.ok ? await res.json() : { data: {} };
+    } catch (error) {
+      state.stationObs.history = { data: {} };
+    }
+    renderStationObs();
+  };
+  // 往年数据较大：版块进入视口时再读取
+  const panel = $("#stationObs");
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => { if (entries.some((e) => e.isIntersecting)) { io.disconnect(); loadHistory(); } }, { rootMargin: "600px" });
+    io.observe(panel);
+  } else {
+    loadHistory();
+  }
+  $("#stationCsv").addEventListener("click", async () => {
+    await loadHistory();
+    const sid = state.stationObs.selected;
+    downloadCsv(`gsod_${sid}.csv`, stationCsvRows([sid]));
+  });
+  $("#stationCsvAll").addEventListener("click", async () => {
+    await loadHistory();
+    downloadCsv("gsod_all_stations.csv", stationCsvRows(state.stationObs.current.stations.map((s) => s.gsod_id)));
+  });
+}
+
 function renderDetail() {
   const station = state.filtered.find((item) => item.station_id === state.activeId);
   if (!station) {
@@ -1138,6 +1425,7 @@ document.querySelectorAll("[data-weather-filter]").forEach((card) => {
 });
 loadMapLayers();
 loadData();
+loadStationObs();
 loadTemperatureHistory();
 setupOutlookTabs();
 loadExtendedOutlooks();

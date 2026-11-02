@@ -201,6 +201,30 @@
       </p>
     </section>
 
+    <section class="panel station-obs-panel" id="stationObs" aria-labelledby="stationObsTitle">
+      <div class="panel-heading">
+        <div>
+          <h2 id="stationObsTitle">气象站实测：历年对比</h2>
+        </div>
+        <span id="stationObsPeriod" class="source-badge">NOAA GSOD 逐日观测</span>
+      </div>
+      <div class="station-obs-controls">
+        <label>
+          <span>气象站（按产量权重选取）</span>
+          <select id="stationObsSelect" aria-describedby="stationObsInfo"><option>正在读取站点…</option></select>
+        </label>
+        <div class="station-obs-actions">
+          <button type="button" id="stationCsv">下载本站 CSV</button>
+          <button type="button" id="stationCsvAll">下载全部站点 CSV</button>
+        </div>
+      </div>
+      <p id="stationObsInfo" class="station-obs-info"></p>
+      <div id="stationObsCharts" class="station-obs-grid" aria-live="polite">
+        <div class="loading-state"><span></span><p>正在读取气象站数据…</p></div>
+      </div>
+      <p id="stationObsMeta" class="map-note">来源：NOAA NCEI Global Surface Summary of the Day（GSOD），各国气象站经GTS上报的观测汇总为逐日值。降水只有部分时段报告的日子可能偏少；缺测保持为空、不外推：15/30日累计在窗口内缺测超过2/4天时不画线，少量缺测时按已报告日累计，可能略偏少；年累计只累加已报告日。</p>
+    </section>
+
 <section class="panel cpc-panel">
   <div class="panel-heading">
     <div>
