@@ -222,7 +222,7 @@
       <div id="stationObsCharts" class="station-obs-grid" aria-live="polite">
         <div class="loading-state"><span></span><p>正在读取气象站数据…</p></div>
       </div>
-      <p id="stationObsMeta" class="map-note">来源：NOAA NCEI Global Historical Climatology Network - hourly（GHCNh），各国气象站经GTS上报的逐时/定时观测，本面板按固定规则汇总为逐日值：降水用各时次上报的1/3/6/12/24小时累计量拼满一天，只拼到12–23小时的日子记为“部分时段”、可能偏少，不足12小时视为缺测；气温为当日观测≥4次时的平均/最高/最低。缺测保持为空、不外推：15/30日累计在窗口内缺测超过2/4天时不画线；年累计只累加已报告日。站点值是单点观测，与面板其他部分的网格/区域值口径不同。</p>
+      <p id="stationObsMeta" class="map-note">来源：NOAA NCEI Global Historical Climatology Network - hourly（GHCNh），各国气象站经GTS上报的逐时/定时观测（同址有多个站号时取降水报告最完整的），本面板按固定规则汇总为逐日值：降水用各时次上报的1/3/6/12/24小时累计量拼满一天，只拼到12–23小时的日子记为“部分时段”、可能偏少，不足12小时时，若当天观测正常、没有降水天气现象且该站近10天报过降水量，按0计（气象站无降水时常省略降水组），否则视为缺测；气温为当日观测≥4次时的平均/最高/最低。缺测保持为空、不外推：15/30日累计在窗口内缺测超过2/4天时不画线；年累计只累加已报告日。站点值是单点观测，与面板其他部分的网格/区域值口径不同。</p>
     </section>
 
 <section class="panel cpc-panel">

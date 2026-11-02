@@ -29,6 +29,7 @@ import io
 import json
 import math
 import os
+import shutil
 import sys
 import tempfile
 import time
@@ -51,6 +52,11 @@ FIPS = {"泰国": "TH", "印度尼西亚": "ID", "越南": "VM", "中国": "CH",
 THAILAND_COVERAGE_PCT = 70.0
 NEAR_KM, MAX_KM = 75.0, 120.0
 SAME_SITE_KM = 5.0
+ALT_KM = 30.0               # 比最近站远不超过这么多的站都参与比较“降水报告天数”
+MAX_ALTERNATIVES = 5
+SELECTION_VERSION = 3       # 选站规则改动时加1，已保存的选站结果会自动重选
+AGG_VERSION = 2             # 逐日汇总规则改动时加1，已缓存的往年会按新规则重算
+SHIFT_24H_HOURS = 3         # 截止时次缺报时，可用前后3小时内上报的24小时量
 MIN_OBS_FIRST_YEAR = 1000   # 2015 年观测条数下限（每天约 3 次以上）
 MIN_OBS_RECENT = 270        # 最近 3 个月观测条数下限
 ACCUM_HOURS = (24, 21, 18, 15, 12, 9, 6, 3, 1)
@@ -173,7 +179,9 @@ def recent_count(months_by_year, end):
     return total
 
 
-def choose_stations(targets, station_rows, inventory, today=None):
+def choose_stations(targets, station_rows, inventory, today=None, scorer=None):
+    """scorer(站号) → 降水报告天数；给出时在“最近站 + ALT_KM 以内”的候选中取降水报告最完整的站
+    （机场 ICAO 站号常常只有气温没有降水，同址的 WMO 站号才有）。"""
     today = today or datetime.now(timezone.utc).date()
     end = inventory_end(inventory) or (today.year, today.month)
     candidates = []
@@ -194,10 +202,19 @@ def choose_stations(targets, station_rows, inventory, today=None):
         ranked = sorted(pool, key=lambda r: km(t["latitude"], t["longitude"], r["lat"], r["lon"]))
         best = None
         if ranked:
-            d0 = km(t["latitude"], t["longitude"], ranked[0]["lat"], ranked[0]["lon"])
-            # 同一地点常有 WMO 与 ICAO 两个站号，取观测更多的那个
-            close = [r for r in ranked if km(t["latitude"], t["longitude"], r["lat"], r["lon"]) <= d0 + SAME_SITE_KM]
-            best = max(close, key=lambda r: r["recent_obs"])
+            dist = lambda r: km(t["latitude"], t["longitude"], r["lat"], r["lon"])
+            d0 = dist(ranked[0])
+            if scorer:
+                alts = [r for r in ranked if dist(r) <= min(d0 + ALT_KM, MAX_KM)][:MAX_ALTERNATIVES] or ranked[:1]
+                scored = [(scorer(r["id"]), r) for r in alts]
+                top = max(sc for sc, _ in scored)
+                # 降水报告天数接近最好（≥90%）的站里取最近的
+                best = min((r for sc, r in scored if sc >= top * 0.9), key=dist)
+                best = {**best, "prcp_days_checked": top and next(sc for sc, r in scored if r is best)}
+            else:
+                # 同一地点常有 WMO 与 ICAO 两个站号，取观测更多的那个
+                close = [r for r in ranked if dist(r) <= d0 + SAME_SITE_KM]
+                best = max(close, key=lambda r: r["recent_obs"])
         distance = km(t["latitude"], t["longitude"], best["lat"], best["lon"]) if best else None
         if best is None or distance > MAX_KM:
             unmatched.append({"station_id": t["station_id"], "place": t["place"], "country": t["country"],
@@ -205,7 +222,7 @@ def choose_stations(targets, station_rows, inventory, today=None):
             continue
         entry = stations.setdefault(best["id"], {
             "station_code": best["id"], "name": best["name"], "wmo_id": best["wmo"], "country": t["country"],
-            "latitude": best["lat"], "longitude": best["lon"], "targets": []})
+            "latitude": best["lat"], "longitude": best["lon"], "prcp_days_checked": best.get("prcp_days_checked"), "targets": []})
         entry["targets"].append({"station_id": t["station_id"], "place": t["place"], "region": t.get("region"),
                                  "share_of_country_pct": t.get("share_of_country_pct"), "distance_km": round(distance, 1),
                                  "proximity": "NEAR" if distance <= NEAR_KM else "FAR"})
@@ -247,12 +264,32 @@ def _obs_time(row, idx):
     return (t + timedelta(minutes=30)).replace(minute=0, second=0, microsecond=0)
 
 
-def parse_ghcnh_psv(text):
-    """GHCNh psv → (temps {整点: ℃}, accums {(截止整点, 小时数): mm})。同一时次多个来源取第一个有效值。"""
+WET_TOKENS = ("RA", "DZ", "SH", "TS", "GR", "GS", "SN", "PL", "UP")
+
+
+def is_wet_weather(column, value):
+    """现在天气是否指示降水：SYNOP ww（MW）20–29 中的降水类与 50–99；自动站（AW）40–99；METAR 文本含 RA/DZ/SH/TS 等。"""
+    value = (value or "").strip().upper()
+    if not value:
+        return False
+    head = value.split(":")[0].split(",")[0].strip()
+    if column.startswith("pres_wx_au"):
+        return any(tok in head for tok in WET_TOKENS)
+    if head[:2].isdigit():
+        ww = int(head[:2])
+        if column.startswith("pres_wx_aw"):
+            return ww >= 40
+        return ww >= 50 or ww in (20, 21, 23, 24, 25, 26, 27, 29)
+    return any(tok in head for tok in WET_TOKENS)
+
+
+def parse_ghcnh_psv(text, wx=None):
+    """GHCNh psv → (temps {整点: ℃}, accums {(截止整点, 小时数): mm}, info {obs_hours, wet_hours})。
+    同一时次多个来源取第一个有效值；wx 给定时收集现在天气原始值样本（诊断用）。"""
     reader = csv.reader(io.StringIO(text), delimiter="|")
     header = next(reader, None)
     if not header:
-        return {}, {}
+        return {}, {}, {"obs_hours": set(), "wet_hours": set()}
     idx = {name.strip().lower(): i for i, name in enumerate(header)}
     prcp_cols = {}
     for n in ACCUM_HOURS:
@@ -260,13 +297,23 @@ def parse_ghcnh_psv(text):
         if col in idx:
             prcp_cols[n] = idx[col]
     t_col = idx.get("temperature")
+    wx_cols = [(name, i) for name, i in idx.items() if name.startswith("pres_wx_") and name.count("_") == 2]
     temps, accums = {}, {}
+    obs_hours, wet_hours = set(), set()
     for row in reader:
         if len(row) < len(header) // 2:
             continue
         t = _obs_time(row, idx)
         if t is None:
             continue
+        obs_hours.add(t)
+        for name, i in wx_cols:
+            value = row[i] if i < len(row) else ""
+            if value.strip():
+                if wx is not None and len(wx) < 400:
+                    wx[f"{name}={value.strip()}"] = wx.get(f"{name}={value.strip()}", 0) + 1
+                if is_wet_weather(name, value):
+                    wet_hours.add(t)
         if t_col is not None and t not in temps:
             v = _num(row[t_col])
             if v is not None and -40 <= v <= 60:
@@ -277,7 +324,7 @@ def parse_ghcnh_psv(text):
             v = _num(row[col])
             if v is not None and 0 <= v <= PRCP_SANITY_MM[n]:
                 accums[(t, n)] = v
-    return temps, accums
+    return temps, accums, {"obs_hours": obs_hours, "wet_hours": wet_hours}
 
 
 def day_cutoff_hour(accums):
@@ -289,9 +336,12 @@ def day_cutoff_hour(accums):
     return h if h <= 12 else h - 24
 
 
-def daily_from_obs(temps, accums, year):
-    """→ {日期: {prcp_mm, prcp_flag, tmean_c, tmax_c, tmin_c}}，prcp_flag 'P' 表示只拼到部分时段。"""
+def daily_from_obs(temps, accums, year, info=None):
+    """→ {日期: {prcp_mm, prcp_flag, tmean_c, tmax_c, tmin_c}}。
+    prcp_flag：'P' 只拼到部分时段；'Z' 当天有正常观测、无降水天气现象但没有降水组，按0计（SYNOP 无降水时常省略降水组）。"""
+    info = info or {"obs_hours": set(), "wet_hours": set()}
     offset = day_cutoff_hour(accums)
+    report_days = sorted({t.date() for (t, n) in accums})
     by_end = defaultdict(list)
     for (t, n), v in accums.items():
         by_end[t].append((n, v))
@@ -308,6 +358,13 @@ def daily_from_obs(temps, accums, year):
             for n, v in by_end.get(w0 + timedelta(hours=k), ()):
                 if k - n >= 0:
                     pieces.append((n, k, v))
+        if not any(n == 24 and k == 24 for n, k, _ in pieces):
+            # 截止时次的24小时量缺报，用前后3小时内上报的24小时量代替
+            for shift in sorted(range(-SHIFT_24H_HOURS, SHIFT_24H_HOURS + 1), key=abs):
+                hit = [v for n, v in by_end.get(w1 + timedelta(hours=shift), ()) if n == 24]
+                if shift and hit:
+                    pieces = [(24, 24, hit[0])]
+                    break
         covered = set()
         total = 0.0
         for n, k, v in sorted(pieces, key=lambda p: (-p[0], p[1])):
@@ -322,6 +379,13 @@ def daily_from_obs(temps, accums, year):
             prcp, flag = round(total, 1), "P"
         else:
             prcp, flag = None, None
+            hours = [w0 + timedelta(hours=k) for k in range(1, 25)]
+            seen = sum(1 for h in hours if h in info["obs_hours"])
+            wet = any(h in info["wet_hours"] for h in hours)
+            # 站点近10天内报过降水量（说明在报降水），当天观测正常且没有降水天气现象 → 视为无降水
+            near = _has_report_near(report_days, d, 10)
+            if seen >= 4 and not wet and near:
+                prcp, flag = 0.0, "Z"
         tv = temps_by_day.get(d, [])
         rec = {"prcp_mm": prcp, "prcp_flag": flag,
                "tmean_c": round(sum(tv) / len(tv), 1) if len(tv) >= 4 else None,
@@ -331,6 +395,12 @@ def daily_from_obs(temps, accums, year):
             out[d.isoformat()] = rec
         d += timedelta(days=1)
     return out
+
+
+def _has_report_near(report_days, d, days):
+    import bisect
+    i = bisect.bisect_left(report_days, d - timedelta(days=days))
+    return i < len(report_days) and report_days[i] <= d + timedelta(days=days)
 
 
 def year_arrays(daily, year):
@@ -346,6 +416,7 @@ def year_arrays(daily, year):
         "prcp_mm": prcp, "tmean_c": pick("tmean_c"), "tmax_c": pick("tmax_c"), "tmin_c": pick("tmin_c"),
         "prcp_reported_days": sum(v is not None for v in prcp),
         "prcp_partial_days": sum(1 for v, f in zip(prcp, flags) if v is not None and f == "P"),
+        "prcp_zero_inferred_days": sum(1 for v, f in zip(prcp, flags) if v is not None and f == "Z"),
         "last_date": max((d for d in days if d in daily), default=None),
     }
 
@@ -376,7 +447,7 @@ def update_archive(stations, today, fetch=http_get, archive_dir=ARCHIVE_DIR, bud
         if year < today.year and path.exists():
             cached = json.loads(path.read_text(encoding="utf-8"))
             # 去年作为“当年”写入的文件不完整（缺12月底），跨年后重下一次并标记为终版
-            if cached.get("final") or cached.get("missing"):
+            if (cached.get("final") and cached.get("agg_version") == AGG_VERSION) or cached.get("missing"):
                 if not cached.get("missing"):
                     result[sid][year] = cached
                 continue
@@ -392,11 +463,14 @@ def update_archive(stations, today, fetch=http_get, archive_dir=ARCHIVE_DIR, bud
             if year < today.year:
                 _write(path, {"year": year, "missing": True})
             continue
-        temps, accums = parse_ghcnh_psv(text)
-        if year == today.year and not (archive_dir / "psv-header.txt").exists():
-            _write_text(archive_dir / "psv-header.txt", text.splitlines()[0] if text else "")
-        arrays = year_arrays(daily_from_obs(temps, accums, year), year)
-        arrays["obs_counts"] = {"temperature": len(temps), **{f"prcp_{n}h": sum(1 for (_, k) in accums if k == n) for n in ACCUM_HOURS}}
+        wx = {} if year == today.year and sid == stations[0]["station_code"] else None
+        temps, accums, info = parse_ghcnh_psv(text, wx)
+        if wx is not None:
+            _write(archive_dir / "wx-samples.json", dict(sorted(wx.items(), key=lambda kv: -kv[1])[:150]))
+        arrays = year_arrays(daily_from_obs(temps, accums, year, info), year)
+        arrays["agg_version"] = AGG_VERSION
+        arrays["obs_counts"] = {"temperature": len(temps), "obs_hours": len(info["obs_hours"]), "wet_hours": len(info["wet_hours"]),
+                                **{f"prcp_{n}h": sum(1 for (_, k) in accums if k == n) for n in ACCUM_HOURS}}
         if year < today.year:
             arrays["final"] = True
         _write(path, arrays)
@@ -415,17 +489,22 @@ def build_site_files(stations, unmatched, archive, today, thai_coverage, site_di
                      "years": sorted(years), "last_date": cur.get("last_date"),
                      "current_prcp_reported_days": cur.get("prcp_reported_days"),
                      "current_prcp_partial_days": cur.get("prcp_partial_days"),
+                     "current_prcp_zero_inferred_days": cur.get("prcp_zero_inferred_days"),
                      "current_obs_counts": cur.get("obs_counts"),
                      "quality_status": "PASS" if cur.get("last_date") and cur["last_date"] >= (today - timedelta(days=7)).isoformat()
                      else ("WARNING" if years else "MISSING")})
     keep = ("start", "days", "prcp_mm", "tmean_c", "tmax_c", "tmin_c", "prcp_reported_days", "prcp_partial_days")
+    for ys in archive.values():
+        for v in ys.values():
+            v.setdefault("prcp_zero_inferred_days", 0)
+    keep += ("prcp_zero_inferred_days",)
     history = {sid: {str(y): {k: v[k] for k in keep} for y, v in ys.items() if y < today.year} for sid, ys in archive.items()}
     current = {sid: {k: ys[today.year][k] for k in keep + ("last_date",)} for sid, ys in archive.items() if today.year in ys}
     header = {"schema_version": 2, "generated_at_utc": now, "source": SOURCE, "first_year": FIRST_YEAR,
               "units": {"prcp": "mm", "temperature": "℃"}, "backfill_pending": pending,
               "selection": {"thailand_coverage_pct": thai_coverage, "near_km": NEAR_KM, "max_km": MAX_KM,
-                            "rule": "泰国按府产量从高到低累计至≥70%，印尼全部已加权省，越南/中国/科特迪瓦全部代表点；每个目标取2015年已有观测、近3个月仍在报的最近站，≤75km为NEAR，75–120km为FAR，>120km不选。"},
-              "daily_rule": "降水用各时次上报的1/3/6/12/24小时累计量拼满24小时（UTC日，若该站固定时次上报24小时量则按该时次截止）；拼到12–23小时记为部分时段，不足12小时为缺测。气温为当日逐时观测≥4次时的平均/最高/最低。",
+                            "rule": "泰国按府产量从高到低累计至≥70%，印尼全部已加权省，越南/中国/科特迪瓦全部代表点；每个目标在最近站及其外30km内的候选中，取上一年降水报告天数接近最多（≥90%）的最近站，≤75km为NEAR，75–120km为FAR，>120km不选。"},
+              "daily_rule": "降水用各时次上报的1/3/6/12/24小时累计量拼满24小时（UTC日，若该站固定时次上报24小时量则按该时次截止）；拼到12–23小时记为部分时段；不足12小时时，若当天观测正常、无降水天气现象且该站近10天报过降水量，按0计（SYNOP无降水时常省略降水组），否则为缺测。气温为当日逐时观测≥4次时的平均/最高/最低。",
               "stations": meta, "unmatched": unmatched}
     _write(site_dir / "current.json", {**header, "data": current})
     hist_path = site_dir / "history.json"
@@ -436,13 +515,36 @@ def build_site_files(stations, unmatched, archive, today, thai_coverage, site_di
     return meta
 
 
+def prcp_days_scorer(year, fetch=http_get):
+    """下载候选站某一年的数据，返回有降水量报告的天数（不含按0推断的日子）。结果缓存。"""
+    cache = {}
+
+    def score(sid):
+        if sid not in cache:
+            try:
+                text = fetch(DATA_URL.format(year=year, station=sid))
+            except Exception:
+                text = None
+            if not text:
+                cache[sid] = 0
+            else:
+                temps, accums, info = parse_ghcnh_psv(text)
+                daily = daily_from_obs(temps, accums, year, info)
+                cache[sid] = sum(1 for v in daily.values() if v["prcp_mm"] is not None and v["prcp_flag"] != "Z")
+            print(f"  candidate {sid} {year}: {cache[sid]} prcp days", file=sys.stderr)
+        return cache[sid]
+    score.cache = cache
+    return score
+
+
 def select_and_save(targets, thai_coverage, today, fetch=http_get, config_path=STATION_CONFIG):
     station_text = fetch(STATION_LIST_URL)
     inventory_text = fetch(INVENTORY_URL)
     if not station_text or not inventory_text:
         raise RuntimeError("无法下载 GHCNh 站点清单或观测量清单")
     rows, inventory = parse_station_list(station_text), parse_inventory(inventory_text)
-    stations, unmatched = choose_stations(targets, rows, inventory, today)
+    scorer = prcp_days_scorer(today.year - 1, fetch)
+    stations, unmatched = choose_stations(targets, rows, inventory, today, scorer=scorer)
     print(f"station list {len(rows)} rows, inventory {len(inventory)} ids, selected {len(stations)}, unmatched {len(unmatched)}",
           file=sys.stderr)
     # 记录清单格式与解析结果，便于在仓库里直接排查（Actions 日志之外）
@@ -450,6 +552,7 @@ def select_and_save(targets, thai_coverage, today, fetch=http_get, config_path=S
         "checked_at": today.isoformat(), "station_list_rows": len(rows), "inventory_ids": len(inventory),
         "station_list_head": station_text.splitlines()[:5], "inventory_head": inventory_text.splitlines()[:5],
         "selected": len(stations), "unmatched": len(unmatched), "inventory_end": inventory_end(inventory),
+        "candidate_prcp_days": {"year": today.year - 1, **scorer.cache},
         "rows_by_country": {c: sum(1 for r in rows if r["ctry"] == f) for c, f in FIPS.items()},
         "with_2015_obs_by_country": {c: sum(1 for r in rows if r["ctry"] == f and sum((inventory.get(r["id"]) or {}).get(FIRST_YEAR - 1) or []) >= MIN_OBS_FIRST_YEAR) for c, f in FIPS.items()},
         "thai_inventory_sample": {r["id"]: {str(y): sum(v) for y, v in sorted((inventory.get(r["id"]) or {}).items())[-4:]}
@@ -457,7 +560,7 @@ def select_and_save(targets, thai_coverage, today, fetch=http_get, config_path=S
     if not stations:
         raise RuntimeError("一个站点都没有选中，请检查 GHCNh 清单格式")
     config_path.parent.mkdir(parents=True, exist_ok=True)
-    config_path.write_text(json.dumps({"schema_version": 2, "source": "GHCNh", "selected_at": today.isoformat(),
+    config_path.write_text(json.dumps({"schema_version": 2, "selection_version": SELECTION_VERSION, "source": "GHCNh", "selected_at": today.isoformat(),
                                        "thailand_coverage_pct": thai_coverage, "stations": stations, "unmatched": unmatched},
                                       ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     return stations, unmatched
@@ -472,10 +575,16 @@ def main(argv=None):
     weights = json.loads((ROOT / "site" / "data" / "production-weights.json").read_text(encoding="utf-8")).get("stations") or {}
     targets, thai_coverage = select_targets(config["locations"], weights)
     saved = json.loads(STATION_CONFIG.read_text(encoding="utf-8")) if STATION_CONFIG.exists() else {}
-    if saved.get("stations") and not args.reselect:
+    if saved.get("stations") and saved.get("selection_version") == SELECTION_VERSION and not args.reselect:
         stations, unmatched = saved["stations"], saved.get("unmatched", [])
     else:
         stations, unmatched = select_and_save(targets, thai_coverage, today)
+    # 不再使用的站（重选后被替换）删掉其缓存
+    keep_ids = {st["station_code"] for st in stations}
+    if ARCHIVE_DIR.exists():
+        for child in ARCHIVE_DIR.iterdir():
+            if child.is_dir() and child.name not in keep_ids:
+                shutil.rmtree(child)
     archive, pending = update_archive(stations, today)
     meta = build_site_files(stations, unmatched, archive, today, thai_coverage, pending=pending)
     status = Counter(s["quality_status"] for s in meta)

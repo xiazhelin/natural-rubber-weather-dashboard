@@ -36,13 +36,13 @@ def ghcnh_lists_from_isd_sample():
 
 
 def psv(rows):
-    header = ["Station_ID", "Station_name", "Year", "Month", "Day", "Hour", "Minute", "Latitude", "Longitude",
-              "temperature", "temperature_Quality_Code", "precipitation", "precipitation_3_hour",
+    header = ["STATION", "Station_name", "DATE", "Year", "Month", "Day", "Hour", "Minute", "Latitude", "Longitude",
+              "temperature", "temperature_Quality_Code", "pres_wx_MW1", "pres_wx_AU1", "precipitation", "precipitation_3_hour",
               "precipitation_6_hour", "precipitation_12_hour", "precipitation_24_hour"]
     out = ["|".join(header)]
     for r in rows:
         t = r["t"]
-        vals = {"Station_ID": "X", "Station_name": "X", "Year": t.year, "Month": t.month, "Day": t.day, "Hour": t.hour,
+        vals = {"STATION": "X", "Station_name": "X", "DATE": t.strftime("%Y-%m-%dT%H:%M:%S"), "Year": t.year, "Month": t.month, "Day": t.day, "Hour": t.hour,
                 "Minute": t.minute, "Latitude": 7, "Longitude": 100, **{k: v for k, v in r.items() if k != "t"}}
         out.append("|".join(str(vals.get(h, "")) for h in header))
     return "\n".join(out) + "\n"
@@ -89,6 +89,17 @@ class StationSelectionTest(unittest.TestCase):
         songkhla = next(s for s in stations for t in s["targets"] if t["station_id"] == "th_south_songkhla")
         self.assertNotIn(songkhla["station_code"], ("THI0000VTSH", "THM00048568"))
 
+    def test_scorer_prefers_station_reporting_precipitation(self):
+        targets, _ = OBS.select_targets(self.locations, self.weights)
+        station_text, inv_text = ghcnh_lists_from_isd_sample()
+        rows, inventory = OBS.parse_station_list(station_text), OBS.parse_inventory(inv_text)
+        # 机场站号观测多但不报降水，同址 WMO 站号报降水 → 取 WMO 站号
+        scores = {"THI0000VTSH": 0, "THM00048568": 300}
+        stations, _ = OBS.choose_stations(targets, rows, inventory, date(2026, 11, 2), scorer=lambda sid: scores.get(sid, 100))
+        songkhla = next(s for s in stations for t in s["targets"] if t["station_id"] == "th_south_songkhla")
+        self.assertEqual(songkhla["station_code"], "THM00048568")
+        self.assertEqual(songkhla["prcp_days_checked"], 300)
+
 
 class DailyAggregationTest(unittest.TestCase):
     def test_24h_6h_partial_and_temperature(self):
@@ -109,7 +120,7 @@ class DailyAggregationTest(unittest.TestCase):
         # 3月4日：METAR 在 :50 报的逐时量，凑满24小时
         for h in range(24):
             rows.append({"t": d + timedelta(days=3, hours=h, minutes=50), "precipitation": "0.5"})
-        temps, accums = OBS.parse_ghcnh_psv(psv(rows))
+        temps, accums, info = OBS.parse_ghcnh_psv(psv(rows))
         daily = OBS.daily_from_obs(temps, accums, 2026)
         self.assertEqual(daily["2026-03-01"]["prcp_mm"], 12.4)
         self.assertIsNone(daily["2026-03-01"]["prcp_flag"])
@@ -129,10 +140,44 @@ class DailyAggregationTest(unittest.TestCase):
     def test_station_with_12z_climatological_day(self):
         d = datetime(2026, 5, 1, 12)
         rows = [{"t": d + timedelta(days=i), "precipitation_24_hour": str(i + 1)} for i in range(3)]
-        daily = OBS.daily_from_obs(*OBS.parse_ghcnh_psv(psv(rows)), 2026)
+        temps, accums, info = OBS.parse_ghcnh_psv(psv(rows))
+        daily = OBS.daily_from_obs(temps, accums, 2026, info)
         # 12Z 上报的24小时量（覆盖前一日12Z至当日12Z）记在前一日
         self.assertEqual(daily["2026-04-30"]["prcp_mm"], 1.0)
         self.assertEqual(daily["2026-05-02"]["prcp_mm"], 3.0)
+
+
+    def test_inferred_dry_day_and_shifted_24h(self):
+        d = datetime(2026, 2, 1)
+        rows = [{"t": d + timedelta(days=1), "precipitation_24_hour": "5.0", "temperature": "26"}]   # 2月1日有降水量
+        for h in (0, 3, 6, 9, 12, 15, 18, 21):  # 2月2日：正常观测、无降水组、无降水现象 → 按0计
+            rows.append({"t": d + timedelta(days=1, hours=h + 1), "temperature": "27"})
+        for h in (3, 9, 15):                    # 2月3日：有观测但现在天气报阵雨（ww=80）→ 仍为缺测
+            rows.append({"t": d + timedelta(days=2, hours=h), "temperature": "25", "pres_wx_MW1": "80:1"})
+        for h in (6, 12, 18):                   # 2月4日：METAR 文本报 -RA → 缺测
+            rows.append({"t": d + timedelta(days=3, hours=h), "temperature": "25", "pres_wx_AU1": "-RA"})
+        rows.append({"t": d + timedelta(days=5, hours=2), "precipitation_24_hour": "7.5"})    # 2月5日：00Z 缺报，02Z 报24小时量
+        rows.append({"t": d + timedelta(days=1, hours=0), "precipitation_24_hour": "5.0"})
+        temps, accums, info = OBS.parse_ghcnh_psv(psv(rows))
+        daily = OBS.daily_from_obs(temps, accums, 2026, info)
+        self.assertEqual(daily["2026-02-01"]["prcp_mm"], 5.0)
+        self.assertEqual((daily["2026-02-02"]["prcp_mm"], daily["2026-02-02"]["prcp_flag"]), (0.0, "Z"))
+        self.assertIsNone(daily["2026-02-03"]["prcp_mm"])
+        self.assertIsNone(daily["2026-02-04"]["prcp_mm"])
+        self.assertEqual(daily["2026-02-05"]["prcp_mm"], 7.5)
+        self.assertNotIn("2026-06-01", daily)                    # 远离任何降水报告、无观测的日子不推断
+        arrays = OBS.year_arrays(daily, 2026)
+        self.assertEqual(arrays["prcp_zero_inferred_days"], 1)
+
+    def test_wet_weather_codes(self):
+        self.assertTrue(OBS.is_wet_weather("pres_wx_mw1", "61:1"))
+        self.assertTrue(OBS.is_wet_weather("pres_wx_mw1", "25"))
+        self.assertFalse(OBS.is_wet_weather("pres_wx_mw1", "02:1"))
+        self.assertFalse(OBS.is_wet_weather("pres_wx_mw1", "10"))
+        self.assertTrue(OBS.is_wet_weather("pres_wx_aw1", "61"))
+        self.assertFalse(OBS.is_wet_weather("pres_wx_aw1", "30"))
+        self.assertTrue(OBS.is_wet_weather("pres_wx_au1", "TSRA"))
+        self.assertFalse(OBS.is_wet_weather("pres_wx_au1", "HZ"))
 
 
 class ArchiveTest(unittest.TestCase):

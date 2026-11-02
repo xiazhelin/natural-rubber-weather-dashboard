@@ -1174,7 +1174,7 @@ function renderStationObs() {
   const currentYear = Number((meta.generated_at_utc || "").slice(0, 4)) || new Date().getUTCFullYear();
   const far = (st.targets || []).filter((t) => t.proximity === "FAR");
   const partial = hasNumber(st.current_prcp_partial_days) && st.current_prcp_reported_days
-    ? `；今年 ${st.current_prcp_reported_days} 天有降水记录，其中 ${st.current_prcp_partial_days} 天只有部分时段报告` : "";
+    ? `；今年 ${st.current_prcp_reported_days} 天有降水值，其中 ${st.current_prcp_partial_days} 天只有部分时段报告${st.current_prcp_zero_inferred_days ? `、${st.current_prcp_zero_inferred_days} 天无降水组且无降水现象按0计` : ""}` : "";
   $("#stationObsInfo").innerHTML = `站号 ${escapeHtml(st.station_code)}，${number(st.latitude, 2)}°, ${number(st.longitude, 2)}°；代表 ${escapeHtml((st.targets || []).map((t) => `${t.place}（距 ${number(t.distance_km, 0)} km）`).join("、"))}；数据截至 ${escapeHtml(st.last_date || "—")}${partial}。`
     + (far.length ? ` <strong class="station-far">站点离产区较远（${far.map((t) => `${t.place} ${number(t.distance_km, 0)} km`).join("、")}），只作区域参考。</strong>` : "")
     + (st.quality_status !== "PASS" ? ` <strong class="station-far">数据状态 ${escapeHtml(st.quality_status)}：最近7天无新记录。</strong>` : "");
