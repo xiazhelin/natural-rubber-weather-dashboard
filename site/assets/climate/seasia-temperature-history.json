@@ -2,6 +2,13 @@
   "schema_version": 1,
   "items": [
     {
+      "filename": "seasia-temperature-2026-11-18-ce278c85a6.png",
+      "captured_at_utc": "2026-11-18T21:09:19Z",
+      "source_last_modified": "Wed, 18 Nov 2026 07:00:22 GMT",
+      "source_update_week": "2026-W47",
+      "sha256": "ce278c85a6ee0addbb5af9c509aef57af88210b4b72861dad8219229fb88a6aa"
+    },
+    {
       "filename": "seasia-temperature-2026-11-11-20f78315f4.png",
       "captured_at_utc": "2026-11-11T20:03:03Z",
       "source_last_modified": "Wed, 11 Nov 2026 07:00:23 GMT",
@@ -21,16 +28,9 @@
       "source_last_modified": "Wed, 28 Oct 2026 06:00:19 GMT",
       "source_update_week": "2026-W44",
       "sha256": "c1052571651f9610f55c580f31e436d2471bee53c6c5198ed53a9f4736975f01"
-    },
-    {
-      "filename": "seasia-temperature-2026-10-21-20afa50ed6.png",
-      "captured_at_utc": "2026-10-21T17:57:52Z",
-      "source_last_modified": "Wed, 21 Oct 2026 06:00:19 GMT",
-      "source_update_week": "2026-W43",
-      "sha256": "20afa50ed6e08dd8fa0790bad2066dfec498615d32964b101541666df12ec2e3"
     }
   ],
-  "updated_at_utc": "2026-11-11T20:03:03Z",
+  "updated_at_utc": "2026-11-18T21:09:19Z",
   "source": {
     "source_name": "NOAA Climate Prediction Center",
     "product": "Southeast Asia weekly temperature anomaly (GTS stations only)",
